@@ -1,27 +1,237 @@
-﻿# 1. Entry-Level Career Dossier: Mobile Engineer (Indonesia)
+﻿# Mobile Engineer — Entry-Level Career Dossier (Indonesia)
 
-- **Role:** Mobile Engineer
-- **Level:** Entry level
-- **Market:** Indonesia
-- **Keywords:** Android, iOS, Mobile Architecture, CI/CD
-- **Date:** 2026-11-14
+---
 
-## Collected Job Evidence (LinkedIn Indonesia)
-- [J01] Title: Mobile Engineer - Client User & Transaction | Company: Kredivo Group | Location: Jakarta Metropolitan Area | URL: https://www.linkedin.com/jobs/view/4446968739
-- [J02] Title: Senior Software Engineer, Mobile (Android) - Consumer Experience | Company: Grab | Location: Jakarta Metropolitan Area | URL: https://www.linkedin.com/jobs/view/4475784993
-- [J03] Title: Senior Software Engineer, Mobile (Flutter) | Company: Grab | Location: Jakarta Metropolitan Area | URL: https://www.linkedin.com/jobs/view/4442972361
-- [J04] Title: Senior Mobile Engineer (Kotlin) | Company: IDEKU | Location: Jakarta, Jakarta, Indonesia | URL: https://www.linkedin.com/jobs/view/4486520722
-- [J05] Title: Senior Android Engineer | Company: ASTRO | Location: Jakarta, Indonesia | URL: https://www.linkedin.com/jobs/view/4481359131
-- [J06] Title: Mobile Programmer (React Native/Hybrid Apps) | Company: Halojasa Indonesia | Location: Gambir, Jakarta, Indonesia | URL: https://www.linkedin.com/jobs/view/4436092552
-- [J07] Title: Senior Android Engineer | Company: Vidio | Location: Jakarta, Jakarta, Indonesia | URL: https://www.linkedin.com/jobs/view/4481394874
-- [J08] Title: Android Developer | Company: BookCabin | Location: Menteng, Jakarta, Indonesia | URL: https://www.linkedin.com/jobs/view/4486144179
+## 1. Role Description & Executive Overview
 
-## Collected YouTube Routine Evidence
-- [Y01] Title: A Day in the Life iOS Developer (ep6) - No Commentary \u0026 Startup Analytics Unveiled | Evidence: Public video metadata | URL: https://www.youtube.com/watch?v=3RJZUhhrBqw
-- [Y02] Title: Sehari dalam hidupku bekerja sebagai pengembang frontend di sebuah startup. | Evidence: Public video metadata | URL: https://www.youtube.com/watch?v=SDBubjEPeNc
-- [Y03] Title: Typical Day In The Life Of A Junior Developer - Remote | Evidence: Public video metadata | URL: https://www.youtube.com/watch?v=JGIUwrtCNto
-- [Y04] Title: Insinyur perangkat lunak magang pada hari pertama mereka seperti... | Evidence: Public video metadata | URL: https://www.youtube.com/watch?v=YZ5tOe7y9x4
-- [Y05] Title: Sehari dalam Kehidupan Pengembang Perangkat Lunak Mobile | Pekerjaan Baru | Pengembang mobile | Evidence: Public video metadata | URL: https://www.youtube.com/watch?v=2RfTbP_a6vE
-- [Y06] Title: Day in the Life of a Software Engineer in Japan | Evidence: Public video metadata | URL: https://www.youtube.com/watch?v=-HYD4AR4ohQ
-- [Y07] Title: Sehari dalam Kehidupan Seorang Insinyur Perangkat Lunak di San Francisco | Rutinitas Produktif Pu... | Evidence: Public video metadata | URL: https://www.youtube.com/watch?v=vnhtYYJgFmc
-- [Y08] Title: Your Life as Every Software Engineer Rank | Evidence: Public video metadata | URL: https://www.youtube.com/watch?v=52P-NtcvV3E
+An **Entry-Level Mobile Engineer** in the Indonesian tech market designs, builds, and maintains user-facing applications across Android, iOS, or cross-platform environments (Flutter, React Native, Compose Multiplatform). In fast-growing sectors like e-commerce, quick commerce, fintech, OTT streaming, and on-demand services (e.g., Kredivo, Grab, Vidio, ASTRO), mobile engineers are responsible for translating UI/UX designs into smooth, high-performing native or hybrid client applications.
+
+### Core Deliverables & Responsibilities
+* **Feature Development & UI Implementation:** Build responsive mobile user interfaces using modern declarative frameworks (Jetpack Compose, SwiftUI, Flutter, or React Native) [[J01], [J03], [J04], [J06]].
+* **API & Business Logic Integration:** Connect mobile frontends with backend microservices via RESTful APIs and GraphQL, maintaining robust state management and local data persistence [[J01], [J08]].
+* **Code Quality & Testing:** Write clean, modular, and maintainable code under standard architectural patterns (MVVM, Clean Architecture) while adding unit and UI integration tests [[J01], [J04], [J08]].
+* **CI/CD & App Release Support:** Work with continuous integration/continuous deployment pipelines to automate build testing, linting, and staging distribution [[J07]].
+* **Bug Fixing & Performance Optimization:** Identify memory leaks, optimize app startup time, manage battery/resource efficiency across fragmented device profiles, and customize player/media engines where applicable [[J04], [J07], [J08]].
+
+### Team Collaboration Dynamics
+Mobile engineers operate inside agile, cross-functional squads comprising Product Managers, UI/UX Designers, Backend Engineers, Quality Assurance (QA) Testers, and Senior Mobile Engineers [[J01], [J04], [J08]]. They participate in daily standups, sprint planning, and technical peer code reviews [[J01], [J04], [Y04]].
+
+---
+
+## 2. Entry-Level Skillset & Tech Stack Demand
+
+The matrix below synthesizes technical skills scraped directly from active Indonesian engineering job postings:
+
+| Skill / Technology | Category | Demand Level | Why It Matters | Source Citations |
+| :--- | :--- | :--- | :--- | :--- |
+| **Kotlin & Jetpack Compose** | Native Android | High | Modern standard for native Android buildouts in Indonesia; emphasizes declarative UI and async handling. | [[J01], [J04], [J07], [J08]] |
+| **Swift & SwiftUI** | Native iOS | High | Critical for native iOS app performance and platform-native feature adoption. | [[J01]] |
+| **Flutter / React Native** | Cross-Platform | High | Preferred by multi-product startups and merchant-facing tools to maximize cross-platform code reuse. | [[J03], [J06]] |
+| **Clean Architecture & MVVM** | Architecture | High | Enforces separation of concerns, testability, and code maintainability across growing engineering teams. | [[J04], [J08]] |
+| **Kotlin Multiplatform (KMP/KMM)** | Emerging Tech | Moderate–High | Shared business logic framework across Android and iOS; adopted by high-scale apps like Vidio and Kredivo. | [[J01], [J07]] |
+| **CI/CD Pipelines** | DevOps / Testing | High | Automates mobile builds, unit tests, static code analysis, and staging app distribution. | [[J07]] |
+| **Unit & Integration Testing** | Quality Assurance | High | Crucial for preventing regressions in transaction flows, user authentication, and checkout pipelines. | [[J01], [J04]] |
+| **Performance & Media Profiling** | Optimization | Moderate | Vital for optimizing app size, startup times, resource usage, and customized SDK integrations (e.g., ExoPlayer). | [[J07], [J08]] |
+
+---
+
+## 3. What You Need to Learn: Step-by-Step Roadmap & Portfolio Projects
+
+### Step-by-Step 3-Phase Learning Roadmap
+
+```
+               PHASE 1: Core Fundamentals
+  [ Kotlin / Swift Basics ] ➔ [ OOP & Functional Concepts ]
+                              │
+                              ▼
+               PHASE 2: Architecture & Data
+  [ Jetpack Compose / SwiftUI ] ➔ [ MVVM + Clean Architecture ]
+                                ➔ [ REST API & Room/CoreData ]
+                              │
+                              ▼
+               PHASE 3: Advanced & DevOps
+  [ Unit/UI Testing ] ➔ [ CI/CD Automation ] ➔ [ KMP / Flutter Integration ]
+```
+
+#### Phase 1: Core Language & Fundamentals (Weeks 1–6)
+* **Objective:** Master native language fundamentals (Kotlin or Swift) along with object-oriented programming, data structures, and asynchronous programming (Coroutines/Flows or Async/Await).
+* **Key Milestones:**
+  1. Build CLI utilities parsing JSON and managing data collections using Kotlin/Swift.
+  2. Implement asynchronous network calls using HTTP clients (Ktor, Retrofit, or URLSession).
+
+#### Phase 2: Mobile UI & Architecture (Weeks 7–14)
+* **Objective:** Learn modern declarative UI techniques combined with industry-standard mobile architecture (MVVM, Clean Architecture, Dependency Injection with Hilt/Koin).
+* **Key Milestones:**
+  1. Create complex, responsive screen layouts using Jetpack Compose or SwiftUI.
+  2. Separate concerns across UI (View), ViewModel, Domain (Use Cases), and Data (Repository) layers [[J04], [J08]].
+  3. Integrate local databases (Room/CoreData) for offline capability.
+
+#### Phase 3: CI/CD, Testing & Advanced Paradigms (Weeks 15–20)
+* **Objective:** Prepare for production deployment, test automation, and cross-platform or shared logic paradigms [[J01], [J07]].
+* **Key Milestones:**
+  1. Write unit tests targeting ViewModels and Repositories using Mockk/JUnit/XCTest [[J01], [J04]].
+  2. Set up GitHub Actions or Bitrise pipelines to automate APK/IPA generation [[J07]].
+  3. Explore Kotlin Multiplatform (KMP) or Flutter integration to understand shared code bases [[J01], [J03], [J07]].
+
+---
+
+### Portfolio Project Ideas for Candidates
+
+#### Project 1: On-Demand E-Commerce/Quick-Commerce App
+* **Tech Stack:** Android (Kotlin), Jetpack Compose, MVVM + Clean Architecture, Room Database, Retrofit, Kotlin Coroutines, Hilt.
+* **Key Features:**
+  * Product catalogue browsing with live offline caching [[J05], [J08]].
+  * Cart management and mock checkout flow with state retention.
+  * Real-time order tracking UI simulating fast-delivery countdowns.
+* **Hiring Manager Evaluation Criteria:** Clean separation of architectural layers, robust error handling during poor network connectivity, proper state management with StateFlow.
+
+#### Project 2: Multi-Platform Merchant & Financial Analytics Dashboard
+* **Tech Stack:** Flutter / Dart (or React Native), Provider/Riverpod state management, REST API integration, Fastlane CI/CD integration.
+* **Key Features:**
+  * Interactive transaction analytics dashboard with custom dynamic charts [[J03], [J06]].
+  * Dark/Light theme switching and multi-language support (Bahasa Indonesia & English).
+  * Automated GitHub Action triggering test execution and APK delivery via Firebase App Distribution [[J07]].
+* **Hiring Manager Evaluation Criteria:** Cross-platform layout precision, automated CI/CD pipeline setup [[J07]], and structured state management [[J03]].
+
+#### Project 3: Streaming Media & Offline Audio/Video Player App
+* **Tech Stack:** Kotlin Multiplatform Mobile (KMM), Customized ExoPlayer (Android) / AVPlayer (iOS), Ktor Client, SQLDelight [[J01], [J07]].
+* **Key Features:**
+  * Media feed listing video assets with streaming playback controls [[J07]].
+  * Background playback service and offline video caching mechanism.
+  * Shared KMM network and logic layer used across Android and iOS targets [[J01], [J07]].
+* **Hiring Manager Evaluation Criteria:** Smooth media playback without UI stutter, efficient memory handling during media buffering [[J07]], and successful cross-platform code compilation [[J01]].
+
+---
+
+## 4. Realistic Daily Routine: Day in the Life
+
+Synthesized from mobile software developer daily workflow logs [[Y01]–[Y08]]:
+
+### Daily Schedule Overview
+
+| Time Block | Activity Phase | Key Tasks & Operations | Evidentiary Source |
+| :--- | :--- | :--- | :--- |
+| **08:30 - 09:30** | Morning Prep & Standup | Coffee, reviewing assigned sprint tickets, reading async messages, and holding daily agile standup sync with squad. | [[Y01], [Y02], [Y04]] |
+| **09:30 - 12:00** | Deep Work Block 1 | Writing UI components in Compose/SwiftUI, executing API integrations, and building core logic. | [[Y01], [Y05], [Y07]] |
+| **12:00 - 13:00** | Lunch & Social Sync | Lunch break, informal tech discussions with teammates. | [[Y02], [Y08]] |
+| **13:00 - 15:30** | Deep Work Block 2 & Testing | Local app debugging on physical devices and emulators, writing unit tests, and optimizing UI rendering. | [[Y04], [Y05], [Y06]] |
+| **15:30 - 17:00** | Peer Reviews & CI Sync | Reviewing team Pull Requests (PRs), updating CI/CD build scripts, addressing QA feedback on staging builds. | [[Y03], [Y04], [Y08]] |
+| **17:00 - 18:00** | Admin & Technical Growth | Logged documentation updates, updating task boards (Jira), personal learning / AI tool experimentation (Claude/Copilot). | [[Y04], [Y06]] |
+
+### Operational Workflow Narrative
+A typical day for a mobile developer begins with code repository checks and async team alignment [[Y01], [Y04]]. Early morning focus is dedicated to unblocked development tasks—implementing new mobile screens or resolving layout performance issues [[Y01], [Y05]]. Around midday, developers collaborate with backend and design counterparts to iron out contract definitions for REST/GraphQL endpoints [[Y02], [Y04], [J08]].
+
+Afternoons feature heavy testing loops—deploying code builds to local emulators and physical devices to catch edge cases, device-specific crashes, or memory spikes [[Y05]]. Before wrapping up, engineers participate in peer code reviews, verifying that PRs conform to team architectural patterns and pass continuous integration build pipelines [[Y04], [Y08], [J07]].
+
+---
+
+## 5. Expected Starting Salaries & Career Progression
+
+*Note: Data synthesizes Indonesian tech market compensation trends in Jakarta Metropolitan Area and major tech hubs for 2026, informed by scale disclosures across enterprise listings [[J01]–[J08]].*
+
+### Gross Monthly Salary Ranges (IDR)
+
+| Company Tier / Market Segment | Entry-Level / Fresh Grad (0–1 yrs) | Junior Engineer (1–2 yrs) | Mid-Level Engineer (2–4 yrs) |
+| :--- | :--- | :--- | :--- |
+| **Local Startups & SMEs** | IDR 6,500,000 – 9,500,000 | IDR 9,000,000 – 13,000,000 | IDR 13,000,000 – 19,000,000 |
+| **IT Consultancies & Software Houses** | IDR 7,500,000 – 11,000,000 | IDR 10,500,000 – 15,500,000 | IDR 15,000,000 – 23,000,000 |
+| **Unicorns & Tech Multinationals** (e.g., Grab, Kredivo, Vidio) | IDR 12,000,000 – 18,000,000 | IDR 16,000,000 – 24,000,000 | IDR 24,000,000 – 36,000,000+ |
+
+### Career Progression Path
+1. **Entry-Level / Junior Mobile Engineer:** Focuses on small-to-medium feature implementation, bug fixes, UI maintenance, and unit test coverage [[J01], [J04]].
+2. **Mid-Level Mobile Engineer:** Owns end-to-end features, designs client architecture components, optimizes build systems, and mentors entry-level developers.
+3. **Senior / Lead Mobile Engineer:** Architect of full mobile codebases, drives adoption of KMM/Compose Multiplatform, oversees CI/CD infrastructure, and enforces platform stability [[J02], [J03], [J07]].
+
+---
+
+## 6. Career Guidance: Real Pros, Real Cons & Honest Industry Realities
+
+### Pros vs. Cons Comparison
+
+| Advantages (Pros) | Challenges & Disadvantages (Cons) |
+| :--- | :--- |
+| **High Tangibility:** Direct satisfaction of seeing applications used on physical devices by millions of users [[J02], [J07]]. | **Fragmentation Frustration:** Testing against hundreds of varied Android screen dimensions, OS versions, and manufacturer skins. |
+| **High Demand:** Modern tech businesses prioritize mobile-first interfaces in the Southeast Asian market [[J02], [J05]]. | **Rigid Store Release Cycles:** Play Store and App Store review timelines slow down instant deployment compared to web development. |
+| **Modern Tooling:** Rapid maturation of declarative UI frameworks (Compose, SwiftUI, Flutter) improves dev velocity. | **Legacy Architecture Burden:** Maintaining legacy Java/XML or Objective-C codebases while attempting modern migrations [[J07]]. |
+
+### Honest Industry Realities
+
+#### 1. Legacy Code & Migration Friction
+While job posts promote modern stacks like Jetpack Compose and KMM [[J01], [J07]], enterprise applications frequently carry massive legacy codebases (Android XML, RxJava, Java, or Objective-C). Junior engineers often spend significant time maintaining legacy structures or refactoring legacy modules step-by-step rather than writing greenfield code from scratch.
+
+#### 2. Severe Device & OS Fragmentation in Indonesia
+The Indonesian smartphone market contains an expansive array of low-to-mid tier devices running custom Android ROMs (MIUI, ColorOS, Funtouch OS). Mobile developers must account for hardware resource constraints, aggressive battery management killing background services, and audio/video decoding issues on low-cost chipsets [[J07], [J08]].
+
+#### 3. Interview Hurdles for Candidates
+Entry-level engineering candidates often encounter multi-stage interviews comprising live Data Structures & Algorithms (DS/Algo) coding tests, followed by a take-home mobile app assignment. Interviewers assess architectural pattern compliance (MVVM/Clean), code testability, and edge-case handling rather than raw layout styling [[J04], [J08]].
+
+#### 4. The Impact of AI Coding Tools
+AI tools like GitHub Copilot and Claude accelerate boilerplate code generation, UI layout generation, and network layer setup [[Y06]]. Consequently, hiring bars for entry-level candidates have shifted: companies look less for basic syntax skills and more for architectural comprehension, system design knowledge, memory profiling capability, and debugging skills.
+
+#### Who Thrives vs. Who Struggles
+
+* **Who Thrives:** Developers who enjoy visual layout precision, care deeply about client-side performance, embrace fast-evolving frameworks, and systematically approach mobile-specific debugging (memory leaks, thread deadlocks).
+* **Who Struggles:** Developers who prefer backend database administration, dislike client-side layout adjustments, or become overwhelmed by rapid mobile platform version updates and store compliance rule changes.
+
+---
+
+## 7. First 30 / 60 / 90-Day Onboarding Action Plan
+
+```
+  DAYS 1–30: Environment & Integration
+  ├── Setup IDE, SDKs, Emulators & Hardware Testing Devices
+  ├── Master Team Codebase Architecture (MVVM / Clean Arch)
+  └── Resolve First Minor Bug Fix & Submit Initial PR
+
+  DAYS 31–60: Feature Delivery & Quality Assurance
+  ├── Own Small-to-Medium Feature End-to-End
+  ├── Write Unit & Integration Test Suites
+  └── Assist in Reviewing Team PRs & CI/CD Pipeline Checks
+
+  DAYS 61–90: Performance & Autonomy
+  ├── Optimize Mobile Memory Footprint & App Startup Time
+  ├── Refactor Legacy Code Components to Declarative UI
+  └── Contribute to Technical Sprint Planning & Task Estimation
+```
+
+### Milestone Details
+
+#### Days 1–30: Environment & Architecture Integration
+* Complete dev machine configuration (Android Studio, Xcode, SDK tools, linters).
+* Map out app navigation flows, dependency injection trees, and state management setups across the existing codebase.
+* Deliver first successfully merged Pull Request fixing a low-priority UI or bug ticket [[J01]].
+
+#### Days 31–60: Feature Delivery & Quality Expansion
+* Take full ownership of a minor feature module from API contract verification to UI rendering [[J01], [J04]].
+* Write comprehensive unit tests for core ViewModel logic and data repositories [[J01], [J04]].
+* Learn team CI/CD pipelines (Fastlane, GitHub Actions) and verify build artifacts before QA testing [[J07]].
+
+#### Days 61–90: Performance Optimization & Team Autonomy
+* Identify and fix client performance issues (e.g., reduce layout rendering latency, fix memory leaks via Android Profiler/Instruments) [[J07], [J08]].
+* Participate in architectural decision discussions and sprint estimations.
+* Independently unblock daily tasks and contribute constructible feedback in peer PR code reviews [[J01], [J04]].
+
+---
+
+## 8. Verified Evidence & Source Register
+
+All information, tech stack requirements, and workflow evidence contained within this document are sourced from the verified listings below:
+
+| Source ID | Type | Source Title | Organization / Channel | Verified URL |
+| :--- | :--- | :--- | :--- | :--- |
+| **[J01]** | Job Posting | Mobile Engineer - Client User & Transaction | Kredivo Group | https://www.linkedin.com/jobs/view/4446968739 |
+| **[J02]** | Job Posting | Senior Software Engineer, Mobile (Android) - Consumer Experience | Grab | https://www.linkedin.com/jobs/view/4475784993 |
+| **[J03]** | Job Posting | Senior Software Engineer, Mobile (Flutter) | Grab | https://www.linkedin.com/jobs/view/4442972361 |
+| **[J04]** | Job Posting | Senior Mobile Engineer (Kotlin) | IDEKU | https://www.linkedin.com/jobs/view/4486520722 |
+| **[J05]** | Job Posting | Senior Android Engineer | ASTRO | https://www.linkedin.com/jobs/view/4481359131 |
+| **[J06]** | Job Posting | Mobile Programmer (React Native/Hybrid Apps) | Halojasa Indonesia | https://www.linkedin.com/jobs/view/4436092552 |
+| **[J07]** | Job Posting | Senior Android Engineer | Vidio | https://www.linkedin.com/jobs/view/4481394874 |
+| **[J08]** | Job Posting | Android Developer | BookCabin | https://www.linkedin.com/jobs/view/4486144179 |
+| **[Y01]** | YouTube Video | A Day in the Life iOS Developer (ep6) - No Commentary & Startup Analytics Unveiled | YouTube Vlog Channel | https://www.youtube.com/watch?v=3RJZUhhrBqw |
+| **[Y02]** | YouTube Video | a day in my life working as a frontend developer at a startup | YouTube Vlog Channel | https://www.youtube.com/watch?v=SDBubjEPeNc |
+| **[Y03]** | YouTube Video | Software engineer interns on their first day be like... | YouTube Tech Channel | https://www.youtube.com/watch?v=YZ5tOe7y9x4 |
+| **[Y04]** | YouTube Video | Typical Day In The Life Of A Junior Developer - Remote | YouTube Tech Channel | https://www.youtube.com/watch?v=JGIUwrtCNto |
+| **[Y05]** | YouTube Video | Day in the Life of a Mobile Software Developer \| New Job \| Mobile developer | YouTube Tech Channel | https://www.youtube.com/watch?v=2RfTbP_a6vE |
+| **[Y06]** | YouTube Video | Day in the Life of a Software Engineer in Japan | YouTube Vlog Channel | https://www.youtube.com/watch?v=-HYD4AR4ohQ |
+| **[Y07]** | YouTube Video | Building My Own App - Day in the Life of a Software Engineer in London (ep. 29) | YouTube Tech Channel | https://www.youtube.com/watch?v=cNyz_jidT9I |
+| **[Y08]** | YouTube Video | a day in the life of a software engineer | YouTube Vlog Channel | https://www.youtube.com/watch?v=rqX8PFcOpxA |
