@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "search-steps.schema.json",
+  "title": "Target search steps",
+  "description": "Value of --search-steps on supported commands that work with targets. Name only the targeting methods the command acts on.",
+  "type": "object",
+  "additionalProperties": false,
+  "minProperties": 1,
+  "properties": {
+    "strictSelector": {
+      "description": "Strict (full) selector. Mutually exclusive with 'fuzzySelector'.",
+      "$ref": "#/$defs/selectorMethod"
+    },
+    "fuzzySelector": {
+      "description": "Fuzzy selector. Mutually exclusive with 'strictSelector'.",
+      "$ref": "#/$defs/selectorMethod"
+    },
+    "semantic": {
+      "description": "Natural-language description of the element. Supported on the target only, never on an anchor.",
+      "$ref": "#/$defs/selectorMethod"
+    },
+    "cv": {
+      "description": "Computer Vision.",
+      "$ref": "#/$defs/cvMethod"
+    },
+    "image": {
+      "description": "Image matching.",
+      "$ref": "#/$defs/imageMethod"
+    }
+  },
+  "$defs": {
+    "selectorMethod": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "value": {
+          "description": "The selector or description to store.",
+          "type": "string"
+        }
+      }
+    },
+    "cvMethod": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "text": {
+          "description": "The text matched at runtime. '*' matches zero or more characters, '?' exactly one; bare text is a case-insensitive substring. An empty string clears a seeded override.",
+          "type": "string"
+        },
+        "occurrence": {
+          "description": "1-based occurrence index used to disambiguate duplicate matches, counted top-to-bottom then left-to-right. 0 matches any.",
+          "type": "integer",
+          "minimum": 0
+        },
+        "accuracy": {
+          "description": "OCR text matching accuracy. Raise it to require a near-exact match when similar labels collide.",
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 1
+        }
+      }
+    },
+    "imageMethod": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {},
+      "description": "Always '{}'. Image matching requires a Windows project - the method is unavailable in cross-platform projects - and is supported on selector- and image-based targets only, for activities that can search by image."
+    }
+  }
+}

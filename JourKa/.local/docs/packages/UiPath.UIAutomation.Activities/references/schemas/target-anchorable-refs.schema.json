@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "target-anchorable-refs.schema.json",
+  "title": "Target anchorable refs to resolve",
+  "description": "A non-empty array with one entry per element to resolve into a target anchorable definition file. An entry is resolved from a snapshot ref ('ref') or from a natural-language description ('semanticDescription'), so at least one of them must be non-blank; ref kinds can mix in one array.",
+  "type": "array",
+  "minItems": 1,
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["definitionFilePath"],
+    "anyOf": [
+      { "required": ["ref"], "properties": { "ref": { "type": "string", "pattern": "\\S" } } },
+      { "required": ["semanticDescription"], "properties": { "semanticDescription": { "type": "string", "pattern": "\\S" } } }
+    ],
+    "properties": {
+      "ref": {
+        "description": "Snapshot ref of the element: a driver ref from the rendered tree (for example 'e28'), or a CV ref from cv-tree.yml - 'cve<N>' for an element, 'cvw<N>' for a word - which requires a prior 'snapshot capture --type cv' and resolves into a CV-based definition. Ignored when 'semanticDescription' is non-blank; a blank value counts as absent.",
+        "type": "string"
+      },
+      "semanticDescription": {
+        "description": "Natural-language description of the element (for example 'the submit button'). Resolves into a semantic-selector-only target without an element ref, and takes precedence over 'ref'; a blank value counts as absent.",
+        "type": "string"
+      },
+      "definitionFilePath": {
+        "description": "Absolute path of the target anchorable definition file to write, with forward slashes (a backslash is a JSON escape). A relative path resolves against the CLI working directory, not --project-dir.",
+        "type": "string",
+        "pattern": "\\S"
+      },
+      "activityType": {
+        "description": "The activity the target is meant for; tunes the generated default selector. Case-sensitive; omitted or any other value means 'None'. See selection-activity-types.md for when to pick each value.",
+        "type": "string",
+        "default": "None",
+        "enum": [
+          "None",
+          "Click",
+          "Hover",
+          "Highlight",
+          "SetFocus",
+          "TakeScreenshot",
+          "MouseScroll",
+          "DragAndDrop",
+          "KeyboardShortcut",
+          "InjectJsScript",
+          "GetAttribute",
+          "TypeInto",
+          "SetText",
+          "GetText",
+          "Check",
+          "CheckState",
+          "SelectItem",
+          "CheckElement",
+          "FindElements",
+          "ForEachUiElement",
+          "ElementScope",
+          "ClickTrigger",
+          "KeyboardTrigger",
+          "NativeTrigger",
+          "WindowOperations"
+        ]
+      },
+      "name": {
+        "description": "Name written to the created definition's metadata. Not defaulted for CV refs.",
+        "type": "string"
+      },
+      "description": {
+        "description": "Description written to the created definition's metadata.",
+        "type": "string"
+      }
+    }
+  },
+  "examples": [
+    [
+      {
+        "ref": "e28",
+        "definitionFilePath": "C:/work/target-1.xaml",
+        "activityType": "Click",
+        "name": "Login Button",
+        "description": "Button that submits the login form"
+      },
+      {
+        "ref": "e30",
+        "definitionFilePath": "C:/work/target-2.xaml",
+        "activityType": "TypeInto"
+      }
+    ],
+    [
+      {
+        "ref": "cve4",
+        "definitionFilePath": "C:/work/target-1.xaml",
+        "activityType": "Click"
+      },
+      {
+        "ref": "cvw3",
+        "definitionFilePath": "C:/work/target-2.xaml",
+        "activityType": "GetText"
+      }
+    ],
+    [
+      {
+        "semanticDescription": "the submit button",
+        "definitionFilePath": "C:/work/target.xaml",
+        "activityType": "Click"
+      }
+    ]
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "fuzzify-anchors.schema.json",
+  "title": "Anchors to fuzzify",
+  "description": "A non-empty array with one entry per anchor to fuzzify (convert from a strict to a fuzzy selector), each identifying the anchor by the target anchorable definition file holding it and its slot index.",
+  "type": "array",
+  "minItems": 1,
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["definitionFilePath"],
+    "properties": {
+      "definitionFilePath": {
+        "description": "Absolute path of the target anchorable definition file holding the anchor, with forward slashes (a backslash is a JSON escape). A relative path resolves against the CLI working directory, not --project-dir.",
+        "type": "string",
+        "pattern": "\\S"
+      },
+      "index": {
+        "description": "Zero-based anchor slot of the definition; it must point at an existing anchor.",
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 3,
+        "default": 0
+      }
+    }
+  },
+  "examples": [
+    [
+      {
+        "definitionFilePath": "C:/work/target.xaml",
+        "index": 0
+      }
+    ],
+    [
+      {
+        "definitionFilePath": "C:/work/t1.xaml",
+        "index": 0
+      },
+      {
+        "definitionFilePath": "C:/work/t2.xaml",
+        "index": 1
+      }
+    ]
+  ]
+}

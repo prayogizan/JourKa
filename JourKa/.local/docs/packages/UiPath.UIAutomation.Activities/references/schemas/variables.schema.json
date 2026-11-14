@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "variables.schema.json",
+  "title": "Selector variables",
+  "description": "Value of --variables: a flat object of name/value pairs, one per variable. Each key is a variable name as written inside a {{name}} token of the definition (stored as a string.Format argument); each value is the string that token resolves to. Entries the definition does not use are ignored, and an empty object is valid for a definition without variables.",
+  "type": "object",
+  "propertyNames": {
+    "description": "Variable name, exactly as written inside the {{...}} token."
+  },
+  "additionalProperties": {
+    "type": "string",
+    "description": "The string the {{name}} token resolves to. Spliced verbatim into the apostrophe-quoted selector attribute, so write every XML-sensitive character as its entity: ' as &apos;, & as &amp;, < as &lt;. A raw one leaves the selector malformed and the command fails naming the variable."
+  },
+  "examples": [
+    {
+      "productName": "Wireless Mouse M185"
+    },
+    {
+      "appName": "chrome.exe",
+      "pageTitle": "Home"
+    },
+    {
+      "pageTitle": "Rpa&apos;s Challenge",
+      "buttonLabel": "Save &amp; Close"
+    }
+  ]
+}
