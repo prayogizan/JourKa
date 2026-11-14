@@ -1,4 +1,4 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="Main" VisualBasic.Settings="{x:Null}" sap2010:WorkflowViewState.IdRef="ActivityBuilder_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Drawing;assembly=System.Drawing.Common" xmlns:sd1="clr-namespace:System.Drawing;assembly=System.Drawing.Primitives" xmlns:sd2="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:ue="clr-namespace:UiPath.Excel;assembly=UiPath.Excel.Activities" xmlns:ueab="clr-namespace:UiPath.Excel.Activities.Business;assembly=UiPath.Excel.Activities" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uix="http://schemas.uipath.com/workflow/activities/uix" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="Main" VisualBasic.Settings="{x:Null}" sap2010:WorkflowViewState.IdRef="ActivityBuilder_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:s="clr-namespace:System;assembly=System.Private.CoreLib" xmlns:ue="clr-namespace:UiPath.Excel;assembly=UiPath.Excel.Activities" xmlns:ueab="clr-namespace:UiPath.Excel.Activities.Business;assembly=UiPath.Excel.Activities" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
       <x:String>System.Activities</x:String>
@@ -14,10 +14,12 @@
       <x:String>System.Collections.ObjectModel</x:String>
       <x:String>System.Data</x:String>
       <x:String>System.Diagnostics</x:String>
-      <x:String>System.Drawing</x:String>
       <x:String>System.IO</x:String>
       <x:String>System.Linq</x:String>
-      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Net</x:String>
+      <x:String>System.Net.Http</x:String>
+      <x:String>System.Text</x:String>
+      <x:String>System.Text.RegularExpressions</x:String>
       <x:String>System.Xml</x:String>
       <x:String>System.Xml.Linq</x:String>
       <x:String>UiPath.Core</x:String>
@@ -27,23 +29,14 @@
       <x:String>GlobalConstantsNamespace</x:String>
       <x:String>UiPath.Excel</x:String>
       <x:String>UiPath.Excel.Activities.Business</x:String>
-      <x:String>System.Reflection</x:String>
-      <x:String>System.Security</x:String>
       <x:String>UiPath.Excel.Model</x:String>
-      <x:String>System.Linq.Expressions</x:String>
+      <x:String>System.Reflection</x:String>
       <x:String>System.Runtime.Serialization</x:String>
-      <x:String>UiPath.UIAutomationNext.Enums</x:String>
-      <x:String>UiPath.UIAutomationNext.Models</x:String>
-      <x:String>UiPath.UIAutomationCore.Contracts</x:String>
-      <x:String>UiPath.UIAutomationNext.Activities</x:String>
-      <x:String>UiPath.Shared.Activities</x:String>
-      <x:String>UiPath.Platform.ObjectLibrary</x:String>
-      <x:String>UiPath.Platform.SyncObjects</x:String>
-      <x:String>UiPath.Shared.Activities.Business</x:String>
-      <x:String>UiPath.UIAutomationNext.Contracts</x:String>
       <x:String>System.ComponentModel</x:String>
       <x:String>System.Xml.Serialization</x:String>
-      <x:String>UiPath.DataTableUtilities</x:String>
+      <x:String>UiPath.Shared.Activities</x:String>
+      <x:String>Newtonsoft.Json</x:String>
+      <x:String>Newtonsoft.Json.Linq</x:String>
     </sco:Collection>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
@@ -56,9 +49,6 @@
       <AssemblyReference>System</AssemblyReference>
       <AssemblyReference>System.Linq</AssemblyReference>
       <AssemblyReference>System.Data.Common</AssemblyReference>
-      <AssemblyReference>System.Drawing</AssemblyReference>
-      <AssemblyReference>System.Drawing.Primitives</AssemblyReference>
-      <AssemblyReference>System.Drawing.Common</AssemblyReference>
       <AssemblyReference>System.Core</AssemblyReference>
       <AssemblyReference>System.Xml</AssemblyReference>
       <AssemblyReference>System.Xml.Linq</AssemblyReference>
@@ -69,7 +59,6 @@
       <AssemblyReference>UiPath.System.Activities</AssemblyReference>
       <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
       <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
-      <AssemblyReference>System.Net.Mail</AssemblyReference>
       <AssemblyReference>System.ObjectModel</AssemblyReference>
       <AssemblyReference>System.ComponentModel.TypeConverter</AssemblyReference>
       <AssemblyReference>UiPath.Studio.Constants</AssemblyReference>
@@ -87,118 +76,315 @@
       <AssemblyReference>System.ComponentModel</AssemblyReference>
       <AssemblyReference>System.Memory</AssemblyReference>
       <AssemblyReference>System.Private.Uri</AssemblyReference>
-      <AssemblyReference>NPOI.Core</AssemblyReference>
       <AssemblyReference>System.Private.ServiceModel</AssemblyReference>
-      <AssemblyReference>System.Linq.Async</AssemblyReference>
       <AssemblyReference>System.Collections</AssemblyReference>
       <AssemblyReference>System.Collections.NonGeneric</AssemblyReference>
       <AssemblyReference>System.Linq.Expressions</AssemblyReference>
       <AssemblyReference>System.Runtime.Serialization.Formatters</AssemblyReference>
       <AssemblyReference>System.Private.DataContractSerialization</AssemblyReference>
       <AssemblyReference>System.Runtime.Serialization.Primitives</AssemblyReference>
-      <AssemblyReference>UiPath.UIAutomationNext</AssemblyReference>
-      <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
-      <AssemblyReference>UiPath.UIAutomationNext.Activities</AssemblyReference>
-      <AssemblyReference>UiPath.Testing.Activities</AssemblyReference>
-      <AssemblyReference>UiPath.Mail.Activities</AssemblyReference>
-      <AssemblyReference>UiPath.OCR.Activities</AssemblyReference>
       <AssemblyReference>UiPath.Platform</AssemblyReference>
       <AssemblyReference>System.ComponentModel.EventBasedAsync</AssemblyReference>
       <AssemblyReference>System.ComponentModel.Primitives</AssemblyReference>
       <AssemblyReference>UiPath.Workflow</AssemblyReference>
       <AssemblyReference>System.Private.Xml</AssemblyReference>
-      <AssemblyReference>System.Data.SqlClient</AssemblyReference>
+      <AssemblyReference>System.Net.Http</AssemblyReference>
+      <AssemblyReference>System.Net.Primitives</AssemblyReference>
+      <AssemblyReference>System.Text.RegularExpressions</AssemblyReference>
+      <AssemblyReference>Newtonsoft.Json</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="Main Sequence" sap:VirtualizedContainerService.HintSize="1156,1379" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="Main - Process Desire Role List" sap:VirtualizedContainerService.HintSize="720,2400" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Default="D:\UiPathProject\Desire Role List.xlsx" Name="strExcelPathDesireRole" />
+      <Variable x:TypeArguments="x:String" Default="[System.IO.Path.Combine(Environment.CurrentDirectory, &quot;Output&quot;)]" Name="outputRoot" />
+      <Variable x:TypeArguments="x:String" Default="D:\UiPathProject\JourKa\PDF_Results" Name="pdfOutputDir" />
+      <Variable x:TypeArguments="x:String" Default="[If(System.IO.File.Exists(System.IO.Path.Combine(Environment.CurrentDirectory, &quot;.env&quot;)), System.IO.File.ReadAllLines(System.IO.Path.Combine(Environment.CurrentDirectory, &quot;.env&quot;)).Where(Function(l) l.Trim().StartsWith(&quot;GEMINI_API_KEY=&quot;, StringComparison.OrdinalIgnoreCase)).Select(Function(l) l.Trim().Substring(15).Trim()).FirstOrDefault(), Environment.GetEnvironmentVariable(&quot;GEMINI_API_KEY&quot;, EnvironmentVariableTarget.User))]" Name="geminiApiKey" />
+      <Variable x:TypeArguments="x:String" Default="https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent" Name="geminiEndpoint" />
+      <Variable x:TypeArguments="x:Boolean" Default="True" Name="skipCompleted" />
+      <Variable x:TypeArguments="sd:DataTable" Name="dtRoles" />
+      <Variable x:TypeArguments="x:String" Name="roleName" />
+      <Variable x:TypeArguments="x:String" Name="roleLevel" />
+      <Variable x:TypeArguments="x:String" Name="roleLocation" />
+      <Variable x:TypeArguments="x:String" Name="extraKeywords" />
+      <Variable x:TypeArguments="x:String" Name="currentStatus" />
+      <Variable x:TypeArguments="x:String" Name="safeRoleName" />
+      <Variable x:TypeArguments="x:String" Name="roleFolder" />
+      <Variable x:TypeArguments="x:String" Name="markdownPath" />
+      <Variable x:TypeArguments="x:String" Name="htmlPath" />
+      <Variable x:TypeArguments="x:String" Name="pdfPath" />
+      <Variable x:TypeArguments="x:String" Name="dossierMarkdown" />
+      <Variable x:TypeArguments="x:String" Name="htmlContent" />
+      <Variable x:TypeArguments="x:Boolean" Name="pdfExists" />
+    </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ueab:ExcelProcessScopeX DisplayAlerts="{x:Null}" FileConflictResolution="{x:Null}" LaunchMethod="{x:Null}" LaunchTimeout="{x:Null}" MacroSettings="{x:Null}" ProcessMode="{x:Null}" DisplayName="Excel Process Scope" ExistingProcessAction="ForceKill" sap:VirtualizedContainerService.HintSize="560,1356" sap2010:WorkflowViewState.IdRef="ExcelProcessScopeX_2" ShowExcelWindow="False">
+    <ueab:ExcelProcessScopeX DisplayAlerts="{x:Null}" FileConflictResolution="{x:Null}" LaunchMethod="{x:Null}" LaunchTimeout="{x:Null}" MacroSettings="{x:Null}" ProcessMode="{x:Null}" DisplayName="Excel Process Scope" ExistingProcessAction="ForceKill" sap:VirtualizedContainerService.HintSize="658,2312" sap2010:WorkflowViewState.IdRef="ExcelProcessScopeX_1" ShowExcelWindow="False">
       <ueab:ExcelProcessScopeX.Body>
         <ActivityAction x:TypeArguments="ui:IExcelProcess">
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="ui:IExcelProcess" Name="ExcelProcessScopeTag" />
           </ActivityAction.Argument>
-          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="558,1286" sap2010:WorkflowViewState.IdRef="Sequence_3">
-            <Sequence.Variables>
-              <Variable x:TypeArguments="x:String" Default="D:\UiPathProject\Desire Role List.xlsx" Name="strExcelPathDesireRole" />
-            </Sequence.Variables>
+          <Sequence DisplayName="Do - Excel Process Scope" sap:VirtualizedContainerService.HintSize="624,2225" sap2010:WorkflowViewState.IdRef="Sequence_2">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                <x:Boolean x:Key="IsPinned">False</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <ueab:ExcelApplicationCard CreateNewFile="False" DisplayName="Use Excel File" sap:VirtualizedContainerService.HintSize="524,1226" sap2010:WorkflowViewState.IdRef="ExcelApplicationCard_1" ResizeWindow="None" WorkbookPath="[strExcelPathDesireRole]">
+            <ueab:ExcelApplicationCard CreateNewFile="False" DisplayName="Open Desire Role List" sap:VirtualizedContainerService.HintSize="590,2165" sap2010:WorkflowViewState.IdRef="ExcelApplicationCard_1" ResizeWindow="None" WorkbookPath="[strExcelPathDesireRole]">
               <ueab:ExcelApplicationCard.Body>
                 <ActivityAction x:TypeArguments="ue:IWorkbookQuickHandle">
                   <ActivityAction.Argument>
                     <DelegateInArgument x:TypeArguments="ue:IWorkbookQuickHandle" Name="ExcelDesireRole" />
                   </ActivityAction.Argument>
-                  <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="522,1006" sap2010:WorkflowViewState.IdRef="Sequence_4">
+                  <Sequence DisplayName="Do - Process Sheet1" sap:VirtualizedContainerService.HintSize="556,1945" sap2010:WorkflowViewState.IdRef="Sequence_3">
                     <sap:WorkflowViewStateService.ViewState>
                       <scg:Dictionary x:TypeArguments="x:String, x:Object">
                         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                       </scg:Dictionary>
                     </sap:WorkflowViewStateService.ViewState>
-                    <uix:NApplicationCard AttachMode="ByInstance" DisplayName="Chrome Jobs Skillset at LinkedIn" HealingAgentBehavior="Job" sap:VirtualizedContainerService.HintSize="488,946" sap2010:WorkflowViewState.IdRef="NApplicationCard_1" InteractionMode="DebuggerApi" ScopeGuid="799b223d-a38e-459b-8ba3-6f4c375b2965" Version="V2">
-                      <uix:NApplicationCard.Body>
-                        <ActivityAction x:TypeArguments="x:Object">
+                    <ueab:ReadRangeX DisplayName="Read Sheet1 into dtRoles" sap:VirtualizedContainerService.HintSize="522,170" sap2010:WorkflowViewState.IdRef="ReadRangeX_1" Range="[ExcelDesireRole.Sheet(&quot;Sheet1&quot;)]" SaveTo="[dtRoles]" />
+                    <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[dtRoles]" DisplayName="For Each Desired Role in dtRoles" sap:VirtualizedContainerService.HintSize="522,1520" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
+                      <ui:ForEachRow.Body>
+                        <ActivityAction x:TypeArguments="sd:DataRow">
                           <ActivityAction.Argument>
-                            <DelegateInArgument x:TypeArguments="x:Object" Name="WSSessionData" />
+                            <DelegateInArgument x:TypeArguments="sd:DataRow" Name="CurrentRow" />
                           </ActivityAction.Argument>
-                          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="486,751" sap2010:WorkflowViewState.IdRef="Sequence_5">
-                            <Sequence.Variables>
-                              <Variable x:TypeArguments="sd2:DataTable" Name="dtRoles" />
-                            </Sequence.Variables>
+                          <Sequence DisplayName="Process Role Row" sap:VirtualizedContainerService.HintSize="488,1340" sap2010:WorkflowViewState.IdRef="Sequence_4">
                             <sap:WorkflowViewStateService.ViewState>
                               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                               </scg:Dictionary>
                             </sap:WorkflowViewStateService.ViewState>
-                            <ueab:ReadRangeX DisplayName="Read Range" sap:VirtualizedContainerService.HintSize="452,170" sap2010:WorkflowViewState.IdRef="ReadRangeX_1" Range="[ExcelDesireRole.Sheet(&quot;Sheet1&quot;)]" SaveTo="[dtRoles]" />
-                            <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[dtRoles]" DisplayName="For Each CurrentRow in dtRoles" sap:VirtualizedContainerService.HintSize="452,521" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
-                              <ui:ForEachRow.Body>
-                                <ActivityAction x:TypeArguments="sd2:DataRow">
-                                  <ActivityAction.Argument>
-                                    <DelegateInArgument x:TypeArguments="sd2:DataRow" Name="CurrentRow" />
-                                  </ActivityAction.Argument>
-                                  <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="450,348" sap2010:WorkflowViewState.IdRef="Sequence_8">
-                                    <sap:WorkflowViewStateService.ViewState>
-                                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                                      </scg:Dictionary>
-                                    </sap:WorkflowViewStateService.ViewState>
-                                    <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="Single" DisplayName="Type Into 'INPUT _r_3_'" EmptyFieldMode="SingleLine" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="416,288" sap2010:WorkflowViewState.IdRef="NTypeInto_2" InteractionMode="SameAsCard" ScopeIdentifier="799b223d-a38e-459b-8ba3-6f4c375b2965" Text="[&quot;[d(ctrl)]a[u(ctrl)][k(del)]&quot; + CurrentRow(&quot;Job&quot;).ToString.Trim + &quot;[k(enter)]&quot;]" Version="V5">
-                                      <uix:NTypeInto.Target>
-                                        <uix:TargetAnchorable BrowserURL="linkedin.com/jobs" ContentHash="lqRKPosTaUqk1PrA88Y3qg" DesignTimeRectangle="446, 104, 280, 34" ElementType="InputBox" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl id='_r_3_' tag='INPUT' /&gt;" Guid="da38a4fd-2c38-435b-be3f-b4bd3269a90f" InformativeScreenshot="e4fcd70cbf242a11542d5b90df9cfaab.jpg" Reference="2P0FAWyvP0aWwW2KXIflxw/3hKR_huFEEiJr682TuPTkA" ScopeSelectorArgument="&lt;html app='chrome.exe' title='Jobs | LinkedIn' /&gt;" SearchSteps="Selector" Version="V6" WaitForReadyArgument="Interactive" />
-                                      </uix:NTypeInto.Target>
-                                    </uix:NTypeInto>
-                                  </Sequence>
-                                </ActivityAction>
-                              </ui:ForEachRow.Body>
-                            </ui:ForEachRow>
+                            <Assign DisplayName="Assign roleName" sap:VirtualizedContainerService.HintSize="454,82" sap2010:WorkflowViewState.IdRef="Assign_1">
+                              <Assign.To>
+                                <OutArgument x:TypeArguments="x:String">[roleName]</OutArgument>
+                              </Assign.To>
+                              <Assign.Value>
+                                <InArgument x:TypeArguments="x:String">[Convert.ToString(CurrentRow("Job")).Trim()]</InArgument>
+                              </Assign.Value>
+                            </Assign>
+                            <Assign DisplayName="Assign roleLevel" sap:VirtualizedContainerService.HintSize="454,82" sap2010:WorkflowViewState.IdRef="Assign_2">
+                              <Assign.To>
+                                <OutArgument x:TypeArguments="x:String">[roleLevel]</OutArgument>
+                              </Assign.To>
+                              <Assign.Value>
+                                <InArgument x:TypeArguments="x:String">[If(dtRoles.Columns.Contains("Level") AndAlso Not String.IsNullOrWhiteSpace(Convert.ToString(CurrentRow("Level"))), Convert.ToString(CurrentRow("Level")).Trim(), "Entry level")]</InArgument>
+                              </Assign.Value>
+                            </Assign>
+                            <Assign DisplayName="Assign roleLocation" sap:VirtualizedContainerService.HintSize="454,82" sap2010:WorkflowViewState.IdRef="Assign_3">
+                              <Assign.To>
+                                <OutArgument x:TypeArguments="x:String">[roleLocation]</OutArgument>
+                              </Assign.To>
+                              <Assign.Value>
+                                <InArgument x:TypeArguments="x:String">[If(dtRoles.Columns.Contains("Location") AndAlso Not String.IsNullOrWhiteSpace(Convert.ToString(CurrentRow("Location"))), Convert.ToString(CurrentRow("Location")).Trim(), "Indonesia")]</InArgument>
+                              </Assign.Value>
+                            </Assign>
+                            <Assign DisplayName="Assign extraKeywords" sap:VirtualizedContainerService.HintSize="454,82" sap2010:WorkflowViewState.IdRef="Assign_4">
+                              <Assign.To>
+                                <OutArgument x:TypeArguments="x:String">[extraKeywords]</OutArgument>
+                              </Assign.To>
+                              <Assign.Value>
+                                <InArgument x:TypeArguments="x:String">[If(dtRoles.Columns.Contains("SearchKeywords"), Convert.ToString(CurrentRow("SearchKeywords")).Trim(), "")]</InArgument>
+                              </Assign.Value>
+                            </Assign>
+                            <Assign DisplayName="Assign currentStatus" sap:VirtualizedContainerService.HintSize="454,82" sap2010:WorkflowViewState.IdRef="Assign_5">
+                              <Assign.To>
+                                <OutArgument x:TypeArguments="x:String">[currentStatus]</OutArgument>
+                              </Assign.To>
+                              <Assign.Value>
+                                <InArgument x:TypeArguments="x:String">[If(dtRoles.Columns.Contains("Status"), Convert.ToString(CurrentRow("Status")).Trim(), "Pending")]</InArgument>
+                              </Assign.Value>
+                            </Assign>
+                            <If Condition="[String.IsNullOrWhiteSpace(roleName)]" DisplayName="If Role Name is Blank" sap:VirtualizedContainerService.HintSize="454,850" sap2010:WorkflowViewState.IdRef="If_1">
+                              <If.Then>
+                                <Assign DisplayName="Mark Row Skipped" sap:VirtualizedContainerService.HintSize="420,82" sap2010:WorkflowViewState.IdRef="Assign_6">
+                                  <Assign.To>
+                                    <OutArgument x:TypeArguments="x:Object">[CurrentRow("Status")]</OutArgument>
+                                  </Assign.To>
+                                  <Assign.Value>
+                                    <InArgument x:TypeArguments="x:Object">["Skipped"]</InArgument>
+                                  </Assign.Value>
+                                </Assign>
+                              </If.Then>
+                              <If.Else>
+                                <Sequence DisplayName="Prepare Paths and Execute Role Research" sap:VirtualizedContainerService.HintSize="420,680" sap2010:WorkflowViewState.IdRef="Sequence_5">
+                                  <sap:WorkflowViewStateService.ViewState>
+                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                    </scg:Dictionary>
+                                  </sap:WorkflowViewStateService.ViewState>
+                                  <Assign DisplayName="Assign safeRoleName" sap:VirtualizedContainerService.HintSize="386,82" sap2010:WorkflowViewState.IdRef="Assign_7">
+                                    <Assign.To>
+                                      <OutArgument x:TypeArguments="x:String">[safeRoleName]</OutArgument>
+                                    </Assign.To>
+                                    <Assign.Value>
+                                      <InArgument x:TypeArguments="x:String">[System.Text.RegularExpressions.Regex.Replace(roleName, "[\\/:*?""&lt;&gt;|]", "_").Trim()]</InArgument>
+                                    </Assign.Value>
+                                  </Assign>
+                                  <Assign DisplayName="Assign roleFolder" sap:VirtualizedContainerService.HintSize="386,82" sap2010:WorkflowViewState.IdRef="Assign_8">
+                                    <Assign.To>
+                                      <OutArgument x:TypeArguments="x:String">[roleFolder]</OutArgument>
+                                    </Assign.To>
+                                    <Assign.Value>
+                                      <InArgument x:TypeArguments="x:String">[System.IO.Path.Combine(outputRoot, safeRoleName)]</InArgument>
+                                    </Assign.Value>
+                                  </Assign>
+                                  <Assign DisplayName="Assign markdownPath" sap:VirtualizedContainerService.HintSize="386,82" sap2010:WorkflowViewState.IdRef="Assign_9">
+                                    <Assign.To>
+                                      <OutArgument x:TypeArguments="x:String">[markdownPath]</OutArgument>
+                                    </Assign.To>
+                                    <Assign.Value>
+                                      <InArgument x:TypeArguments="x:String">[System.IO.Path.Combine(roleFolder, safeRoleName &amp; ".md")]</InArgument>
+                                    </Assign.Value>
+                                  </Assign>
+                                  <Assign DisplayName="Assign htmlPath" sap:VirtualizedContainerService.HintSize="386,82" sap2010:WorkflowViewState.IdRef="Assign_10">
+                                    <Assign.To>
+                                      <OutArgument x:TypeArguments="x:String">[htmlPath]</OutArgument>
+                                    </Assign.To>
+                                    <Assign.Value>
+                                      <InArgument x:TypeArguments="x:String">[System.IO.Path.Combine(roleFolder, safeRoleName &amp; ".html")]</InArgument>
+                                    </Assign.Value>
+                                  </Assign>
+                                  <Assign DisplayName="Assign pdfPath" sap:VirtualizedContainerService.HintSize="386,82" sap2010:WorkflowViewState.IdRef="Assign_11">
+                                    <Assign.To>
+                                      <OutArgument x:TypeArguments="x:String">[pdfPath]</OutArgument>
+                                    </Assign.To>
+                                    <Assign.Value>
+                                      <InArgument x:TypeArguments="x:String">[System.IO.Path.Combine(pdfOutputDir, safeRoleName &amp; ".pdf")]</InArgument>
+                                    </Assign.Value>
+                                  </Assign>
+                                  <If Condition="[skipCompleted AndAlso currentStatus.Equals(&quot;Completed&quot;, StringComparison.OrdinalIgnoreCase) AndAlso System.IO.File.Exists(pdfPath)]" DisplayName="If Already Completed and PDF Exists" sap:VirtualizedContainerService.HintSize="386,320" sap2010:WorkflowViewState.IdRef="If_2">
+                                    <If.Then>
+                                      <ui:LogMessage DisplayName="Log Skip Completed Role" sap:VirtualizedContainerService.HintSize="334,92" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Skipping already completed role: &quot; &amp; roleName]" />
+                                    </If.Then>
+                                    <If.Else>
+                                      <TryCatch DisplayName="Try Process Role Research &amp; Dossier Generation" sap:VirtualizedContainerService.HintSize="438,550" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+                                        <TryCatch.Try>
+                                          <Sequence DisplayName="Execute Research, Gemini Call, and PDF Export" sap:VirtualizedContainerService.HintSize="400,320" sap2010:WorkflowViewState.IdRef="Sequence_6">
+                                            <sap:WorkflowViewStateService.ViewState>
+                                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                              </scg:Dictionary>
+                                            </sap:WorkflowViewStateService.ViewState>
+                                            <ui:LogMessage DisplayName="Log Starting Role" sap:VirtualizedContainerService.HintSize="338,92" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;Starting research for role: &quot; &amp; roleName]" />
+                                            <ui:InvokeCode ContinueOnError="{x:Null}" Code="System.IO.Directory.CreateDirectory(in_RoleFolder)&#xA;System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(in_PdfPath))&#xA;Using client As New System.Net.Http.HttpClient()&#xA;    client.Timeout = TimeSpan.FromSeconds(60)&#xA;    client.DefaultRequestHeaders.Add(&quot;User-Agent&quot;, &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64)&quot;)&#xA;&#xA;    ' 1. Fetch public LinkedIn Indonesia entry-level job postings&#xA;    Dim liUrl As String = &quot;https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search?keywords=&quot; &amp; Uri.EscapeDataString(in_RoleName) &amp; &quot;&amp;location=&quot; &amp; Uri.EscapeDataString(in_RoleLocation) &amp; &quot;&amp;f_E=2&amp;start=0&quot;&#xA;    Dim liHtml As String = &quot;&quot;&#xA;    Try&#xA;        liHtml = client.GetStringAsync(liUrl).GetAwaiter().GetResult()&#xA;    Catch&#xA;    End Try&#xA;    Dim jobMatches As System.Text.RegularExpressions.MatchCollection = System.Text.RegularExpressions.Regex.Matches(liHtml, &quot;(?s)data-entity-urn=&quot;&quot;urn:li:jobPosting:(\d+)&quot;&quot;.*?base-search-card__title[^&gt;]*&gt;\s*([^&lt;]+?)\s*&lt;/h3&gt;.*?base-search-card__subtitle[^&gt;]*&gt;\s*(?:&lt;a[^&gt;]*&gt;)?\s*([^&lt;]+?)\s*(?:&lt;/a&gt;)?\s*&lt;/h4&gt;.*?job-search-card__location[^&gt;]*&gt;\s*([^&lt;]+?)\s*&lt;/span&gt;&quot;)&#xA;    Dim jobLines As New System.Collections.Generic.List(Of String)()&#xA;    Dim jIdx As Integer = 1&#xA;    For Each m As System.Text.RegularExpressions.Match In jobMatches&#xA;        If jIdx &gt; 8 Then Exit For&#xA;        Dim jId As String = m.Groups(1).Value.Trim()&#xA;        Dim jTitle As String = System.Net.WebUtility.HtmlDecode(m.Groups(2).Value.Trim())&#xA;        Dim jComp As String = System.Net.WebUtility.HtmlDecode(m.Groups(3).Value.Trim())&#xA;        Dim jLoc As String = System.Net.WebUtility.HtmlDecode(m.Groups(4).Value.Trim())&#xA;        Dim jUrl As String = &quot;https://www.linkedin.com/jobs/view/&quot; &amp; jId&#xA;        jobLines.Add(&quot;[J&quot; &amp; jIdx.ToString(&quot;00&quot;) &amp; &quot;] Title: &quot; &amp; jTitle &amp; &quot; | Company: &quot; &amp; jComp &amp; &quot; | Location: &quot; &amp; jLoc &amp; &quot; | URL: &quot; &amp; jUrl)&#xA;        jIdx += 1&#xA;    Next&#xA;&#xA;    ' 2. Fetch public YouTube routine videos&#xA;    Dim ytUrl As String = &quot;https://www.youtube.com/results?search_query=&quot; &amp; Uri.EscapeDataString(&quot;day in the life of &quot; &amp; in_RoleName &amp; &quot; entry level&quot;)&#xA;    Dim ytHtml As String = &quot;&quot;&#xA;    Try&#xA;        ytHtml = client.GetStringAsync(ytUrl).GetAwaiter().GetResult()&#xA;    Catch&#xA;    End Try&#xA;    Dim ytMatches As System.Text.RegularExpressions.MatchCollection = System.Text.RegularExpressions.Regex.Matches(ytHtml, &quot;&quot;&quot;videoRenderer&quot;&quot;:\{&quot;&quot;videoId&quot;&quot;:&quot;&quot;([^&quot;&quot;]+)&quot;&quot;.*?&quot;&quot;title&quot;&quot;:\{&quot;&quot;runs&quot;&quot;:\[\{&quot;&quot;text&quot;&quot;:&quot;&quot;([^&quot;&quot;]+)&quot;&quot;\}\]&quot;)&#xA;    Dim ytLines As New System.Collections.Generic.List(Of String)()&#xA;    Dim yIdx As Integer = 1&#xA;    For Each ym As System.Text.RegularExpressions.Match In ytMatches&#xA;        If yIdx &gt; 8 Then Exit For&#xA;        Dim vId As String = ym.Groups(1).Value.Trim()&#xA;        Dim vTitle As String = ym.Groups(2).Value.Trim()&#xA;        Dim vUrl As String = &quot;https://www.youtube.com/watch?v=&quot; &amp; vId&#xA;        ytLines.Add(&quot;[Y&quot; &amp; yIdx.ToString(&quot;00&quot;) &amp; &quot;] Title: &quot; &amp; vTitle &amp; &quot; | Evidence: Public video metadata | URL: &quot; &amp; vUrl)&#xA;        yIdx += 1&#xA;    Next&#xA;&#xA;    ' 3. Call Google AI Studio (gemini-2.5-flash) with x-goog-api-key header&#xA;    Dim sysPrompt As String = &quot;You are an evidence-based career researcher. Write a 14-section entry-level career dossier in GitHub-Flavored Markdown citing [J01]..[J08] and [Y01]..[Y08]. Never fabricate URLs or salaries.&quot;&#xA;    Dim usrPrompt As String = &quot;ROLE: &quot; &amp; in_RoleName &amp; Environment.NewLine &amp; &quot;LEVEL: &quot; &amp; in_RoleLevel &amp; Environment.NewLine &amp; &quot;MARKET: &quot; &amp; in_RoleLocation &amp; Environment.NewLine &amp; &quot;KEYWORDS: &quot; &amp; in_ExtraKeywords &amp; Environment.NewLine &amp; &quot;JOB EVIDENCE:&quot; &amp; Environment.NewLine &amp; String.Join(Environment.NewLine, jobLines) &amp; Environment.NewLine &amp; &quot;YOUTUBE EVIDENCE:&quot; &amp; Environment.NewLine &amp; String.Join(Environment.NewLine, ytLines)&#xA;    Dim reqJson As String = &quot;{&quot;&quot;system_instruction&quot;&quot;:{&quot;&quot;parts&quot;&quot;:[{&quot;&quot;text&quot;&quot;:&quot; &amp; Newtonsoft.Json.JsonConvert.SerializeObject(sysPrompt) &amp; &quot;}]},&quot;&quot;contents&quot;&quot;:[{&quot;&quot;role&quot;&quot;:&quot;&quot;user&quot;&quot;,&quot;&quot;parts&quot;&quot;:[{&quot;&quot;text&quot;&quot;:&quot; &amp; Newtonsoft.Json.JsonConvert.SerializeObject(usrPrompt) &amp; &quot;}]}],&quot;&quot;generationConfig&quot;&quot;:{&quot;&quot;temperature&quot;&quot;:0.2}}&quot;&#xA;    Dim reqMsg As New System.Net.Http.HttpRequestMessage(System.Net.Http.HttpMethod.Post, in_GeminiEndpoint)&#xA;    reqMsg.Headers.Add(&quot;x-goog-api-key&quot;, in_GeminiApiKey)&#xA;    reqMsg.Content = New System.Net.Http.StringContent(reqJson, System.Text.Encoding.UTF8, &quot;application/json&quot;)&#xA;    Dim respMsg As System.Net.Http.HttpResponseMessage = client.SendAsync(reqMsg).GetAwaiter().GetResult()&#xA;    Dim respBody As String = respMsg.Content.ReadAsStringAsync().GetAwaiter().GetResult()&#xA;    If respMsg.IsSuccessStatusCode Then&#xA;        out_DossierMarkdown = Newtonsoft.Json.Linq.JObject.Parse(respBody)(&quot;candidates&quot;)(0)(&quot;content&quot;)(&quot;parts&quot;)(0)(&quot;text&quot;).ToString().Trim()&#xA;    Else&#xA;        out_DossierMarkdown = &quot;# 1. Entry-Level Career Dossier: &quot; &amp; in_RoleName &amp; &quot; (&quot; &amp; in_RoleLocation &amp; &quot;)&quot; &amp; Environment.NewLine &amp; Environment.NewLine &amp; &quot;- **Role:** &quot; &amp; in_RoleName &amp; Environment.NewLine &amp; &quot;- **Level:** &quot; &amp; in_RoleLevel &amp; Environment.NewLine &amp; &quot;- **Market:** &quot; &amp; in_RoleLocation &amp; Environment.NewLine &amp; &quot;- **Keywords:** &quot; &amp; in_ExtraKeywords &amp; Environment.NewLine &amp; &quot;- **Date:** &quot; &amp; DateTime.Now.ToString(&quot;yyyy-MM-dd&quot;) &amp; Environment.NewLine &amp; Environment.NewLine &amp; &quot;## Collected Job Evidence (LinkedIn &quot; &amp; in_RoleLocation &amp; &quot;)&quot; &amp; Environment.NewLine &amp; String.Join(Environment.NewLine, jobLines.Select(Function(x) &quot;- &quot; &amp; x)) &amp; Environment.NewLine &amp; Environment.NewLine &amp; &quot;## Collected YouTube Routine Evidence&quot; &amp; Environment.NewLine &amp; String.Join(Environment.NewLine, ytLines.Select(Function(x) &quot;- &quot; &amp; x))&#xA;    End If&#xA;End Using&#xA;&#xA;System.IO.File.WriteAllText(in_MarkdownPath, out_DossierMarkdown, System.Text.Encoding.UTF8)&#xA;Dim html As String = &quot;&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;meta charset='utf-8'&gt;&lt;title&gt;&quot; &amp; System.Net.WebUtility.HtmlEncode(in_RoleName) &amp; &quot;&lt;/title&gt;&lt;style&gt;body{font-family:'Segoe UI',Arial,sans-serif;line-height:1.6;max-width:850px;margin:32px auto;padding:0 24px;color:#1f2937;}h1,h2,h3{border-bottom:1px solid #e5e7eb;padding-bottom:6px;}table{border-collapse:collapse;width:100%;margin:16px 0;font-size:13px;}th,td{border:1px solid #d1d5db;padding:8px;text-align:left;}th{background:#f3f4f6;}&lt;/style&gt;&lt;script src='https://cdn.jsdelivr.net/npm/marked/marked.min.js'&gt;&lt;/script&gt;&lt;/head&gt;&lt;body&gt;&lt;div id='c'&gt;&lt;/div&gt;&lt;textarea id='m' style='display:none;'&gt;&quot; &amp; System.Net.WebUtility.HtmlEncode(out_DossierMarkdown) &amp; &quot;&lt;/textarea&gt;&lt;script&gt;document.getElementById('c').innerHTML=marked.parse(document.getElementById('m').value);&lt;/script&gt;&lt;/body&gt;&lt;/html&gt;&quot;&#xA;System.IO.File.WriteAllText(in_HtmlPath, html, System.Text.Encoding.UTF8)&#xA;Dim psi As New System.Diagnostics.ProcessStartInfo(&quot;C:\Program Files\Google\Chrome\Application\chrome.exe&quot;, &quot;--headless --disable-gpu --no-pdf-header-footer --virtual-time-budget=3000 --print-to-pdf=&quot;&quot;&quot; &amp; in_PdfPath &amp; &quot;&quot;&quot; &quot;&quot;&quot; &amp; in_HtmlPath &amp; &quot;&quot;&quot;&quot;)&#xA;psi.UseShellExecute = False&#xA;psi.CreateNoWindow = True&#xA;Using p As System.Diagnostics.Process = System.Diagnostics.Process.Start(psi)&#xA;    p.WaitForExit(60000)&#xA;End Using" DisplayName="Collect Evidence, Call Google AI Studio &amp; Export PDF" sap:VirtualizedContainerService.HintSize="338,165" sap2010:WorkflowViewState.IdRef="InvokeCode_1" Language="VBNet">
+                                              <ui:InvokeCode.Arguments>
+                                                <InArgument x:TypeArguments="x:String" x:Key="in_RoleName">[roleName]</InArgument>
+                                                <InArgument x:TypeArguments="x:String" x:Key="in_RoleLevel">[roleLevel]</InArgument>
+                                                <InArgument x:TypeArguments="x:String" x:Key="in_RoleLocation">[roleLocation]</InArgument>
+                                                <InArgument x:TypeArguments="x:String" x:Key="in_ExtraKeywords">[extraKeywords]</InArgument>
+                                                <InArgument x:TypeArguments="x:String" x:Key="in_RoleFolder">[roleFolder]</InArgument>
+                                                <InArgument x:TypeArguments="x:String" x:Key="in_MarkdownPath">[markdownPath]</InArgument>
+                                                <InArgument x:TypeArguments="x:String" x:Key="in_HtmlPath">[htmlPath]</InArgument>
+                                                <InArgument x:TypeArguments="x:String" x:Key="in_PdfPath">[pdfPath]</InArgument>
+                                                <InArgument x:TypeArguments="x:String" x:Key="in_GeminiApiKey">[geminiApiKey]</InArgument>
+                                                <InArgument x:TypeArguments="x:String" x:Key="in_GeminiEndpoint">[geminiEndpoint]</InArgument>
+                                                <OutArgument x:TypeArguments="x:String" x:Key="out_DossierMarkdown">[dossierMarkdown]</OutArgument>
+                                              </ui:InvokeCode.Arguments>
+                                            </ui:InvokeCode>
+                                            <Assign DisplayName="Update Row Status Completed" sap:VirtualizedContainerService.HintSize="338,82" sap2010:WorkflowViewState.IdRef="Assign_12">
+                                              <Assign.To>
+                                                <OutArgument x:TypeArguments="x:Object">[CurrentRow("Status")]</OutArgument>
+                                              </Assign.To>
+                                              <Assign.Value>
+                                                <InArgument x:TypeArguments="x:Object">[If(System.IO.File.Exists(pdfPath), "Completed", "Failed")]</InArgument>
+                                              </Assign.Value>
+                                            </Assign>
+                                            <Assign DisplayName="Update Row MarkdownPath" sap:VirtualizedContainerService.HintSize="338,82" sap2010:WorkflowViewState.IdRef="Assign_13">
+                                              <Assign.To>
+                                                <OutArgument x:TypeArguments="x:Object">[CurrentRow("MarkdownPath")]</OutArgument>
+                                              </Assign.To>
+                                              <Assign.Value>
+                                                <InArgument x:TypeArguments="x:Object">[markdownPath]</InArgument>
+                                              </Assign.Value>
+                                            </Assign>
+                                            <Assign DisplayName="Update Row PdfPath" sap:VirtualizedContainerService.HintSize="338,82" sap2010:WorkflowViewState.IdRef="Assign_14">
+                                              <Assign.To>
+                                                <OutArgument x:TypeArguments="x:Object">[CurrentRow("PdfPath")]</OutArgument>
+                                              </Assign.To>
+                                              <Assign.Value>
+                                                <InArgument x:TypeArguments="x:Object">[pdfPath]</InArgument>
+                                              </Assign.Value>
+                                            </Assign>
+                                            <Assign DisplayName="Update Row ProcessedAt" sap:VirtualizedContainerService.HintSize="338,82" sap2010:WorkflowViewState.IdRef="Assign_15">
+                                              <Assign.To>
+                                                <OutArgument x:TypeArguments="x:Object">[CurrentRow("ProcessedAt")]</OutArgument>
+                                              </Assign.To>
+                                              <Assign.Value>
+                                                <InArgument x:TypeArguments="x:Object">[DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")]</InArgument>
+                                              </Assign.Value>
+                                            </Assign>
+                                            <Assign DisplayName="Clear Row ErrorMessage" sap:VirtualizedContainerService.HintSize="338,82" sap2010:WorkflowViewState.IdRef="Assign_16">
+                                              <Assign.To>
+                                                <OutArgument x:TypeArguments="x:Object">[CurrentRow("ErrorMessage")]</OutArgument>
+                                              </Assign.To>
+                                              <Assign.Value>
+                                                <InArgument x:TypeArguments="x:Object">[""]</InArgument>
+                                              </Assign.Value>
+                                            </Assign>
+                                          </Sequence>
+                                        </TryCatch.Try>
+                                        <TryCatch.Catches>
+                                          <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="404,21" sap2010:WorkflowViewState.IdRef="Catch`1_1">
+                                            <sap:WorkflowViewStateService.ViewState>
+                                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                              </scg:Dictionary>
+                                            </sap:WorkflowViewStateService.ViewState>
+                                            <ActivityAction x:TypeArguments="s:Exception">
+                                              <ActivityAction.Argument>
+                                                <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+                                              </ActivityAction.Argument>
+                                              <Sequence DisplayName="Handle Role Error" sap:VirtualizedContainerService.HintSize="400,320" sap2010:WorkflowViewState.IdRef="Sequence_7">
+                                                <sap:WorkflowViewStateService.ViewState>
+                                                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                  </scg:Dictionary>
+                                                </sap:WorkflowViewStateService.ViewState>
+                                                <Assign DisplayName="Mark Row Failed" sap:VirtualizedContainerService.HintSize="338,82" sap2010:WorkflowViewState.IdRef="Assign_17">
+                                                  <Assign.To>
+                                                    <OutArgument x:TypeArguments="x:Object">[CurrentRow("Status")]</OutArgument>
+                                                  </Assign.To>
+                                                  <Assign.Value>
+                                                    <InArgument x:TypeArguments="x:Object">["Failed"]</InArgument>
+                                                  </Assign.Value>
+                                                </Assign>
+                                                <Assign DisplayName="Record Failure Timestamp" sap:VirtualizedContainerService.HintSize="338,82" sap2010:WorkflowViewState.IdRef="Assign_18">
+                                                  <Assign.To>
+                                                    <OutArgument x:TypeArguments="x:Object">[CurrentRow("ProcessedAt")]</OutArgument>
+                                                  </Assign.To>
+                                                  <Assign.Value>
+                                                    <InArgument x:TypeArguments="x:Object">[DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")]</InArgument>
+                                                  </Assign.Value>
+                                                </Assign>
+                                                <Assign DisplayName="Record Redacted ErrorMessage" sap:VirtualizedContainerService.HintSize="338,82" sap2010:WorkflowViewState.IdRef="Assign_19">
+                                                  <Assign.To>
+                                                    <OutArgument x:TypeArguments="x:Object">[CurrentRow("ErrorMessage")]</OutArgument>
+                                                  </Assign.To>
+                                                  <Assign.Value>
+                                                    <InArgument x:TypeArguments="x:Object">[exception.Message.Replace(geminiApiKey, "[REDACTED]")]</InArgument>
+                                                  </Assign.Value>
+                                                </Assign>
+                                              </Sequence>
+                                            </ActivityAction>
+                                          </Catch>
+                                        </TryCatch.Catches>
+                                      </TryCatch>
+                                    </If.Else>
+                                  </If>
+                                </Sequence>
+                              </If.Else>
+                            </If>
                           </Sequence>
                         </ActivityAction>
-                      </uix:NApplicationCard.Body>
-                      <uix:NApplicationCard.OCREngine>
-                        <ActivityFunc x:TypeArguments="sd:Image, scg:IEnumerable(scg:KeyValuePair(sd1:Rectangle, x:String))">
-                          <ActivityFunc.Argument>
-                            <DelegateInArgument x:TypeArguments="sd:Image" Name="Image" />
-                          </ActivityFunc.Argument>
-                        </ActivityFunc>
-                      </uix:NApplicationCard.OCREngine>
-                      <uix:NApplicationCard.TargetApp>
-                        <uix:TargetApp Area="-8, -8, 1936, 1096" BrowserType="Chrome" ContentHash="muJmwkAFLU2sl210EiI0xg" IconBase64="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" InformativeScreenshot="b97220f888b9248ac1c35526bb6883a6.jpg" Reference="2P0FAWyvP0aWwW2KXIflxw/h9UKDFdyKkiw_rFJK_XVNw" Selector="&lt;html app='chrome.exe' title='Jobs | LinkedIn' /&gt;" Url="https://www.linkedin.com/jobs/" Version="V3">
-                          <uix:TargetApp.SapInfo>
-                            <uix:SAPElementInfo IsSapSubsystem="False" WebAutomationFramework="Default" />
-                          </uix:TargetApp.SapInfo>
-                        </uix:TargetApp>
-                      </uix:NApplicationCard.TargetApp>
-                    </uix:NApplicationCard>
+                      </ui:ForEachRow.Body>
+                    </ui:ForEachRow>
+                    <ueab:WriteRangeX Append="False" Destination="[ExcelDesireRole.Sheet(&quot;Sheet1&quot;)]" DisplayName="Write Updated dtRoles to Sheet1" ExcludeHeaders="False" sap:VirtualizedContainerService.HintSize="522,160" sap2010:WorkflowViewState.IdRef="WriteRangeX_1" IgnoreEmptySource="False" Source="[dtRoles]" />
                   </Sequence>
                 </ActivityAction>
               </ueab:ExcelApplicationCard.Body>

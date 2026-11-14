@@ -13,19 +13,6 @@
         "IsExpression": true
       },
       "Version": null
-    },
-    {
-      "ApplicationType": "Chrome",
-      "ExecutablePath": {
-        "Value": "chrome.exe",
-        "IsExpression": false
-      },
-      "Url": {
-        "Value": "https://www.linkedin.com",
-        "IsExpression": false
-      },
-      "Arguments": null,
-      "Version": null
     }
   ]
 }

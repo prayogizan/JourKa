@@ -1,0 +1,52 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="ResearchYouTubeRoutine" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="in_RoleName" Type="InArgument(x:String)" />
+    <x:Property Name="in_RoleLevel" Type="InArgument(x:String)" />
+    <x:Property Name="out_YoutubeEvidenceText" Type="OutArgument(x:String)" />
+  </x:Members>
+  <VisualBasic.Settings>
+    <x:Null />
+  </VisualBasic.Settings>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Net</x:String>
+      <x:String>System.Net.Http</x:String>
+      <x:String>System.Text.RegularExpressions</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>System.Private.CoreLib</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Net.Http</AssemblyReference>
+      <AssemblyReference>System.Net.Primitives</AssemblyReference>
+      <AssemblyReference>System.Text.RegularExpressions</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="ResearchYouTubeRoutine" sap:VirtualizedContainerService.HintSize="450,350" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:LogMessage DisplayName="Log YouTube Research Start" sap:VirtualizedContainerService.HintSize="388,92" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Collecting YouTube routine metadata for: &quot; &amp; in_RoleName]" />
+    <ui:InvokeCode ContinueOnError="{x:Null}" Code="Using client As New System.Net.Http.HttpClient()&#xA;    client.Timeout = TimeSpan.FromSeconds(45)&#xA;    client.DefaultRequestHeaders.Add(&quot;User-Agent&quot;, &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64)&quot;)&#xA;    Dim ytUrl As String = &quot;https://www.youtube.com/results?search_query=&quot; &amp; Uri.EscapeDataString(&quot;day in the life of &quot; &amp; in_RoleName &amp; &quot; &quot; &amp; in_RoleLevel)&#xA;    Dim ytHtml As String = &quot;&quot;&#xA;    Try&#xA;        ytHtml = client.GetStringAsync(ytUrl).GetAwaiter().GetResult()&#xA;    Catch&#xA;    End Try&#xA;    Dim ytMatches As System.Text.RegularExpressions.MatchCollection = System.Text.RegularExpressions.Regex.Matches(ytHtml, &quot;&quot;&quot;videoRenderer&quot;&quot;:\{&quot;&quot;videoId&quot;&quot;:&quot;&quot;([^&quot;&quot;]+)&quot;&quot;.*?&quot;&quot;title&quot;&quot;:\{&quot;&quot;runs&quot;&quot;:\[\{&quot;&quot;text&quot;&quot;:&quot;&quot;([^&quot;&quot;]+)&quot;&quot;\}\]&quot;)&#xA;    Dim lines As New System.Collections.Generic.List(Of String)()&#xA;    Dim idx As Integer = 1&#xA;    For Each ym As System.Text.RegularExpressions.Match In ytMatches&#xA;        If idx &gt; 8 Then Exit For&#xA;        Dim vId As String = ym.Groups(1).Value.Trim()&#xA;        Dim vTitle As String = ym.Groups(2).Value.Trim()&#xA;        lines.Add(&quot;[Y&quot; &amp; idx.ToString(&quot;00&quot;) &amp; &quot;] Title: &quot; &amp; vTitle &amp; &quot; | Basis: Public video metadata | URL: https://www.youtube.com/watch?v=&quot; &amp; vId)&#xA;        idx += 1&#xA;    Next&#xA;    out_YoutubeEvidenceText = String.Join(Environment.NewLine, lines)&#xA;End Using" DisplayName="Fetch Public YouTube Routine Metadata" sap:VirtualizedContainerService.HintSize="388,165" sap2010:WorkflowViewState.IdRef="InvokeCode_1" Language="VBNet">
+      <ui:InvokeCode.Arguments>
+        <InArgument x:TypeArguments="x:String" x:Key="in_RoleName">[in_RoleName]</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_RoleLevel">[in_RoleLevel]</InArgument>
+        <OutArgument x:TypeArguments="x:String" x:Key="out_YoutubeEvidenceText">[out_YoutubeEvidenceText]</OutArgument>
+      </ui:InvokeCode.Arguments>
+    </ui:InvokeCode>
+  </Sequence>
+</Activity>
