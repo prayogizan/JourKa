@@ -186,7 +186,7 @@
                 <OutArgument x:TypeArguments="x:String">[abroadMarkets]</OutArgument>
               </Assign.To>
               <Assign.Value>
-                <InArgument x:TypeArguments="x:String">[If(dtRoles.Columns.Contains("AbroadMarkets") AndAlso Not String.IsNullOrWhiteSpace(Convert.ToString(CurrentRow("AbroadMarkets"))), Convert.ToString(CurrentRow("AbroadMarkets")).Trim(), "")]</InArgument>
+                <InArgument x:TypeArguments="x:String">[If(dtRoles.Columns.Contains("AbroadMarkets") AndAlso Not String.IsNullOrWhiteSpace(Convert.ToString(CurrentRow("AbroadMarkets"))), Convert.ToString(CurrentRow("AbroadMarkets")).Trim(), If(dtRoles.Columns.Contains("AbroadCountry") AndAlso Not String.IsNullOrWhiteSpace(Convert.ToString(CurrentRow("AbroadCountry"))), Convert.ToString(CurrentRow("AbroadCountry")).Trim(), If(dtRoles.Columns.Contains("Abroad Country") AndAlso Not String.IsNullOrWhiteSpace(Convert.ToString(CurrentRow("Abroad Country"))), Convert.ToString(CurrentRow("Abroad Country")).Trim(), If(dtRoles.Columns.Contains("Country") AndAlso Not String.IsNullOrWhiteSpace(Convert.ToString(CurrentRow("Country"))), Convert.ToString(CurrentRow("Country")).Trim(), ""))))]</InArgument>
               </Assign.Value>
             </Assign>
             <Assign DisplayName="Assign currentStatus" sap:VirtualizedContainerService.HintSize="454,82" sap2010:WorkflowViewState.IdRef="Assign_5">
@@ -294,7 +294,7 @@
                                       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                                     </scg:Dictionary>
                                   </sap:WorkflowViewStateService.ViewState>
-                                  <ui:LogMessage DisplayName="Log Skip Abroad Search (Blank)" sap:VirtualizedContainerService.HintSize="334,92" sap2010:WorkflowViewState.IdRef="LogMessage_SkipAbroad" Level="Info" Message="[&quot;Skipping ResearchAbroadJobs for &quot; &amp; roleName &amp; &quot; (AbroadMarkets is blank in Excel)&quot;]" />
+                                  <ui:LogMessage DisplayName="Log Skip Abroad Search (Blank)" sap:VirtualizedContainerService.HintSize="334,92" sap2010:WorkflowViewState.IdRef="LogMessage_SkipAbroad" Level="Info" Message="[&quot;Skipping 'Searching verified abroad entry-level visa-sponsored jobs' process for &quot; &amp; roleName &amp; &quot; (Abroad country is blank or empty)&quot;]" />
                                   <Assign DisplayName="Set abroadEvidenceText Empty (No Abroad Country)" sap:VirtualizedContainerService.HintSize="334,82" sap2010:WorkflowViewState.IdRef="Assign_SkipAbroadEv">
                                     <Assign.To>
                                       <OutArgument x:TypeArguments="x:String">[abroadEvidenceText]</OutArgument>
