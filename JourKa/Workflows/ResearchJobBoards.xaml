@@ -9,14 +9,19 @@
   <VisualBasic.Settings>
     <x:Null />
   </VisualBasic.Settings>
+  <sap2010:WorkflowViewState.IdRef>ActivityBuilder_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
-      <x:String>System.Activities</x:String>
-      <x:String>System.Activities.Statements</x:String>
+      <x:String>GlobalConstantsNamespace</x:String>
+      <x:String>GlobalVariablesNamespace</x:String>
       <x:String>Microsoft.VisualBasic</x:String>
       <x:String>System</x:String>
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
       <x:String>System.Collections</x:String>
       <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Linq</x:String>
       <x:String>System.Net</x:String>
       <x:String>System.Net.Http</x:String>
       <x:String>System.Text.RegularExpressions</x:String>
@@ -34,6 +39,10 @@
       <AssemblyReference>System.Net.Primitives</AssemblyReference>
       <AssemblyReference>System.Text.RegularExpressions</AssemblyReference>
       <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>System.Linq</AssemblyReference>
+      <AssemblyReference>System.ObjectModel</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.TypeConverter</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
   <Sequence DisplayName="ResearchJobBoards" sap:VirtualizedContainerService.HintSize="450,350" sap2010:WorkflowViewState.IdRef="Sequence_1">
@@ -43,7 +52,7 @@
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
     <ui:LogMessage DisplayName="Log Job Research Start" sap:VirtualizedContainerService.HintSize="388,92" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Collecting entry-level job evidence for: &quot; &amp; in_RoleName]" />
-    <ui:InvokeCode ContinueOnError="{x:Null}" Code="Using client As New System.Net.Http.HttpClient()&#xA;    client.Timeout = TimeSpan.FromSeconds(45)&#xA;    client.DefaultRequestHeaders.Add(&quot;User-Agent&quot;, &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64)&quot;)&#xA;    Dim liUrl As String = &quot;https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search?keywords=&quot; &amp; Uri.EscapeDataString(in_RoleName) &amp; &quot;&amp;location=&quot; &amp; Uri.EscapeDataString(in_RoleLocation) &amp; &quot;&amp;f_E=2&amp;start=0&quot;&#xA;    Dim liHtml As String = &quot;&quot;&#xA;    Try&#xA;        liHtml = client.GetStringAsync(liUrl).GetAwaiter().GetResult()&#xA;    Catch&#xA;    End Try&#xA;    Dim matches As System.Text.RegularExpressions.MatchCollection = System.Text.RegularExpressions.Regex.Matches(liHtml, &quot;(?s)data-entity-urn=&quot;&quot;urn:li:jobPosting:(\d+)&quot;&quot;.*?base-search-card__title[^&gt;]*&gt;\s*([^&lt;]+?)\s*&lt;/h3&gt;.*?base-search-card__subtitle[^&gt;]*&gt;\s*(?:&lt;a[^&gt;]*&gt;)?\s*([^&lt;]+?)\s*(?:&lt;/a&gt;)?\s*&lt;/h4&gt;.*?job-search-card__location[^&gt;]*&gt;\s*([^&lt;]+?)\s*&lt;/span&gt;&quot;)&#xA;    Dim lines As New System.Collections.Generic.List(Of String)()&#xA;    Dim idx As Integer = 1&#xA;    For Each m As System.Text.RegularExpressions.Match In matches&#xA;        If idx &gt; 8 Then Exit For&#xA;        Dim jId As String = m.Groups(1).Value.Trim()&#xA;        Dim jTitle As String = System.Net.WebUtility.HtmlDecode(m.Groups(2).Value.Trim())&#xA;        Dim jComp As String = System.Net.WebUtility.HtmlDecode(m.Groups(3).Value.Trim())&#xA;        Dim jLoc As String = System.Net.WebUtility.HtmlDecode(m.Groups(4).Value.Trim())&#xA;        lines.Add(&quot;[J&quot; &amp; idx.ToString(&quot;00&quot;) &amp; &quot;] Title: &quot; &amp; jTitle &amp; &quot; | Company: &quot; &amp; jComp &amp; &quot; | Location: &quot; &amp; jLoc &amp; &quot; | URL: https://www.linkedin.com/jobs/view/&quot; &amp; jId)&#xA;        idx += 1&#xA;    Next&#xA;    out_JobEvidenceText = String.Join(Environment.NewLine, lines)&#xA;End Using" DisplayName="Fetch LinkedIn Guest Search Postings" sap:VirtualizedContainerService.HintSize="388,165" sap2010:WorkflowViewState.IdRef="InvokeCode_1" Language="VBNet">
+    <ui:InvokeCode ContinueOnError="{x:Null}" Code="Using client As New System.Net.Http.HttpClient()&#xA;    client.Timeout = TimeSpan.FromSeconds(45)&#xA;    client.DefaultRequestHeaders.Add(&quot;User-Agent&quot;, &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64)&quot;)&#xA;    Dim liUrl As String = &quot;https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search?keywords=&quot; &amp; Uri.EscapeDataString(in_RoleName) &amp; &quot;&amp;location=&quot; &amp; Uri.EscapeDataString(in_RoleLocation) &amp; &quot;&amp;f_E=2&amp;start=0&quot;&#xA;    Dim liHtml As String = &quot;&quot;&#xA;    Try&#xA;        liHtml = client.GetStringAsync(liUrl).GetAwaiter().GetResult()&#xA;    Catch&#xA;    End Try&#xA;    Dim matches As System.Text.RegularExpressions.MatchCollection = System.Text.RegularExpressions.Regex.Matches(liHtml, &quot;(?s)data-entity-urn=&quot;&quot;urn:li:jobPosting:(\d+)&quot;&quot;.*?base-search-card__title[^&gt;]*&gt;\s*([^&lt;]+?)\s*&lt;/h3&gt;.*?base-search-card__subtitle[^&gt;]*&gt;\s*(?:&lt;a[^&gt;]*&gt;)?\s*([^&lt;]+?)\s*(?:&lt;/a&gt;)?\s*&lt;/h4&gt;.*?job-search-card__location[^&gt;]*&gt;\s*([^&lt;]+?)\s*&lt;/span&gt;&quot;)&#xA;    Dim lines As New System.Collections.Generic.List(Of String)()&#xA;    Dim idx As Integer = 1&#xA;    For Each m As System.Text.RegularExpressions.Match In matches&#xA;        If idx &gt; 8 Then Exit For&#xA;        Dim jId As String = m.Groups(1).Value.Trim()&#xA;        Dim jTitle As String = System.Net.WebUtility.HtmlDecode(m.Groups(2).Value.Trim())&#xA;        Dim jComp As String = System.Net.WebUtility.HtmlDecode(m.Groups(3).Value.Trim())&#xA;        Dim jLoc As String = System.Net.WebUtility.HtmlDecode(m.Groups(4).Value.Trim())&#xA;        lines.Add(&quot;[J&quot; &amp; idx.ToString(&quot;00&quot;) &amp; &quot;] Title: &quot; &amp; jTitle &amp; &quot; | Company: &quot; &amp; jComp &amp; &quot; | Location: &quot; &amp; jLoc &amp; &quot; | URL: https://www.linkedin.com/jobs/view/&quot; &amp; jId)&#xA;        idx += 1&#xA;    Next&#xA;    out_JobEvidenceText = String.Join(Environment.NewLine, lines)&#xA;End Using" DisplayName="Fetch LinkedIn Guest Search Postings" sap:VirtualizedContainerService.HintSize="388,165" sap2010:WorkflowViewState.IdRef="InvokeCode_1">
       <ui:InvokeCode.Arguments>
         <InArgument x:TypeArguments="x:String" x:Key="in_RoleName">[in_RoleName]</InArgument>
         <InArgument x:TypeArguments="x:String" x:Key="in_RoleLocation">[in_RoleLocation]</InArgument>

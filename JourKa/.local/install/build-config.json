@@ -1,7 +1,8 @@
 {
   "Version": "1.0",
   "IncludeWorkflows": [
-    "Main.xaml"
+    "Main.xaml",
+    "Workflows/ResearchAbroadJobs.xaml"
   ],
   "EntryWorkflows": [
     "Main.xaml"
