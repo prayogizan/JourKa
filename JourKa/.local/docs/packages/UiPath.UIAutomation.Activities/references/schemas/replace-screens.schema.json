@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "replace-screens.schema.json",
+  "title": "Object Repository screen replacements",
+  "description": "A non-empty array with one entry per screen, each pairing an existing Object Repository screen with the target app definition file whose application replaces it; the screen keeps its reference ID.",
+  "type": "array",
+  "minItems": 1,
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["referenceId", "definitionFilePath"],
+    "properties": {
+      "referenceId": {
+        "description": "Reference ID of the Object Repository screen to replace, as printed by create-screen or get-screens.",
+        "type": "string",
+        "pattern": "\\S"
+      },
+      "definitionFilePath": {
+        "description": "Absolute path of the target app definition file to replace the screen with, with forward slashes (a backslash is a JSON escape). A relative path resolves against the CLI working directory, not --project-dir.",
+        "type": "string",
+        "pattern": "\\S"
+      }
+    }
+  },
+  "examples": [
+    [
+      {
+        "referenceId": "scr-456",
+        "definitionFilePath": "C:/work/window.xaml"
+      }
+    ]
+  ]
+}

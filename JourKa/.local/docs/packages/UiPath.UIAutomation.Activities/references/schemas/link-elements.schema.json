@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "link-elements.schema.json",
+  "title": "Object Repository element links",
+  "description": "A non-empty array with one entry per (activity, element) pair, each linking an existing Object Repository element to a target property of an activity in a XAML workflow.",
+  "type": "array",
+  "minItems": 1,
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["workflowFilePath", "activityId", "referenceId"],
+    "properties": {
+      "workflowFilePath": {
+        "description": "Absolute path of the .xaml workflow inside the project directory, with forward slashes (a backslash is a JSON escape). A relative path resolves against the CLI working directory, not --project-dir.",
+        "type": "string",
+        "pattern": "\\S"
+      },
+      "activityId": {
+        "description": "The activity's sap2010:WorkflowViewState.IdRef in the workflow (for example 'NClick_3').",
+        "type": "string",
+        "pattern": "\\S"
+      },
+      "referenceId": {
+        "description": "Reference ID of the Object Repository element to link, as printed by create-elements or get-elements.",
+        "type": "string",
+        "pattern": "\\S"
+      },
+      "targetProperty": {
+        "description": "Activity property that receives the element. Dotted paths address nested properties (for example 'SearchedElement.Target', 'VerifyOptions.Target'). Omitted or empty means 'Target'.",
+        "type": "string",
+        "default": "Target"
+      }
+    }
+  },
+  "examples": [
+    [
+      {
+        "workflowFilePath": "C:/MyProject/Main.xaml",
+        "activityId": "NClick_1",
+        "referenceId": "elem-789"
+      }
+    ],
+    [
+      {
+        "workflowFilePath": "C:/MyProject/Main.xaml",
+        "activityId": "NClick_1",
+        "referenceId": "elem-789",
+        "targetProperty": "Target"
+      },
+      {
+        "workflowFilePath": "C:/MyProject/Main.xaml",
+        "activityId": "NCheckState_2",
+        "referenceId": "elem-012",
+        "targetProperty": "SearchedElement.Target"
+      }
+    ]
+  ]
+}

@@ -1,0 +1,180 @@
+﻿# Android Developer — Entry-Level Career Dossier (Indonesia)
+
+## 1. Deskripsi Peran & Ringkasan Eksekutif
+
+Memasuki peran sebagai Android Developer tingkat *entry-level* di Indonesia menempatkan Anda tepat di jantung perekonomian digital paling dinamis di Asia Tenggara. Di balik antarmuka pengguna yang mulus dari aplikasi *superapp* seperti Grab [J01, J03], disrupsi *fintech* berkecepatan tinggi seperti Kredivo [J04] dan BJAK [J07], raksasa *streaming* seperti Vidio [J05], hingga agensi teknik yang tangkas seperti Vodjo [J06], Andalah arsitek di balik produk-produk yang menyentuh puluhan juta kehidupan setiap hari. Baik itu seorang komuter di Jakarta yang memesan layanan *ride-hailing*, pengguna di Bandung yang mengajukan mikro-kredit instan, atau sebuah keluarga di seluruh nusantara yang melakukan *streaming* pertandingan olahraga langsung melalui ExoPlayer yang dikustomisasi [J05], baris kode harian Anda secara langsung menentukan apakah pengalaman seluler mereka berjalan mulus, aman, dan secepat kilat.
+
+Sebagai seorang insinyur Android pemula, fokus kiriman utama Anda mencakup pembangunan komponen UI yang tangguh menggunakan perangkat modern seperti Jetpack Compose, mengonsumsi layanan backend RESTful dan GraphQL, melakukan *debugging* masalah siklus hidup (*lifecycle*) di berbagai macam fragmentasi perangkat Android yang sangat beragam, serta menulis *unit test* yang bersih. Anda tidak bekerja dalam isolasi. Kolaborasi sehari-hari Anda menghubungkan Anda secara langsung dengan Product Manager yang menerjemahkan kebutuhan bisnis menjadi *user stories*, UI/UX Designer yang menyerahkan *wireframe* Figma, Backend Engineer yang merancang API yang Anda konsumsi, serta QA Engineer yang melakukan pengujian tekanan pada *build* Anda. Yang membimbing Anda melalui ekosistem ini adalah mentor senior dan *tech lead* yang meninjau *pull request* Anda, mengajari Anda praktik terbaik arsitektur, dan membantu Anda bertransisi dari teori akademis ke disiplin teknik tingkat produksi.
+
+### Pendidikan & Gelar / Kualifikasi [S1/D4] — Penilaian
+Di pasar teknologi Indonesia, memiliki gelar Sarjana (S1) atau Diploma 4 (D4) di bidang Ilmu Komputer, Teknik Informatika, Sistem Informasi, atau bidang STEM yang erat kaitannya adalah hal yang **Sangat Direkomendasikan** oleh perusahaan besar, anak perusahaan teknologi Badan Usaha Milik Negara (BUMN), perusahaan multinasional (seperti NTT DATA [J02]), dan *unicorn* regional (seperti Grab [J01, J03] dan Kredivo [J04]). Meskipun saringan HR di organisasi-organisasi yang lebih besar ini kerap menyaring pelamar dengan gelar formal, ekosistem *startup* Indonesia dan agensi digital butik (seperti Vodjo [J06] atau eBricks [J08]) bersikap semakin pragmatis: mereka mengevaluasi kandidat terutama berdasarkan kompetensi coding yang terbukti, repositori GitHub yang dapat diverifikasi, dan aplikasi produksi langsung.
+
+Fondasi akademik yang ditargetkan dan langsung diterjemahkan ke dalam kesuksesan di tempat kerja meliputi struktur data dan algoritma, prinsip pemrograman berorientasi objek (OOP), dasar-dasar jaringan komputer, dan perancangan basis data. Bagi para pengalih karier (*career switchers*) dan mereka yang tidak memiliki gelar formal, jalur alternatif non-gelar menuntut pembangunan bukti portofolio yang tak terbantahkan: terbitkan setidaknya dua aplikasi Kotlin natif ke Google Play Store, berkontribusi secara bermakna pada pustaka Android *open-source*, lulus dari *bootcamp* ternama dengan pertahanan proyek *capstone*, dan kuasai Komponen Arsitektur Android modern (MVVM, Hilt, Coroutines) secara mendalam sehingga kode Anda berbicara lebih lantang daripada ijazah universitas.
+
+---
+
+## 2. Kebutuhan Kompetensi & Keahlian Entry-Level
+
+| Kompetensi / Alat | Kategori | Tingkat Permintaan Pasar | Penggunaan Nyata di Tempat Kerja & Mengapa Itu Penting | Kutipan Sumber |
+| :--- | :--- | :--- | :--- | :--- |
+| **Kotlin (Native)** | Bahasa Pemrograman | Sangat Kritis (Mission-Critical) | Standar industri yang tak terbantahkan untuk pengembangan Android natif; memastikan *null safety*, sintaksis yang ringkas, dan integrasi *coroutine* yang mulus di seluruh basis kode modern. | [J02], [J05], [J08] |
+| **Android SDK & Lifecycle** | Kerangka Kerja Inti | Sangat Kritis (Mission-Critical) | Mengelola siklus hidup *activity/fragment*, menangani perubahan konfigurasi perangkat, dan memastikan stabilitas aplikasi di berbagai ukuran layar dan perangkat keras. | [J06], [J08] |
+| **Jetpack Compose** | Kerangka Kerja UI | Pertumbuhan Tinggi | Perangkat UI deklaratif modern yang menggantikan tata letak XML tradisional; secara drastis mempercepat pengembangan UI, menyederhanakan manajemen status, dan mengurangi kode *boilerplate*. | [J05] |
+| **RESTful APIs & Networking** | Integrasi | Sangat Kritis (Mission-Critical) | Menghubungkan aplikasi seluler ke layanan mikro *backend* menggunakan Retrofit dan OkHttp, menangani serialisasi JSON, dan mengelola *caching* offline. | [J06] |
+| **Java (Legacy / Maintenance)** | Bahasa Pemrograman | Sedang | Esensial untuk memelihara basis kode lama (*legacy*), mengintegrasikan SDK yang lebih tua, dan melakukan *refactoring* sistem perusahaan yang lebih lama (masih umum di perusahaan mapan). | [J08] |
+| **Kotlin Multiplatform (KMM)** | Arsitektur / Lintas Platform | Muncul / Tingkat Lanjut | Berbagi logika bisnis antara basis kode Android dan iOS, didukung oleh platform *streaming* dan *fintech* berpikiran maju untuk memaksimalkan penggunaan kembali kode. | [J05] |
+| **Custom Media Players (ExoPlayer)** | Multimedia / Tingkat Lanjut | Khusus (Specialized) | Menyesuaikan alur *streaming* video, manajemen *buffer*, dan integrasi DRM untuk aplikasi media dan hiburan dengan lalu lintas tinggi. | [J05] |
+| **CI/CD & Git Workflows** | DevOps & Kolaborasi | Pertumbuhan Tinggi | Mengotomatiskan alur kerja *build*, menjalankan *unit/UI test* otomatis, mengelola *branch* fitur melalui GitHub/GitLab, dan memastikan penerapan tim yang lancar. | [J02], [J05] |
+
+### Sudut Pandang Hiring Manager terhadap Kompetensi Inti
+Saat mengevaluasi kandidat Android *entry-level* di Indonesia, saya melihat melampaui resume yang dipoles langsung ke bagaimana kompetensi-kompetensi ini berinteraksi di lingkungan produksi nyata. Jika Anda menguasai empat pilar utama—**fasih berbahasa Kotlin, penguasaan siklus hidup Android, integrasi RESTful API, dan kolaborasi Git**—Anda telah mengantongi 80% bobot wawancara. Pemula sering kali terjebak dalam titik buta umum: mereka terlalu mengandalkan generator kode AI tanpa memahami kebocoran memori yang disebabkan oleh retensi *Context*, mereka melakukan *hardcode* dimensi UI alih-alih merancang untuk fragmentasi perangkat di seluruh handset konsumen Indonesia (dari perangkat Samsung dan Xiaomi *entry-level* hingga iPhone *flagship* dan ponsel lipat), serta mengabaikan penanganan error yang tepat untuk kondisi jaringan seluler yang terputus-putus. Membangun aplikasi yang tangguh berarti mengantisipasi bahwa pengguna Anda akan kehilangan koneksi seluler di tengah transaksi di terowongan MRT atau area parkir bawah tanah di Jakarta.
+
+---
+
+## 3. Peta Jalan Belajar & Proyek Portofolio
+
+```
+[ Fase 1: Fondasi Inti (Minggu 1-6) ] 
+       │
+       ▼
+[ Fase 2: Alur Kerja Produksi & Arsitektur (Minggu 7-12) ]
+       │
+       ▼
+[ Fase 3: Penyempurnaan, Pengujian & Penerapan (Minggu 13-16) ] 
+       │
+       ▼
+[ Penerapan Portofolio & Kesiapan Wawancara ]
+```
+
+### Fase 1 [Minggu 1-6: Fondasi Inti]
+Kuasai bahasa pemrograman Kotlin secara menyeluruh. Fokuskan perhatian secara intensif pada *null safety*, *lambdas*, *extension functions*, *collections*, dan pemrograman asinkron dengan Kotlin Coroutines dan Flows. Transisikan diri secara mulus ke dasar-dasar Android natif: pahami siklus hidup *Activity* and *Fragment*, bangun tata letak responsif menggunakan ConstraintLayout dan primitif awal Jetpack Compose, serta tangani izin运行时 dengan benar. Pelajari bagaimana Android menangani peristiwa sentuh, perutean *intent*, dan persistensi lokal menggunakan Room Database dan SharedPreferences.
+
+### Fase 2 [Minggu 7-12: Alur Kerja Produksi & Arsitektur]
+Lulus dari penulisan kode *spaghetti* dalam file aktivitas tunggal ke penerapan arsitektur yang bersih dan dapat diskalakan. Adopsi pola arsitektur MVVM (Model-View-ViewModel) yang diwajibkan oleh tim teknik modern di Indonesia. Pelajari injeksi dependensi menggunakan Hilt atau Koin untuk mendkoppling kelas Anda. Integrasikan Retrofit dan Moshi/Gson untuk mengonsumsi RESTful API, kelola token autentikasi secara aman dengan EncryptedSharedPreferences, dan terapkan daftar *lazy-loading* menggunakan LazyColumn di Jetpack Compose berdampingan dengan Paging 3.
+
+### Fase 3 [Minggu 13-16: Penyempurnaan, Pengujian & Penerapan]
+Jembatani kesenjangan antara proyek mahasiswa dan aplikasi produksi. Tulis *unit test* untuk ViewModel Anda menggunakan JUnit dan MockK, serta *UI test* menggunakan Compose Testing. Siapkan pengaburan kode ProGuard/R8 dan konfigurasikan *product flavors* untuk lingkungan Staging dan Production. Kuasai strategi *branching* Git (Git Flow atau Trunk-Based Development), buat daftar periksa *pull request* otomatis, dan sebarkan APK/App Bundle bertanda tangan Anda dengan sukses ke jalur pengujian internal Google Play Console.
+
+### Cetak Biru Proyek Portofolio Nyata
+
+#### Proyek 1: "Lokaleats" — Aplikasi Penemuan Kuliner Daerah (Mengonsumsi REST API & Jetpack Compose)
+* **Pernyataan Masalah:** Pecinta kuliner di pusat perkotaan Indonesia membutuhkan aplikasi secepat kilat untuk menemukan tempat kuliner jalanan lokal berdasarkan koordinat GPS hiper-lokal, lengkap dengan markah buku (*bookmarking*) offline dan ulasan pengguna.
+* **Tech Stack:** Kotlin, Jetpack Compose, Retrofit, Room Database, Google Play Location Services, Coroutines.
+* **Alur Kerja & Arsitektur:** Menerapkan arsitektur MVVM yang bersih dengan pola Repository. Desain berbasis *offline-first*: mengambil data dari tiruan REST API, menyimpan hasil *cache* secara lokal di Room, dan menyinkronkan secara mulus saat konektivitas kembali.
+* **Kriteria Evaluasi Hiring Manager:** *State hoisting* yang bersih di Compose, nol *jank* UI selama pengguliran daftar gambar berat (integrasi pustaka Coil), dan penanganan error yang kuat ketika izin GPS ditolak.
+
+#### Proyek 2: "DompetKilat" — Pelacak Pengeluaran Keuangan Mikro & Alat Penganggaran (Dependency Injection & Penyimpanan Aman)
+* **Pernyataan Masalah:** Profesional muda Indonesia membutuhkan buku besar seluler lokal yang aman untuk melacak pengeluaran QRIS dan *e-wallet* harian dengan penyimpanan lokal terenkripsi dan analitik anggaran bergambar.
+* **Tech Stack:** Kotlin, Hilt (Dependency Injection), MPAndroidChart, EncryptedSharedPreferences, WorkManager.
+* **Alur Kerja & Arsitektur:** Pemisahan tanggung jawab yang ketat menggunakan *domain use-cases*. Menggunakan WorkManager untuk menjadwalkan sinkronisasi nilai tukar mata uang latar belakang dan pencadangan data lokal berkala.
+* **Kriteria Evaluasi Hiring Manager:** Pengaturan *dependency graph* yang tepat dengan Hilt, nol kebocoran memori selama perubahan konfigurasi (rotasi layar), dan penanganan aman dari bidang input keuangan yang sensitif.
+
+#### Proyek 3: "StreamPulse" — Umpan Multimedia & Aplikasi Pemutar Kustom (Media Lanjutan & Performa)
+* **Pernyataan Masalah:** Kreator konten memerlukan aplikasi konsumsi media yang disesuaikan yang menampilkan pemutaran audio latar belakang yang mulus dan rendering video yang dioptimalkan di berbagai spesifikasi perangkat keras [J05].
+* **Tech Stack:** Kotlin, ExoPlayer / Media3, Coroutines Flow, Paging 3, alur kerja Git CI.
+* **Alur Kerja & Arsitektur:** Basis kode yang dimodularisasi yang memisahkan fitur UI inti dari layanan pemutaran media. Memanfaatkan Kotlin Flows untuk menangani aliran *pagination* waktu nyata dan pemantauan status jaringan.
+* **Kriteria Evaluasi Hiring Manager:** Manajemen siklus hidup ExoPlayer yang mulus (mencegah kebocoran audio saat aplikasi berada di latar belakang), manajemen memori yang efisien pada perangkat ber-RAM rendah, dan riwayat *commit* Git yang bersih dengan *pull request* deskriptif.
+
+---
+
+## 4. Rutinitas Harian Realistis: Keseharian Kerja
+
+| Blok Waktu | Aktivitas & Area Fokus | Konteks Tempat Kerja Nyata & Penyelarasan Sumber |
+| :--- | :--- | :--- |
+| **09:00 - 09:30** | Morning Standup & Sinkronisasi | Ritual tangkas harian dengan *product manager*, QA, dan rekan *backend* untuk meninjau target *sprint* dan hambatan [Y07]. |
+| **09:30 - 12:00** | Blok Rekayasa Kerja Mendalam | Sesi *coding* terfokus: mengimplementasikan layar UI Jetpack Compose baru, mengintegrasikan titik akhir REST, atau memperbaiki *bug* [Y03]. |
+| **12:00 - 13:00** | Makan Siang & Jaringan | Makan siang tim di *warung* lokal atau *pantry* kantor; obrolan mentor informal dengan insinyur senior. |
+| **13:00 - 14:30** | Peninjauan Kode & Refactoring | Meninjau *pull request* rekan kerja, mengatasi kegagalan *build* alur kerja CI/CD, dan membersihkan utang teknis (*technical debt*) [Y01, Y05]. |
+| **14:30 - 16:30** | Kolaborasi Lintas Fungsi | Menyinkronkan dengan UI/UX desainer mengenai kasus tepi desain Figma dan insinyur QA yang mereproduksi tiket *bug*. |
+| **16:30 - 18:00** | Triase Bug & Penutupan Sprint | Menyelidiki log *crash* (Firebase Crashlytics), menyiapkan dokumentasi, dan mendorong *commit* akhir hari sebelum keluar kerja secara berkelanjutan pada pukul 18:00 [Y03, Y08]. |
+
+Melangkah ke kantor teknologi di Indonesia atau membuka laptop Anda untuk *sprint* teknik jarak jauh, hari Anda dimulai dengan ritme dan tujuan. Pada pukul 09:00 pagi, *standup* harian dimulai—baik berdiri dalam kelompok di dekat *pantry* atau melalui panggilan Google Meet. Anda membagikan apa yang telah Anda capai kemarin (misalnya, "Berhasil mengintegrasikan titik akhir API profil pengguna"), apa yang Anda rencanakan hari ini ("Membangun layar pengaturan dengan Jetpack Compose"), dan hambatan apa pun yang Anda hadapi ("Menunggu kredensial lingkungan pementasan *backend*").
+
+Setelah keselarasan tercapai, blok kerja mendalam pagi hari dimulai. Di sinilah headphone Anda dipasang, dan Anda menyelami IDE Anda (Android Studio). Anda mungkin memecahkan masalah mengapa cakupan *coroutine* dibatalkan sebelum waktunya atau menulis pengubah dapat digunakan kembali yang disesuaikan (*custom reusable modifier*) di Compose. Menjelang tengah hari, kantor berhenti sejenak untuk makan siang—sebuah ritual penting dalam budaya perusahaan Indonesia di mana rekan kerja menjalin kebersamaan di atas mie ayam atau nasi padang.
+
+Sore hari membawa gesekan kolaboratif dan pemecahan masalah. Anda menarik kode dari rekan setim, menjalankan *build* lokal, dan melihat kebocoran memori dalam transisi fragmen. Anda meninggalkan komentar konstruktif pada *pull request* mereka, mengingatkan mereka untuk menghapus *view binding* di `onDestroyView()`. Belakangan, seorang insinyur QA memberi tahu Anda tentang *crash* yang terjadi secara eksklusif pada perangkat Xiaomi kelas bawah yang menjalankan versi Android lama. Anda membuka Logcat, melacak pengecualian penunjuk nol (*null pointer exception*), menulis pemeriksaan defensif, memverifikasi perbaikan di emulator dan perangkat uji fisik, dan mendorong *commit* Anda sebelum keluar kerja dengan berkelanjutan pada pukul 18:00 sore.
+
+---
+
+## 5. Estimasi Gaji Awal & Peta Perjalanan Karier
+
+### Patokan Gaji Bulanan Kotor Indonesia (IDR)
+*Semua angka mewakili kompensasi bulanan kotor yang realistis dalam Rupiah Indonesia (IDR), termasuk standar garis dasar industri. Gaji bersih yang dibawa pulang tunduk pada potongan pajak penghasilan PPh 21 dan kontribusi wajib BPJS Ketenagakerjaan (JHT, JP, JKK, JKM) serta BPJS Kesehatan. Karyawan tetap penuh waktu di Indonesia juga secara hukum berhak atas tunjangan hari raya (THR) keagamaan tahunan sebesar satu bulan gaji.*
+
+| Tingkat Pengalaman | Startup Lokal / UKM / Butik | Perusahaan Menengah / Konsultansi | Unicorn Tingkat Atas / Multinasional |
+| :--- | :--- | :--- | :--- |
+| **Fresh Graduate / Entry-Level (0-1 thn)** | IDR 5.000.000 – 8.000.000 | IDR 8.000.000 – 12.000.000 | IDR 12.000.000 – 18.000.000 |
+| **Junior Android Dev (1-2 thn)** | IDR 8.000.000 – 13.000.000 | IDR 12.000.000 – 18.000.000 | IDR 18.000.000 – 25.000.000 |
+| **Mid-Level Android Dev (2-4 thn)** | IDR 13.000.000 – 20.000.000 | IDR 18.000.000 – 28.000.000 | IDR 25.000.000 – 40.000.000 |
+
+```
+[Entry-Level (0-1 thn)] ──► [Junior (1-2 thn)] ──► [Mid-Level (2-4 thn)] ──► [Senior (4+ thn)] ──► [Lead / Principal / Engineering Manager]
+```
+
+### Peta Jalan Perjalanan Karier
+* **Entry-Level (0-1 thn):** Lingkup Anda difokuskan pada pelaksanaan tugas yang didefinisikan dengan baik di bawah bimbingan dekat. Anda menulis komponen UI standar, memperbaiki *bug* kecil, dan mempelajari alur kerja Git tim. Pergeseran pola pikir: bergerak dari kesempurnaan akademis ke pengiriman kode pragmatis yang berfungsi tepat waktu.
+* **Junior Android Developer (1-2 thn):** Anda mengambil alih kepemilikan seluruh modul fitur. Anda secara mandiri mengonsumsi REST API, merancang basis data lokal, dan menulis *unit test*. Kriteria promosi: kualitas kode yang konsisten, pengerjaan ulang *pull-request* yang minimal, dan komunikasi proaktif.
+* **Mid-Level Android Developer (2-4 thn):** Anda merancang lapisan fitur yang dapat diskalakan, membimbing magang junior, mengoptimalkan metrik kinerja aplikasi (waktu mulai, penggunaan memori), dan berkolaborasi erat dengan pemimpin produk dan desain mengenai kelayakan teknis.
+* **Senior Android Developer & Seterusnya (4+ thn):** Anda mendorong peta jalan teknis untuk aplikasi seluler di seluruh organisasi teknik [J04], memperjuangkan migrasi arsitektur (seperti Kotlin Multiplatform [J05]), dan memimpin tim teknik berdampak tinggi.
+
+---
+
+## 6. Panduan Karier: Pro, Kontra, Sentimen AI & Realita Industri
+
+| Kelebihan (Pros) | Kekurangan (Cons) |
+| :--- | :--- |
+| **Permintaan Pasar Tinggi:** Pengembang Android natif tetap sangat dicari di seluruh *fintech*, *superapp*, dan agensi digital Indonesia. | **Fragmentasi Perangkat:** Melakukan *debugging* terhadap *bug* spesifik perangkat keras di ribuan model ponsel Android yang berbeda bisa membuat frustrasi. |
+| **Dampak Portofolio Nyata:** Anda dapat langsung menunjukkan kepada teman dan keluarga aplikasi yang Anda buat berjalan langsung di Google Play. | **Evolusi Ekosistem Cepat:** Mengikuti pembaruan pustaka dan penghentian (*deprecation*) Android Jetpack yang konstan memerlukan pembelajaran berkelanjutan. |
+| **Trajektori Karier Menguntungkan:** Pertumbuhan gaji yang jelas dan dipercepat di pusat teknologi Indonesia (Jakarta dan Bandung). | **Basis Kode Warisan (Legacy):** Terkadang terpaksa mengurai basis kode Java/XML lama yang didokumentasikan dengan buruk. |
+
+### Sentimen AI & Prospek Masa Depan
+Alat kecerdasan buatan seperti GitHub Copilot, Claude, dan agen pengkodean khusus telah secara fundamental mengubah rekayasa perangkat lunak. Bagi pengembang Android tingkat *entry-level*, AI tidak menghilangkan kebutuhan akan insinyur; sebaliknya, AI menggeser ekspektasi perekrutan dari penghafalan hafalan dan pengetikan *boilerplate* manual ke pemahaman sistem, pemikiran kritis, dan verifikasi yang ketat. AI dapat menghasilkan adaptor RecyclerView *boilerplate* atau antarmuka Retrofit sederhana dalam hitungan detik, tetapi AI tidak dapat merancang strategi *caching* lokal yang tangguh, melakukan *debugging* kebuntuan *threading* (*deadlock*) yang rumit, atau secara intuitif memahami mengapa pengguna Indonesia pada perangkat kelas bawah di pedesaan Sumatra mengalami kesalahan ANR (Application Not Responding). Ketahanan karier 3-5 tahun Anda bergantung sepenuhnya pada perlakuan terhadap AI sebagai asisten junior yang kuat sementara Anda menanamkan keahlian mendalam dalam desain sistem, intuisi *debugging*, dan empati produk.
+
+### Realita Industri Jujur & Siapa yang Berkembang vs. Siapa yang Berjuang
+Mari kita bicara secara jujur. Putaran wawancara teknologi di Indonesia untuk peran Android sangat ketat: harapkan penyaringan HR, tes *coding* langsung atau tantangan teknis bawa pulang (*take-home challenge* membangun aplikasi mini yang mengonsumsi API publik), wawancara teknis yang menguji Anda pada manajemen siklus hidup dan arsitektur, serta wawancara kecocokan budaya (*culture-fit*) dengan manajer teknik.
+* **Siapa yang Berkembang:** Junior yang berkembang adalah mereka yang memiliki rasa ingin tahu yang tak kenal lelah, memelihara portofolio GitHub pribadi yang menunjukkan rasa ingin tahu yang nyata, menerima umpan balik peninjauan kode tanpa ego, dan secara proaktif membaca dokumentasi resmi Android daripada hanya mengandalkan salin-tempel StackOverflow.
+* **Siapa yang Berjuang:** Kandidat yang memperlakukan pengkodean murni sebagai pekerjaan transaksional 9-ke-5 tanpa meluangkan waktu untuk memahami fondasi yang mendasari akan cepat mengalami kejenuhan (*burnout*). Mereka berjuang ketika *build* rusak karena mereka menghafal sintaksis alih-alih memahami kesalahan kompilasi.
+
+---
+
+## 7. Rencana Aksi Onboarding 30 / 60 / 90 Hari Pertama
+
+```
+[ Hari 1-30: Pengaturan & Kemenangan Kecil ] ──► [ Hari 31-60: Kepemilikan Fitur ] ──► [ Hari 61-90: Kemandirian End-to-End ]
+```
+
+* **Hari 1–30: Pengaturan Lingkungan, Perendaman Basis Kode & Kemenangan Kecil Pertama**
+  * Kloning repositori utama perusahaan, konfigurasikan lingkungan Android Studio lokal Anda dengan sukses, dan jalankan aplikasi pada perangkat fisik maupun emulator.
+  * Dampingi insinyur senior selama peninjauan kode dan sesi triase *bug* untuk memahami standar pengkodean tim dan konvensi arsitektur.
+  * Ambil 3 hingga 5 tiket *bug* Jira 'Good First Issue' (misalnya, perbaikan perataan teks, penyesuaian bantalan (*padding*) kecil, pembaruan warna), tulis kode yang bersih, dan gabungkan (*merge*) *pull request* pertama Anda.
+* **Hari 31–60: Eksekusi Mandiri & Membangun Kepercayaan Tim**
+  * Ambil alih kepemilikan modul fitur kecil yang mandiri (misalnya, membangun sub-menu pengaturan baru atau mengintegrasikan titik akhir API kecil).
+  * Berpartisipasi secara aktif dalam perencanaan *sprint* dan *standup* harian, mengkomunikasikan hambatan secara dini dan transparan.
+  * Mulailah meninjau *pull request* rekan kerja untuk kolega junior atau magang, memperkuat penguasaan Anda sendiri atas praktik kode bersih (*clean code*).
+* **Hari 61–90: Kepemilikan End-to-End & Lulus Masa Percobaan dengan Gemilang**
+  * Rancang, kembangkan, uji, dan sebarkan modul fitur kompleksitas menengah secara mandiri mulai dari penyerahan desain Figma hingga rilis produksi.
+  * Berkontribusi pada dokumentasi teknis tim dan bantu memperbarui panduan pengaturan internal untuk kelompok *onboarding* masa depan.
+  * Lakukan tinjauan masa percobaan 90 hari formal Anda dengan metrik konkret dari fitur yang dikirimkan, menunjukkan keandalan, pertumbuhan teknis, dan keselarasan budaya.
+
+---
+
+## 8. Daftar Bukti & Sumber Terverifikasi
+
+| ID Sumber | Jenis Sumber | Judul | Perusahaan / Konteks | URL Markdown yang Dapat Diklik |
+| :--- | :--- | :--- | :--- | :--- |
+| [J01] | Papan Kerja (LinkedIn) | Senior Software Engineer, Mobile (Android) - Fulfilment | Grab | [Lihat Lowongan Kerja](https://www.linkedin.com/jobs/view/4365970073) |
+| [J02] | Papan Kerja (LinkedIn) | Frontend Android Developer (Native Kotlin) | NTT DATA, Inc. | [Lihat Lowongan Kerja](https://www.linkedin.com/jobs/view/4409280503) |
+| [J03] | Papan Kerja (LinkedIn) | Senior Software Engineer, Mobile (Android) - Consumer Experience | Grab | [Lihat Lowongan Kerja](https://www.linkedin.com/jobs/view/4486514381) |
+| [J04] | Papan Kerja (LinkedIn) | Android Engineer - SDE 2 | Kredivo Group | [Lihat Lowongan Kerja](https://www.linkedin.com/jobs/view/4373676251) |
+| [J05] | Papan Kerja (LinkedIn) | Senior Android Engineer | Vidio | [Lihat Lowongan Kerja](https://www.linkedin.com/jobs/view/4481394874) |
+| [J06] | Papan Kerja (LinkedIn) | Android Developer | Vodjo | [Lihat Lowongan Kerja](https://www.linkedin.com/jobs/view/4439110770) |
+| [J07] | Papan Kerja (LinkedIn) | Android Software Engineer - AI Finance Agent | BJAK | [Lihat Lowongan Kerja](https://www.linkedin.com/jobs/view/4444977223) |
+| [J08] | Papan Kerja (LinkedIn) | Android Developer | eBricks Inc | [Lihat Lowongan Kerja](https://www.linkedin.com/jobs/view/4447659210) |
+| [Y01] | Rutinitas YouTube | A Day in the Life of a Mobile Developer at Nettium | Darsshan Nair / Nettium | [Tonton di YouTube](https://www.youtube.com/watch?v=udYYIxCKAQ0) |
+| [Y02] | Rutinitas YouTube | Android Developer Story: Two developers launch their careers | Android Developers | [Tonton di YouTube](https://www.youtube.com/watch?v=DZ-rEgAWFkQ) |
+| [Y03] | Rutinitas YouTube | Productive Day In My Life As a Android Developer in Slovenia (2026) | Remote Android Dev | [Tonton di YouTube](https://www.youtube.com/watch?v=2YayG06N1no) |
+| [Y04] | Rutinitas YouTube | Day In The Life Of A Software Engineer | Indonesia | Indonesian SE Vlog | [Tonton di YouTube](https://www.youtube.com/watch?v=8RZhLvZLkGE) |
+| [Y05] | Rutinitas YouTube | a day in my life working as a frontend developer at a startup | Startup Dev Vlog | [Tonton di YouTube](https://www.youtube.com/watch?v=SDBubjEPeNc) |
+| [Y06] | Rutinitas YouTube | My Journey as an Android Developer Working At Google | Google SWE | [Tonton di YouTube](https://www.youtube.com/watch?v=8HKKCIDEHfM) |
+| [Y07] | Rutinitas YouTube | Solo Dev Day in the Life | Solo Indie Dev | [Tonton di YouTube](https://www.youtube.com/watch?v=BcwXrJG8zyE) |
+| [Y08] | Rutinitas YouTube | Day in the Life of a Mobile Software Developer | New Job | Mobile Dev Career | [Tonton di YouTube](https://www.youtube.com/watch?v=2RfTbP_a6vE) |
