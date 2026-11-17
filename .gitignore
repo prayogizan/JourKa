@@ -1,0 +1,23 @@
+# Secret & API Key files (Never commit)
+.env
+.env.*
+*.env
+!.env.example
+**/apikey.txt
+**/secrets.json
+**/*secret*
+
+# UiPath Studio local/generated cache & build artifacts
+**/.local/
+**/.tmh/
+**/.storage/
+
+# Runtime logs and temporary files
+**/Logs/
+**/Temp/
+*.log
+
+# Office temporary lock files & backups
+~$*
+*.backup.xlsx
+*.tmp

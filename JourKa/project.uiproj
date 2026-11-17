@@ -1,0 +1,6 @@
+{
+  "Name": "JourKa",
+  "ProjectType": "Process",
+  "Description": "Journey of \"Kita\"",
+  "MainFile": "Main.xaml"
+}

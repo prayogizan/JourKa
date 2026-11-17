@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "target-app-refs.schema.json",
+  "title": "Target app refs to resolve",
+  "description": "A non-empty array with one entry per application window to resolve into a target app definition file.",
+  "type": "array",
+  "minItems": 1,
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["ref", "definitionFilePath", "name"],
+    "properties": {
+      "ref": {
+        "description": "Top-level snapshot ref from the rendered tree: 'w<N>' for a window, 'b<N>' for a browser. Any other ref kind fails the entry.",
+        "type": "string",
+        "pattern": "\\S"
+      },
+      "definitionFilePath": {
+        "description": "Absolute path of the target app definition file to write, with forward slashes (a backslash is a JSON escape). A relative path resolves against the CLI working directory, not --project-dir.",
+        "type": "string",
+        "pattern": "\\S"
+      },
+      "name": {
+        "description": "Display name of the target application.",
+        "type": "string",
+        "pattern": "\\S"
+      },
+      "description": {
+        "description": "Description of the target application.",
+        "type": "string"
+      }
+    }
+  },
+  "examples": [
+    [
+      {
+        "ref": "w1",
+        "definitionFilePath": "C:/work/window.xaml",
+        "name": "Acme HR Portal",
+        "description": "The main login page of the Acme HR portal"
+      },
+      {
+        "ref": "w2",
+        "definitionFilePath": "C:/work/notepad.xaml",
+        "name": "Notepad"
+      }
+    ]
+  ]
+}

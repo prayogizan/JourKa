@@ -1,0 +1,12 @@
+﻿{
+  "Name": "Chrome Jobs  LinkedIn",
+  "Type": "App",
+  "Id": "ZhH0J_0S5UCRtXg6yQn74w",
+  "Reference": "2P0FAWyvP0aWwW2KXIflxw/ZhH0J_0S5UCRtXg6yQn74w",
+  "Created": "2026-11-14T07:55:18.8584253Z",
+  "Updated": "2026-11-14T07:55:18.8584253Z",
+  "CreatedBy": [
+    "UiPath.UIAutomationCore, Version=26.10.7.0, Culture=neutral, PublicKeyToken=null",
+    "UiPath.Platform, Version=26.9.0.0, Culture=neutral, PublicKeyToken=null"
+  ]
+}

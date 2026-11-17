@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "fuzzify-definition-file-paths.schema.json",
+  "title": "Target anchorable definitions to fuzzify",
+  "description": "A non-empty array of target anchorable definition file paths, one per target to fuzzify (convert from a strict to a fuzzy selector).",
+  "type": "array",
+  "minItems": 1,
+  "items": {
+    "description": "Absolute path of a target anchorable definition file, with forward slashes (a backslash is a JSON escape). A relative path resolves against the CLI working directory, not --project-dir.",
+    "type": "string",
+    "pattern": "\\S"
+  },
+  "examples": [
+    ["C:/work/target.xaml"],
+    ["C:/work/t1.xaml", "C:/work/t2.xaml"]
+  ]
+}

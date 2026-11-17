@@ -1,0 +1,476 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="Main" VisualBasic.Settings="{x:Null}" sap2010:WorkflowViewState.IdRef="ActivityBuilder_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:s="clr-namespace:System;assembly=System.Private.CoreLib" xmlns:ue="clr-namespace:UiPath.Excel;assembly=UiPath.Excel.Activities" xmlns:ueab="clr-namespace:UiPath.Excel.Activities.Business;assembly=UiPath.Excel.Activities" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net</x:String>
+      <x:String>System.Net.Http</x:String>
+      <x:String>System.Text</x:String>
+      <x:String>System.Text.RegularExpressions</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>GlobalVariablesNamespace</x:String>
+      <x:String>GlobalConstantsNamespace</x:String>
+      <x:String>UiPath.Excel</x:String>
+      <x:String>UiPath.Excel.Activities</x:String>
+      <x:String>UiPath.Excel.Activities.Business</x:String>
+      <x:String>UiPath.Excel.Model</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>System.ComponentModel</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+      <x:String>UiPath.Shared.Activities</x:String>
+      <x:String>Newtonsoft.Json</x:String>
+      <x:String>Newtonsoft.Json.Linq</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>System.Private.CoreLib</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Linq</AssemblyReference>
+      <AssemblyReference>System.Data.Common</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System.ObjectModel</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.TypeConverter</AssemblyReference>
+      <AssemblyReference>UiPath.Studio.Constants</AssemblyReference>
+      <AssemblyReference>UiPath.Excel.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Excel.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>System.Reflection.DispatchProxy</AssemblyReference>
+      <AssemblyReference>System.Reflection.TypeExtensions</AssemblyReference>
+      <AssemblyReference>System.Reflection.Metadata</AssemblyReference>
+      <AssemblyReference>System.Security.Permissions</AssemblyReference>
+      <AssemblyReference>System.Runtime.InteropServices</AssemblyReference>
+      <AssemblyReference>System.Memory.Data</AssemblyReference>
+      <AssemblyReference>System.Console</AssemblyReference>
+      <AssemblyReference>System.Configuration.ConfigurationManager</AssemblyReference>
+      <AssemblyReference>System.ComponentModel</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>System.Private.Uri</AssemblyReference>
+      <AssemblyReference>System.Private.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.Collections</AssemblyReference>
+      <AssemblyReference>System.Collections.NonGeneric</AssemblyReference>
+      <AssemblyReference>System.Linq.Expressions</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization.Formatters</AssemblyReference>
+      <AssemblyReference>System.Private.DataContractSerialization</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization.Primitives</AssemblyReference>
+      <AssemblyReference>UiPath.Platform</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.EventBasedAsync</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Primitives</AssemblyReference>
+      <AssemblyReference>UiPath.Workflow</AssemblyReference>
+      <AssemblyReference>System.Private.Xml</AssemblyReference>
+      <AssemblyReference>System.Net.Http</AssemblyReference>
+      <AssemblyReference>System.Net.Primitives</AssemblyReference>
+      <AssemblyReference>System.Text.RegularExpressions</AssemblyReference>
+      <AssemblyReference>Newtonsoft.Json</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="Main - Process Desire Role List" sap:VirtualizedContainerService.HintSize="720,3100" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Default="[If(System.IO.File.Exists(&quot;D:\UiPathProject\Desire Role List.xlsx&quot;), &quot;D:\UiPathProject\Desire Role List.xlsx&quot;, System.IO.Path.Combine(Environment.CurrentDirectory, &quot;Input&quot;, &quot;Desire Role List.xlsx&quot;))]" Name="strExcelPathDesireRole" />
+      <Variable x:TypeArguments="x:String" Default="[System.IO.Path.Combine(Environment.CurrentDirectory, &quot;Output&quot;)]" Name="outputRoot" />
+      <Variable x:TypeArguments="x:String" Default="D:\UiPathProject\JourKa\PDF_Results" Name="pdfOutputDir" />
+      <Variable x:TypeArguments="x:String" Default="[If(System.IO.File.Exists(System.IO.Path.Combine(Environment.CurrentDirectory, &quot;.env&quot;)), System.IO.File.ReadAllLines(System.IO.Path.Combine(Environment.CurrentDirectory, &quot;.env&quot;)).Where(Function(l) l.Trim().StartsWith(&quot;GEMINI_API_KEY=&quot;, StringComparison.OrdinalIgnoreCase)).Select(Function(l) l.Trim().Substring(15).Trim()).FirstOrDefault(), Environment.GetEnvironmentVariable(&quot;GEMINI_API_KEY&quot;, EnvironmentVariableTarget.User))]" Name="geminiApiKey" />
+      <Variable x:TypeArguments="x:String" Default="https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent" Name="geminiEndpoint" />
+      <Variable x:TypeArguments="x:Boolean" Default="True" Name="skipCompleted" />
+      <Variable x:TypeArguments="sd:DataTable" Name="dtRoles" />
+      <Variable x:TypeArguments="x:String" Name="roleName" />
+      <Variable x:TypeArguments="x:String" Name="roleLevel" />
+      <Variable x:TypeArguments="x:String" Name="roleLocation" />
+      <Variable x:TypeArguments="x:String" Name="extraKeywords" />
+      <Variable x:TypeArguments="x:String" Name="currentStatus" />
+      <Variable x:TypeArguments="x:String" Name="safeRoleName" />
+      <Variable x:TypeArguments="x:String" Name="roleFolder" />
+      <Variable x:TypeArguments="x:String" Name="markdownPath" />
+      <Variable x:TypeArguments="x:String" Name="htmlPath" />
+      <Variable x:TypeArguments="x:String" Name="pdfPath" />
+      <Variable x:TypeArguments="x:String" Name="dossierMarkdown" />
+      <Variable x:TypeArguments="x:String" Name="htmlContent" />
+      <Variable x:TypeArguments="x:Boolean" Name="pdfExists" />
+      <Variable x:TypeArguments="x:String" Name="abroadMarkets" />
+      <Variable x:TypeArguments="x:String" Name="abroadEvidenceText" />
+      <Variable x:TypeArguments="x:Int32" Name="abroadCount" />
+      <Variable x:TypeArguments="x:String" Name="abroadStatus" />
+      <Variable x:TypeArguments="x:String" Name="markdownPathID" />
+      <Variable x:TypeArguments="x:String" Name="htmlPathID" />
+      <Variable x:TypeArguments="x:String" Name="pdfPathID" />
+      <Variable x:TypeArguments="x:String" Name="dossierMarkdownID" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:ReadRange Range="{x:Null}" WorkbookPathResource="{x:Null}" AddHeaders="True" DataTable="[dtRoles]" DisplayName="Read Sheet1 into dtRoles (Workbook)" sap:VirtualizedContainerService.HintSize="522,120" sap2010:WorkflowViewState.IdRef="ReadRange_1" SheetName="Sheet1" WorkbookPath="[strExcelPathDesireRole]" />
+    <ui:InvokeCode ContinueOnError="{x:Null}" Code="If Not io_dtRoles.Columns.Contains(&quot;AbroadMarkets&quot;) Then&#xA;    io_dtRoles.Columns.Add(&quot;AbroadMarkets&quot;, GetType(String))&#xA;End If" DisplayName="Ensure Minimalist AbroadMarkets Column Exists in dtRoles" sap:VirtualizedContainerService.HintSize="522,165" sap2010:WorkflowViewState.IdRef="InvokeCode_EnsureCols" Language="VBNet">
+      <ui:InvokeCode.Arguments>
+        <InOutArgument x:TypeArguments="sd:DataTable" x:Key="io_dtRoles">[dtRoles]</InOutArgument>
+      </ui:InvokeCode.Arguments>
+    </ui:InvokeCode>
+    <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[dtRoles]" DisplayName="For Each Desired Role in dtRoles" sap:VirtualizedContainerService.HintSize="522,2520" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
+      <ui:ForEachRow.Body>
+        <ActivityAction x:TypeArguments="sd:DataRow">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="sd:DataRow" Name="CurrentRow" />
+          </ActivityAction.Argument>
+          <Sequence DisplayName="Process Role Row" sap:VirtualizedContainerService.HintSize="488,2340" sap2010:WorkflowViewState.IdRef="Sequence_4">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <Assign DisplayName="Assign roleName" sap:VirtualizedContainerService.HintSize="454,82" sap2010:WorkflowViewState.IdRef="Assign_1">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[roleName]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">[Convert.ToString(CurrentRow("Job")).Trim()]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign DisplayName="Assign roleLevel" sap:VirtualizedContainerService.HintSize="454,82" sap2010:WorkflowViewState.IdRef="Assign_2">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[roleLevel]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">[If(dtRoles.Columns.Contains("Level") AndAlso Not String.IsNullOrWhiteSpace(Convert.ToString(CurrentRow("Level"))), Convert.ToString(CurrentRow("Level")).Trim(), "Entry level")]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign DisplayName="Assign roleLocation" sap:VirtualizedContainerService.HintSize="454,82" sap2010:WorkflowViewState.IdRef="Assign_3">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[roleLocation]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">[If(dtRoles.Columns.Contains("Location") AndAlso Not String.IsNullOrWhiteSpace(Convert.ToString(CurrentRow("Location"))), Convert.ToString(CurrentRow("Location")).Trim(), "Indonesia")]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign DisplayName="Assign extraKeywords" sap:VirtualizedContainerService.HintSize="454,82" sap2010:WorkflowViewState.IdRef="Assign_4">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[extraKeywords]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">[If(dtRoles.Columns.Contains("SearchKeywords"), Convert.ToString(CurrentRow("SearchKeywords")).Trim(), "")]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign DisplayName="Assign abroadMarkets" sap:VirtualizedContainerService.HintSize="454,82" sap2010:WorkflowViewState.IdRef="Assign_AbroadMarkets">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[abroadMarkets]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">[If(dtRoles.Columns.Contains("AbroadMarkets") AndAlso Not String.IsNullOrWhiteSpace(Convert.ToString(CurrentRow("AbroadMarkets"))), Convert.ToString(CurrentRow("AbroadMarkets")).Trim(), If(dtRoles.Columns.Contains("AbroadCountry") AndAlso Not String.IsNullOrWhiteSpace(Convert.ToString(CurrentRow("AbroadCountry"))), Convert.ToString(CurrentRow("AbroadCountry")).Trim(), If(dtRoles.Columns.Contains("Abroad Country") AndAlso Not String.IsNullOrWhiteSpace(Convert.ToString(CurrentRow("Abroad Country"))), Convert.ToString(CurrentRow("Abroad Country")).Trim(), If(dtRoles.Columns.Contains("Country") AndAlso Not String.IsNullOrWhiteSpace(Convert.ToString(CurrentRow("Country"))), Convert.ToString(CurrentRow("Country")).Trim(), ""))))]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign DisplayName="Assign currentStatus" sap:VirtualizedContainerService.HintSize="454,82" sap2010:WorkflowViewState.IdRef="Assign_5">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[currentStatus]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">[If(dtRoles.Columns.Contains("Status"), Convert.ToString(CurrentRow("Status")).Trim(), "")]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <If Condition="[String.IsNullOrWhiteSpace(roleName)]" DisplayName="If Role Name is Blank" sap:VirtualizedContainerService.HintSize="454,1650" sap2010:WorkflowViewState.IdRef="If_1">
+              <If.Then>
+                <ui:LogMessage DisplayName="Log Blank Row Skipped" sap:VirtualizedContainerService.HintSize="334,92" sap2010:WorkflowViewState.IdRef="LogMessage_BlankRow" Level="Info" Message="[&quot;Skipping blank role row.&quot;]" />
+              </If.Then>
+              <If.Else>
+                <Sequence DisplayName="Prepare Paths and Execute Role Research" sap:VirtualizedContainerService.HintSize="420,1480" sap2010:WorkflowViewState.IdRef="Sequence_5">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <Assign DisplayName="Assign safeRoleName" sap:VirtualizedContainerService.HintSize="386,82" sap2010:WorkflowViewState.IdRef="Assign_7">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:String">[safeRoleName]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:String">[System.Text.RegularExpressions.Regex.Replace(roleName, "[\\/:*?""&lt;&gt;|]", "_").Trim()]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                  <Assign DisplayName="Assign roleFolder" sap:VirtualizedContainerService.HintSize="386,82" sap2010:WorkflowViewState.IdRef="Assign_8">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:String">[roleFolder]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:String">[System.IO.Path.Combine(outputRoot, safeRoleName)]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                  <Assign DisplayName="Assign markdownPath (EN)" sap:VirtualizedContainerService.HintSize="386,82" sap2010:WorkflowViewState.IdRef="Assign_9">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:String">[markdownPath]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:String">[System.IO.Path.Combine(roleFolder, safeRoleName &amp; " - EN.md")]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                  <Assign DisplayName="Assign htmlPath (EN)" sap:VirtualizedContainerService.HintSize="386,82" sap2010:WorkflowViewState.IdRef="Assign_10">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:String">[htmlPath]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:String">[System.IO.Path.Combine(roleFolder, safeRoleName &amp; " - EN.html")]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                  <Assign DisplayName="Assign pdfPath (EN)" sap:VirtualizedContainerService.HintSize="386,82" sap2010:WorkflowViewState.IdRef="Assign_11">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:String">[pdfPath]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:String">[System.IO.Path.Combine(pdfOutputDir, safeRoleName &amp; " - EN.pdf")]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                  <Assign DisplayName="Assign markdownPathID (ID)" sap:VirtualizedContainerService.HintSize="386,82" sap2010:WorkflowViewState.IdRef="Assign_MarkdownPathID">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:String">[markdownPathID]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:String">[System.IO.Path.Combine(roleFolder, safeRoleName &amp; " - ID.md")]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                  <Assign DisplayName="Assign htmlPathID (ID)" sap:VirtualizedContainerService.HintSize="386,82" sap2010:WorkflowViewState.IdRef="Assign_HtmlPathID">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:String">[htmlPathID]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:String">[System.IO.Path.Combine(roleFolder, safeRoleName &amp; " - ID.html")]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                  <Assign DisplayName="Assign pdfPathID (ID)" sap:VirtualizedContainerService.HintSize="386,82" sap2010:WorkflowViewState.IdRef="Assign_PdfPathID">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:String">[pdfPathID]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:String">[System.IO.Path.Combine(pdfOutputDir, safeRoleName &amp; " - ID.pdf")]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                  <If Condition="[skipCompleted AndAlso (String.IsNullOrWhiteSpace(currentStatus) OrElse currentStatus.Equals(&quot;Completed&quot;, StringComparison.OrdinalIgnoreCase)) AndAlso System.IO.File.Exists(pdfPath) AndAlso System.IO.File.Exists(pdfPathID) AndAlso System.IO.File.Exists(markdownPath) AndAlso New System.IO.FileInfo(markdownPath).Length &gt; 2500 AndAlso System.IO.File.Exists(markdownPathID) AndAlso New System.IO.FileInfo(markdownPathID).Length &gt; 2500]" DisplayName="If Both EN + ID PDFs Already Exist" sap:VirtualizedContainerService.HintSize="386,820" sap2010:WorkflowViewState.IdRef="If_2">
+                    <If.Then>
+                      <ui:LogMessage DisplayName="Log Skip Completed Role" sap:VirtualizedContainerService.HintSize="334,92" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Skipping already completed bilingual role: &quot; &amp; roleName]" />
+                    </If.Then>
+                    <If.Else>
+                      <TryCatch DisplayName="Try Process Role Research &amp; Dossier Generation" sap:VirtualizedContainerService.HintSize="438,950" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+                        <TryCatch.Try>
+                          <Sequence DisplayName="Execute Research, Gemini Calls (EN+ID), and PDF Exports" sap:VirtualizedContainerService.HintSize="400,720" sap2010:WorkflowViewState.IdRef="Sequence_6">
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                            <ui:LogMessage DisplayName="Log Starting Role" sap:VirtualizedContainerService.HintSize="338,92" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;Starting research for role: &quot; &amp; roleName &amp; &quot; | AbroadMarkets: &quot; &amp; If(String.IsNullOrWhiteSpace(abroadMarkets), &quot;(none)&quot;, abroadMarkets)]" />
+                            <If Condition="[String.IsNullOrWhiteSpace(abroadMarkets) OrElse abroadMarkets.Split(New Char() {&quot;,&quot;c, &quot;;&quot;c}, StringSplitOptions.RemoveEmptyEntries).Select(Function(m) m.Trim()).Where(Function(m) Not String.IsNullOrWhiteSpace(m) AndAlso Not m.Equals(&quot;Indonesia&quot;, StringComparison.OrdinalIgnoreCase) AndAlso Not m.Equals(&quot;None&quot;, StringComparison.OrdinalIgnoreCase) AndAlso Not m.Equals(&quot;-&quot;, StringComparison.OrdinalIgnoreCase)).Count() = 0]" DisplayName="If AbroadMarkets Is Empty in Excel" sap:VirtualizedContainerService.HintSize="338,520" sap2010:WorkflowViewState.IdRef="If_AbroadMarketsCheck">
+                              <If.Then>
+                                <Sequence DisplayName="Skip Abroad Research - No Abroad Country Configured" sap:VirtualizedContainerService.HintSize="376,360" sap2010:WorkflowViewState.IdRef="Sequence_AbroadSkipBlank">
+                                  <sap:WorkflowViewStateService.ViewState>
+                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                    </scg:Dictionary>
+                                  </sap:WorkflowViewStateService.ViewState>
+                                  <ui:LogMessage DisplayName="Log Skip Abroad Search (Blank)" sap:VirtualizedContainerService.HintSize="334,92" sap2010:WorkflowViewState.IdRef="LogMessage_SkipAbroad" Level="Info" Message="[&quot;Skipping 'Searching verified abroad entry-level visa-sponsored jobs' process for &quot; &amp; roleName &amp; &quot; (Abroad country is blank or empty)&quot;]" />
+                                  <Assign DisplayName="Set abroadEvidenceText Empty (No Abroad Country)" sap:VirtualizedContainerService.HintSize="334,82" sap2010:WorkflowViewState.IdRef="Assign_SkipAbroadEv">
+                                    <Assign.To>
+                                      <OutArgument x:TypeArguments="x:String">[abroadEvidenceText]</OutArgument>
+                                    </Assign.To>
+                                    <Assign.Value>
+                                      <InArgument x:TypeArguments="x:String">[""]</InArgument>
+                                    </Assign.Value>
+                                  </Assign>
+                                  <Assign DisplayName="Set abroadCount 0 (No Abroad Country)" sap:VirtualizedContainerService.HintSize="334,82" sap2010:WorkflowViewState.IdRef="Assign_SkipAbroadCnt">
+                                    <Assign.To>
+                                      <OutArgument x:TypeArguments="x:Int32">[abroadCount]</OutArgument>
+                                    </Assign.To>
+                                    <Assign.Value>
+                                      <InArgument x:TypeArguments="x:Int32">[0]</InArgument>
+                                    </Assign.Value>
+                                  </Assign>
+                                  <Assign DisplayName="Set abroadStatus Skipped - no abroad country" sap:VirtualizedContainerService.HintSize="334,82" sap2010:WorkflowViewState.IdRef="Assign_SkipAbroadStatus">
+                                    <Assign.To>
+                                      <OutArgument x:TypeArguments="x:String">[abroadStatus]</OutArgument>
+                                    </Assign.To>
+                                    <Assign.Value>
+                                      <InArgument x:TypeArguments="x:String">["Skipped - no abroad country"]</InArgument>
+                                    </Assign.Value>
+                                  </Assign>
+                                </Sequence>
+                              </If.Then>
+                              <If.Else>
+                                <TryCatch DisplayName="Try Collect Abroad Visa-Sponsored Jobs (Isolated)" sap:VirtualizedContainerService.HintSize="338,320" sap2010:WorkflowViewState.IdRef="TryCatch_Abroad">
+                                  <TryCatch.Try>
+                                    <Sequence DisplayName="Invoke ResearchAbroadJobs and Set Status" sap:VirtualizedContainerService.HintSize="376,280" sap2010:WorkflowViewState.IdRef="Sequence_AbroadTry">
+                                      <sap:WorkflowViewStateService.ViewState>
+                                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                        </scg:Dictionary>
+                                      </sap:WorkflowViewStateService.ViewState>
+                                      <Assign DisplayName="Reset abroadEvidenceText" sap:VirtualizedContainerService.HintSize="334,82" sap2010:WorkflowViewState.IdRef="Assign_ResetAbroadEv">
+                                        <Assign.To>
+                                          <OutArgument x:TypeArguments="x:String">[abroadEvidenceText]</OutArgument>
+                                        </Assign.To>
+                                        <Assign.Value>
+                                          <InArgument x:TypeArguments="x:String">[""]</InArgument>
+                                        </Assign.Value>
+                                      </Assign>
+                                      <Assign DisplayName="Reset abroadCount" sap:VirtualizedContainerService.HintSize="334,82" sap2010:WorkflowViewState.IdRef="Assign_ResetAbroadCnt">
+                                        <Assign.To>
+                                          <OutArgument x:TypeArguments="x:Int32">[abroadCount]</OutArgument>
+                                        </Assign.To>
+                                        <Assign.Value>
+                                          <InArgument x:TypeArguments="x:Int32">[0]</InArgument>
+                                        </Assign.Value>
+                                      </Assign>
+                                      <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke ResearchAbroadJobs Workflow" sap:VirtualizedContainerService.HintSize="334,113" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_Abroad" UnSafe="False" WorkflowFileName="Workflows\ResearchAbroadJobs.xaml">
+                                        <ui:InvokeWorkflowFile.Arguments>
+                                          <InArgument x:TypeArguments="x:String" x:Key="in_RoleName">[roleName]</InArgument>
+                                          <InArgument x:TypeArguments="x:String" x:Key="in_ExtraKeywords">[extraKeywords]</InArgument>
+                                          <InArgument x:TypeArguments="x:String" x:Key="in_AbroadMarkets">[abroadMarkets]</InArgument>
+                                          <OutArgument x:TypeArguments="x:String" x:Key="out_AbroadEvidenceText">[abroadEvidenceText]</OutArgument>
+                                          <OutArgument x:TypeArguments="x:Int32" x:Key="out_AbroadCount">[abroadCount]</OutArgument>
+                                        </ui:InvokeWorkflowFile.Arguments>
+                                      </ui:InvokeWorkflowFile>
+                                      <Assign DisplayName="Set abroadStatus Found or Skipped" sap:VirtualizedContainerService.HintSize="334,82" sap2010:WorkflowViewState.IdRef="Assign_AbroadStatusOk">
+                                        <Assign.To>
+                                          <OutArgument x:TypeArguments="x:String">[abroadStatus]</OutArgument>
+                                        </Assign.To>
+                                        <Assign.Value>
+                                          <InArgument x:TypeArguments="x:String">[If(abroadCount &gt; 0, "Found", "Skipped - none verified")]</InArgument>
+                                        </Assign.Value>
+                                      </Assign>
+                                    </Sequence>
+                                  </TryCatch.Try>
+                                  <TryCatch.Catches>
+                                    <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="400,21" sap2010:WorkflowViewState.IdRef="Catch_Abroad">
+                                      <sap:WorkflowViewStateService.ViewState>
+                                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                        </scg:Dictionary>
+                                      </sap:WorkflowViewStateService.ViewState>
+                                      <ActivityAction x:TypeArguments="s:Exception">
+                                        <ActivityAction.Argument>
+                                          <DelegateInArgument x:TypeArguments="s:Exception" Name="abroadEx" />
+                                        </ActivityAction.Argument>
+                                        <Sequence DisplayName="Handle Abroad Research Error Without Blocking Local Flow" sap:VirtualizedContainerService.HintSize="376,280" sap2010:WorkflowViewState.IdRef="Sequence_AbroadCatch">
+                                          <sap:WorkflowViewStateService.ViewState>
+                                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                            </scg:Dictionary>
+                                          </sap:WorkflowViewStateService.ViewState>
+                                          <Assign DisplayName="Clear abroadEvidenceText on Error" sap:VirtualizedContainerService.HintSize="334,82" sap2010:WorkflowViewState.IdRef="Assign_AbroadEvErr">
+                                            <Assign.To>
+                                              <OutArgument x:TypeArguments="x:String">[abroadEvidenceText]</OutArgument>
+                                            </Assign.To>
+                                            <Assign.Value>
+                                              <InArgument x:TypeArguments="x:String">[""]</InArgument>
+                                            </Assign.Value>
+                                          </Assign>
+                                          <Assign DisplayName="Set abroadCount 0 on Error" sap:VirtualizedContainerService.HintSize="334,82" sap2010:WorkflowViewState.IdRef="Assign_AbroadCntErr">
+                                            <Assign.To>
+                                              <OutArgument x:TypeArguments="x:Int32">[abroadCount]</OutArgument>
+                                            </Assign.To>
+                                            <Assign.Value>
+                                              <InArgument x:TypeArguments="x:Int32">[0]</InArgument>
+                                            </Assign.Value>
+                                          </Assign>
+                                          <Assign DisplayName="Set abroadStatus Error" sap:VirtualizedContainerService.HintSize="334,82" sap2010:WorkflowViewState.IdRef="Assign_AbroadStatusErr">
+                                            <Assign.To>
+                                              <OutArgument x:TypeArguments="x:String">[abroadStatus]</OutArgument>
+                                            </Assign.To>
+                                            <Assign.Value>
+                                              <InArgument x:TypeArguments="x:String">["Error"]</InArgument>
+                                            </Assign.Value>
+                                          </Assign>
+                                        </Sequence>
+                                      </ActivityAction>
+                                    </Catch>
+                                  </TryCatch.Catches>
+                                </TryCatch>
+                              </If.Else>
+                            </If>
+                            <ui:InvokeCode ContinueOnError="{x:Null}" Code="System.IO.Directory.CreateDirectory(in_RoleFolder)&#xA;System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(in_PdfPath))&#xA;Dim apiKey As String = in_GeminiApiKey&#xA;If String.IsNullOrWhiteSpace(apiKey) OrElse apiKey = &quot;AIzaqwertyuiop&quot; Then&#xA;    Dim rootEnv As String = &quot;D:\UiPathProject\JourKa\.env&quot;&#xA;    If System.IO.File.Exists(rootEnv) Then&#xA;        apiKey = System.IO.File.ReadAllLines(rootEnv).Where(Function(l) l.Trim().StartsWith(&quot;GEMINI_API_KEY=&quot;, StringComparison.OrdinalIgnoreCase)).Select(Function(l) l.Trim().Substring(15).Trim()).FirstOrDefault()&#xA;    End If&#xA;End If&#xA;&#xA;Dim emDash As String = ChrW(&amp;H2014)&#xA;Dim modelCandidates As String() = New String() {&quot;gemini-3.5-flash-lite&quot;, &quot;gemini-flash-lite-latest&quot;}&#xA;&#xA;Using client As New System.Net.Http.HttpClient()&#xA;    client.Timeout = TimeSpan.FromSeconds(60)&#xA;    client.DefaultRequestHeaders.Add(&quot;User-Agent&quot;, &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64)&quot;)&#xA;&#xA;    ' 1. Scraping Job Boards SKILLSET for Entry-Level Role (LinkedIn Guest Search + Job Detail API) - UNCHANGED&#xA;    Dim liUrl As String = &quot;https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search?keywords=&quot; &amp; Uri.EscapeDataString(in_RoleName) &amp; &quot;&amp;location=&quot; &amp; Uri.EscapeDataString(in_RoleLocation) &amp; &quot;&amp;f_E=2&amp;start=0&quot;&#xA;    Dim liHtml As String = &quot;&quot;&#xA;    Try&#xA;        liHtml = client.GetStringAsync(liUrl).GetAwaiter().GetResult()&#xA;    Catch&#xA;    End Try&#xA;    Dim jobMatches As System.Text.RegularExpressions.MatchCollection = System.Text.RegularExpressions.Regex.Matches(liHtml, &quot;(?s)data-entity-urn=&quot;&quot;urn:li:jobPosting:(\d+)&quot;&quot;.*?base-search-card__title[^&gt;]*&gt;\s*([^&lt;]+?)\s*&lt;/h3&gt;.*?base-search-card__subtitle[^&gt;]*&gt;\s*(?:&lt;a[^&gt;]*&gt;)?\s*([^&lt;]+?)\s*(?:&lt;/a&gt;)?\s*&lt;/h4&gt;.*?job-search-card__location[^&gt;]*&gt;\s*([^&lt;]+?)\s*&lt;/span&gt;&quot;)&#xA;    Dim jobLines As New System.Collections.Generic.List(Of String)()&#xA;    Dim jIdx As Integer = 1&#xA;    For Each m As System.Text.RegularExpressions.Match In jobMatches&#xA;        If jIdx &gt; 8 Then Exit For&#xA;        Dim jId As String = m.Groups(1).Value.Trim()&#xA;        Dim jTitle As String = System.Net.WebUtility.HtmlDecode(m.Groups(2).Value.Trim())&#xA;        Dim jComp As String = System.Net.WebUtility.HtmlDecode(m.Groups(3).Value.Trim())&#xA;        Dim jLoc As String = System.Net.WebUtility.HtmlDecode(m.Groups(4).Value.Trim())&#xA;        Dim jUrl As String = &quot;https://www.linkedin.com/jobs/view/&quot; &amp; jId&#xA;        Dim jSkillsSnippet As String = &quot;&quot;&#xA;        Try&#xA;            Dim detailHtml As String = client.GetStringAsync(&quot;https://www.linkedin.com/jobs-guest/jobs/api/jobPosting/&quot; &amp; jId).GetAwaiter().GetResult()&#xA;            Dim dm As System.Text.RegularExpressions.Match = System.Text.RegularExpressions.Regex.Match(detailHtml, &quot;(?s)show-more-less-html__markup[^&gt;]*&gt;(.*?)&lt;/div&gt;&quot;)&#xA;            If dm.Success Then&#xA;                Dim rawDesc As String = System.Net.WebUtility.HtmlDecode(System.Text.RegularExpressions.Regex.Replace(dm.Groups(1).Value, &quot;&lt;[^&gt;]+&gt;&quot;, &quot; &quot;))&#xA;                rawDesc = System.Text.RegularExpressions.Regex.Replace(rawDesc, &quot;\s+&quot;, &quot; &quot;).Trim()&#xA;                If rawDesc.Length &gt; 550 Then rawDesc = rawDesc.Substring(0, 550) &amp; &quot;...&quot;&#xA;                jSkillsSnippet = &quot; | Scraped Skillset/Requirements: &quot; &amp; rawDesc&#xA;            End If&#xA;        Catch&#xA;        End Try&#xA;        jobLines.Add(&quot;[J&quot; &amp; jIdx.ToString(&quot;00&quot;) &amp; &quot;] Title: &quot; &amp; jTitle &amp; &quot; | Company: &quot; &amp; jComp &amp; &quot; | Location: &quot; &amp; jLoc &amp; jSkillsSnippet &amp; &quot; | URL: &quot; &amp; jUrl)&#xA;        jIdx += 1&#xA;    Next&#xA;&#xA;    ' 2. Scraping YouTube DAILY ROUTINE of That Role - UNCHANGED&#xA;    Dim ytUrl As String = &quot;https://www.youtube.com/results?search_query=&quot; &amp; Uri.EscapeDataString(&quot;day in the life of &quot; &amp; in_RoleName &amp; &quot; entry level&quot;) &amp; &quot;&amp;hl=en&quot;&#xA;    Dim ytHtml As String = &quot;&quot;&#xA;    Try&#xA;        ytHtml = client.GetStringAsync(ytUrl).GetAwaiter().GetResult()&#xA;    Catch&#xA;    End Try&#xA;    Dim ytBlocks As String() = ytHtml.Split(New String() {&quot;&quot;&quot;videoRenderer&quot;&quot;:{&quot;}, StringSplitOptions.None)&#xA;    Dim ytLines As New System.Collections.Generic.List(Of String)()&#xA;    Dim yIdx As Integer = 1&#xA;    For bIdx As Integer = 1 To ytBlocks.Length - 1&#xA;        If yIdx &gt; 8 Then Exit For&#xA;        Dim blk As String = ytBlocks(bIdx)&#xA;        Dim idM As System.Text.RegularExpressions.Match = System.Text.RegularExpressions.Regex.Match(blk, &quot;^&quot;&quot;videoId&quot;&quot;:&quot;&quot;([^&quot;&quot;]+)&quot;&quot;&quot;)&#xA;        Dim titleM As System.Text.RegularExpressions.Match = System.Text.RegularExpressions.Regex.Match(blk, &quot;&quot;&quot;title&quot;&quot;:\{&quot;&quot;runs&quot;&quot;:\[\{&quot;&quot;text&quot;&quot;:&quot;&quot;([^&quot;&quot;]+)&quot;&quot;\}&quot;)&#xA;        If idM.Success AndAlso titleM.Success Then&#xA;            Dim vId As String = idM.Groups(1).Value.Trim()&#xA;            Dim vTitle As String = titleM.Groups(1).Value.Trim()&#xA;            Dim vSnip As String = &quot;Public day-in-the-life routine video metadata&quot;&#xA;            Dim snipM As System.Text.RegularExpressions.Match = System.Text.RegularExpressions.Regex.Match(blk, &quot;&quot;&quot;detailedMetadataSnippets&quot;&quot;:\[\{&quot;&quot;snippetText&quot;&quot;:\{&quot;&quot;runs&quot;&quot;:\[(.*?)\]\}&quot;)&#xA;            If snipM.Success Then&#xA;                Dim parts As New System.Collections.Generic.List(Of String)()&#xA;                For Each rm As System.Text.RegularExpressions.Match In System.Text.RegularExpressions.Regex.Matches(snipM.Groups(1).Value, &quot;&quot;&quot;text&quot;&quot;:&quot;&quot;([^&quot;&quot;]+)&quot;&quot;&quot;)&#xA;                    parts.Add(rm.Groups(1).Value)&#xA;                Next&#xA;                If parts.Count &gt; 0 Then vSnip = String.Join(&quot;&quot;, parts).Trim()&#xA;            End If&#xA;            Dim vUrl As String = &quot;https://www.youtube.com/watch?v=&quot; &amp; vId&#xA;            ytLines.Add(&quot;[Y&quot; &amp; yIdx.ToString(&quot;00&quot;) &amp; &quot;] Title: &quot; &amp; vTitle &amp; &quot; | Routine Summary: &quot; &amp; vSnip &amp; &quot; | URL: &quot; &amp; vUrl)&#xA;            yIdx += 1&#xA;        End If&#xA;    Next&#xA;&#xA;    ' Helper lambda: call Gemini with model failover&#xA;    Dim callGemini As Func(Of String, String, Integer, String) = Function(sysText As String, usrText As String, maxTok As Integer) As String&#xA;        Dim rJson As String = &quot;{&quot;&quot;system_instruction&quot;&quot;:{&quot;&quot;parts&quot;&quot;:[{&quot;&quot;text&quot;&quot;:&quot; &amp; Newtonsoft.Json.JsonConvert.SerializeObject(sysText) &amp; &quot;}]},&quot;&quot;contents&quot;&quot;:[{&quot;&quot;role&quot;&quot;:&quot;&quot;user&quot;&quot;,&quot;&quot;parts&quot;&quot;:[{&quot;&quot;text&quot;&quot;:&quot; &amp; Newtonsoft.Json.JsonConvert.SerializeObject(usrText) &amp; &quot;}]}],&quot;&quot;generationConfig&quot;&quot;:{&quot;&quot;temperature&quot;&quot;:0.3,&quot;&quot;maxOutputTokens&quot;&quot;:&quot; &amp; maxTok.ToString() &amp; &quot;}}&quot;&#xA;        For Each mdl As String In modelCandidates&#xA;            Try&#xA;                Dim ep As String = &quot;https://generativelanguage.googleapis.com/v1beta/models/&quot; &amp; mdl &amp; &quot;:generateContent&quot;&#xA;                Dim reqMsg As New System.Net.Http.HttpRequestMessage(System.Net.Http.HttpMethod.Post, ep)&#xA;                reqMsg.Headers.Add(&quot;x-goog-api-key&quot;, apiKey)&#xA;                reqMsg.Content = New System.Net.Http.StringContent(rJson, System.Text.Encoding.UTF8, &quot;application/json&quot;)&#xA;                Dim respMsg As System.Net.Http.HttpResponseMessage = client.SendAsync(reqMsg).GetAwaiter().GetResult()&#xA;                Dim respBody As String = respMsg.Content.ReadAsStringAsync().GetAwaiter().GetResult()&#xA;                If respMsg.IsSuccessStatusCode Then&#xA;                    Dim txt As String = Newtonsoft.Json.Linq.JObject.Parse(respBody)(&quot;candidates&quot;)(0)(&quot;content&quot;)(&quot;parts&quot;)(0)(&quot;text&quot;).ToString().Trim()&#xA;                    txt = System.Text.RegularExpressions.Regex.Replace(txt, &quot;^```(?:markdown|md)?\s*&quot;, &quot;&quot;, System.Text.RegularExpressions.RegexOptions.IgnoreCase)&#xA;                    txt = System.Text.RegularExpressions.Regex.Replace(txt, &quot;\s*```$&quot;, &quot;&quot;).Trim()&#xA;                    If Not String.IsNullOrWhiteSpace(txt) Then Return txt&#xA;                End If&#xA;            Catch&#xA;            End Try&#xA;        Next&#xA;        Return &quot;&quot;&#xA;    End Function&#xA;&#xA;    ' 3. Build EN Prompt (8 sections when no abroad evidence; 9 sections when verified abroad evidence exists)&#xA;    Dim hasAbroad As Boolean = (in_AbroadCount &gt; 0 AndAlso Not String.IsNullOrWhiteSpace(in_AbroadEvidenceText))&#xA;&#xA;    Dim editorialRules As String = &quot;EDITORIAL &amp; WRITING QUALITY RULES (CRITICAL): &quot; &amp; _&#xA;        &quot;(1) Write in a warm, articulate, candid, and deeply authoritative mentor voice -- adopting the exact senior professional persona appropriate for &quot; &amp; in_RoleName &amp; &quot; (e.g. Principal Engineer for tech/software, Creative Director for multimedia/design, Clinical Practice Director for healthcare/pharmacy, or Senior Practice Partner for business/finance) personally guiding an ambitious entry-level candidate in Indonesia. &quot; &amp; _&#xA;        &quot;(2) Make the dossier genuinely enjoyable and engaging for a human to read: combine structured reference tables (for quick scanning) with rich, well-explained narrative paragraphs that provide real-world context (why a competency matters in daily production, how a typical workday actually feels, concrete stories of career transitions, and practical insider advice). &quot; &amp; _&#xA;        &quot;(3) Avoid dry telegraphic summaries, shallow one-line bullet points, or robotic AI cliches (never use filler phrases like 'in today's fast-paced digital landscape', 'delve into', 'testament to', or 'moreover'). Whenever you use bullet points, write substantive 2-4 sentence explanations with concrete workplace examples. &quot; &amp; _&#xA;        &quot;(4) Ground every factual claim in the scraped evidence ([J01]..[J08], [Y01]..[Y08], and if provided [A01]..[A08]). Never fabricate URLs, companies, or quotes. Output ONLY clean Markdown without outer triple-backtick fences.&quot;&#xA;&#xA;    Dim commonSections1To7 As String = &quot;# [Role Name] &quot; &amp; emDash &amp; &quot; Entry-Level Career Dossier ([Market]) &quot; &amp; _&#xA;        &quot;## 1. Role Description &amp; Executive Overview (Open with a rich, engaging 2-3 paragraph narrative explaining what this entry-level role actually does behind the scenes in Indonesian companies, agencies, institutions, and high-growth enterprises in this sector -- and how your daily output impacts real end-users, patients, or clients. Detail Core Deliverables and Day-to-Day Collaboration with relevant cross-functional peers and senior mentors. Include a dedicated subsection '### Education &amp; Degree / Qualification [S1/D4] Verdict': state clearly whether a Bachelor's degree (S1/D4) or specific professional certification/license is Required, Strongly Preferred, or Optional in Indonesia; explain target majors and academic foundations that directly translate to workplace success; and provide a realistic guide to Alternative Non-Degree Paths via portfolio proof, industry certifications, bootcamps, and demonstrable projects.) &quot; &amp; _&#xA;        &quot;## 2. Entry-Level Skillset &amp; Core Competency Demand (Synthesize [J01]..[J08] into a comprehensive Markdown table with columns: Competency / Tool, Category, Market Demand Level, Real-World Workplace Usage &amp; Why It Matters, and Source Citations. Follow the table with a rich narrative subsection '### Hiring Manager's Perspective on Core Competencies' explaining how these tools and skills fit together in daily production, which 3-4 competencies carry 80% of hiring interview weight, and common beginner blind spots.) &quot; &amp; _&#xA;        &quot;## 3. What You Need to Learn: Step-by-Step Roadmap &amp; Portfolio Blueprints (Provide a clear visual roadmap diagram followed by thorough narrative walkthroughs of Phase 1 [Weeks 1-6: Core Foundations], Phase 2 [Weeks 7-12: Production Workflows &amp; Architecture], and Phase 3 [Weeks 13-16: Polish, Testing/Review &amp; Deployment/Delivery], explaining how to study effectively and what mastery looks like at each stage. Then detail 3 Concrete, Non-Trivial Portfolio Project Blueprints adapted to this role with real-world problem statements, complete tools/stacks used, workflow/architecture breakdowns, and specific hiring-manager evaluation criteria.) &quot; &amp; _&#xA;        &quot;## 4. Realistic Daily Routine: Day in the Life (Synthesize [Y01]..[Y08] into a detailed hour-by-hour Morning / Midday / Afternoon schedule table with citations, followed by a vivid, multi-paragraph narrative walkthrough of how a typical workday feels -- from morning alignment and deep-work execution blocks to peer collaboration, receiving feedback/critique, handling unforeseen roadblocks, and wrapping up sustainably.) &quot; &amp; _&#xA;        &quot;## 5. Expected Starting Salaries &amp; Career Progression (Provide a realistic Indonesian gross monthly salary table in IDR across [a] Local Startups / Boutique Agencies / SMEs / Local Clinics, [b] Mid-Sized Established Firms / Consultancies / Regional Hospitals, and [c] Top-Tier Unicorns / Multinationals / Conglomerates for Fresh Graduate/Entry-Level [0-1 yr], Junior [1-2 yrs], and Mid-Level [2-4 yrs], citing disclosed J-source data plus practical context on take-home pay, BPJS Ketenagakerjaan/Kesehatan, PPh 21, and THR. Follow with a visual End-to-End Career Journey &amp; Progression Map [Entry-Level -&gt; Junior -&gt; Mid-Level -&gt; Senior -&gt; Lead/Manager/Director] and rich stage-by-stage narrative paragraphs explaining how your scope, mindset, promotion criteria, and compensation evolve at each transition.) &quot; &amp; _&#xA;        &quot;## 6. Career Guidance: Real Pros, Real Cons &amp; Honest Industry Realities (Provide a detailed Pros vs. Cons comparison table, followed by a dedicated subsection '### AI Sentiment &amp; Future Outlook' with in-depth narrative analysis of AI replacement risk vs. augmentation potential in this field, how AI assistants and generative tools shift entry-level hiring expectations from repetitive execution toward verification, critical thinking, and system understanding, and 3-5 year career resilience. Then include '### Honest Industry Realities &amp; Who Thrives vs. Who Struggles' with candid mentor essays on real workplace constraints, the authentic Indonesian interview loop, and the habits of juniors who thrive vs. those who burn out.) &quot; &amp; _&#xA;        &quot;## 7. First 30 / 60 / 90-Day Onboarding Action Plan (Combine a structured milestone overview with a practical, mentor-style narrative playbook for Days 1-30 [Environment/Workspace Setup, Reading Existing Workflows &amp; First Small Wins], Days 31-60 [Independent Execution &amp; Building Team Trust], and Days 61-90 [End-to-End Ownership &amp; Passing Probation with Flying Colors].) &quot;&#xA;&#xA;    Dim sysPrompt As String = &quot;&quot;&#xA;    Dim usrPrompt As String = &quot;&quot;&#xA;    If Not hasAbroad Then&#xA;        sysPrompt = &quot;You are a seasoned Senior Hiring Manager and Career Mentor in Indonesia specializing in &quot; &amp; in_RoleName &amp; &quot;. Transform the raw scraped job-board skillset data ([J01]..[J08]) and YouTube daily routine data ([Y01]..[Y08]) into a thorough, comprehensive, and genuinely enjoyable-to-read GitHub-Flavored Markdown career dossier for an entry-level candidate. &quot; &amp; _&#xA;            editorialRules &amp; &quot; &quot; &amp; _&#xA;            &quot;Strictly include these 8 clearly structured sections: &quot; &amp; _&#xA;            commonSections1To7 &amp; _&#xA;            &quot;## 8. Verified Evidence &amp; Source Register (Full Markdown table listing all [J01]..[J08] and [Y01]..[Y08] sources with ID, Type, Title, Company/Context, and clickable Markdown URL).&quot;&#xA;        usrPrompt = &quot;TARGET ROLE: &quot; &amp; in_RoleName &amp; Environment.NewLine &amp; _&#xA;            &quot;TARGET LEVEL: &quot; &amp; in_RoleLevel &amp; Environment.NewLine &amp; _&#xA;            &quot;TARGET MARKET: &quot; &amp; in_RoleLocation &amp; Environment.NewLine &amp; _&#xA;            &quot;PRIORITY KEYWORDS: &quot; &amp; in_ExtraKeywords &amp; Environment.NewLine &amp; _&#xA;            &quot;RESEARCH DATE: &quot; &amp; DateTime.Now.ToString(&quot;yyyy-MM-dd&quot;) &amp; Environment.NewLine &amp; Environment.NewLine &amp; _&#xA;            &quot;=== SCRAPED JOB BOARDS SKILLSET EVIDENCE (LINKEDIN) ===&quot; &amp; Environment.NewLine &amp; _&#xA;            String.Join(Environment.NewLine, jobLines) &amp; Environment.NewLine &amp; Environment.NewLine &amp; _&#xA;            &quot;=== SCRAPED YOUTUBE DAILY ROUTINE EVIDENCE ===&quot; &amp; Environment.NewLine &amp; _&#xA;            String.Join(Environment.NewLine, ytLines) &amp; Environment.NewLine &amp; Environment.NewLine &amp; _&#xA;            &quot;Write the complete, deeply explained, human-friendly 8-section Markdown dossier now.&quot;&#xA;    Else&#xA;        sysPrompt = &quot;You are a seasoned Senior Hiring Manager and International Career Mentor in Indonesia specializing in &quot; &amp; in_RoleName &amp; &quot;. Transform the raw scraped job-board skillset data ([J01]..[J08]), YouTube daily routine data ([Y01]..[Y08]), and verified abroad visa-sponsored job data ([A01]..[A08]) into a thorough, comprehensive, and genuinely enjoyable-to-read GitHub-Flavored Markdown career dossier for an entry-level candidate. &quot; &amp; _&#xA;            editorialRules &amp; &quot; &quot; &amp; _&#xA;            &quot;Strictly include these 9 clearly structured sections: &quot; &amp; _&#xA;            commonSections1To7 &amp; _&#xA;            &quot;## 8. Abroad Entry-Level Opportunities with Visa Sponsorship (Include: [a] Markdown table of verified postings from [A01]..[A08] for target abroad markets [&quot; &amp; in_AbroadMarkets &amp; &quot;] with columns: ID, Role Title, Company, Country / City, Sponsorship Proof Quote, Salary [only if disclosed, otherwise 'Not disclosed'], and Link; [b] Detailed narrative &amp; country-specific work visa guide strictly for the target abroad countries configured in the Excel row [&quot; &amp; in_AbroadMarkets &amp; &quot;] and present in [A01]..[A08] -- do NOT include visa sections for countries outside [&quot; &amp; in_AbroadMarkets &amp; &quot;] -- labeled as general guidance to verify on official government immigration portals; [c] Candid comparison of international vs. Indonesian hiring bars covering language proficiency, degree recognition, and global technical interviews for [&quot; &amp; in_AbroadMarkets &amp; &quot;]; [d] Practical step-by-step application and relocation checklist for an Indonesian fresh graduate targeting [&quot; &amp; in_AbroadMarkets &amp; &quot;]. Only cite postings in [A01]..[A08]. Never invent abroad jobs, companies, salaries, or URLs.) &quot; &amp; _&#xA;            &quot;## 9. Verified Evidence &amp; Source Register (Full Markdown table listing all [J01]..[J08], [Y01]..[Y08], and [A01]..[A08] sources with ID, Type, Title, Company/Context, and clickable Markdown URL).&quot;&#xA;        usrPrompt = &quot;TARGET ROLE: &quot; &amp; in_RoleName &amp; Environment.NewLine &amp; _&#xA;            &quot;TARGET LEVEL: &quot; &amp; in_RoleLevel &amp; Environment.NewLine &amp; _&#xA;            &quot;TARGET MARKET: &quot; &amp; in_RoleLocation &amp; Environment.NewLine &amp; _&#xA;            &quot;TARGET ABROAD MARKETS (FROM EXCEL): &quot; &amp; in_AbroadMarkets &amp; Environment.NewLine &amp; _&#xA;            &quot;PRIORITY KEYWORDS: &quot; &amp; in_ExtraKeywords &amp; Environment.NewLine &amp; _&#xA;            &quot;RESEARCH DATE: &quot; &amp; DateTime.Now.ToString(&quot;yyyy-MM-dd&quot;) &amp; Environment.NewLine &amp; Environment.NewLine &amp; _&#xA;            &quot;=== SCRAPED JOB BOARDS SKILLSET EVIDENCE (LINKEDIN) ===&quot; &amp; Environment.NewLine &amp; _&#xA;            String.Join(Environment.NewLine, jobLines) &amp; Environment.NewLine &amp; Environment.NewLine &amp; _&#xA;            &quot;=== SCRAPED YOUTUBE DAILY ROUTINE EVIDENCE ===&quot; &amp; Environment.NewLine &amp; _&#xA;            String.Join(Environment.NewLine, ytLines) &amp; Environment.NewLine &amp; Environment.NewLine &amp; _&#xA;            &quot;=== VERIFIED ABROAD VISA-SPONSORED ENTRY-LEVEL EVIDENCE ===&quot; &amp; Environment.NewLine &amp; _&#xA;            in_AbroadEvidenceText &amp; Environment.NewLine &amp; Environment.NewLine &amp; _&#xA;            &quot;Write the complete, deeply explained, human-friendly 9-section Markdown dossier now.&quot;&#xA;    End If&#xA;&#xA;    out_DossierMarkdown = callGemini(sysPrompt, usrPrompt, 16384)&#xA;    If String.IsNullOrWhiteSpace(out_DossierMarkdown) Then&#xA;        out_DossierMarkdown = &quot;# &quot; &amp; in_RoleName &amp; &quot; &quot; &amp; emDash &amp; &quot; Entry-Level Career Dossier (&quot; &amp; in_RoleLocation &amp; &quot;)&quot; &amp; Environment.NewLine &amp; Environment.NewLine &amp; &quot;## 1. Collected Job Evidence&quot; &amp; Environment.NewLine &amp; String.Join(Environment.NewLine, jobLines.Select(Function(x) &quot;- &quot; &amp; x)) &amp; Environment.NewLine &amp; Environment.NewLine &amp; &quot;## 2. Collected YouTube Routine Evidence&quot; &amp; Environment.NewLine &amp; String.Join(Environment.NewLine, ytLines.Select(Function(x) &quot;- &quot; &amp; x))&#xA;    End If&#xA;&#xA;    ' 4. Translate &amp; Adapt EN Dossier to Publication-Grade Bahasa Indonesia (ID) + Structure &amp; URL Validation&#xA;    Dim idSysPrompt As String = &quot;You are a senior Indonesian career journalist, industry practice leader, and mentor. Transform the provided English Markdown career dossier into publication-grade, natural, and deeply engaging Bahasa Indonesia. &quot; &amp; _&#xA;        &quot;EDITORIAL STYLE RULES FOR BAHASA INDONESIA: &quot; &amp; _&#xA;        &quot;(1) Write like a warm, articulate, and distinguished Indonesian mentor speaking directly to an ambitious reader (use natural 'Anda' and active Indonesian phrasing). The prose must flow like high-tier Indonesian professional journalism -- never stiff, literal, or word-for-word machine translation. &quot; &amp; _&#xA;        &quot;(2) Preserve the full depth, thorough narrative paragraphs, real-world examples, and mentor insights from the English dossier without summarizing or shortening any explanation. &quot; &amp; _&#xA;        &quot;(3) Keep standard industry, technical, and professional terms intact in English where Indonesian practitioners naturally use them (e.g., Kotlin, Jetpack Compose, Pull Request, Code Review, CI/CD, REST API, MVVM, Clean Architecture, Coroutines, Debugging, Tech Stack, Timeline, Color Grading, Footage, Compounding, Dispensing, Onboarding, Sprint, Daily Standup, Deployment, Refactoring). &quot; &amp; _&#xA;        &quot;(4) Strictly preserve: exact Markdown structure and exact number of '## ' level-2 headings, all Markdown tables and column counts, all source IDs ([J01], [Y01], [A01], etc.), all URLs verbatim, and all company names, salary figures, and currency codes. &quot; &amp; _&#xA;        &quot;(5) Use natural Indonesian section headings: '## 1. Deskripsi Peran &amp; Ringkasan Eksekutif', '## 2. Kebutuhan Kompetensi &amp; Keahlian Entry-Level', '## 3. Peta Jalan Belajar &amp; Proyek Portofolio', '## 4. Rutinitas Harian Realistis: Keseharian Kerja', '## 5. Estimasi Gaji Awal &amp; Peta Perjalanan Karier', '## 6. Panduan Karier: Pro, Kontra, Sentimen AI &amp; Realita Industri', '## 7. Rencana Aksi Onboarding 30 / 60 / 90 Hari Pertama', and if present '## 8. Peluang Kerja Entry-Level di Luar Negeri dengan Sponsor Visa', plus 'Daftar Bukti &amp; Sumber Terverifikasi'. &quot; &amp; _&#xA;        &quot;Output ONLY clean Markdown without outer triple-backtick code fences.&quot;&#xA;    Dim idUsrPrompt As String = &quot;Adapt and translate the following English Markdown career dossier into rich, natural, publication-grade Bahasa Indonesia while keeping the exact heading count, full narrative depth, table structures, source IDs, and URLs 100% intact:&quot; &amp; Environment.NewLine &amp; Environment.NewLine &amp; out_DossierMarkdown&#xA;&#xA;    Dim enH2Count As Integer = System.Text.RegularExpressions.Regex.Matches(out_DossierMarkdown, &quot;(?m)^##\s+&quot;).Count&#xA;    Dim enUrls As New System.Collections.Generic.HashSet(Of String)(StringComparer.OrdinalIgnoreCase)&#xA;    For Each um As System.Text.RegularExpressions.Match In System.Text.RegularExpressions.Regex.Matches(out_DossierMarkdown, &quot;https?://[^\s\)\]&gt;&quot;&quot;]+&quot;)&#xA;        enUrls.Add(um.Value.TrimEnd(&quot;.&quot;c, &quot;,&quot;c))&#xA;    Next&#xA;&#xA;    out_DossierMarkdownID = &quot;&quot;&#xA;    Dim idJson As String = &quot;{&quot;&quot;system_instruction&quot;&quot;:{&quot;&quot;parts&quot;&quot;:[{&quot;&quot;text&quot;&quot;:&quot; &amp; Newtonsoft.Json.JsonConvert.SerializeObject(idSysPrompt) &amp; &quot;}]},&quot;&quot;contents&quot;&quot;:[{&quot;&quot;role&quot;&quot;:&quot;&quot;user&quot;&quot;,&quot;&quot;parts&quot;&quot;:[{&quot;&quot;text&quot;&quot;:&quot; &amp; Newtonsoft.Json.JsonConvert.SerializeObject(idUsrPrompt) &amp; &quot;}]}],&quot;&quot;generationConfig&quot;&quot;:{&quot;&quot;temperature&quot;&quot;:0.25,&quot;&quot;maxOutputTokens&quot;&quot;:16384}}&quot;&#xA;    For Each mdl As String In modelCandidates&#xA;        Try&#xA;            Dim ep As String = &quot;https://generativelanguage.googleapis.com/v1beta/models/&quot; &amp; mdl &amp; &quot;:generateContent&quot;&#xA;            Dim reqMsg As New System.Net.Http.HttpRequestMessage(System.Net.Http.HttpMethod.Post, ep)&#xA;            reqMsg.Headers.Add(&quot;x-goog-api-key&quot;, apiKey)&#xA;            reqMsg.Content = New System.Net.Http.StringContent(idJson, System.Text.Encoding.UTF8, &quot;application/json&quot;)&#xA;            Dim respMsg As System.Net.Http.HttpResponseMessage = client.SendAsync(reqMsg).GetAwaiter().GetResult()&#xA;            Dim respBody As String = respMsg.Content.ReadAsStringAsync().GetAwaiter().GetResult()&#xA;            If respMsg.IsSuccessStatusCode Then&#xA;                Dim candidateIdMd As String = Newtonsoft.Json.Linq.JObject.Parse(respBody)(&quot;candidates&quot;)(0)(&quot;content&quot;)(&quot;parts&quot;)(0)(&quot;text&quot;).ToString().Trim()&#xA;                candidateIdMd = System.Text.RegularExpressions.Regex.Replace(candidateIdMd, &quot;^```(?:markdown|md)?\s*&quot;, &quot;&quot;, System.Text.RegularExpressions.RegexOptions.IgnoreCase)&#xA;                candidateIdMd = System.Text.RegularExpressions.Regex.Replace(candidateIdMd, &quot;\s*```$&quot;, &quot;&quot;).Trim()&#xA;                Dim idH2Count As Integer = System.Text.RegularExpressions.Regex.Matches(candidateIdMd, &quot;(?m)^##\s+&quot;).Count&#xA;                Dim urlsOk As Boolean = True&#xA;                For Each u As String In enUrls&#xA;                    If candidateIdMd.IndexOf(u, StringComparison.OrdinalIgnoreCase) &lt; 0 Then&#xA;                        urlsOk = False&#xA;                        Exit For&#xA;                    End If&#xA;                Next&#xA;                If Not String.IsNullOrWhiteSpace(candidateIdMd) Then&#xA;                    If idH2Count = enH2Count AndAlso urlsOk Then&#xA;                        out_DossierMarkdownID = candidateIdMd&#xA;                        Exit For&#xA;                    ElseIf String.IsNullOrWhiteSpace(out_DossierMarkdownID) Then&#xA;                        out_DossierMarkdownID = candidateIdMd&#xA;                    End If&#xA;                End If&#xA;            End If&#xA;        Catch&#xA;        End Try&#xA;    Next&#xA;End Using&#xA;&#xA;' 5. Helper lambda: Publish Markdown -> Styled HTML -> Chrome Headless PDF&#xA;Dim publishDossier As Action(Of String, String, String, String, String) = Sub(mdContent As String, mdFile As String, htmlFile As String, pdfFile As String, langCode As String)&#xA;    If String.IsNullOrWhiteSpace(mdContent) Then Return&#xA;    System.IO.File.WriteAllText(mdFile, mdContent, System.Text.Encoding.UTF8)&#xA;    Dim isId As Boolean = String.Equals(langCode, &quot;id&quot;, StringComparison.OrdinalIgnoreCase)&#xA;    Dim docTitleSuffix As String = If(isId, &quot; - Dosier Karier (ID)&quot;, &quot; - Career Dossier (EN)&quot;)&#xA;    Dim bannerSuffix As String = If(isId, &quot;Dosier Intelijen Karier&quot;, &quot;Career Intelligence Dossier&quot;)&#xA;    Dim lblMarket As String = If(isId, &quot;Pasar: &quot;, &quot;Market: &quot;)&#xA;    Dim lblFocus As String = If(isId, &quot;Fokus: &quot;, &quot;Focus: &quot;)&#xA;    Dim lblGen As String = If(isId, &quot;Dibuat: &quot;, &quot;Generated: &quot;)&#xA;    Dim lblLang As String = If(isId, &quot;Bahasa: Indonesia&quot;, &quot;Language: English&quot;)&#xA;    Dim focusPill As String = If(String.IsNullOrWhiteSpace(in_ExtraKeywords), &quot;&quot;, &quot;&lt;span class='pill'&gt;&quot; &amp; System.Net.WebUtility.HtmlEncode(lblFocus &amp; in_ExtraKeywords) &amp; &quot;&lt;/span&gt;&quot;)&#xA;    Dim abroadPill As String = &quot;&quot;&#xA;    If in_AbroadCount &gt; 0 Then&#xA;        Dim abroadTxt As String = If(isId, &quot;Luar Negeri (&quot; &amp; in_AbroadMarkets &amp; &quot;): &quot; &amp; in_AbroadCount.ToString() &amp; &quot; terverifikasi&quot;, &quot;Abroad (&quot; &amp; in_AbroadMarkets &amp; &quot;): &quot; &amp; in_AbroadCount.ToString() &amp; &quot; verified&quot;)&#xA;        abroadPill = &quot;&lt;span class='pill'&gt;&quot; &amp; System.Net.WebUtility.HtmlEncode(abroadTxt) &amp; &quot;&lt;/span&gt;&quot;&#xA;    End If&#xA;    Dim html As String = &quot;&lt;!DOCTYPE html&gt;&lt;html lang='&quot; &amp; langCode &amp; &quot;'&gt;&lt;head&gt;&lt;meta charset='utf-8'&gt;&lt;title&gt;&quot; &amp; System.Net.WebUtility.HtmlEncode(in_RoleName &amp; docTitleSuffix) &amp; &quot;&lt;/title&gt;&quot; &amp; _&#xA;        &quot;&lt;style&gt;&quot; &amp; _&#xA;        &quot;@page { size: A4; margin: 16mm 15mm 16mm 15mm; }&quot; &amp; _&#xA;        &quot;body { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif; line-height: 1.68; color: #1e293b; max-width: 860px; margin: 0 auto; padding: 0; font-size: 13.5px; }&quot; &amp; _&#xA;        &quot;.banner { background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%); color: #ffffff; padding: 24px 28px; border-radius: 10px; margin-bottom: 22px; }&quot; &amp; _&#xA;        &quot;.banner h1 { color: #ffffff; border: none; margin: 0 0 8px 0; padding: 0; font-size: 24px; letter-spacing: -0.3px; }&quot; &amp; _&#xA;        &quot;.banner .meta { font-size: 12.5px; color: #cbd5e1; display: flex; flex-wrap: wrap; gap: 14px; }&quot; &amp; _&#xA;        &quot;.banner .pill { background: rgba(255,255,255,0.14); padding: 3px 10px; border-radius: 999px; font-weight: 600; color: #f8fafc; }&quot; &amp; _&#xA;        &quot;h1 { font-size: 22px; color: #0f172a; border-bottom: 2px solid #cbd5e1; padding-bottom: 6px; margin-top: 24px; }&quot; &amp; _&#xA;        &quot;h2 { font-size: 16.5px; color: #1e3a8a; border-bottom: 1px solid #e2e8f0; padding-bottom: 5px; margin-top: 24px; page-break-after: avoid; }&quot; &amp; _&#xA;        &quot;h3 { font-size: 14.5px; color: #0f172a; margin-top: 18px; page-break-after: avoid; }&quot; &amp; _&#xA;        &quot;p { color: #334155; margin: 10px 0; text-align: left; }&quot; &amp; _&#xA;        &quot;li { color: #334155; margin-bottom: 6px; }&quot; &amp; _&#xA;        &quot;ul, ol { padding-left: 22px; margin: 8px 0 14px 0; }&quot; &amp; _&#xA;        &quot;table { border-collapse: collapse; width: 100%; margin: 14px 0 18px 0; font-size: 12.2px; page-break-inside: auto; }&quot; &amp; _&#xA;        &quot;tr { page-break-inside: avoid; page-break-after: auto; }&quot; &amp; _&#xA;        &quot;th, td { border-collapse: collapse; border: 1px solid #cbd5e1; padding: 8px 10px; text-align: left; vertical-align: top; }&quot; &amp; _&#xA;        &quot;th { background: #f1f5f9; color: #0f172a; font-weight: 700; }&quot; &amp; _&#xA;        &quot;tr:nth-child(even) td { background: #f8fafc; }&quot; &amp; _&#xA;        &quot;blockquote { border-left: 4px solid #2563eb; background: #eff6ff; margin: 14px 0; padding: 10px 14px; border-radius: 0 6px 6px 0; color: #1e3a8a; }&quot; &amp; _&#xA;        &quot;code { background: #f1f5f9; padding: 2px 5px; border-radius: 4px; font-family: Consolas, monospace; font-size: 12px; color: #0f172a; }&quot; &amp; _&#xA;        &quot;a { color: #2563eb; text-decoration: none; word-break: break-all; }&quot; &amp; _&#xA;        &quot;&lt;/style&gt;&lt;script src='https://cdn.jsdelivr.net/npm/marked/marked.min.js'&gt;&lt;/script&gt;&lt;/head&gt;&lt;body&gt;&quot; &amp; _&#xA;        &quot;&lt;div class='banner'&gt;&lt;h1&gt;&quot; &amp; System.Net.WebUtility.HtmlEncode(in_RoleName &amp; &quot; &quot; &amp; emDash &amp; &quot; &quot; &amp; bannerSuffix) &amp; &quot;&lt;/h1&gt;&quot; &amp; _&#xA;        &quot;&lt;div class='meta'&gt;&lt;span class='pill'&gt;Level: &quot; &amp; System.Net.WebUtility.HtmlEncode(in_RoleLevel) &amp; &quot;&lt;/span&gt;&quot; &amp; _&#xA;        &quot;&lt;span class='pill'&gt;&quot; &amp; System.Net.WebUtility.HtmlEncode(lblMarket &amp; in_RoleLocation) &amp; &quot;&lt;/span&gt;&quot; &amp; _&#xA;        focusPill &amp; _&#xA;        &quot;&lt;span class='pill'&gt;&quot; &amp; System.Net.WebUtility.HtmlEncode(lblLang) &amp; &quot;&lt;/span&gt;&quot; &amp; _&#xA;        abroadPill &amp; _&#xA;        &quot;&lt;span class='pill'&gt;&quot; &amp; System.Net.WebUtility.HtmlEncode(lblGen &amp; DateTime.Now.ToString(&quot;yyyy-MM-dd&quot;)) &amp; &quot;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&quot; &amp; _&#xA;        &quot;&lt;div id='c'&gt;&lt;/div&gt;&lt;textarea id='m' style='display:none;'&gt;&quot; &amp; System.Net.WebUtility.HtmlEncode(mdContent) &amp; &quot;&lt;/textarea&gt;&quot; &amp; _&#xA;        &quot;&lt;script&gt;document.getElementById('c').innerHTML=marked.parse(document.getElementById('m').value);&lt;/script&gt;&lt;/body&gt;&lt;/html&gt;&quot;&#xA;    System.IO.File.WriteAllText(htmlFile, html, System.Text.Encoding.UTF8)&#xA;    Dim psi As New System.Diagnostics.ProcessStartInfo(&quot;C:\Program Files\Google\Chrome\Application\chrome.exe&quot;, &quot;--headless --disable-gpu --no-pdf-header-footer --virtual-time-budget=4000 --print-to-pdf=&quot;&quot;&quot; &amp; pdfFile &amp; &quot;&quot;&quot; &quot;&quot;&quot; &amp; htmlFile &amp; &quot;&quot;&quot;&quot;)&#xA;    psi.UseShellExecute = False&#xA;    psi.CreateNoWindow = True&#xA;    Using p As System.Diagnostics.Process = System.Diagnostics.Process.Start(psi)&#xA;        p.WaitForExit(60000)&#xA;    End Using&#xA;    Dim localRolePdf As String = System.IO.Path.Combine(in_RoleFolder, System.IO.Path.GetFileName(pdfFile))&#xA;    If System.IO.File.Exists(pdfFile) AndAlso Not String.Equals(pdfFile, localRolePdf, StringComparison.OrdinalIgnoreCase) Then&#xA;        System.IO.File.Copy(pdfFile, localRolePdf, True)&#xA;    End If&#xA;End Sub&#xA;&#xA;publishDossier(out_DossierMarkdown, in_MarkdownPath, in_HtmlPath, in_PdfPath, &quot;en&quot;)&#xA;If Not String.IsNullOrWhiteSpace(out_DossierMarkdownID) Then&#xA;    publishDossier(out_DossierMarkdownID, in_MarkdownPathID, in_HtmlPathID, in_PdfPathID, &quot;id&quot;)&#xA;End If" DisplayName="Collect Evidence, Call Google AI Studio (EN+ID) &amp; Export PDFs" sap:VirtualizedContainerService.HintSize="338,165" sap2010:WorkflowViewState.IdRef="InvokeCode_1" Language="VBNet">
+                              <ui:InvokeCode.Arguments>
+                                <InArgument x:TypeArguments="x:String" x:Key="in_RoleName">[roleName]</InArgument>
+                                <InArgument x:TypeArguments="x:String" x:Key="in_RoleLevel">[roleLevel]</InArgument>
+                                <InArgument x:TypeArguments="x:String" x:Key="in_RoleLocation">[roleLocation]</InArgument>
+                                <InArgument x:TypeArguments="x:String" x:Key="in_ExtraKeywords">[extraKeywords]</InArgument>
+                                <InArgument x:TypeArguments="x:String" x:Key="in_AbroadMarkets">[abroadMarkets]</InArgument>
+                                <InArgument x:TypeArguments="x:String" x:Key="in_RoleFolder">[roleFolder]</InArgument>
+                                <InArgument x:TypeArguments="x:String" x:Key="in_MarkdownPath">[markdownPath]</InArgument>
+                                <InArgument x:TypeArguments="x:String" x:Key="in_HtmlPath">[htmlPath]</InArgument>
+                                <InArgument x:TypeArguments="x:String" x:Key="in_PdfPath">[pdfPath]</InArgument>
+                                <InArgument x:TypeArguments="x:String" x:Key="in_MarkdownPathID">[markdownPathID]</InArgument>
+                                <InArgument x:TypeArguments="x:String" x:Key="in_HtmlPathID">[htmlPathID]</InArgument>
+                                <InArgument x:TypeArguments="x:String" x:Key="in_PdfPathID">[pdfPathID]</InArgument>
+                                <InArgument x:TypeArguments="x:String" x:Key="in_AbroadEvidenceText">[abroadEvidenceText]</InArgument>
+                                <InArgument x:TypeArguments="x:Int32" x:Key="in_AbroadCount">[abroadCount]</InArgument>
+                                <InArgument x:TypeArguments="x:String" x:Key="in_GeminiApiKey">[geminiApiKey]</InArgument>
+                                <InArgument x:TypeArguments="x:String" x:Key="in_GeminiEndpoint">[geminiEndpoint]</InArgument>
+                                <OutArgument x:TypeArguments="x:String" x:Key="out_DossierMarkdown">[dossierMarkdown]</OutArgument>
+                                <OutArgument x:TypeArguments="x:String" x:Key="out_DossierMarkdownID">[dossierMarkdownID]</OutArgument>
+                              </ui:InvokeCode.Arguments>
+                            </ui:InvokeCode>
+                            <ui:LogMessage DisplayName="Log Role Dossier Completed" sap:VirtualizedContainerService.HintSize="338,92" sap2010:WorkflowViewState.IdRef="LogMessage_RoleCompleted" Level="Info" Message="[&quot;Completed role: &quot; &amp; roleName &amp; &quot; | AbroadStatus: &quot; &amp; abroadStatus &amp; &quot; (&quot; &amp; abroadCount.ToString() &amp; &quot;) | EN PDF: &quot; &amp; pdfPath &amp; &quot; | ID PDF: &quot; &amp; pdfPathID]" />
+                          </Sequence>
+                        </TryCatch.Try>
+                        <TryCatch.Catches>
+                          <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="404,21" sap2010:WorkflowViewState.IdRef="Catch`1_1">
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                            <ActivityAction x:TypeArguments="s:Exception">
+                              <ActivityAction.Argument>
+                                <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+                              </ActivityAction.Argument>
+                              <Sequence DisplayName="Handle Role Error" sap:VirtualizedContainerService.HintSize="400,200" sap2010:WorkflowViewState.IdRef="Sequence_7">
+                                <sap:WorkflowViewStateService.ViewState>
+                                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                  </scg:Dictionary>
+                                </sap:WorkflowViewStateService.ViewState>
+                                <ui:LogMessage DisplayName="Log Redacted Role Error" sap:VirtualizedContainerService.HintSize="338,92" sap2010:WorkflowViewState.IdRef="LogMessage_RoleError" Level="Error" Message="[&quot;Failed role: &quot; &amp; roleName &amp; &quot; | Error: &quot; &amp; If(String.IsNullOrWhiteSpace(geminiApiKey), exception.Message, exception.Message.Replace(geminiApiKey, &quot;[REDACTED]&quot;))]" />
+                              </Sequence>
+                            </ActivityAction>
+                          </Catch>
+                        </TryCatch.Catches>
+                      </TryCatch>
+                    </If.Else>
+                  </If>
+                </Sequence>
+              </If.Else>
+            </If>
+          </Sequence>
+        </ActivityAction>
+      </ui:ForEachRow.Body>
+    </ui:ForEachRow>
+  </Sequence>
+</Activity>

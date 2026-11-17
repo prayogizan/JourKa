@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "anchor-search-steps.schema.json",
+  "title": "Anchor search steps",
+  "description": "Value of --search-steps on supported commands that work with anchors.",
+  "type": "object",
+  "additionalProperties": false,
+  "minProperties": 1,
+  "properties": {
+    "strictSelector": {
+      "description": "Strict (full) selector. Mutually exclusive with 'fuzzySelector'.",
+      "$ref": "search-steps.schema.json#/$defs/selectorMethod"
+    },
+    "fuzzySelector": {
+      "description": "Fuzzy selector. Mutually exclusive with 'strictSelector'.",
+      "$ref": "search-steps.schema.json#/$defs/selectorMethod"
+    },
+    "cv": {
+      "description": "Computer Vision.",
+      "$ref": "search-steps.schema.json#/$defs/cvMethod"
+    },
+    "image": {
+      "description": "Image matching.",
+      "$ref": "search-steps.schema.json#/$defs/imageMethod"
+    }
+  }
+}
