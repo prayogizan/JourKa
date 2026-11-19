@@ -102,6 +102,8 @@ JourKa/
     ├── AGENTS.md                                 # Agentic development & validation rules
     ├── Input/
     │   └── Desire Role List.xlsx                 # Sample input workbook copy
+    ├── Templates/                                # Decoupled HTML templates
+    │   └── DossierInteractiveTemplate.html       # Interactive Web Frontend v2 template (token-injected)
     ├── Workflows/                                # Modular sub-workflows
     │   ├── ResearchAbroadJobs.xaml               # Verified abroad visa-sponsored entry-level job scraper (Invoked by Main.xaml)
     │   ├── ResearchJobBoards.xaml                # Standalone LinkedIn Guest Search reference workflow
