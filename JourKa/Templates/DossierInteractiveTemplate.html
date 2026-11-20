@@ -967,6 +967,7 @@
     }
 
     @media (prefers-reduced-motion: no-preference) {
+
       .dossier-section.is-bento-highlight,
       .dossier-card.is-bento-highlight {
         animation: jourka-bento-pulse 1.2s ease-out 1;
@@ -1234,11 +1235,635 @@
       min-width: 0;
     }
 
-    .section-body-content > :first-child {
+    .section-body-content> :first-child {
       margin-top: 0;
     }
 
-    .section-body-content > :last-child {
+    .section-body-content> :last-child {
+      margin-bottom: 0;
+    }
+
+    /* Tier 2 Intra-Section Expandables (JK-FE-007) */
+    .blueprint-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .blueprint-card {
+      background: var(--bg-canvas);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: visible;
+      transition: border-color 150ms ease, box-shadow 150ms ease;
+    }
+
+    .blueprint-card[data-expanded="false"]:hover {
+      border-color: var(--accent);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .blueprint-header {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 14px 16px;
+      cursor: pointer;
+    }
+
+    .blueprint-card[data-expanded="true"] .blueprint-header {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .blueprint-header:has(.blueprint-toggle:focus-visible) {
+      outline: 3px solid var(--accent);
+      outline-offset: -3px;
+      border-radius: var(--radius-md);
+    }
+
+    .blueprint-header-top {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .blueprint-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 0.71875rem;
+      font-weight: 700;
+      color: var(--accent);
+      background: var(--accent-soft);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 2px 7px;
+      line-height: 1.3;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .dossier-content h4.blueprint-title {
+      margin: 0;
+      padding: 0;
+      font-size: 0.9375rem;
+      line-height: 1.4;
+      color: var(--ink-primary);
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    .blueprint-toggle {
+      appearance: none;
+      border: 0;
+      background: transparent;
+      color: inherit;
+      font: inherit;
+      text-align: left;
+      padding: 0;
+      margin: 0;
+      cursor: pointer;
+      display: inline;
+    }
+
+    .blueprint-toggle::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+    }
+
+    .blueprint-toggle:focus-visible {
+      outline: none;
+    }
+
+    @supports not selector(:has(*)) {
+      .blueprint-toggle:focus-visible {
+        outline: 3px solid var(--accent);
+        outline-offset: 2px;
+        border-radius: var(--radius-sm);
+      }
+    }
+
+    .blueprint-chevron {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      inline-size: 22px;
+      block-size: 22px;
+      color: var(--ink-muted-subtle);
+      flex-shrink: 0;
+      margin-left: auto;
+    }
+
+    .blueprint-chevron svg {
+      inline-size: 16px;
+      block-size: 16px;
+      transform: rotate(0deg);
+    }
+
+    .blueprint-card[data-expanded="true"] .blueprint-chevron svg {
+      transform: rotate(180deg);
+    }
+
+    .dossier-content p.blueprint-preview-problem {
+      margin: 0;
+      font-size: 0.8125rem;
+      line-height: 1.45;
+      color: var(--ink-body);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      line-clamp: 2;
+      overflow: hidden;
+    }
+
+    .blueprint-card[data-expanded="true"] .blueprint-preview-problem {
+      display: none;
+    }
+
+    .blueprint-stack-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      min-width: 0;
+    }
+
+    .blueprint-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 8px;
+      border-radius: var(--radius-pill);
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      color: var(--ink-primary);
+      font-size: 0.6875rem;
+      font-weight: 600;
+      line-height: 1.35;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .blueprint-pill--more {
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    .blueprint-body-wrap,
+    .deepdive-rest-wrap {
+      display: grid;
+      grid-template-rows: 0fr;
+      opacity: 0;
+    }
+
+    .blueprint-card[data-expanded="true"] .blueprint-body-wrap,
+    .deepdive-block[data-expanded="true"] .deepdive-rest-wrap {
+      grid-template-rows: 1fr;
+      opacity: 1;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+
+      .blueprint-body-wrap,
+      .deepdive-rest-wrap {
+        transition: grid-template-rows 240ms cubic-bezier(0.22, 1, 0.36, 1), opacity 190ms ease;
+      }
+
+      .blueprint-chevron svg {
+        transition: transform 200ms cubic-bezier(0.22, 1, 0.36, 1);
+      }
+    }
+
+    .blueprint-body-inner,
+    .deepdive-rest-inner {
+      overflow: hidden;
+      min-block-size: 0;
+    }
+
+    .blueprint-body-content {
+      padding: 14px 16px 16px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .blueprint-field {
+      font-size: 0.875rem;
+      line-height: 1.6;
+      color: var(--ink-body);
+    }
+
+    .blueprint-field> :first-child {
+      margin-top: 0;
+    }
+
+    .blueprint-field> :last-child {
+      margin-bottom: 0;
+    }
+
+    .blueprint-eval-box {
+      background: var(--emerald-soft);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--emerald);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .blueprint-eval-title {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--emerald-text);
+    }
+
+    .blueprint-eval-title svg {
+      inline-size: 15px;
+      block-size: 15px;
+      flex-shrink: 0;
+    }
+
+    .blueprint-eval-body {
+      font-size: 0.875rem;
+      line-height: 1.55;
+      color: var(--ink-primary);
+    }
+
+    /* 30 / 60 / 90-Day Onboarding Playbook */
+    .onboarding-playbook {
+      margin-top: 14px;
+      background: var(--bg-canvas);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .onboarding-header {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .onboarding-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .onboarding-progress-label {
+      font-size: 0.8125rem;
+      font-weight: 700;
+      color: var(--ink-primary);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .onboarding-reset-btn {
+      appearance: none;
+      border: 1px solid var(--border-control);
+      background: var(--bg-surface);
+      color: var(--ink-muted-subtle);
+      border-radius: var(--radius-pill);
+      padding: 3px 10px;
+      font-family: inherit;
+      font-size: 0.71875rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .onboarding-reset-btn:hover {
+      background: var(--bg-subtle);
+      color: var(--ink-primary);
+    }
+
+    .onboarding-progress-track {
+      block-size: 8px;
+      border-radius: var(--radius-pill);
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .onboarding-progress-fill {
+      block-size: 100%;
+      inline-size: 0%;
+      background: var(--emerald);
+      border-radius: inherit;
+      transition: inline-size 200ms ease;
+    }
+
+    .onboarding-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 4px;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+    }
+
+    .onboarding-tab {
+      appearance: none;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--ink-muted-subtle);
+      font-family: inherit;
+      font-size: 0.78125rem;
+      font-weight: 600;
+      padding: 7px 12px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      min-block-size: 34px;
+      flex: 1 1 auto;
+    }
+
+    .onboarding-tab:hover {
+      color: var(--ink-primary);
+      background: var(--bg-surface);
+    }
+
+    .onboarding-tab[aria-selected="true"] {
+      background: var(--bg-surface);
+      color: var(--ink-primary);
+      border-color: var(--border);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .onboarding-tab-count {
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
+      font-weight: 700;
+      padding: 1px 6px;
+      border-radius: var(--radius-pill);
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      color: var(--ink-muted-subtle);
+    }
+
+    .onboarding-tab[aria-selected="true"] .onboarding-tab-count {
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    .onboarding-panels {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .onboarding-panel[hidden] {
+      display: none;
+    }
+
+    .dossier-content h3.onboarding-phase-title {
+      margin: 0 0 10px 0;
+      font-size: 0.9375rem;
+      color: var(--ink-primary);
+    }
+
+    .dossier-content p.phase-focus {
+      margin: 0 0 10px 0;
+      padding: 9px 12px;
+      border-radius: var(--radius-sm);
+      background: var(--accent-soft);
+      border-left: 3px solid var(--accent);
+      font-size: 0.8125rem;
+      color: var(--ink-primary);
+    }
+
+    .onboarding-checklist {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px 12px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: background-color 140ms ease, border-color 140ms ease;
+    }
+
+    .check-item:hover {
+      border-color: var(--accent);
+    }
+
+    .check-item.is-checked {
+      background: var(--emerald-soft);
+      border-color: var(--emerald);
+    }
+
+    .check-input {
+      margin: 3px 0 0 0;
+      inline-size: 17px;
+      block-size: 17px;
+      flex-shrink: 0;
+      accent-color: var(--emerald);
+      cursor: pointer;
+    }
+
+    .check-text {
+      font-size: 0.875rem;
+      line-height: 1.55;
+      color: var(--ink-body);
+      min-width: 0;
+      flex: 1 1 auto;
+    }
+
+    .check-item.is-checked .check-text {
+      color: var(--ink-muted-subtle);
+      text-decoration: line-through;
+      text-decoration-thickness: 1.5px;
+    }
+
+    /* Mentor Deep-Dive Expander */
+    .deepdive-block {
+      margin: 10px 0;
+    }
+
+    .deepdive-rest> :first-child {
+      margin-top: 8px;
+    }
+
+    .deepdive-rest> :last-child {
+      margin-bottom: 8px;
+    }
+
+    .deepdive-toggle {
+      appearance: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 6px;
+      padding: 6px 13px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border-control);
+      background: var(--bg-subtle);
+      color: var(--accent);
+      font-family: inherit;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      cursor: pointer;
+      min-block-size: 34px;
+      transition: background-color 140ms ease, border-color 140ms ease;
+    }
+
+    .deepdive-toggle:hover {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+    }
+
+    /* Semantic Verdict & AI Sentiment Callout Cards */
+    .semantic-callout {
+      margin: 14px 0;
+      padding: 16px 18px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      border-left-width: 4px;
+      background: var(--bg-canvas);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .semantic-callout--verdict[data-verdict-tier="required"] {
+      border-left-color: var(--rose);
+      background: var(--rose-soft);
+    }
+
+    .semantic-callout--verdict[data-verdict-tier="preferred"],
+    .semantic-callout--verdict[data-verdict-tier="neutral"] {
+      border-left-color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    .semantic-callout--verdict[data-verdict-tier="optional"] {
+      border-left-color: var(--emerald);
+      background: var(--emerald-soft);
+    }
+
+    .semantic-callout--ai {
+      border-left-color: var(--amber);
+      background: var(--amber-soft);
+    }
+
+    .callout-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .callout-header-main {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      min-width: 0;
+      flex: 1 1 auto;
+    }
+
+    .callout-icon {
+      inline-size: 28px;
+      block-size: 28px;
+      border-radius: var(--radius-sm);
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--accent);
+    }
+
+    .semantic-callout--verdict[data-verdict-tier="required"] .callout-icon {
+      color: var(--rose-text);
+    }
+
+    .semantic-callout--verdict[data-verdict-tier="optional"] .callout-icon {
+      color: var(--emerald-text);
+    }
+
+    .semantic-callout--ai .callout-icon {
+      color: var(--amber-text);
+    }
+
+    .callout-icon svg {
+      inline-size: 16px;
+      block-size: 16px;
+    }
+
+    .dossier-content h3.callout-title {
+      margin: 0;
+      font-size: 0.96875rem;
+      color: var(--ink-primary);
+      min-width: 0;
+    }
+
+    .callout-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 9px;
+      border-radius: var(--radius-pill);
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      font-size: 0.71875rem;
+      font-weight: 700;
+      color: var(--ink-primary);
+      white-space: nowrap;
+    }
+
+    .semantic-callout--ai .callout-badge {
+      color: var(--amber-text);
+      border-color: var(--amber);
+    }
+
+    .semantic-callout--verdict[data-verdict-tier="required"] .callout-badge {
+      color: var(--rose-text);
+      border-color: var(--rose);
+    }
+
+    .semantic-callout--verdict[data-verdict-tier="optional"] .callout-badge {
+      color: var(--emerald-text);
+      border-color: var(--emerald);
+    }
+
+    .semantic-callout--verdict[data-verdict-tier="preferred"] .callout-badge {
+      color: var(--accent-hover);
+      border-color: var(--accent);
+    }
+
+    .callout-body> :first-child {
+      margin-top: 0;
+    }
+
+    .callout-body> :last-child {
       margin-bottom: 0;
     }
 
@@ -1390,6 +2015,28 @@
       .section-body-content {
         padding: 14px 16px 18px 16px;
       }
+
+      .blueprint-header {
+        padding: 12px 14px;
+      }
+
+      .blueprint-body-content {
+        padding: 12px 14px 14px 14px;
+      }
+
+      .onboarding-playbook {
+        padding: 12px;
+      }
+
+      .onboarding-tab {
+        flex: 1 1 calc(50% - 6px);
+        font-size: 0.75rem;
+        padding: 6px 8px;
+      }
+
+      .semantic-callout {
+        padding: 14px;
+      }
     }
 
     @media (pointer: coarse) {
@@ -1411,6 +2058,16 @@
         min-inline-size: 28px;
         min-block-size: 28px;
       }
+
+      .onboarding-tab,
+      .deepdive-toggle {
+        min-block-size: 42px;
+      }
+
+      .check-input {
+        inline-size: 20px;
+        block-size: 20px;
+      }
     }
 
     @media (forced-colors: active) {
@@ -1430,11 +2087,20 @@
       .toc-fab,
       .bento-card,
       .bento-badge,
-      .bento-pill {
+      .bento-pill,
+      .blueprint-card,
+      .blueprint-pill,
+      .onboarding-playbook,
+      .onboarding-tab[aria-selected="true"],
+      .check-item,
+      .deepdive-toggle,
+      .semantic-callout,
+      .callout-badge {
         border: 1px solid CanvasText;
       }
 
-      .card-header:has(.section-toggle:focus-visible) {
+      .card-header:has(.section-toggle:focus-visible),
+      .blueprint-header:has(.blueprint-toggle:focus-visible) {
         outline: 3px solid Highlight;
       }
 
@@ -1469,7 +2135,12 @@
       .app-footer,
       .bento-footer,
       .section-preview,
-      .card-chevron {
+      .card-chevron,
+      .onboarding-tabs,
+      .onboarding-reset-btn,
+      .deepdive-toggle,
+      .blueprint-chevron,
+      .blueprint-preview-problem {
         display: none !important;
       }
 
@@ -1480,17 +2151,25 @@
       }
 
       .bento-card,
-      .dossier-card {
+      .dossier-card,
+      .blueprint-card,
+      .semantic-callout,
+      .onboarding-playbook {
         box-shadow: none;
         break-inside: avoid;
       }
 
-      .section-body-wrap {
+      .section-body-wrap,
+      .blueprint-body-wrap,
+      .deepdive-rest-wrap {
         grid-template-rows: 1fr !important;
         opacity: 1 !important;
       }
 
-      .section-body-inner[hidden] {
+      .section-body-inner[hidden],
+      .blueprint-body-inner[hidden],
+      .deepdive-rest-inner[hidden],
+      .onboarding-panel[hidden] {
         display: block !important;
         content-visibility: visible !important;
       }
@@ -3912,6 +4591,14 @@
           targetId = rawHash.slice(1);
         }
         var targetEl = document.getElementById(targetId);
+        if (targetEl && typeof revealElement === 'function' && revealElement(targetEl)) {
+          if (opts && opts.scroll) {
+            window.requestAnimationFrame(function () {
+              targetEl.scrollIntoView({ behavior: 'auto', block: 'start' });
+            });
+          }
+          return true;
+        }
         var card = targetEl ? (targetEl.classList.contains('dossier-card') ? targetEl : targetEl.closest('.dossier-card')) : resolveSectionCard(targetId);
         if (!card) return false;
         setSectionExpanded(card.id, true, { animate: false, persist: true, source: 'hash' });
@@ -4080,6 +4767,10 @@
         populateBasicToc(mountTarget);
 
         mountTarget.addEventListener('beforematch', function (ev) {
+          if (typeof revealElement === 'function' && ev.target) {
+            revealElement(ev.target);
+            return;
+          }
           var matchedCard = ev.target && ev.target.closest ? ev.target.closest('.dossier-card') : null;
           if (matchedCard) {
             setSectionExpanded(matchedCard.id, true, { animate: false, persist: true, source: 'beforematch' });
@@ -4105,6 +4796,1265 @@
       if (bentoRoot && normalizedResult.sections.length > 0) {
         renderBentoGrid(bentoRoot, bentoData, lang);
       }
+
+      /* Tier 2 Intra-Section Expandables (JK-FE-007) */
+      var TIER2_I18N = {
+        en: {
+          blueprintStackLabel: 'Tech stack & tools',
+          blueprintEvalLabel: 'Hiring Manager Evaluation Criteria',
+          onboardingTabsLabel: '30/60/90-day onboarding phases',
+          phase1Tab: 'Phase 1: Days 1\u201330',
+          phase2Tab: 'Phase 2: Days 31\u201360',
+          phase3Tab: 'Phase 3: Days 61\u201390',
+          allPhasesTab: 'All Phases',
+          progressLabel: function (done, total) { return done + ' / ' + total + ' Milestones Completed'; },
+          resetChecks: 'Reset',
+          deepdiveMore: function (n) { return 'Read full mentor commentary (+' + n + (n === 1 ? ' paragraph' : ' paragraphs') + ') \u2193'; },
+          deepdiveLess: 'Show less mentor commentary \u2191',
+          aiCalloutBadge: 'AI Impact & Outlook'
+        },
+        id: {
+          blueprintStackLabel: 'Tech stack & alat',
+          blueprintEvalLabel: 'Kriteria Evaluasi Manajer Perekrutan',
+          onboardingTabsLabel: 'Fase onboarding 30/60/90 hari',
+          phase1Tab: 'Fase 1: Hari 1\u201330',
+          phase2Tab: 'Fase 2: Hari 31\u201360',
+          phase3Tab: 'Fase 3: Hari 61\u201390',
+          allPhasesTab: 'Semua Fase',
+          progressLabel: function (done, total) { return done + ' / ' + total + ' Pencapaian Selesai'; },
+          resetChecks: 'Reset',
+          deepdiveMore: function (n) { return 'Baca ulasan lengkap mentor (+' + n + ' paragraf) \u2193'; },
+          deepdiveLess: 'Ringkas ulasan mentor \u2191',
+          aiCalloutBadge: 'Dampak & Prospek AI'
+        }
+      };
+
+      var TIER2_ICONS = {
+        evalCheck: '<path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>',
+        verdictCap: '<path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>',
+        aiSparkles: '<path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"/><path d="M19 15l.9 2.1L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.9L19 15z"/>'
+      };
+
+      var checkStorageKey = 'jourka_check_' + slugifyRole(roleName) + '_' + lang;
+      var tier2State = {
+        blueprints: [],
+        deepdives: [],
+        playbook: null,
+        callouts: [],
+        checkIds: [],
+        checks: {}
+      };
+
+      function isReducedMotion() {
+        try {
+          return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+        } catch (e) {
+          return false;
+        }
+      }
+
+      function setCollapsibleState(container, wrap, inner, toggleBtn, expanded, opts) {
+        if (!container || !wrap || !inner) return false;
+        var next = !!expanded;
+        var was = container.getAttribute('data-expanded') === 'true';
+        var animate = !opts || opts.animate !== false;
+        var reduced = isReducedMotion();
+
+        if (next) {
+          inner.removeAttribute('hidden');
+          if (!was && animate && !reduced) {
+            void wrap.offsetHeight;
+          }
+          container.setAttribute('data-expanded', 'true');
+          if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'true');
+        } else {
+          container.setAttribute('data-expanded', 'false');
+          if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'false');
+          var transitions = (animate && !reduced && typeof wrap.getAnimations === 'function')
+            ? wrap.getAnimations().filter(function (a) { return typeof CSSTransition !== 'undefined' ? (a instanceof CSSTransition) : true; })
+            : [];
+          if (transitions.length > 0) {
+            Promise.all(transitions.map(function (tr) {
+              return tr.finished.catch(function () { });
+            })).then(function () {
+              if (container.getAttribute('data-expanded') === 'false') {
+                inner.setAttribute('hidden', 'until-found');
+              }
+            });
+          } else {
+            inner.setAttribute('hidden', 'until-found');
+          }
+        }
+        return true;
+      }
+
+      function getLeadElement(liEl) {
+        if (!liEl || liEl.nodeType !== 1) return null;
+        var children = liEl.children;
+        for (var i = 0; i < children.length; i++) {
+          var ch = children[i];
+          if (ch.tagName === 'STRONG' || ch.tagName === 'EM' || ch.tagName === 'B') return ch;
+          if (ch.tagName === 'P') {
+            var pFirst = ch.firstElementChild;
+            if (pFirst && (pFirst.tagName === 'STRONG' || pFirst.tagName === 'EM' || pFirst.tagName === 'B')) {
+              return pFirst;
+            }
+          }
+        }
+        return null;
+      }
+
+      function getDirectSubList(liEl) {
+        if (!liEl || liEl.nodeType !== 1) return null;
+        for (var i = 0; i < liEl.children.length; i++) {
+          var ch = liEl.children[i];
+          if (ch.tagName === 'UL' || ch.tagName === 'OL') return ch;
+        }
+        return null;
+      }
+
+      function cloneLiWithoutSubList(liEl) {
+        var wrapper = document.createElement('div');
+        var kids = liEl.childNodes;
+        for (var i = 0; i < kids.length; i++) {
+          var node = kids[i];
+          if (node.nodeType === 1 && (node.tagName === 'UL' || node.tagName === 'OL')) continue;
+          wrapper.appendChild(node.cloneNode(true));
+        }
+        if (wrapper.children.length === 1 && wrapper.firstElementChild.tagName === 'P' && wrapper.childNodes.length === 1) {
+          var p = wrapper.firstElementChild;
+          var inner = document.createElement('div');
+          while (p.firstChild) inner.appendChild(p.firstChild);
+          return inner;
+        }
+        return wrapper;
+      }
+
+      function stripBlueprintPrefix(rawTitle) {
+        var clean = String(rawTitle || '').replace(/\s*\[[JYA]\d{2,}(?:\s*[,\-\u2013]\s*[JYA]?\d{2,})*\]/g, '').trim();
+        var stripped = clean.replace(/^(?:(?:Concrete\s+)?(?:Portfolio\s+)?(?:Project\s+Blueprint|Blueprint\s+Proyek|Cetak\s+Biru\s+Proyek|Project|Proyek|Blueprint|Cetak\s+Biru)\s*(?:\d+|[A-C])\s*[:.\-\u2013\u2014]\s*)/i, '');
+        return stripped.trim() || clean;
+      }
+
+      function splitTopLevelCommas(str) {
+        var parts = [];
+        var buf = '';
+        var depth = 0;
+        for (var i = 0; i < str.length; i++) {
+          var ch = str.charAt(i);
+          if (ch === '(') depth++;
+          else if (ch === ')' && depth > 0) depth--;
+          if (ch === ',' && depth === 0) {
+            if (buf.trim()) parts.push(buf.trim());
+            buf = '';
+          } else {
+            buf += ch;
+          }
+        }
+        if (buf.trim()) parts.push(buf.trim());
+        return parts;
+      }
+
+      function extractTechStackPills(rawText) {
+        var text = String(rawText || '')
+          .replace(/^(?:Tech\s*Stack|Tools?\s*(?:&|and|dan)?\s*Stacks?(?:\s+Used|\s+yang\s+Digunakan)?|Alat\s*(?:&|dan)?\s*Stack(?:\s+yang\s+Digunakan)?)\s*:\s*/i, '')
+          .replace(/\s*\[[JYA]\d{2,}(?:\s*[,\-\u2013]\s*[JYA]?\d{2,})*\]/g, '')
+          .replace(/\.$/, '')
+          .trim();
+        if (!text) return { pills: [], extraCount: 0 };
+
+        var rawItems = splitTopLevelCommas(text);
+        var seen = Object.create(null);
+        var cleanedAll = [];
+        for (var i = 0; i < rawItems.length; i++) {
+          var item = rawItems[i]
+            .replace(/^\s*(?:and|dan|serta)\s+/i, '')
+            .replace(/\s*\((?:for|untuk|e\.g\.|misalnya|seperti)[^)]*\)/gi, '')
+            .replace(/\s+(?:for|untuk)\s+(?:background|unduhan|testing|pengujian|graphing|logging)\b[^,]*/gi, '')
+            .replace(/\s+/g, ' ')
+            .replace(/[.,;:\s]+$/, '')
+            .trim();
+          if (!item) continue;
+          if (item.length > 34) {
+            var parenIdx = item.indexOf('(');
+            if (parenIdx > 4) item = item.slice(0, parenIdx).trim();
+          }
+          if (item.length > 36) {
+            var slice = item.slice(0, 34);
+            var sp = slice.lastIndexOf(' ');
+            item = (sp > 16 ? slice.slice(0, sp) : slice) + '\u2026';
+          }
+          var key = item.toLowerCase();
+          var isSubsetDup = false;
+          if (seen[key]) {
+            isSubsetDup = true;
+          } else {
+            for (var existingKey in seen) {
+              if (Object.prototype.hasOwnProperty.call(seen, existingKey) && existingKey.indexOf(key + ' ') === 0) {
+                isSubsetDup = true;
+                break;
+              }
+            }
+          }
+          if (!isSubsetDup) {
+            seen[key] = true;
+            cleanedAll.push(item);
+          }
+        }
+        return {
+          pills: cleanedAll.slice(0, 4),
+          extraCount: Math.max(0, cleanedAll.length - 4)
+        };
+      }
+
+      function classifyBlueprintField(leadText) {
+        var s = String(leadText || '').toLowerCase();
+        if (/problem\s*statement|pernyataan\s*masalah/.test(s)) return 'problem';
+        if (/tech\s*stack|tools?|alat/.test(s)) return 'stack';
+        if (/evaluat|kriteria\s*evaluasi|hiring\s*manager/.test(s)) return 'criteria';
+        if (/workflow|architecture|arsitektur|alur\s*kerja/.test(s)) return 'architecture';
+        return 'other';
+      }
+
+      function buildBlueprintCard(proj, idx, langCode) {
+        var lc = langCode === 'id' ? 'id' : 'en';
+        var t2 = TIER2_I18N[lc];
+        var cardId = 'blueprint-' + (idx + 1);
+        var bodyId = 'blueprint-body-' + (idx + 1);
+        var badgeLabel = 'P' + (idx + 1);
+
+        var card = document.createElement('article');
+        card.className = 'blueprint-card';
+        card.id = cardId;
+        card.setAttribute('data-blueprint-index', String(idx + 1));
+        card.setAttribute('data-expanded', 'false');
+
+        var header = document.createElement('div');
+        header.className = 'blueprint-header';
+
+        var topRow = document.createElement('div');
+        topRow.className = 'blueprint-header-top';
+
+        var badge = document.createElement('span');
+        badge.className = 'blueprint-badge';
+        badge.setAttribute('aria-hidden', 'true');
+        badge.textContent = badgeLabel;
+
+        var h4 = document.createElement('h4');
+        h4.className = 'blueprint-title';
+        h4.id = cardId + '-heading';
+
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'blueprint-toggle';
+        btn.setAttribute('aria-expanded', 'false');
+        btn.setAttribute('aria-controls', bodyId);
+        btn.textContent = proj.cleanTitle;
+
+        var chevron = document.createElement('span');
+        chevron.className = 'blueprint-chevron';
+        chevron.setAttribute('aria-hidden', 'true');
+        chevron.appendChild(createSvgIcon(CHEVRON_DOWN_SVG));
+
+        h4.appendChild(btn);
+        topRow.appendChild(badge);
+        topRow.appendChild(h4);
+        topRow.appendChild(chevron);
+        header.appendChild(topRow);
+
+        if (proj.problemPreview) {
+          var prevP = document.createElement('p');
+          prevP.className = 'blueprint-preview-problem';
+          prevP.textContent = proj.problemPreview;
+          header.appendChild(prevP);
+        }
+
+        if (proj.stackPills.length > 0) {
+          var pillsRow = document.createElement('div');
+          pillsRow.className = 'blueprint-stack-pills';
+          pillsRow.setAttribute('aria-label', t2.blueprintStackLabel);
+          for (var pi = 0; pi < proj.stackPills.length; pi++) {
+            var pill = document.createElement('span');
+            pill.className = 'blueprint-pill';
+            pill.textContent = proj.stackPills[pi];
+            pill.title = proj.stackPills[pi];
+            pillsRow.appendChild(pill);
+          }
+          if (proj.stackExtra > 0) {
+            var morePill = document.createElement('span');
+            morePill.className = 'blueprint-pill blueprint-pill--more';
+            morePill.textContent = '+' + proj.stackExtra;
+            pillsRow.appendChild(morePill);
+          }
+          header.appendChild(pillsRow);
+        }
+
+        var bodyWrap = document.createElement('div');
+        bodyWrap.className = 'blueprint-body-wrap';
+        bodyWrap.id = bodyId;
+
+        var bodyInner = document.createElement('div');
+        bodyInner.className = 'blueprint-body-inner';
+        bodyInner.setAttribute('hidden', 'until-found');
+
+        var bodyContent = document.createElement('div');
+        bodyContent.className = 'blueprint-body-content';
+
+        for (var fi = 0; fi < proj.fields.length; fi++) {
+          var fld = proj.fields[fi];
+          if (fld.kind === 'criteria') {
+            var evalBox = document.createElement('div');
+            evalBox.className = 'blueprint-eval-box';
+            var evalTitle = document.createElement('div');
+            evalTitle.className = 'blueprint-eval-title';
+            evalTitle.appendChild(createSvgIcon(TIER2_ICONS.evalCheck));
+            var evalLbl = document.createElement('span');
+            evalLbl.textContent = t2.blueprintEvalLabel;
+            evalTitle.appendChild(evalLbl);
+            var evalBody = document.createElement('div');
+            evalBody.className = 'blueprint-eval-body';
+            var firstEl = fld.node.firstElementChild;
+            if (firstEl && (firstEl.tagName === 'STRONG' || firstEl.tagName === 'EM' || firstEl.tagName === 'B') &&
+              /evaluat|kriteria\s*evaluasi|hiring\s*manager/i.test(firstEl.textContent || '')) {
+              fld.node.removeChild(firstEl);
+              if (fld.node.firstChild && fld.node.firstChild.nodeType === 3) {
+                fld.node.firstChild.textContent = fld.node.firstChild.textContent.replace(/^\s*[:\-]\s*/, '');
+              }
+            }
+            evalBody.appendChild(fld.node);
+            evalBox.appendChild(evalTitle);
+            evalBox.appendChild(evalBody);
+            bodyContent.appendChild(evalBox);
+          } else {
+            var fieldDiv = document.createElement('div');
+            fieldDiv.className = 'blueprint-field';
+            fieldDiv.setAttribute('data-field-kind', fld.kind);
+            fieldDiv.appendChild(fld.node);
+            bodyContent.appendChild(fieldDiv);
+          }
+        }
+
+        bodyInner.appendChild(bodyContent);
+        bodyWrap.appendChild(bodyInner);
+        card.appendChild(header);
+        card.appendChild(bodyWrap);
+
+        var entry = { id: cardId, card: card, wrap: bodyWrap, inner: bodyInner, toggleBtn: btn };
+        btn.addEventListener('click', function () {
+          var isOpen = card.getAttribute('data-expanded') === 'true';
+          setCollapsibleState(card, bodyWrap, bodyInner, btn, !isOpen, { animate: true });
+        });
+        tier2State.blueprints.push(entry);
+        return card;
+      }
+
+      function parseProjectFieldsFromList(listEl) {
+        var fields = [];
+        var problemPreview = '';
+        var stackPills = [];
+        var stackExtra = 0;
+        var lis = listEl ? listEl.querySelectorAll(':scope > li') : [];
+        for (var i = 0; i < lis.length; i++) {
+          var li = lis[i];
+          var lead = getLeadElement(li);
+          var leadTxt = lead ? (lead.textContent || '').trim() : '';
+          var kind = classifyBlueprintField(leadTxt);
+          var fullText = (li.textContent || '').replace(/\s+/g, ' ').trim();
+          if (kind === 'problem' && !problemPreview) {
+            problemPreview = fullText
+              .replace(/^[^:]+:\s*/, '')
+              .replace(/\s*\[[JYA]\d{2,}(?:\s*[,\-\u2013]\s*[JYA]?\d{2,})*\]/g, '')
+              .trim();
+          } else if (kind === 'stack' && stackPills.length === 0) {
+            var stackRes = extractTechStackPills(fullText);
+            stackPills = stackRes.pills;
+            stackExtra = stackRes.extraCount;
+          }
+          fields.push({ kind: kind, node: cloneLiWithoutSubList(li) });
+        }
+        return {
+          problemPreview: problemPreview,
+          stackPills: stackPills,
+          stackExtra: stackExtra,
+          fields: fields
+        };
+      }
+
+      function enhancePortfolioBlueprints(sec, langCode) {
+        if (!sec || !sec.bodyEl) return 0;
+        var root = sec.bodyEl;
+        var children = Array.prototype.slice.call(root.children);
+        var portH3Idx = -1;
+        for (var i = 0; i < children.length; i++) {
+          var h3Txt = (children[i].textContent || '').trim();
+          if (children[i].tagName === 'H3' &&
+            !/^(?:phase|fase|tahap)\s*\d+/i.test(h3Txt) &&
+            /portfolio|portofolio|blueprint|cetak\s+biru/i.test(h3Txt)) {
+            portH3Idx = i;
+            break;
+          }
+        }
+        if (portH3Idx === -1) return 0;
+
+        var sliceEnd = children.length;
+        for (var j = portH3Idx + 1; j < children.length; j++) {
+          if (children[j].tagName === 'H3') {
+            sliceEnd = j;
+            break;
+          }
+        }
+
+        var projects = [];
+        var consumed = [];
+        var insertAnchor = children[portH3Idx];
+
+        // Pattern A: <h4> project headings followed by <ul>/<ol>
+        var hasH4 = false;
+        for (var k = portH3Idx + 1; k < sliceEnd; k++) {
+          if (children[k].tagName === 'H4') {
+            hasH4 = true;
+            break;
+          }
+        }
+
+        if (hasH4) {
+          var curProj = null;
+          for (var a = portH3Idx + 1; a < sliceEnd; a++) {
+            var elA = children[a];
+            if (elA.tagName === 'H4') {
+              curProj = {
+                cleanTitle: stripBlueprintPrefix(elA.textContent || ''),
+                problemPreview: '',
+                stackPills: [],
+                stackExtra: 0,
+                fields: []
+              };
+              projects.push(curProj);
+              consumed.push(elA);
+            } else if (curProj && (elA.tagName === 'UL' || elA.tagName === 'OL')) {
+              var parsedA = parseProjectFieldsFromList(elA);
+              curProj.problemPreview = parsedA.problemPreview;
+              curProj.stackPills = parsedA.stackPills;
+              curProj.stackExtra = parsedA.stackExtra;
+              curProj.fields = parsedA.fields;
+              consumed.push(elA);
+            } else if (!curProj && elA.tagName === 'P') {
+              insertAnchor = elA;
+            }
+          }
+        } else {
+          // Pattern B: <ul> or <ol> containing project <li> items with nested sub-lists
+          for (var b = portH3Idx + 1; b < sliceEnd; b++) {
+            var elB = children[b];
+            if (elB.tagName === 'P' && projects.length === 0) {
+              insertAnchor = elB;
+              continue;
+            }
+            if (elB.tagName === 'UL' || elB.tagName === 'OL') {
+              var topLis = elB.querySelectorAll(':scope > li');
+              var structuredLis = [];
+              for (var liIdx = 0; liIdx < topLis.length; liIdx++) {
+                var subL = getDirectSubList(topLis[liIdx]);
+                if (subL) structuredLis.push({ li: topLis[liIdx], sub: subL });
+              }
+              if (structuredLis.length >= 2) {
+                consumed.push(elB);
+                for (var sIdx = 0; sIdx < structuredLis.length; sIdx++) {
+                  var item = structuredLis[sIdx];
+                  var lead = getLeadElement(item.li);
+                  var rawT = lead ? (lead.textContent || '') : (item.li.textContent || '').split('\n')[0];
+                  var parsedB = parseProjectFieldsFromList(item.sub);
+                  projects.push({
+                    cleanTitle: stripBlueprintPrefix(rawT),
+                    problemPreview: parsedB.problemPreview,
+                    stackPills: parsedB.stackPills,
+                    stackExtra: parsedB.stackExtra,
+                    fields: parsedB.fields
+                  });
+                }
+              }
+            }
+          }
+        }
+
+        if (projects.length === 0) return 0;
+
+        var grid = document.createElement('div');
+        grid.className = 'blueprint-grid';
+        for (var pIdx = 0; pIdx < projects.length; pIdx++) {
+          grid.appendChild(buildBlueprintCard(projects[pIdx], pIdx, langCode));
+        }
+
+        if (insertAnchor && insertAnchor.parentNode === root) {
+          root.insertBefore(grid, insertAnchor.nextSibling);
+        } else {
+          root.appendChild(grid);
+        }
+        for (var ci = 0; ci < consumed.length; ci++) {
+          if (consumed[ci].parentNode === root) root.removeChild(consumed[ci]);
+        }
+        return projects.length;
+      }
+
+      function readCheckState(key) {
+        try {
+          var raw = window.localStorage.getItem(key);
+          if (!raw) return {};
+          var parsed = JSON.parse(raw);
+          return (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) ? parsed : {};
+        } catch (e) {
+          return {};
+        }
+      }
+
+      function writeCheckState(key, map) {
+        try {
+          var hasAny = false;
+          for (var k in map) {
+            if (Object.prototype.hasOwnProperty.call(map, k) && map[k]) {
+              hasAny = true;
+              break;
+            }
+          }
+          if (!hasAny) window.localStorage.removeItem(key);
+          else window.localStorage.setItem(key, JSON.stringify(map));
+        } catch (e) { }
+      }
+
+      function extractOnboardingPhaseItems(listEl) {
+        var focusNode = null;
+        var actionNodes = [];
+        var topLis = listEl ? listEl.querySelectorAll(':scope > li') : [];
+        for (var i = 0; i < topLis.length; i++) {
+          var li = topLis[i];
+          var lead = getLeadElement(li);
+          var leadTxt = lead ? (lead.textContent || '').trim() : '';
+          var sub = getDirectSubList(li);
+          if (!sub && /^(?:Operational\s+Focus|Fokus\s+Operasional)\s*:?$/i.test(leadTxt)) {
+            focusNode = cloneLiWithoutSubList(li);
+          } else if (sub && /^(?:Action\s+Items?|Butir\s+Tindakan)\s*:?$/i.test(leadTxt)) {
+            var subLis = sub.querySelectorAll(':scope > li');
+            for (var si = 0; si < subLis.length; si++) {
+              actionNodes.push(cloneLiWithoutSubList(subLis[si]));
+            }
+          } else if (sub) {
+            var nestedLis = sub.querySelectorAll(':scope > li');
+            for (var ni = 0; ni < nestedLis.length; ni++) {
+              actionNodes.push(cloneLiWithoutSubList(nestedLis[ni]));
+            }
+          } else {
+            actionNodes.push(cloneLiWithoutSubList(li));
+          }
+        }
+        return { focusNode: focusNode, actionNodes: actionNodes };
+      }
+
+      function enhanceOnboardingPlaybook(sec, langCode) {
+        if (!sec || !sec.bodyEl) return 0;
+        var root = sec.bodyEl;
+        var children = Array.prototype.slice.call(root.children);
+        var phases = [];
+        var consumed = [];
+        var phaseRx = /(?:days?|hari)\s*(?:1\s*[-\u2013\u2014]\s*30|31\s*[-\u2013\u2014]\s*60|61\s*[-\u2013\u2014]\s*90)/i;
+
+        // Pattern A: <h3> phase headings followed by <ul>/<ol>
+        var h3Indices = [];
+        for (var i = 0; i < children.length; i++) {
+          if (children[i].tagName === 'H3' && phaseRx.test(children[i].textContent || '')) {
+            h3Indices.push(i);
+          }
+        }
+
+        if (h3Indices.length >= 2) {
+          for (var hi = 0; hi < h3Indices.length; hi++) {
+            var startIdx = h3Indices[hi];
+            var endIdx = (hi + 1 < h3Indices.length) ? h3Indices[hi + 1] : children.length;
+            var h3El = children[startIdx];
+            consumed.push(h3El);
+            var combinedFocus = null;
+            var combinedActions = [];
+            for (var ci = startIdx + 1; ci < endIdx; ci++) {
+              var elC = children[ci];
+              if (elC.tagName === 'UL' || elC.tagName === 'OL') {
+                var extA = extractOnboardingPhaseItems(elC);
+                if (extA.focusNode && !combinedFocus) combinedFocus = extA.focusNode;
+                combinedActions = combinedActions.concat(extA.actionNodes);
+                consumed.push(elC);
+              }
+            }
+            phases.push({
+              key: 'p' + (phases.length + 1),
+              title: (h3El.textContent || '').trim(),
+              focusNode: combinedFocus,
+              actionNodes: combinedActions
+            });
+          }
+        } else {
+          // Pattern B: single <ul>/<ol> with bold phase <li> items + nested action <ul>
+          for (var bi = 0; bi < children.length; bi++) {
+            var elB = children[bi];
+            if (elB.tagName !== 'UL' && elB.tagName !== 'OL') continue;
+            var topLis = elB.querySelectorAll(':scope > li');
+            var matchedB = [];
+            for (var liIdx = 0; liIdx < topLis.length; liIdx++) {
+              var liB = topLis[liIdx];
+              var lead = getLeadElement(liB);
+              var leadTxt = lead ? (lead.textContent || '').trim() : '';
+              var subB = getDirectSubList(liB);
+              if (phaseRx.test(leadTxt) && subB) {
+                var subItems = [];
+                var subLis = subB.querySelectorAll(':scope > li');
+                for (var sli = 0; sli < subLis.length; sli++) {
+                  subItems.push(cloneLiWithoutSubList(subLis[sli]));
+                }
+                matchedB.push({
+                  key: 'p' + (matchedB.length + 1),
+                  title: leadTxt,
+                  focusNode: null,
+                  actionNodes: subItems
+                });
+              }
+            }
+            if (matchedB.length >= 2) {
+              phases = matchedB;
+              consumed.push(elB);
+              break;
+            }
+          }
+        }
+
+        if (phases.length < 2) return 0;
+
+        var lc = langCode === 'id' ? 'id' : 'en';
+        var t2 = TIER2_I18N[lc];
+        var savedChecks = readCheckState(checkStorageKey);
+        tier2State.checks = savedChecks;
+        tier2State.checkIds = [];
+
+        var playbook = document.createElement('div');
+        playbook.className = 'onboarding-playbook';
+        playbook.id = 'onboarding-playbook';
+        playbook.setAttribute('data-active-phase', phases[0].key);
+
+        var header = document.createElement('div');
+        header.className = 'onboarding-header';
+
+        var headerRow = document.createElement('div');
+        headerRow.className = 'onboarding-header-row';
+
+        var progressLabel = document.createElement('span');
+        progressLabel.className = 'onboarding-progress-label';
+        progressLabel.id = 'onboarding-progress-label';
+        progressLabel.setAttribute('aria-live', 'polite');
+
+        var resetBtn = document.createElement('button');
+        resetBtn.type = 'button';
+        resetBtn.className = 'onboarding-reset-btn';
+        resetBtn.textContent = t2.resetChecks;
+        resetBtn.hidden = true;
+
+        headerRow.appendChild(progressLabel);
+        headerRow.appendChild(resetBtn);
+
+        var track = document.createElement('div');
+        track.className = 'onboarding-progress-track';
+        track.setAttribute('role', 'progressbar');
+        track.setAttribute('aria-valuemin', '0');
+        track.setAttribute('aria-labelledby', 'onboarding-progress-label');
+
+        var fill = document.createElement('div');
+        fill.className = 'onboarding-progress-fill';
+        track.appendChild(fill);
+
+        header.appendChild(headerRow);
+        header.appendChild(track);
+        playbook.appendChild(header);
+
+        var tablist = document.createElement('div');
+        tablist.className = 'onboarding-tabs';
+        tablist.setAttribute('role', 'tablist');
+        tablist.setAttribute('aria-label', t2.onboardingTabsLabel);
+
+        var panelsWrap = document.createElement('div');
+        panelsWrap.className = 'onboarding-panels';
+
+        var tabSpecs = [];
+        var panelMap = Object.create(null);
+        var tabLabelList = [t2.phase1Tab, t2.phase2Tab, t2.phase3Tab];
+        var allPanelIds = [];
+
+        for (var pi = 0; pi < phases.length; pi++) {
+          var ph = phases[pi];
+          var panelId = 'onboarding-panel-' + ph.key;
+          var tabId = 'onboarding-tab-' + ph.key;
+          allPanelIds.push(panelId);
+
+          var tabBtn = document.createElement('button');
+          tabBtn.type = 'button';
+          tabBtn.className = 'onboarding-tab';
+          tabBtn.id = tabId;
+          tabBtn.setAttribute('role', 'tab');
+          tabBtn.setAttribute('data-phase', ph.key);
+          tabBtn.setAttribute('aria-selected', pi === 0 ? 'true' : 'false');
+          tabBtn.setAttribute('aria-controls', panelId);
+          tabBtn.setAttribute('tabindex', pi === 0 ? '0' : '-1');
+
+          var tabTxt = document.createElement('span');
+          tabTxt.textContent = tabLabelList[pi] || ph.title;
+          var tabCount = document.createElement('span');
+          tabCount.className = 'onboarding-tab-count';
+          tabBtn.appendChild(tabTxt);
+          tabBtn.appendChild(tabCount);
+          tablist.appendChild(tabBtn);
+
+          var panel = document.createElement('div');
+          panel.className = 'onboarding-panel';
+          panel.id = panelId;
+          panel.setAttribute('role', 'tabpanel');
+          panel.setAttribute('aria-labelledby', tabId);
+          panel.setAttribute('data-phase', ph.key);
+          if (pi > 0) panel.setAttribute('hidden', 'until-found');
+
+          var phTitle = document.createElement('h3');
+          phTitle.className = 'onboarding-phase-title';
+          phTitle.textContent = ph.title;
+          panel.appendChild(phTitle);
+
+          if (ph.focusNode) {
+            var focusP = document.createElement('p');
+            focusP.className = 'phase-focus';
+            while (ph.focusNode.firstChild) focusP.appendChild(ph.focusNode.firstChild);
+            panel.appendChild(focusP);
+          }
+
+          var checklist = document.createElement('div');
+          checklist.className = 'onboarding-checklist';
+          var phaseCheckIds = [];
+
+          for (var ai = 0; ai < ph.actionNodes.length; ai++) {
+            var checkId = ph.key + '-' + ai;
+            phaseCheckIds.push(checkId);
+            tier2State.checkIds.push(checkId);
+
+            var lbl = document.createElement('label');
+            lbl.className = 'check-item';
+            lbl.setAttribute('data-check-id', checkId);
+
+            var cb = document.createElement('input');
+            cb.type = 'checkbox';
+            cb.className = 'check-input';
+            cb.setAttribute('data-check-id', checkId);
+            if (savedChecks[checkId]) {
+              cb.checked = true;
+              lbl.classList.add('is-checked');
+            }
+
+            var span = document.createElement('span');
+            span.className = 'check-text';
+            var actNode = ph.actionNodes[ai];
+            while (actNode.firstChild) span.appendChild(actNode.firstChild);
+
+            lbl.appendChild(cb);
+            lbl.appendChild(span);
+            checklist.appendChild(lbl);
+          }
+
+          panel.appendChild(checklist);
+          panelsWrap.appendChild(panel);
+
+          panelMap[ph.key] = panel;
+          tabSpecs.push({ key: ph.key, btn: tabBtn, countEl: tabCount, checkIds: phaseCheckIds });
+        }
+
+        var allTab = document.createElement('button');
+        allTab.type = 'button';
+        allTab.className = 'onboarding-tab';
+        allTab.id = 'onboarding-tab-all';
+        allTab.setAttribute('role', 'tab');
+        allTab.setAttribute('data-phase', 'all');
+        allTab.setAttribute('aria-selected', 'false');
+        allTab.setAttribute('aria-controls', allPanelIds.join(' '));
+        allTab.setAttribute('tabindex', '-1');
+        var allTxt = document.createElement('span');
+        allTxt.textContent = t2.allPhasesTab;
+        allTab.appendChild(allTxt);
+        tablist.appendChild(allTab);
+        tabSpecs.push({ key: 'all', btn: allTab, countEl: null, checkIds: [] });
+
+        playbook.appendChild(tablist);
+        playbook.appendChild(panelsWrap);
+
+        function refreshProgressUi() {
+          var total = tier2State.checkIds.length;
+          var done = 0;
+          for (var k = 0; k < total; k++) {
+            if (tier2State.checks[tier2State.checkIds[k]]) done++;
+          }
+          progressLabel.textContent = t2.progressLabel(done, total);
+          track.setAttribute('aria-valuemax', String(total));
+          track.setAttribute('aria-valuenow', String(done));
+          fill.style.inlineSize = (total > 0 ? Math.round((done / total) * 100) : 0) + '%';
+          resetBtn.hidden = (done === 0);
+
+          for (var ti = 0; ti < tabSpecs.length; ti++) {
+            var sp = tabSpecs[ti];
+            if (!sp.countEl) continue;
+            var pDone = 0;
+            for (var ci = 0; ci < sp.checkIds.length; ci++) {
+              if (tier2State.checks[sp.checkIds[ci]]) pDone++;
+            }
+            sp.countEl.textContent = pDone + '/' + sp.checkIds.length;
+          }
+        }
+
+        function syncCheckboxesFromState() {
+          var inputs = playbook.querySelectorAll('input.check-input[data-check-id]');
+          for (var i = 0; i < inputs.length; i++) {
+            var id = inputs[i].getAttribute('data-check-id');
+            var checked = !!tier2State.checks[id];
+            inputs[i].checked = checked;
+            var row = inputs[i].closest('.check-item');
+            if (row) row.classList.toggle('is-checked', checked);
+          }
+          refreshProgressUi();
+        }
+
+        function selectPhase(phaseKey, focusTab) {
+          var valid = (phaseKey === 'all' || !!panelMap[phaseKey]);
+          var targetKey = valid ? phaseKey : phases[0].key;
+          playbook.setAttribute('data-active-phase', targetKey);
+
+          for (var i = 0; i < tabSpecs.length; i++) {
+            var sp = tabSpecs[i];
+            var active = sp.key === targetKey;
+            sp.btn.setAttribute('aria-selected', active ? 'true' : 'false');
+            sp.btn.setAttribute('tabindex', active ? '0' : '-1');
+            if (active && focusTab) sp.btn.focus();
+          }
+
+          for (var pk in panelMap) {
+            if (!Object.prototype.hasOwnProperty.call(panelMap, pk)) continue;
+            if (targetKey === 'all' || pk === targetKey) {
+              panelMap[pk].removeAttribute('hidden');
+            } else {
+              panelMap[pk].setAttribute('hidden', 'until-found');
+            }
+          }
+        }
+
+        playbook.addEventListener('change', function (ev) {
+          var inp = ev.target;
+          if (!inp || !inp.classList || !inp.classList.contains('check-input')) return;
+          var cid = inp.getAttribute('data-check-id');
+          if (!cid) return;
+          if (inp.checked) tier2State.checks[cid] = true;
+          else delete tier2State.checks[cid];
+          var row = inp.closest('.check-item');
+          if (row) row.classList.toggle('is-checked', !!inp.checked);
+          writeCheckState(checkStorageKey, tier2State.checks);
+          refreshProgressUi();
+        });
+
+        tablist.addEventListener('click', function (ev) {
+          var btn = ev.target && ev.target.closest ? ev.target.closest('.onboarding-tab') : null;
+          if (!btn) return;
+          selectPhase(btn.getAttribute('data-phase'), false);
+        });
+
+        tablist.addEventListener('keydown', function (ev) {
+          var current = ev.target && ev.target.closest ? ev.target.closest('.onboarding-tab') : null;
+          if (!current) return;
+          var curIdx = -1;
+          for (var i = 0; i < tabSpecs.length; i++) {
+            if (tabSpecs[i].btn === current) { curIdx = i; break; }
+          }
+          if (curIdx === -1) return;
+          var nextIdx = -1;
+          if (ev.key === 'ArrowRight') nextIdx = (curIdx + 1) % tabSpecs.length;
+          else if (ev.key === 'ArrowLeft') nextIdx = (curIdx - 1 + tabSpecs.length) % tabSpecs.length;
+          else if (ev.key === 'Home') nextIdx = 0;
+          else if (ev.key === 'End') nextIdx = tabSpecs.length - 1;
+          if (nextIdx !== -1) {
+            ev.preventDefault();
+            selectPhase(tabSpecs[nextIdx].key, true);
+          }
+        });
+
+        resetBtn.addEventListener('click', function () {
+          tier2State.checks = {};
+          writeCheckState(checkStorageKey, tier2State.checks);
+          syncCheckboxesFromState();
+        });
+
+        window.addEventListener('storage', function (ev) {
+          if (ev.key === checkStorageKey) {
+            tier2State.checks = readCheckState(checkStorageKey);
+            syncCheckboxesFromState();
+          }
+        });
+
+        var firstConsumed = consumed[0];
+        if (firstConsumed && firstConsumed.parentNode === root) {
+          root.insertBefore(playbook, firstConsumed);
+        } else {
+          root.appendChild(playbook);
+        }
+        for (var rm = 0; rm < consumed.length; rm++) {
+          if (consumed[rm].parentNode === root) root.removeChild(consumed[rm]);
+        }
+
+        refreshProgressUi();
+        tier2State.playbook = {
+          el: playbook,
+          selectPhase: selectPhase,
+          reset: function () {
+            tier2State.checks = {};
+            writeCheckState(checkStorageKey, tier2State.checks);
+            syncCheckboxesFromState();
+          },
+          getProgress: function () {
+            var total = tier2State.checkIds.length;
+            var done = 0;
+            for (var k = 0; k < total; k++) {
+              if (tier2State.checks[tier2State.checkIds[k]]) done++;
+            }
+            return { done: done, total: total };
+          }
+        };
+        return phases.length;
+      }
+
+      function enhanceSemanticCallouts(sections, langCode, bentoInfo) {
+        var lc = langCode === 'id' ? 'id' : 'en';
+        var t2 = TIER2_I18N[lc];
+        var bt = BENTO_I18N[lc];
+        var count = 0;
+
+        for (var si = 0; si < sections.length; si++) {
+          var sec = sections[si];
+          if (!sec || !sec.bodyEl) continue;
+          var targetKind = null;
+          var h3Rx = null;
+          if (sec.sectionType === 'overview') {
+            targetKind = 'verdict';
+            h3Rx = /s1\s*\/\s*d4|education\s*(?:&|and)?\s*degree|pendidikan\s*(?:&|dan)?\s*gelar/i;
+          } else if (sec.sectionType === 'guidance') {
+            targetKind = 'ai';
+            h3Rx = /ai\s+sentiment|sentimen\s+ai|future\s+outlook|prospek\s+masa\s+depan/i;
+          }
+          if (!targetKind || !h3Rx) continue;
+
+          var children = Array.prototype.slice.call(sec.bodyEl.children);
+          var startIdx = -1;
+          for (var i = 0; i < children.length; i++) {
+            if (children[i].tagName === 'H3' && h3Rx.test(children[i].textContent || '')) {
+              startIdx = i;
+              break;
+            }
+          }
+          if (startIdx === -1) continue;
+
+          var endIdx = children.length;
+          for (var j = startIdx + 1; j < children.length; j++) {
+            if (children[j].tagName === 'H3' || children[j].tagName === 'HR') {
+              endIdx = j;
+              break;
+            }
+          }
+
+          var h3El = children[startIdx];
+          var bodyNodes = children.slice(startIdx + 1, endIdx);
+          if (bodyNodes.length === 0) continue;
+
+          var aside = document.createElement('aside');
+          aside.className = 'semantic-callout ' + (targetKind === 'verdict' ? 'semantic-callout--verdict' : 'semantic-callout--ai');
+          aside.setAttribute('data-callout', targetKind === 'verdict' ? 'verdict' : 'ai-sentiment');
+
+          var tier = 'neutral';
+          var badgeText = t2.aiCalloutBadge;
+          if (targetKind === 'verdict') {
+            tier = (bentoInfo && bentoInfo.degree && bentoInfo.degree.tier) ? bentoInfo.degree.tier : 'neutral';
+            aside.setAttribute('data-verdict-tier', tier);
+            var labelMap = {
+              required: bt.verdictRequired,
+              preferred: bt.verdictPreferred,
+              optional: bt.verdictOptional,
+              neutral: bt.verdictNeutral
+            };
+            badgeText = labelMap[tier] || bt.verdictNeutral;
+          }
+
+          var hdr = document.createElement('div');
+          hdr.className = 'callout-header';
+          var hdrMain = document.createElement('div');
+          hdrMain.className = 'callout-header-main';
+
+          var icon = document.createElement('span');
+          icon.className = 'callout-icon';
+          icon.setAttribute('aria-hidden', 'true');
+          icon.appendChild(createSvgIcon(targetKind === 'verdict' ? TIER2_ICONS.verdictCap : TIER2_ICONS.aiSparkles));
+
+          h3El.className = 'callout-title';
+          hdrMain.appendChild(icon);
+          hdrMain.appendChild(h3El.cloneNode(true));
+
+          var badge = document.createElement('span');
+          badge.className = 'callout-badge';
+          badge.textContent = badgeText;
+
+          hdr.appendChild(hdrMain);
+          hdr.appendChild(badge);
+          aside.appendChild(hdr);
+
+          var body = document.createElement('div');
+          body.className = 'callout-body';
+          for (var bi = 0; bi < bodyNodes.length; bi++) {
+            body.appendChild(bodyNodes[bi]);
+          }
+          aside.appendChild(body);
+
+          sec.bodyEl.replaceChild(aside, h3El);
+          tier2State.callouts.push(aside);
+          count++;
+        }
+        return count;
+      }
+
+      var DEEPDIVE_SECTIONS = { overview: 1, skills: 1, routine: 1, guidance: 1, abroad: 1, generic: 1 };
+
+      function applyDeepDiveToContainer(container, langCode) {
+        if (!container) return 0;
+        var lc = langCode === 'id' ? 'id' : 'en';
+        var t2 = TIER2_I18N[lc];
+        var created = 0;
+        var children = Array.prototype.slice.call(container.children);
+        var entries = [];
+        var curRun = [];
+
+        function flushRun() {
+          if (curRun.length >= 2) {
+            var totalChars = 0;
+            for (var r = 0; r < curRun.length; r++) {
+              totalChars += (curRun[r].textContent || '').trim().length;
+            }
+            if (curRun.length >= 3 || totalChars > 1100) {
+              entries.push({ kind: 'run', paras: curRun.slice() });
+            }
+          }
+          curRun = [];
+        }
+
+        for (var i = 0; i < children.length; i++) {
+          var ch = children[i];
+          if (ch.tagName === 'P') {
+            curRun.push(ch);
+          } else {
+            flushRun();
+            if (ch.classList && ch.classList.contains('semantic-callout')) {
+              var cb = ch.querySelector('.callout-body');
+              if (cb) entries.push({ kind: 'callout', body: cb });
+            }
+          }
+        }
+        flushRun();
+
+        for (var ei = 0; ei < entries.length; ei++) {
+          if (entries[ei].kind === 'callout') {
+            created += applyDeepDiveToContainer(entries[ei].body, langCode);
+            continue;
+          }
+          var pList = entries[ei].paras;
+          var leadP = pList[0];
+          var restParas = pList.slice(1);
+          var ddIdx = tier2State.deepdives.length + 1;
+          var ddId = 'deepdive-' + ddIdx;
+          var restId = 'deepdive-rest-' + ddIdx;
+
+          var block = document.createElement('div');
+          block.className = 'deepdive-block';
+          block.id = ddId;
+          block.setAttribute('data-expanded', 'false');
+
+          leadP.parentNode.insertBefore(block, leadP);
+          leadP.classList.add('deepdive-lead');
+          block.appendChild(leadP);
+
+          var restWrap = document.createElement('div');
+          restWrap.className = 'deepdive-rest-wrap';
+          restWrap.id = restId;
+
+          var restInner = document.createElement('div');
+          restInner.className = 'deepdive-rest-inner';
+          restInner.setAttribute('hidden', 'until-found');
+
+          var restBody = document.createElement('div');
+          restBody.className = 'deepdive-rest';
+          for (var pi = 0; pi < restParas.length; pi++) {
+            restBody.appendChild(restParas[pi]);
+          }
+
+          restInner.appendChild(restBody);
+          restWrap.appendChild(restInner);
+          block.appendChild(restWrap);
+
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'deepdive-toggle';
+          btn.setAttribute('aria-expanded', 'false');
+          btn.setAttribute('aria-controls', restId);
+          var moreLabel = t2.deepdiveMore(restParas.length);
+          btn.textContent = moreLabel;
+          block.appendChild(btn);
+
+          (function (blk, rWrap, rInner, tBtn, mLabel, lLabel) {
+            tBtn.addEventListener('click', function () {
+              var isOpen = blk.getAttribute('data-expanded') === 'true';
+              var nextOpen = !isOpen;
+              setCollapsibleState(blk, rWrap, rInner, tBtn, nextOpen, { animate: true });
+              tBtn.textContent = nextOpen ? lLabel : mLabel;
+            });
+            tier2State.deepdives.push({
+              id: ddId,
+              block: blk,
+              wrap: rWrap,
+              inner: rInner,
+              toggleBtn: tBtn,
+              moreLabel: mLabel,
+              lessLabel: lLabel
+            });
+          })(block, restWrap, restInner, btn, moreLabel, t2.deepdiveLess);
+
+          created++;
+        }
+        return created;
+      }
+
+      function enhanceMentorDeepDives(sections, langCode) {
+        var total = 0;
+        for (var i = 0; i < sections.length; i++) {
+          var sec = sections[i];
+          if (!sec || !sec.bodyEl || !DEEPDIVE_SECTIONS[sec.sectionType]) continue;
+          total += applyDeepDiveToContainer(sec.bodyEl, langCode);
+        }
+        return total;
+      }
+
+      function setBlueprintExpanded(idOrIndex, expanded, opts) {
+        for (var i = 0; i < tier2State.blueprints.length; i++) {
+          var bp = tier2State.blueprints[i];
+          if (bp.id === idOrIndex || String(i + 1) === String(idOrIndex)) {
+            return setCollapsibleState(bp.card, bp.wrap, bp.inner, bp.toggleBtn, expanded, opts);
+          }
+        }
+        return false;
+      }
+
+      function toggleBlueprint(idOrIndex, opts) {
+        for (var i = 0; i < tier2State.blueprints.length; i++) {
+          var bp = tier2State.blueprints[i];
+          if (bp.id === idOrIndex || String(i + 1) === String(idOrIndex)) {
+            var isOpen = bp.card.getAttribute('data-expanded') === 'true';
+            return setCollapsibleState(bp.card, bp.wrap, bp.inner, bp.toggleBtn, !isOpen, opts);
+          }
+        }
+        return false;
+      }
+
+      function setDeepDiveExpanded(id, expanded, opts) {
+        for (var i = 0; i < tier2State.deepdives.length; i++) {
+          var dd = tier2State.deepdives[i];
+          if (dd.id === id) {
+            var next = !!expanded;
+            setCollapsibleState(dd.block, dd.wrap, dd.inner, dd.toggleBtn, next, opts);
+            dd.toggleBtn.textContent = next ? dd.lessLabel : dd.moreLabel;
+            return true;
+          }
+        }
+        return false;
+      }
+
+      function toggleDeepDive(id, opts) {
+        for (var i = 0; i < tier2State.deepdives.length; i++) {
+          var dd = tier2State.deepdives[i];
+          if (dd.id === id) {
+            var isOpen = dd.block.getAttribute('data-expanded') === 'true';
+            return setDeepDiveExpanded(id, !isOpen, opts);
+          }
+        }
+        return false;
+      }
+
+      function expandAllTier2(opts) {
+        var o = { animate: opts && opts.animate };
+        for (var i = 0; i < tier2State.blueprints.length; i++) {
+          var bp = tier2State.blueprints[i];
+          setCollapsibleState(bp.card, bp.wrap, bp.inner, bp.toggleBtn, true, o);
+        }
+        for (var j = 0; j < tier2State.deepdives.length; j++) {
+          var dd = tier2State.deepdives[j];
+          setCollapsibleState(dd.block, dd.wrap, dd.inner, dd.toggleBtn, true, o);
+          dd.toggleBtn.textContent = dd.lessLabel;
+        }
+        if (tier2State.playbook) tier2State.playbook.selectPhase('all', false);
+      }
+
+      function collapseAllTier2(opts) {
+        var o = { animate: opts && opts.animate };
+        for (var i = 0; i < tier2State.blueprints.length; i++) {
+          var bp = tier2State.blueprints[i];
+          setCollapsibleState(bp.card, bp.wrap, bp.inner, bp.toggleBtn, false, o);
+        }
+        for (var j = 0; j < tier2State.deepdives.length; j++) {
+          var dd = tier2State.deepdives[j];
+          setCollapsibleState(dd.block, dd.wrap, dd.inner, dd.toggleBtn, false, o);
+          dd.toggleBtn.textContent = dd.moreLabel;
+        }
+      }
+
+      function revealElement(el) {
+        if (!el || el.nodeType !== 1) return false;
+        var revealed = false;
+        var bpCard = el.closest ? el.closest('.blueprint-card') : null;
+        if (bpCard && bpCard.getAttribute('data-expanded') === 'false') {
+          setBlueprintExpanded(bpCard.id, true, { animate: false });
+          revealed = true;
+        }
+        var ddBlock = el.closest ? el.closest('.deepdive-block') : null;
+        if (ddBlock && ddBlock.getAttribute('data-expanded') === 'false') {
+          setDeepDiveExpanded(ddBlock.id, true, { animate: false });
+          revealed = true;
+        }
+        var obPanel = el.closest ? el.closest('.onboarding-panel') : null;
+        if (obPanel && obPanel.hasAttribute('hidden') && tier2State.playbook) {
+          tier2State.playbook.selectPhase(obPanel.getAttribute('data-phase'), false);
+          revealed = true;
+        }
+        var secCard = el.classList && el.classList.contains('dossier-card')
+          ? el
+          : (el.closest ? el.closest('.dossier-card') : null);
+        if (secCard && secCard.getAttribute('data-expanded') === 'false') {
+          setSectionExpanded(secCard.id, true, { animate: false, persist: true, source: 'reveal' });
+          revealed = true;
+        }
+        return revealed;
+      }
+
+      function enhanceTier2Sections(sections, langCode, bentoInfo) {
+        var roadmapSec = findSectionByType(sections, 'roadmap');
+        var onboardingSec = findSectionByType(sections, 'onboarding');
+        var bpCount = enhancePortfolioBlueprints(roadmapSec, langCode);
+        var obCount = enhanceOnboardingPlaybook(onboardingSec, langCode);
+        var calloutCount = enhanceSemanticCallouts(sections, langCode, bentoInfo);
+        var ddCount = enhanceMentorDeepDives(sections, langCode);
+        return {
+          blueprints: bpCount,
+          onboardingPhases: obCount,
+          callouts: calloutCount,
+          deepdives: ddCount
+        };
+      }
+
+      var tier2Stats = enhanceTier2Sections(normalizedResult.sections, lang, bentoData);
 
       var parserApi = {
         engine: parsedResult.engine,
@@ -4153,9 +6103,36 @@
         applyHashExpansion: applyHashExpansion
       };
 
+      var tier2Api = {
+        checkStorageKey: checkStorageKey,
+        enhanceTier2Sections: enhanceTier2Sections,
+        enhancePortfolioBlueprints: enhancePortfolioBlueprints,
+        enhanceOnboardingPlaybook: enhanceOnboardingPlaybook,
+        enhanceSemanticCallouts: enhanceSemanticCallouts,
+        enhanceMentorDeepDives: enhanceMentorDeepDives,
+        setBlueprintExpanded: setBlueprintExpanded,
+        toggleBlueprint: toggleBlueprint,
+        selectOnboardingPhase: function (phaseKey) {
+          if (tier2State.playbook) tier2State.playbook.selectPhase(phaseKey, false);
+        },
+        getOnboardingProgress: function () {
+          return tier2State.playbook ? tier2State.playbook.getProgress() : { done: 0, total: 0 };
+        },
+        resetOnboardingChecks: function () {
+          if (tier2State.playbook) tier2State.playbook.reset();
+        },
+        setDeepDiveExpanded: setDeepDiveExpanded,
+        toggleDeepDive: toggleDeepDive,
+        expandAllTier2: expandAllTier2,
+        collapseAllTier2: collapseAllTier2,
+        revealElement: revealElement,
+        getStats: function () { return tier2Stats; }
+      };
+
       window.JourKaParser = parserApi;
       window.JourKaBento = bentoApi;
       window.JourKaAccordion = accordionApi;
+      window.JourKaTier2 = tier2Api;
       window.JourKaShell = {
         lang: lang,
         getTheme: getTheme,
@@ -4171,9 +6148,13 @@
         expandAll: expandAll,
         collapseAll: collapseAll,
         getExpandedSectionIds: getExpandedSectionIds,
+        revealElement: revealElement,
+        expandAllTier2: expandAllTier2,
+        collapseAllTier2: collapseAllTier2,
         parser: parserApi,
         bento: bentoApi,
         accordion: accordionApi,
+        tier2: tier2Api,
         sections: normalizedResult.sections
       };
     })();
