@@ -507,9 +507,260 @@
       color: #94a3b8;
     }
 
-    /* Reserved Tier 0 Bento Slot (JK-FE-005) */
+    /* Tier 0 Executive Bento KPI Summary Grid (JK-FE-005) */
     .bento-slot[hidden] {
       display: none;
+    }
+
+    .bento-summary {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .bento-card {
+      position: relative;
+      container: bento-card / inline-size;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-width: 0;
+      padding: 14px 15px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      transition: border-color 160ms ease, box-shadow 160ms ease;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .bento-card {
+        transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+      }
+
+      .bento-card:has(a.bento-card-link:hover) {
+        transform: translateY(-2px);
+      }
+    }
+
+    .bento-card:hover,
+    .bento-card:has(a.bento-card-link:hover) {
+      border-color: var(--accent);
+      box-shadow: var(--shadow-md);
+    }
+
+    .bento-card a.bento-card-link {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .bento-card a.bento-card-link::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+    }
+
+    .bento-card a.bento-card-link:focus-visible {
+      outline: none;
+    }
+
+    .bento-card:focus-within,
+    .bento-card:has(a.bento-card-link:focus-visible) {
+      outline: 3px solid var(--accent);
+      outline-offset: 2px;
+      border-color: var(--accent);
+    }
+
+    .bento-card-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .bento-icon {
+      inline-size: 28px;
+      block-size: 28px;
+      border-radius: var(--radius-sm);
+      background: var(--accent-soft);
+      color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .bento-icon svg {
+      inline-size: 16px;
+      block-size: 16px;
+    }
+
+    .bento-title {
+      margin: 0;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--ink-muted-subtle);
+      line-height: 1.3;
+      min-width: 0;
+    }
+
+    .bento-body {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      min-width: 0;
+    }
+
+    .bento-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      align-self: flex-start;
+      padding: 4px 9px;
+      border-radius: var(--radius-pill);
+      border: 1px solid transparent;
+      font-size: 0.75rem;
+      font-weight: 700;
+      line-height: 1.25;
+      max-width: 100%;
+    }
+
+    .bento-badge svg {
+      inline-size: 13px;
+      block-size: 13px;
+      flex-shrink: 0;
+    }
+
+    .bento-badge--required {
+      background: var(--rose-soft);
+      color: var(--rose-text);
+      border-color: var(--rose);
+    }
+
+    .bento-badge--preferred {
+      background: var(--accent-soft);
+      color: var(--accent-hover);
+      border-color: var(--accent);
+    }
+
+    .bento-badge--optional {
+      background: var(--emerald-soft);
+      color: var(--emerald-text);
+      border-color: var(--emerald);
+    }
+
+    .bento-badge--neutral {
+      background: var(--bg-subtle);
+      color: var(--ink-muted-subtle);
+      border-color: var(--border-control);
+    }
+
+    .bento-snippet {
+      margin: 0;
+      font-size: 0.78125rem;
+      line-height: 1.45;
+      color: var(--ink-body);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      line-clamp: 2;
+      overflow: hidden;
+    }
+
+    .bento-metric {
+      margin: 0;
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--ink-primary);
+      line-height: 1.3;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .bento-salary-range {
+      margin: 0;
+      font-size: 0.9375rem;
+      font-weight: 800;
+      color: var(--ink-primary);
+      line-height: 1.35;
+      font-variant-numeric: tabular-nums;
+      overflow-wrap: break-word;
+    }
+
+    .bento-nowrap {
+      white-space: nowrap;
+    }
+
+    .bento-caption {
+      margin: 0;
+      font-size: 0.75rem;
+      color: var(--ink-muted-subtle);
+      line-height: 1.35;
+    }
+
+    .bento-pills {
+      display: flex;
+      flex-wrap: wrap;
+      flex-wrap: balance;
+      gap: 5px;
+      min-width: 0;
+    }
+
+    .bento-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 8px;
+      border-radius: var(--radius-pill);
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      color: var(--ink-primary);
+      font-size: 0.6875rem;
+      font-weight: 600;
+      line-height: 1.35;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .bento-pill--abroad {
+      background: var(--amber-soft);
+      color: var(--amber-text);
+      border-color: var(--amber);
+    }
+
+    .bento-footer {
+      margin-block-start: auto;
+      padding-top: 8px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    @container bento-card (inline-size < 190px) {
+      .bento-card {
+        padding: 12px;
+      }
+
+      .bento-salary-range {
+        font-size: 0.84375rem;
+      }
+
+      .bento-pill {
+        font-size: 0.65625rem;
+        padding: 2px 6px;
+      }
+
+      .bento-badge {
+        font-size: 0.71875rem;
+        padding: 3px 7px;
+      }
     }
 
     /* Editorial Content Surface */
@@ -685,6 +936,41 @@
 
     .dossier-section {
       min-width: 0;
+      scroll-margin-top: calc(var(--toolbar-h) + 20px);
+      border-radius: var(--radius-md);
+    }
+
+    @keyframes jourka-bento-pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.35);
+        outline: 2px solid var(--accent);
+        outline-offset: 4px;
+      }
+
+      70% {
+        box-shadow: 0 0 0 8px rgba(37, 99, 235, 0);
+        outline: 2px solid var(--accent);
+        outline-offset: 4px;
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(37, 99, 235, 0);
+        outline: 2px solid transparent;
+        outline-offset: 4px;
+      }
+    }
+
+    .dossier-section.is-bento-highlight,
+    .dossier-card.is-bento-highlight {
+      outline: 2px solid var(--accent);
+      outline-offset: 4px;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .dossier-section.is-bento-highlight,
+      .dossier-card.is-bento-highlight {
+        animation: jourka-bento-pulse 1.2s ease-out 1;
+      }
     }
 
     /* Footer */
@@ -789,6 +1075,11 @@
       .app-footer {
         padding: 8px 16px 84px 16px;
       }
+
+      .bento-summary {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+      }
     }
 
     @media (max-width: 639px) {
@@ -800,6 +1091,11 @@
 
       .toolbar-role-badge {
         max-inline-size: 145px;
+      }
+
+      .bento-summary {
+        grid-template-columns: 1fr;
+        gap: 12px;
       }
     }
 
@@ -823,8 +1119,17 @@
       .banner,
       .table-wrapper,
       .tool-btn,
-      .toc-fab {
+      .toc-fab,
+      .bento-card,
+      .bento-badge,
+      .bento-pill {
         border: 1px solid CanvasText;
+      }
+
+      .dossier-section.is-bento-highlight,
+      .dossier-card.is-bento-highlight {
+        outline: 3px solid Highlight;
+        outline-offset: 2px;
       }
 
       :where(a:any-link, button, input, [tabindex="0"]):focus-visible {
@@ -849,8 +1154,20 @@
       .toc-fab,
       .toc-drawer,
       .skip-link,
-      .app-footer {
+      .app-footer,
+      .bento-footer {
         display: none !important;
+      }
+
+      .bento-summary {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        margin-bottom: 12px;
+      }
+
+      .bento-card {
+        box-shadow: none;
+        break-inside: avoid;
       }
 
       .app-workspace {
@@ -1175,21 +1492,27 @@
 
         for (var i = 0; i < headings.length; i++) {
           var h = headings[i];
-          if (!h.id) h.id = 'section-' + (i + 1);
+          var sectionEl = h.closest ? h.closest('.dossier-section, .dossier-card') : null;
+          var targetId = (sectionEl && sectionEl.id) ? sectionEl.id : h.id;
+          if (!targetId) {
+            targetId = 'section-' + (i + 1);
+            if (sectionEl) sectionEl.id = targetId;
+            else h.id = targetId;
+          }
           var rawText = (h.textContent || '').trim();
           var cleanText = rawText.replace(/^\d+\.\s*/, '');
           var num = (i + 1 < 10 ? '0' : '') + (i + 1);
 
-          var makeItem = function (isDrawer) {
+          var makeItem = (function (hrefId, itemNum, itemLabel, isDrawer) {
             var li = document.createElement('li');
             var a = document.createElement('a');
             a.className = 'toc-link';
-            a.href = '#' + h.id;
+            a.href = '#' + hrefId;
             var badge = document.createElement('span');
             badge.className = 'toc-num';
-            badge.textContent = num;
+            badge.textContent = itemNum;
             var label = document.createElement('span');
-            label.textContent = cleanText;
+            label.textContent = itemLabel;
             a.appendChild(badge);
             a.appendChild(label);
             if (isDrawer) {
@@ -1197,10 +1520,10 @@
             }
             li.appendChild(a);
             return li;
-          };
+          });
 
-          if (desktopList) desktopList.appendChild(makeItem(false));
-          if (drawerList) drawerList.appendChild(makeItem(true));
+          if (desktopList) desktopList.appendChild(makeItem(targetId, num, cleanText, false));
+          if (drawerList) drawerList.appendChild(makeItem(targetId, num, cleanText, true));
         }
       }
 
@@ -1919,7 +2242,8 @@
           var cleanNodes = trimBoundaryHrs(rs.nodes);
           var stats = computeSectionStats(cleanNodes);
 
-          rs.headingEl.id = id;
+          rs.headingEl.id = id + '-heading';
+          rs.headingEl.setAttribute('tabindex', '-1');
           rs.headingEl.setAttribute('data-section-type', sectionType);
 
           totalWords += stats.wordCount;
@@ -2134,6 +2458,696 @@
         return { text: joined, sentences: picked, truncated: truncated };
       }
 
+      var BENTO_I18N = {
+        en: {
+          gridHeading: 'Executive At-a-Glance Summary',
+          card1Title: 'Degree Verdict (S1/D4)',
+          card1Cta: 'Jump to Overview',
+          card2Title: 'Core Competencies',
+          card2Count: function (n) { return n + ' Core Skills Mapped'; },
+          card2Cta: 'Jump to Skills',
+          card3Title: 'Entry-Level Salary',
+          card3Caption: 'Gross Monthly \u00B7 Entry-Level (0\u20131 yr)',
+          card3Cta: 'Jump to Salary',
+          card4Title: 'Verified Market Evidence',
+          card4Count: function (n) { return n + ' Verified Sources'; },
+          card4Cta: 'Jump to Sources',
+          pillJobs: function (n) { return n + ' LinkedIn'; },
+          pillYoutube: function (n) { return n + ' YouTube'; },
+          pillAbroad: function (n) { return n + ' Abroad'; },
+          fallbackNA: 'See full section',
+          verdictRequired: 'Required',
+          verdictPreferred: 'Strongly Preferred',
+          verdictOptional: 'Optional',
+          verdictNeutral: 'See Overview'
+        },
+        id: {
+          gridHeading: 'Ringkasan Eksekutif Sekilas',
+          card1Title: 'Status Gelar (S1/D4)',
+          card1Cta: 'Lihat Ringkasan',
+          card2Title: 'Kompetensi Inti',
+          card2Count: function (n) { return n + ' Kompetensi Inti Dipetakan'; },
+          card2Cta: 'Lihat Kompetensi',
+          card3Title: 'Gaji Awal (Entry-Level)',
+          card3Caption: 'Gaji Kotor Bulanan \u00B7 Entry-Level (0\u20131 thn)',
+          card3Cta: 'Lihat Estimasi Gaji',
+          card4Title: 'Bukti Pasar Terverifikasi',
+          card4Count: function (n) { return n + ' Sumber Terverifikasi'; },
+          card4Cta: 'Lihat Daftar Bukti',
+          pillJobs: function (n) { return n + ' LinkedIn'; },
+          pillYoutube: function (n) { return n + ' YouTube'; },
+          pillAbroad: function (n) { return n + ' Luar Negeri'; },
+          fallbackNA: 'Lihat bagian lengkap',
+          verdictRequired: 'Wajib',
+          verdictPreferred: 'Sangat Direkomendasikan',
+          verdictOptional: 'Opsional',
+          verdictNeutral: 'Lihat Ringkasan'
+        }
+      };
+
+      var BENTO_ICONS = {
+        degree: '<path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>',
+        skills: '<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>',
+        salary: '<line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>',
+        evidence: '<path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>',
+        badgeRequired: '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>',
+        badgePreferred: '<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>',
+        badgeOptional: '<polyline points="20 6 9 17 4 12"/>',
+        badgeNeutral: '<circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>'
+      };
+
+      function createSvgIcon(pathMarkup) {
+        var tpl = document.createElement('template');
+        tpl.innerHTML = '<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' + pathMarkup + '</svg>';
+        return tpl.content.firstChild;
+      }
+
+      function findSectionByType(sections, type, fallbackIndex) {
+        if (!Array.isArray(sections)) return null;
+        for (var i = 0; i < sections.length; i++) {
+          if (sections[i] && sections[i].sectionType === type) return sections[i];
+        }
+        if (typeof fallbackIndex === 'number' && sections[fallbackIndex]) {
+          return sections[fallbackIndex];
+        }
+        return null;
+      }
+
+      var VERDICT_REQ_RX = /\b(required|mandatory|strictly\s+required|legally\s+required|wajib|diwajibkan|mutlak\s+diperlukan)\b/i;
+      var VERDICT_PREF_RX = /\b(strongly\s+preferred|preferred|highly\s+recommended|recommended|sangat\s+direkomendasikan|sangat\s+disarankan|sangat\s+diutamakan|sangat\s+disukai|direkomendasikan|disarankan|diutamakan)\b/i;
+      var VERDICT_OPT_RX = /\b(optional|not\s+required|flexible|opsional|tidak\s+wajib|fleksibel)\b/i;
+      var VERDICT_NEG_REQ_RX = /\b(not|no|never|isn't|aren't|bukanlah|bukan|tidak)\s+(?:an?\s+|absolute\s+|legal\s+or\s+practical\s+|secara\s+hukum\s+)?(?:required|mandatory|prerequisite|prasyarat|wajib)/i;
+
+      function classifyVerdictTierFromText(str, allowReq) {
+        var s = String(str || '').trim();
+        if (!s) return null;
+        if (allowReq && VERDICT_REQ_RX.test(s) && !VERDICT_NEG_REQ_RX.test(s)) return 'required';
+        if (VERDICT_PREF_RX.test(s)) return 'preferred';
+        if (VERDICT_OPT_RX.test(s)) return 'optional';
+        return null;
+      }
+
+      function extractDegreeVerdict(overviewSection, langCode) {
+        var bt = BENTO_I18N[langCode === 'id' ? 'id' : 'en'];
+        if (!overviewSection) {
+          return {
+            tier: 'neutral',
+            label: bt.verdictNeutral,
+            snippet: bt.fallbackNA,
+            targetId: null,
+            targetType: 'overview'
+          };
+        }
+
+        var nodes = overviewSection.nodes || [];
+        var subNodes = [];
+        var capturing = false;
+        for (var i = 0; i < nodes.length; i++) {
+          var n = nodes[i];
+          if (n.nodeType === 1 && n.tagName === 'H3') {
+            var hTxt = (n.textContent || '').trim();
+            if (/s1\s*\/\s*d4|education|degree|qualification|pendidikan|gelar|kualifikasi/i.test(hTxt)) {
+              capturing = true;
+              continue;
+            } else if (capturing) {
+              break;
+            }
+          } else if (capturing) {
+            subNodes.push(n);
+          }
+        }
+
+        var sourceNodes = subNodes.length ? subNodes : nodes;
+        var firstPara = null;
+        for (var pi = 0; pi < sourceNodes.length; pi++) {
+          if (sourceNodes[pi].nodeType === 1 && sourceNodes[pi].tagName === 'P') {
+            firstPara = sourceNodes[pi];
+            break;
+          }
+        }
+
+        var tier = null;
+        if (firstPara) {
+          var bolds = firstPara.querySelectorAll('strong, b');
+          for (var bi = 0; bi < bolds.length; bi++) {
+            var cand = classifyVerdictTierFromText(bolds[bi].textContent, true);
+            if (cand === 'required') { tier = 'required'; break; }
+            if (!tier && cand === 'preferred') tier = 'preferred';
+            if (!tier && cand === 'optional') tier = 'optional';
+          }
+          if (!tier) {
+            var firstSent = extractPlainSentences(firstPara, { maxSentences: 1, maxChars: 400, stripCitations: true }).text;
+            tier = classifyVerdictTierFromText(firstSent, true);
+          }
+        }
+        if (!tier) tier = 'neutral';
+
+        var labelMap = {
+          required: bt.verdictRequired,
+          preferred: bt.verdictPreferred,
+          optional: bt.verdictOptional,
+          neutral: bt.verdictNeutral
+        };
+        var snippetRes = extractPlainSentences(sourceNodes, {
+          maxSentences: 1,
+          maxChars: 115,
+          stripCitations: true,
+          fallbackToList: true
+        });
+
+        return {
+          tier: tier,
+          label: labelMap[tier] || bt.verdictNeutral,
+          snippet: snippetRes.text || bt.fallbackNA,
+          targetId: overviewSection.id || null,
+          targetType: 'overview'
+        };
+      }
+
+      var SKILL_B1_RX = /mission[\s-]*critical|\bcritical\b|must[\s-]*have|\bmandatory\b|sangat\s+kritis|\bkritis\b|\bwajib\b/i;
+      var SKILL_B2_RX = /very\s+high|sangat\s+tinggi|high\s+growth|pertumbuhan\s+tinggi/i;
+      var SKILL_B3_RX = /\bhigh\b|\bessential\b|\btinggi\b|\besensial\b/i;
+      var SKILL_B3_EXCL_RX = /moderate[\s-]*(?:to[\s-]*)?high|medium[\s-]*(?:to[\s-]*)?high|niche|high[\s-]*value|sedang[\s-]*(?:hingga[\s-]*)?tinggi|menengah[\s-]*(?:ke[\s-]*)?tinggi|bernilai\s+tinggi/i;
+
+      function extractCoreCompetencies(skillsSection, langCode) {
+        var bt = BENTO_I18N[langCode === 'id' ? 'id' : 'en'];
+        if (!skillsSection) {
+          return { totalCount: 0, pills: [], targetId: null, targetType: 'skills' };
+        }
+        var tbl = extractTableData(skillsSection);
+        if (!tbl || tbl.rowCount === 0) {
+          return { totalCount: 0, pills: [], targetId: skillsSection.id || null, targetType: 'skills' };
+        }
+
+        var skillCol = 0;
+        var demandCol = tbl.colCount >= 3 ? 2 : (tbl.colCount >= 2 ? 1 : -1);
+        for (var hi = 0; hi < tbl.normalizedHeaders.length; hi++) {
+          var hdr = tbl.normalizedHeaders[hi];
+          if (/competenc|skill|tool|kompetensi|keahlian|alat/.test(hdr)) skillCol = hi;
+          else if (/demand|level|permintaan|tingkat/.test(hdr)) demandCol = hi;
+        }
+
+        var b1 = [], b2 = [], b3 = [], b4 = [];
+        for (var ri = 0; ri < tbl.rows.length; ri++) {
+          var row = tbl.rows[ri];
+          var name = (row.cells[skillCol] || '').trim();
+          if (!name) continue;
+          var demand = demandCol >= 0 ? (row.cells[demandCol] || '').trim() : '';
+          if (SKILL_B1_RX.test(demand)) b1.push(name);
+          else if (SKILL_B2_RX.test(demand)) b2.push(name);
+          else if (SKILL_B3_RX.test(demand) && !SKILL_B3_EXCL_RX.test(demand)) b3.push(name);
+          else b4.push(name);
+        }
+
+        var ranked = b1.concat(b2, b3, b4);
+        var seen = Object.create(null);
+        var pills = [];
+        for (var pi = 0; pi < ranked.length && pills.length < 4; pi++) {
+          if (!seen[ranked[pi]]) {
+            seen[ranked[pi]] = true;
+            pills.push(ranked[pi]);
+          }
+        }
+
+        return {
+          totalCount: tbl.rowCount,
+          pills: pills,
+          targetId: skillsSection.id || null,
+          targetType: 'skills',
+          emptyLabel: bt.fallbackNA
+        };
+      }
+
+      function parseIdrAmounts(text) {
+        var str = String(text || '');
+        var vals = [];
+        var sepRx = /(?<!\d)(\d{1,3}(?:[.,]\d{3})+)(?!\d)/g;
+        var m;
+        while ((m = sepRx.exec(str)) !== null) {
+          var n = parseInt(m[1].replace(/[.,]/g, ''), 10);
+          if (n >= 500000 && n <= 500000000) vals.push(n);
+        }
+        if (vals.length === 0) {
+          var shortRx = /(\d+(?:[.,]\d+)?)(?:\s*[-\u2013\u2014]\s*(\d+(?:[.,]\d+)?))?\s*(?:juta|jt|million|\bM\b)/gi;
+          while ((m = shortRx.exec(str)) !== null) {
+            var f1 = parseFloat(m[1].replace(',', '.'));
+            if (!isNaN(f1)) {
+              var s1 = Math.round(f1 * 1000000);
+              if (s1 >= 500000 && s1 <= 500000000) vals.push(s1);
+            }
+            if (m[2]) {
+              var f2 = parseFloat(m[2].replace(',', '.'));
+              if (!isNaN(f2)) {
+                var s2 = Math.round(f2 * 1000000);
+                if (s2 >= 500000 && s2 <= 500000000) vals.push(s2);
+              }
+            }
+          }
+        }
+        return vals;
+      }
+
+      function formatIdrNumber(num, langCode) {
+        if (typeof num !== 'number' || isNaN(num)) return '';
+        var sep = langCode === 'id' ? '.' : ',';
+        return String(Math.round(num)).replace(/\B(?=(\d{3})+(?!\d))/g, sep);
+      }
+
+      var ENTRY_TIER_RX = /fresh\s*grad|entry[\s-]*level|lulusan\s*baru|pemula|0\s*[-\u2013\u2014]\s*1\s*(?:yr|year|thn|tahun)/i;
+
+      function extractEntrySalaryBand(salarySection, langCode) {
+        var lc = langCode === 'id' ? 'id' : 'en';
+        var bt = BENTO_I18N[lc];
+        if (!salarySection) {
+          return {
+            min: null, max: null, formattedRange: bt.fallbackNA,
+            caption: bt.card3Caption, orientation: 'none', targetId: null, targetType: 'salary'
+          };
+        }
+
+        var tbl = extractTableData(salarySection);
+        var amounts = [];
+        var orientation = 'none';
+
+        if (tbl && tbl.rowCount > 0) {
+          var entryCol = -1;
+          for (var ci = 1; ci < tbl.headers.length; ci++) {
+            if (ENTRY_TIER_RX.test(tbl.headers[ci])) {
+              entryCol = ci;
+              break;
+            }
+          }
+          if (entryCol !== -1) {
+            orientation = 'column';
+            for (var ri = 0; ri < tbl.rows.length; ri++) {
+              if (entryCol < tbl.rows[ri].cells.length) {
+                amounts = amounts.concat(parseIdrAmounts(tbl.rows[ri].cells[entryCol]));
+              }
+            }
+          } else {
+            orientation = 'row';
+            var targetRow = tbl.rows[0];
+            for (var rj = 0; rj < tbl.rows.length; rj++) {
+              if (tbl.rows[rj].cells[0] && ENTRY_TIER_RX.test(tbl.rows[rj].cells[0])) {
+                targetRow = tbl.rows[rj];
+                break;
+              }
+            }
+            for (var cj = 1; cj < targetRow.cells.length; cj++) {
+              amounts = amounts.concat(parseIdrAmounts(targetRow.cells[cj]));
+            }
+          }
+        }
+
+        if (amounts.length === 0) {
+          var prose = extractPlainText(salarySection, { stripCitations: true });
+          amounts = parseIdrAmounts(prose);
+          if (amounts.length > 0) orientation = 'text';
+        }
+
+        if (amounts.length === 0) {
+          return {
+            min: null, max: null, formattedRange: bt.fallbackNA,
+            caption: bt.card3Caption, orientation: orientation,
+            targetId: salarySection.id || null, targetType: 'salary'
+          };
+        }
+
+        var minVal = Math.min.apply(null, amounts);
+        var maxVal = Math.max.apply(null, amounts);
+        var formatted = minVal === maxVal
+          ? ('IDR ' + formatIdrNumber(minVal, lc))
+          : ('IDR ' + formatIdrNumber(minVal, lc) + ' \u2013 ' + formatIdrNumber(maxVal, lc));
+
+        return {
+          min: minVal,
+          max: maxVal,
+          minFormatted: formatIdrNumber(minVal, lc),
+          maxFormatted: formatIdrNumber(maxVal, lc),
+          formattedRange: formatted,
+          caption: bt.card3Caption,
+          orientation: orientation,
+          targetId: salarySection.id || null,
+          targetType: 'salary'
+        };
+      }
+
+      function extractEvidenceCounts(evidenceSection, allSections, langCode) {
+        var seen = Object.create(null);
+        var jobs = 0, youtube = 0, abroad = 0, other = 0;
+
+        function tallyToken(prefix, num) {
+          var key = prefix.toUpperCase() + num;
+          if (seen[key]) return;
+          seen[key] = true;
+          if (prefix.toUpperCase() === 'J') jobs++;
+          else if (prefix.toUpperCase() === 'Y') youtube++;
+          else if (prefix.toUpperCase() === 'A') abroad++;
+          else other++;
+        }
+
+        if (evidenceSection) {
+          var tbl = extractTableData(evidenceSection);
+          if (tbl && tbl.rowCount > 0) {
+            for (var ri = 0; ri < tbl.rows.length; ri++) {
+              var rowText = tbl.rows[ri].cells.join(' ');
+              var m = rowText.match(/\[([JYA])(\d{2,})\]/i);
+              if (m) {
+                tallyToken(m[1], m[2]);
+              } else {
+                other++;
+              }
+            }
+          }
+        }
+
+        var total = jobs + youtube + abroad + other;
+        if (total === 0 && Array.isArray(allSections)) {
+          var idRx = /\[([JYA])(\d{2,})\]/gi;
+          for (var si = 0; si < allSections.length; si++) {
+            var secNodes = allSections[si].nodes || [];
+            for (var ni = 0; ni < secNodes.length; ni++) {
+              var txt = secNodes[ni].textContent || '';
+              var mm;
+              while ((mm = idRx.exec(txt)) !== null) {
+                tallyToken(mm[1], mm[2]);
+              }
+            }
+          }
+          total = jobs + youtube + abroad + other;
+        }
+
+        return {
+          total: total,
+          jobs: jobs,
+          youtube: youtube,
+          abroad: abroad,
+          other: other,
+          targetId: evidenceSection ? (evidenceSection.id || null) : null,
+          targetType: 'evidence',
+          lang: langCode === 'id' ? 'id' : 'en'
+        };
+      }
+
+      function extractBentoData(sections, langCode) {
+        var lc = langCode === 'id' ? 'id' : 'en';
+        var overviewSec = findSectionByType(sections, 'overview', 0);
+        var skillsSec = findSectionByType(sections, 'skills', 1);
+        var salarySec = findSectionByType(sections, 'salary');
+        var evidenceSec = findSectionByType(sections, 'evidence', sections.length ? sections.length - 1 : undefined);
+        return {
+          degree: extractDegreeVerdict(overviewSec, lc),
+          skills: extractCoreCompetencies(skillsSec, lc),
+          salary: extractEntrySalaryBand(salarySec, lc),
+          evidence: extractEvidenceCounts(evidenceSec, sections, lc)
+        };
+      }
+
+      var currentScrollSeqId = 0;
+      var activeHighlightTimer = null;
+
+      function scrollIntoViewAsync(element, options) {
+        var result = element.scrollIntoView(options);
+        if (result && typeof result.then === 'function') {
+          return result;
+        }
+        return new Promise(function (resolve) {
+          var timeoutId = null;
+          var finish = function () {
+            window.clearTimeout(timeoutId);
+            window.removeEventListener('scrollend', finish);
+            window.removeEventListener('scroll', onScroll);
+            resolve();
+          };
+          var onScroll = function () {
+            window.clearTimeout(timeoutId);
+            timeoutId = window.setTimeout(finish, 110);
+          };
+          window.addEventListener('scrollend', finish, { once: true });
+          window.addEventListener('scroll', onScroll, { passive: true });
+          timeoutId = window.setTimeout(finish, 110);
+        });
+      }
+
+      function applyHighlightAndFocus(targetSection) {
+        var allHighlighted = document.querySelectorAll('.is-bento-highlight');
+        for (var i = 0; i < allHighlighted.length; i++) {
+          allHighlighted[i].classList.remove('is-bento-highlight');
+        }
+        if (activeHighlightTimer) {
+          window.clearTimeout(activeHighlightTimer);
+          activeHighlightTimer = null;
+        }
+        targetSection.classList.add('is-bento-highlight');
+        activeHighlightTimer = window.setTimeout(function () {
+          targetSection.classList.remove('is-bento-highlight');
+          activeHighlightTimer = null;
+        }, 1200);
+
+        var heading = targetSection.querySelector('h2');
+        if (heading && typeof heading.focus === 'function') {
+          if (!heading.hasAttribute('tabindex')) heading.setAttribute('tabindex', '-1');
+          heading.focus({ preventScroll: true });
+        }
+      }
+
+      function scrollToAndExpandSection(sectionIdOrType) {
+        if (!sectionIdOrType) return Promise.resolve(false);
+        var target = document.getElementById(sectionIdOrType);
+        if (!target) {
+          target = document.querySelector('.dossier-section[data-section-type="' + sectionIdOrType + '"], .dossier-card[data-section-type="' + sectionIdOrType + '"]');
+        }
+        if (!target) return Promise.resolve(false);
+
+        var targetId = target.id || sectionIdOrType;
+        var shellApi = window.JourKaShell;
+        if (shellApi && typeof shellApi.expandSection === 'function') {
+          shellApi.expandSection(targetId);
+        }
+        if (target.getAttribute('data-expanded') === 'false') {
+          target.setAttribute('data-expanded', 'true');
+          var toggleBtn = target.querySelector('.section-toggle[aria-expanded]');
+          if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'true');
+          try {
+            target.dispatchEvent(new CustomEvent('jourka:section-expand', {
+              bubbles: true,
+              detail: { id: targetId, sectionType: target.getAttribute('data-section-type') || '' }
+            }));
+          } catch (e) { }
+        }
+
+        var seq = ++currentScrollSeqId;
+        var reducedMotion = false;
+        try {
+          reducedMotion = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+        } catch (e) { }
+
+        return scrollIntoViewAsync(target, {
+          behavior: reducedMotion ? 'auto' : 'smooth',
+          block: 'start'
+        }).then(function () {
+          if (seq !== currentScrollSeqId) return false;
+          applyHighlightAndFocus(target);
+          return true;
+        });
+      }
+
+      function buildBentoCard(opts) {
+        var card = document.createElement('article');
+        card.className = 'bento-card';
+        card.setAttribute('data-kpi', opts.kpiKey);
+        if (opts.targetId) card.setAttribute('data-target-section', opts.targetId);
+
+        var hdr = document.createElement('div');
+        hdr.className = 'bento-card-header';
+        var iconWrap = document.createElement('span');
+        iconWrap.className = 'bento-icon';
+        iconWrap.setAttribute('aria-hidden', 'true');
+        iconWrap.appendChild(createSvgIcon(opts.iconPath));
+
+        var h3 = document.createElement('h3');
+        h3.className = 'bento-title';
+        if (opts.targetId) {
+          var link = document.createElement('a');
+          link.className = 'bento-card-link';
+          link.href = '#' + opts.targetId;
+          link.textContent = opts.title;
+          link.addEventListener('click', function (ev) {
+            ev.preventDefault();
+            scrollToAndExpandSection(opts.targetId);
+          });
+          h3.appendChild(link);
+        } else {
+          h3.textContent = opts.title;
+        }
+
+        hdr.appendChild(iconWrap);
+        hdr.appendChild(h3);
+        card.appendChild(hdr);
+
+        var body = document.createElement('div');
+        body.className = 'bento-body';
+        opts.populateBody(body);
+        card.appendChild(body);
+
+        var footer = document.createElement('div');
+        footer.className = 'bento-footer';
+        footer.setAttribute('aria-hidden', 'true');
+        var ctaSpan = document.createElement('span');
+        ctaSpan.textContent = opts.ctaText;
+        var arrowSpan = document.createElement('span');
+        arrowSpan.textContent = '\u2192';
+        footer.appendChild(ctaSpan);
+        footer.appendChild(arrowSpan);
+        card.appendChild(footer);
+
+        return card;
+      }
+
+      function renderBentoGrid(bentoRoot, data, langCode) {
+        if (!bentoRoot || !data) return;
+        var lc = langCode === 'id' ? 'id' : 'en';
+        var bt = BENTO_I18N[lc];
+
+        var heading = document.createElement('h2');
+        heading.id = 'bento-heading';
+        heading.className = 'visually-hidden';
+        heading.textContent = bt.gridHeading;
+
+        var grid = document.createElement('div');
+        grid.className = 'bento-summary';
+
+        var badgeIconMap = {
+          required: BENTO_ICONS.badgeRequired,
+          preferred: BENTO_ICONS.badgePreferred,
+          optional: BENTO_ICONS.badgeOptional,
+          neutral: BENTO_ICONS.badgeNeutral
+        };
+
+        grid.appendChild(buildBentoCard({
+          kpiKey: 'degree',
+          title: bt.card1Title,
+          iconPath: BENTO_ICONS.degree,
+          targetId: data.degree.targetId,
+          ctaText: bt.card1Cta,
+          populateBody: function (body) {
+            var badge = document.createElement('span');
+            badge.className = 'bento-badge bento-badge--' + data.degree.tier;
+            badge.appendChild(createSvgIcon(badgeIconMap[data.degree.tier] || BENTO_ICONS.badgeNeutral));
+            var lbl = document.createElement('span');
+            lbl.textContent = data.degree.label;
+            badge.appendChild(lbl);
+            body.appendChild(badge);
+
+            var snip = document.createElement('p');
+            snip.className = 'bento-snippet';
+            snip.textContent = data.degree.snippet;
+            body.appendChild(snip);
+          }
+        }));
+
+        grid.appendChild(buildBentoCard({
+          kpiKey: 'skills',
+          title: bt.card2Title,
+          iconPath: BENTO_ICONS.skills,
+          targetId: data.skills.targetId,
+          ctaText: bt.card2Cta,
+          populateBody: function (body) {
+            var metric = document.createElement('p');
+            metric.className = 'bento-metric';
+            metric.textContent = data.skills.totalCount > 0 ? bt.card2Count(data.skills.totalCount) : bt.fallbackNA;
+            body.appendChild(metric);
+
+            if (data.skills.pills.length > 0) {
+              var pills = document.createElement('div');
+              pills.className = 'bento-pills';
+              for (var i = 0; i < data.skills.pills.length; i++) {
+                var pill = document.createElement('span');
+                pill.className = 'bento-pill';
+                pill.textContent = data.skills.pills[i];
+                pill.title = data.skills.pills[i];
+                pills.appendChild(pill);
+              }
+              body.appendChild(pills);
+            }
+          }
+        }));
+
+        grid.appendChild(buildBentoCard({
+          kpiKey: 'salary',
+          title: bt.card3Title,
+          iconPath: BENTO_ICONS.salary,
+          targetId: data.salary.targetId,
+          ctaText: bt.card3Cta,
+          populateBody: function (body) {
+            var rangeEl = document.createElement('p');
+            rangeEl.className = 'bento-salary-range';
+            if (data.salary.min !== null && data.salary.max !== null) {
+              var minSpan = document.createElement('span');
+              minSpan.className = 'bento-nowrap';
+              minSpan.textContent = 'IDR ' + data.salary.minFormatted;
+              rangeEl.appendChild(minSpan);
+              if (data.salary.min !== data.salary.max) {
+                rangeEl.appendChild(document.createTextNode(' \u2013 '));
+                var maxSpan = document.createElement('span');
+                maxSpan.className = 'bento-nowrap';
+                maxSpan.textContent = data.salary.maxFormatted;
+                rangeEl.appendChild(maxSpan);
+              }
+            } else {
+              rangeEl.textContent = data.salary.formattedRange;
+            }
+            body.appendChild(rangeEl);
+
+            var cap = document.createElement('p');
+            cap.className = 'bento-caption';
+            cap.textContent = data.salary.caption;
+            body.appendChild(cap);
+          }
+        }));
+
+        grid.appendChild(buildBentoCard({
+          kpiKey: 'evidence',
+          title: bt.card4Title,
+          iconPath: BENTO_ICONS.evidence,
+          targetId: data.evidence.targetId,
+          ctaText: bt.card4Cta,
+          populateBody: function (body) {
+            var metric = document.createElement('p');
+            metric.className = 'bento-metric';
+            metric.textContent = data.evidence.total > 0 ? bt.card4Count(data.evidence.total) : bt.fallbackNA;
+            body.appendChild(metric);
+
+            var pills = document.createElement('div');
+            pills.className = 'bento-pills';
+            if (data.evidence.jobs > 0) {
+              var pj = document.createElement('span');
+              pj.className = 'bento-pill';
+              pj.textContent = bt.pillJobs(data.evidence.jobs);
+              pills.appendChild(pj);
+            }
+            if (data.evidence.youtube > 0) {
+              var py = document.createElement('span');
+              py.className = 'bento-pill';
+              py.textContent = bt.pillYoutube(data.evidence.youtube);
+              pills.appendChild(py);
+            }
+            if (data.evidence.abroad > 0) {
+              var pa = document.createElement('span');
+              pa.className = 'bento-pill bento-pill--abroad';
+              pa.textContent = bt.pillAbroad(data.evidence.abroad);
+              pills.appendChild(pa);
+            }
+            if (pills.childNodes.length > 0) {
+              body.appendChild(pills);
+            }
+          }
+        }));
+
+        bentoRoot.replaceChildren(heading, grid);
+        bentoRoot.hidden = false;
+      }
+
       applyShellLabels();
       initThemeController();
       initReadingProgressFallback();
@@ -2141,6 +3155,7 @@
 
       var rawEl = document.getElementById('m');
       var target = document.getElementById('c');
+      var bentoRoot = document.getElementById('bento-root');
       var rawMd = rawEl ? rawEl.value : '';
       var roleNameEl = document.getElementById('toolbar-role');
       var roleName = roleNameEl ? roleNameEl.textContent.trim() : '';
@@ -2174,6 +3189,11 @@
         populateBasicToc(target);
       }
 
+      var bentoData = extractBentoData(normalizedResult.sections, lang);
+      if (bentoRoot && normalizedResult.sections.length > 0) {
+        renderBentoGrid(bentoRoot, bentoData, lang);
+      }
+
       var parserApi = {
         engine: parsedResult.engine,
         normalizeMarkdownInput: normalizeMarkdownInput,
@@ -2191,7 +3211,21 @@
         getStats: function () { return normalizedResult.stats; }
       };
 
+      var bentoApi = {
+        extractBentoData: extractBentoData,
+        extractDegreeVerdict: extractDegreeVerdict,
+        extractCoreCompetencies: extractCoreCompetencies,
+        parseIdrAmounts: parseIdrAmounts,
+        formatIdrNumber: formatIdrNumber,
+        extractEntrySalaryBand: extractEntrySalaryBand,
+        extractEvidenceCounts: extractEvidenceCounts,
+        renderBentoGrid: renderBentoGrid,
+        scrollToAndExpandSection: scrollToAndExpandSection,
+        getData: function () { return bentoData; }
+      };
+
       window.JourKaParser = parserApi;
+      window.JourKaBento = bentoApi;
       window.JourKaShell = {
         lang: lang,
         getTheme: getTheme,
@@ -2200,7 +3234,9 @@
         wrapTables: wrapTables,
         populateBasicToc: populateBasicToc,
         closeTocDrawer: closeTocDrawer,
+        scrollToAndExpandSection: scrollToAndExpandSection,
         parser: parserApi,
+        bento: bentoApi,
         sections: normalizedResult.sections
       };
     })();
