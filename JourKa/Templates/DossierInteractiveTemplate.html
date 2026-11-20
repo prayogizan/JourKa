@@ -973,6 +973,275 @@
       }
     }
 
+    /* Tier 1 Compact-First Section Accordions (JK-FE-006) */
+    .dossier-content.dossier-content--cards {
+      background: transparent;
+      border: 0;
+      border-radius: 0;
+      padding: 0;
+      box-shadow: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .dossier-preamble {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 18px 22px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .dossier-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      scroll-margin-top: calc(var(--toolbar-h) + 20px);
+      transition: border-color 160ms ease, box-shadow 160ms ease;
+    }
+
+    .dossier-card[data-expanded="false"]:hover {
+      border-color: var(--accent);
+      box-shadow: var(--shadow-md);
+    }
+
+    .card-header {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 16px 20px;
+      min-block-size: 60px;
+      cursor: pointer;
+    }
+
+    .dossier-card[data-expanded="true"] .card-header {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .card-header:has(.section-toggle:focus-visible) {
+      outline: 3px solid var(--accent);
+      outline-offset: -3px;
+      border-radius: var(--radius-lg);
+    }
+
+    .card-header-main {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+      flex: 1 1 auto;
+    }
+
+    .card-index {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--accent);
+      background: var(--accent-soft);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 3px 7px;
+      line-height: 1.2;
+      flex-shrink: 0;
+    }
+
+    .card-icon {
+      inline-size: 28px;
+      block-size: 28px;
+      border-radius: var(--radius-sm);
+      background: var(--bg-subtle);
+      color: var(--ink-primary);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .card-icon svg {
+      inline-size: 16px;
+      block-size: 16px;
+    }
+
+    .dossier-content h2.card-title {
+      margin: 0;
+      padding: 0;
+      border: 0;
+      font-size: 1.0625rem;
+      line-height: 1.35;
+      color: var(--ink-primary);
+      min-width: 0;
+      flex: 1 1 auto;
+      scroll-margin-top: calc(var(--toolbar-h) + 24px);
+    }
+
+    .section-toggle {
+      appearance: none;
+      border: 0;
+      background: transparent;
+      color: inherit;
+      font: inherit;
+      text-align: left;
+      padding: 0;
+      margin: 0;
+      cursor: pointer;
+      display: inline;
+    }
+
+    .section-toggle::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+    }
+
+    .section-toggle:focus-visible {
+      outline: none;
+    }
+
+    @supports not selector(:has(*)) {
+      .section-toggle:focus-visible {
+        outline: 3px solid var(--accent);
+        outline-offset: 2px;
+        border-radius: var(--radius-sm);
+      }
+    }
+
+    .card-meta {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      flex-shrink: 0;
+    }
+
+    .meta-chip {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 8px;
+      border-radius: var(--radius-pill);
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      color: var(--ink-muted-subtle);
+      font-size: 0.71875rem;
+      font-weight: 600;
+      line-height: 1.25;
+      white-space: nowrap;
+    }
+
+    .card-chevron {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      inline-size: 24px;
+      block-size: 24px;
+      color: var(--ink-muted-subtle);
+      flex-shrink: 0;
+    }
+
+    .card-chevron svg {
+      inline-size: 18px;
+      block-size: 18px;
+      transform: rotate(0deg);
+    }
+
+    .dossier-card[data-expanded="true"] .card-chevron svg {
+      transform: rotate(180deg);
+    }
+
+    .section-preview {
+      padding: 0 20px 16px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      cursor: pointer;
+    }
+
+    .dossier-card[data-expanded="true"] .section-preview {
+      display: none;
+    }
+
+    .preview-tldr {
+      margin: 0;
+      font-size: 0.875rem;
+      line-height: 1.55;
+      color: var(--ink-body);
+    }
+
+    .preview-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      min-width: 0;
+    }
+
+    .preview-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 9px;
+      border-radius: var(--radius-pill);
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      color: var(--ink-primary);
+      font-size: 0.71875rem;
+      font-weight: 600;
+      line-height: 1.35;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .preview-cue {
+      font-size: 0.78125rem;
+      font-weight: 600;
+      color: var(--accent);
+      align-self: flex-start;
+    }
+
+    .section-body-wrap {
+      display: grid;
+      grid-template-rows: 0fr;
+      opacity: 0;
+    }
+
+    .dossier-card[data-expanded="true"] .section-body-wrap {
+      grid-template-rows: 1fr;
+      opacity: 1;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .section-body-wrap {
+        transition: grid-template-rows 250ms cubic-bezier(0.22, 1, 0.36, 1), opacity 200ms ease;
+      }
+
+      .card-chevron svg {
+        transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+      }
+    }
+
+    .section-body-inner {
+      overflow: hidden;
+      min-block-size: 0;
+    }
+
+    .section-body-content {
+      padding: 18px 22px 22px 22px;
+      min-width: 0;
+    }
+
+    .section-body-content > :first-child {
+      margin-top: 0;
+    }
+
+    .section-body-content > :last-child {
+      margin-bottom: 0;
+    }
+
     /* Footer */
     .app-footer {
       max-width: 1240px;
@@ -1097,6 +1366,30 @@
         grid-template-columns: 1fr;
         gap: 12px;
       }
+
+      .card-header {
+        flex-wrap: wrap;
+        padding: 14px 16px;
+        gap: 8px;
+      }
+
+      .card-meta {
+        width: 100%;
+        justify-content: flex-start;
+        padding-left: 38px;
+      }
+
+      .card-chevron {
+        margin-left: auto;
+      }
+
+      .section-preview {
+        padding: 0 16px 14px 16px;
+      }
+
+      .section-body-content {
+        padding: 14px 16px 18px 16px;
+      }
     }
 
     @media (pointer: coarse) {
@@ -1109,6 +1402,15 @@
       .toc-link {
         padding: 10px 12px;
       }
+
+      .card-header {
+        min-block-size: 64px;
+      }
+
+      .card-chevron {
+        min-inline-size: 28px;
+        min-block-size: 28px;
+      }
     }
 
     @media (forced-colors: active) {
@@ -1116,6 +1418,12 @@
       .app-toolbar,
       .toc-sidebar,
       .dossier-content,
+      .dossier-card,
+      .dossier-preamble,
+      .meta-chip,
+      .preview-pill,
+      .card-index,
+      .card-icon,
       .banner,
       .table-wrapper,
       .tool-btn,
@@ -1124,6 +1432,10 @@
       .bento-badge,
       .bento-pill {
         border: 1px solid CanvasText;
+      }
+
+      .card-header:has(.section-toggle:focus-visible) {
+        outline: 3px solid Highlight;
       }
 
       .dossier-section.is-bento-highlight,
@@ -1155,7 +1467,9 @@
       .toc-drawer,
       .skip-link,
       .app-footer,
-      .bento-footer {
+      .bento-footer,
+      .section-preview,
+      .card-chevron {
         display: none !important;
       }
 
@@ -1165,9 +1479,20 @@
         margin-bottom: 12px;
       }
 
-      .bento-card {
+      .bento-card,
+      .dossier-card {
         box-shadow: none;
         break-inside: avoid;
+      }
+
+      .section-body-wrap {
+        grid-template-rows: 1fr !important;
+        opacity: 1 !important;
+      }
+
+      .section-body-inner[hidden] {
+        display: block !important;
+        content-visibility: visible !important;
       }
 
       .app-workspace {
@@ -3148,6 +3473,285 @@
         bentoRoot.hidden = false;
       }
 
+      var ACCORDION_I18N = {
+        en: {
+          readMins: function (m) { return '~' + m + ' min read'; },
+          tables: function (n) { return n + (n === 1 ? ' Table' : ' Tables'); },
+          subsections: function (n) { return n + (n === 1 ? ' Subsection' : ' Subsections'); },
+          expandCue: 'Click to expand full analysis \u2193',
+          evidenceTldr: function (total, parts) {
+            return 'Catalogs ' + total + ' verified primary sources (' + parts + ') with direct links for verification.';
+          },
+          tableTldr: function (rows, cols) {
+            return 'Structured reference table with ' + rows + ' entries covering ' + cols + '.';
+          },
+          diagramTldr: function (n) {
+            return 'Visual roadmap and reference guide with ' + n + (n === 1 ? ' structured diagram.' : ' structured diagrams.');
+          },
+          genericTldr: function (title) {
+            return 'Expand to explore the complete analysis for ' + title + '.';
+          }
+        },
+        id: {
+          readMins: function (m) { return '~' + m + ' mnt baca'; },
+          tables: function (n) { return n + ' Tabel'; },
+          subsections: function (n) { return n + ' Subbagian'; },
+          expandCue: 'Klik untuk buka analisis lengkap \u2193',
+          evidenceTldr: function (total, parts) {
+            return 'Memuat ' + total + ' sumber primer terverifikasi (' + parts + ') beserta tautan langsung untuk verifikasi.';
+          },
+          tableTldr: function (rows, cols) {
+            return 'Tabel referensi terstruktur berisi ' + rows + ' entri mencakup ' + cols + '.';
+          },
+          diagramTldr: function (n) {
+            return 'Peta jalan visual dan panduan referensi berisi ' + n + ' diagram terstruktur.';
+          },
+          genericTldr: function (title) {
+            return 'Buka untuk membaca analisis lengkap mengenai ' + title + '.';
+          }
+        }
+      };
+
+      var CHEVRON_DOWN_SVG = '<polyline points="6 9 12 15 18 9"/>';
+
+      function slugifyRole(name) {
+        return String(name || 'dossier')
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, '-')
+          .replace(/^-+|-+$/g, '') || 'dossier';
+      }
+
+      function trimPillText(text, maxLen) {
+        var limit = maxLen || 40;
+        var clean = String(text || '')
+          .replace(/\s*\[[JYA]\d{2,}(?:\s*[,\-\u2013]\s*[JYA]?\d{2,})*\]/g, '')
+          .replace(/\s+/g, ' ')
+          .replace(/[:\-\u2013\s]+$/, '')
+          .trim();
+        if (clean.length <= limit) return clean;
+        var slice = clean.slice(0, limit);
+        var lastSpace = slice.lastIndexOf(' ');
+        return (lastSpace > limit * 0.55 ? slice.slice(0, lastSpace) : slice).replace(/[.,;:!?\-\s]+$/, '') + '\u2026';
+      }
+
+      function extractListItemDirectSummary(liEl) {
+        if (!liEl) return '';
+        var parts = [];
+        for (var i = 0; i < liEl.childNodes.length; i++) {
+          var ch = liEl.childNodes[i];
+          if (ch.nodeType === 1 && (ch.tagName === 'UL' || ch.tagName === 'OL' || ch.tagName === 'PRE' || ch.tagName === 'TABLE')) {
+            continue;
+          }
+          var txt = (ch.textContent || '').replace(/\s+/g, ' ').trim();
+          if (txt) parts.push(txt);
+        }
+        var own = parts.join(' ').trim();
+        var subList = liEl.querySelector(':scope > ul, :scope > ol');
+        if (subList) {
+          var firstSub = subList.querySelector(':scope > li');
+          if (firstSub) {
+            var subTxt = extractListItemDirectSummary(firstSub);
+            if (subTxt) {
+              if (own && !/[.!?]$/.test(own)) own += ':';
+              return (own ? (own + ' ' + subTxt) : subTxt).trim();
+            }
+          }
+        }
+        return own;
+      }
+
+      function extractSectionTldr(sec, allSections, langCode) {
+        var lc = langCode === 'id' ? 'id' : 'en';
+        var at = ACCORDION_I18N[lc];
+        var bt = BENTO_I18N[lc];
+        var nodes = (sec && Array.isArray(sec.nodes)) ? sec.nodes : [];
+
+        var pCandidates = [];
+        var liCandidates = [];
+        for (var i = 0; i < nodes.length; i++) {
+          var n = nodes[i];
+          if (n.nodeType !== 1) continue;
+          var tag = n.tagName;
+          if (tag === 'P' || tag === 'BLOCKQUOTE') {
+            var pTxt = (n.textContent || '').replace(/\s+/g, ' ').trim();
+            if (pTxt) pCandidates.push(pTxt);
+          } else if (tag === 'UL' || tag === 'OL') {
+            var topLis = n.querySelectorAll(':scope > li');
+            for (var li = 0; li < topLis.length; li++) {
+              var lTxt = extractListItemDirectSummary(topLis[li]);
+              if (lTxt) {
+                if (!/[.!?]$/.test(lTxt)) lTxt += '.';
+                liCandidates.push(lTxt);
+              }
+            }
+          }
+        }
+
+        var chosenSource = '';
+        if (pCandidates.length > 0) {
+          var isDisclaimer = /^\s*(?:note|disclaimer|catatan|penafian)\b/i.test(pCandidates[0]);
+          if (isDisclaimer && pCandidates.length > 1) {
+            chosenSource = pCandidates.slice(1).join(' ');
+          } else {
+            chosenSource = pCandidates.join(' ');
+          }
+        } else if (liCandidates.length > 0) {
+          chosenSource = liCandidates.join(' ');
+        }
+
+        if (chosenSource) {
+          var sentRes = extractPlainSentences(chosenSource, {
+            maxSentences: 2,
+            maxChars: 215,
+            stripCitations: true
+          });
+          if (sentRes.text) return sentRes.text;
+        }
+
+        if (sec && sec.sectionType === 'evidence') {
+          var ev = extractEvidenceCounts(sec, allSections, lc);
+          if (ev.total > 0) {
+            var evParts = [];
+            if (ev.jobs > 0) evParts.push(bt.pillJobs(ev.jobs));
+            if (ev.youtube > 0) evParts.push(bt.pillYoutube(ev.youtube));
+            if (ev.abroad > 0) evParts.push(bt.pillAbroad(ev.abroad));
+            var partStr = evParts.length ? evParts.join(', ') : String(ev.total);
+            return at.evidenceTldr(ev.total, partStr);
+          }
+        }
+
+        var tbl = extractTableData(sec);
+        if (tbl && tbl.rowCount > 0) {
+          var colList = tbl.headers.slice(0, 3).join(', ');
+          return at.tableTldr(tbl.rowCount, colList || sec.cleanTitle);
+        }
+
+        if (sec && sec.stats && sec.stats.codeBlockCount > 0) {
+          return at.diagramTldr(sec.stats.codeBlockCount);
+        }
+
+        return at.genericTldr((sec && sec.cleanTitle) || '');
+      }
+
+      function extractSectionTopicPills(sec, allSections, langCode) {
+        var lc = langCode === 'id' ? 'id' : 'en';
+        var bt = BENTO_I18N[lc];
+        var nodes = (sec && Array.isArray(sec.nodes)) ? sec.nodes : [];
+        var seen = Object.create(null);
+        var pills = [];
+
+        function pushPill(rawLabel) {
+          if (pills.length >= 4) return;
+          var label = trimPillText(rawLabel, 40);
+          if (!label || /^\[[JYA]\d{2,}\]$/i.test(label)) return;
+          var key = label.toLowerCase();
+          if (seen[key]) return;
+          seen[key] = true;
+          pills.push(label);
+        }
+
+        for (var i = 0; i < nodes.length && pills.length < 4; i++) {
+          var n = nodes[i];
+          if (n.nodeType !== 1) continue;
+          if (n.tagName === 'H3') {
+            pushPill(n.textContent);
+          } else {
+            var nestedH3s = n.querySelectorAll('h3');
+            for (var hi = 0; hi < nestedH3s.length && pills.length < 4; hi++) {
+              pushPill(nestedH3s[hi].textContent);
+            }
+          }
+        }
+
+        if (pills.length < 3) {
+          for (var j = 0; j < nodes.length && pills.length < 4; j++) {
+            var ln = nodes[j];
+            if (ln.nodeType !== 1 || (ln.tagName !== 'UL' && ln.tagName !== 'OL')) continue;
+            var topLis = ln.querySelectorAll(':scope > li');
+            for (var li = 0; li < topLis.length && pills.length < 4; li++) {
+              var lead = topLis[li].querySelector(':scope > strong, :scope > b, :scope > p > strong, :scope > p > b');
+              if (lead) pushPill(lead.textContent);
+            }
+          }
+        }
+
+        if (pills.length < 3) {
+          if (sec && sec.sectionType === 'evidence') {
+            var ev = extractEvidenceCounts(sec, allSections, lc);
+            if (ev.jobs > 0) pushPill(bt.pillJobs(ev.jobs));
+            if (ev.youtube > 0) pushPill(bt.pillYoutube(ev.youtube));
+            if (ev.abroad > 0) pushPill(bt.pillAbroad(ev.abroad));
+          } else {
+            var tbl = extractTableData(sec);
+            if (tbl && tbl.rowCount > 0) {
+              var useCol1 = sec && sec.sectionType === 'routine' && tbl.colCount >= 2 &&
+                /\d{1,2}[:.]\d{2}/.test((tbl.rows[0] && tbl.rows[0].cells[0]) || '');
+              var targetCol = useCol1 ? 1 : 0;
+              for (var ri = 0; ri < tbl.rows.length && pills.length < 4; ri++) {
+                var cellVal = tbl.rows[ri].cells[targetCol] || '';
+                if (cellVal) {
+                  var shortCell = cellVal.split(':')[0];
+                  pushPill(shortCell);
+                }
+              }
+            }
+          }
+        }
+
+        if (pills.length === 0) {
+          for (var k = 0; k < nodes.length && pills.length < 4; k++) {
+            var hn = nodes[k];
+            if (hn.nodeType !== 1) continue;
+            if (hn.tagName === 'H4') {
+              pushPill(hn.textContent);
+            } else {
+              var nestedH4s = hn.querySelectorAll('h4');
+              for (var h4i = 0; h4i < nestedH4s.length && pills.length < 4; h4i++) {
+                pushPill(nestedH4s[h4i].textContent);
+              }
+            }
+          }
+        }
+
+        return pills;
+      }
+
+      function extractSectionPreview(sec, allSections, langCode) {
+        var lc = langCode === 'id' ? 'id' : 'en';
+        var at = ACCORDION_I18N[lc];
+        var stats = (sec && sec.stats) || { readMins: 1, tableCount: 0, subsectionCount: 0 };
+        var metaChips = [at.readMins(stats.readMins || 1)];
+        if (stats.tableCount > 0) metaChips.push(at.tables(stats.tableCount));
+        if (stats.subsectionCount > 0) metaChips.push(at.subsections(stats.subsectionCount));
+        return {
+          tldr: extractSectionTldr(sec, allSections, lc),
+          pills: extractSectionTopicPills(sec, allSections, lc),
+          cue: at.expandCue,
+          metaChips: metaChips
+        };
+      }
+
+      function readOpenState(storageKey) {
+        try {
+          var raw = window.sessionStorage.getItem(storageKey);
+          if (!raw) return [];
+          var parsed = JSON.parse(raw);
+          return Array.isArray(parsed) ? parsed : [];
+        } catch (e) {
+          return [];
+        }
+      }
+
+      function writeOpenState(storageKey, ids) {
+        try {
+          if (!ids || ids.length === 0) {
+            window.sessionStorage.removeItem(storageKey);
+          } else {
+            window.sessionStorage.setItem(storageKey, JSON.stringify(ids));
+          }
+        } catch (e) { }
+      }
+
       applyShellLabels();
       initThemeController();
       initReadingProgressFallback();
@@ -3166,27 +3770,335 @@
 
       updateVitals(normalizedResult.stats);
 
-      if (target) {
-        var mountNodes = [];
-        for (var pi = 0; pi < normalizedResult.preambleNodes.length; pi++) {
-          mountNodes.push(normalizedResult.preambleNodes[pi]);
-        }
-        for (var si = 0; si < normalizedResult.sections.length; si++) {
-          var sec = normalizedResult.sections[si];
-          var secEl = document.createElement('section');
-          secEl.id = sec.id;
-          secEl.className = 'dossier-section';
-          secEl.setAttribute('data-section-type', sec.sectionType);
-          secEl.setAttribute('data-section-index', String(sec.index));
-          secEl.appendChild(sec.headingEl);
-          for (var ni = 0; ni < sec.nodes.length; ni++) {
-            secEl.appendChild(sec.nodes[ni]);
+      var accordionStorageKey = 'jourka_open_' + slugifyRole(roleName) + '_' + lang;
+      var cardMap = Object.create(null);
+      var orderedCards = [];
+
+      function getExpandedSectionIds() {
+        var openIds = [];
+        for (var i = 0; i < orderedCards.length; i++) {
+          if (orderedCards[i].getAttribute('data-expanded') === 'true') {
+            openIds.push(orderedCards[i].id);
           }
-          mountNodes.push(secEl);
         }
-        target.replaceChildren.apply(target, mountNodes);
-        wrapTables(target);
-        populateBasicToc(target);
+        return openIds;
+      }
+
+      function resolveSectionCard(idOrType) {
+        if (!idOrType) return null;
+        if (cardMap[idOrType]) return cardMap[idOrType];
+        var byId = document.getElementById(idOrType);
+        if (byId && byId.classList.contains('dossier-card')) return byId;
+        return document.querySelector('.dossier-card[data-section-type="' + idOrType + '"]');
+      }
+
+      function setSectionExpanded(idOrType, expanded, opts) {
+        var card = resolveSectionCard(idOrType);
+        if (!card) return false;
+        var next = !!expanded;
+        var was = card.getAttribute('data-expanded') === 'true';
+        var toggleBtn = card.querySelector('.section-toggle');
+        var bodyWrap = card.querySelector('.section-body-wrap');
+        var bodyInner = card.querySelector('.section-body-inner');
+        var animate = !opts || opts.animate !== false;
+        var persist = !opts || opts.persist !== false;
+        var source = (opts && opts.source) || 'user';
+        var reducedMotion = false;
+        try {
+          reducedMotion = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+        } catch (e) { }
+
+        if (next) {
+          if (bodyInner) bodyInner.removeAttribute('hidden');
+          if (!was && animate && !reducedMotion && bodyWrap) {
+            void bodyWrap.offsetHeight;
+          }
+          card.setAttribute('data-expanded', 'true');
+          if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'true');
+        } else {
+          card.setAttribute('data-expanded', 'false');
+          if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'false');
+          if (bodyInner) {
+            var transitions = (animate && !reducedMotion && bodyWrap && typeof bodyWrap.getAnimations === 'function')
+              ? bodyWrap.getAnimations().filter(function (a) { return typeof CSSTransition !== 'undefined' ? (a instanceof CSSTransition) : true; })
+              : [];
+            if (transitions.length > 0) {
+              Promise.all(transitions.map(function (tr) {
+                return tr.finished.catch(function () { });
+              })).then(function () {
+                if (card.getAttribute('data-expanded') === 'false') {
+                  bodyInner.setAttribute('hidden', 'until-found');
+                }
+              });
+            } else {
+              bodyInner.setAttribute('hidden', 'until-found');
+            }
+          }
+        }
+
+        if (persist) {
+          writeOpenState(accordionStorageKey, getExpandedSectionIds());
+        }
+
+        if (was !== next) {
+          try {
+            card.dispatchEvent(new CustomEvent('jourka:section-toggle', {
+              bubbles: true,
+              detail: {
+                id: card.id,
+                sectionType: card.getAttribute('data-section-type') || '',
+                expanded: next,
+                source: source
+              }
+            }));
+            if (next) {
+              card.dispatchEvent(new CustomEvent('jourka:section-expand', {
+                bubbles: true,
+                detail: {
+                  id: card.id,
+                  sectionType: card.getAttribute('data-section-type') || ''
+                }
+              }));
+            }
+          } catch (e) { }
+        }
+        return true;
+      }
+
+      function expandSection(idOrType, opts) {
+        return setSectionExpanded(idOrType, true, opts);
+      }
+
+      function collapseSection(idOrType, opts) {
+        return setSectionExpanded(idOrType, false, opts);
+      }
+
+      function toggleSection(idOrType, opts) {
+        var card = resolveSectionCard(idOrType);
+        if (!card) return false;
+        var isOpen = card.getAttribute('data-expanded') === 'true';
+        return setSectionExpanded(card.id, !isOpen, opts);
+      }
+
+      function expandAll(opts) {
+        var mergeOpts = {
+          animate: opts && opts.animate,
+          persist: opts && opts.persist,
+          source: (opts && opts.source) || 'expand-all'
+        };
+        for (var i = 0; i < orderedCards.length; i++) {
+          setSectionExpanded(orderedCards[i].id, true, mergeOpts);
+        }
+      }
+
+      function collapseAll(opts) {
+        var mergeOpts = {
+          animate: opts && opts.animate,
+          persist: opts && opts.persist,
+          source: (opts && opts.source) || 'collapse-all'
+        };
+        for (var i = 0; i < orderedCards.length; i++) {
+          setSectionExpanded(orderedCards[i].id, false, mergeOpts);
+        }
+      }
+
+      function applyHashExpansion(opts) {
+        var rawHash = window.location.hash || '';
+        if (!rawHash || rawHash.length < 2) return false;
+        var targetId = '';
+        try {
+          targetId = decodeURIComponent(rawHash.slice(1));
+        } catch (e) {
+          targetId = rawHash.slice(1);
+        }
+        var targetEl = document.getElementById(targetId);
+        var card = targetEl ? (targetEl.classList.contains('dossier-card') ? targetEl : targetEl.closest('.dossier-card')) : resolveSectionCard(targetId);
+        if (!card) return false;
+        setSectionExpanded(card.id, true, { animate: false, persist: true, source: 'hash' });
+        if (opts && opts.scroll) {
+          var scrollTarget = targetEl || card;
+          window.requestAnimationFrame(function () {
+            scrollTarget.scrollIntoView({ behavior: 'auto', block: 'start' });
+          });
+        }
+        return true;
+      }
+
+      function renderTier1Accordions(mountTarget, normRes, langCode) {
+        if (!mountTarget || !normRes) return;
+        var mountNodes = [];
+        if (normRes.preambleNodes.length > 0) {
+          var preambleWrap = document.createElement('div');
+          preambleWrap.className = 'dossier-preamble';
+          for (var pi = 0; pi < normRes.preambleNodes.length; pi++) {
+            preambleWrap.appendChild(normRes.preambleNodes[pi]);
+          }
+          mountNodes.push(preambleWrap);
+        }
+
+        if (normRes.sections.length > 0) {
+          mountTarget.classList.add('dossier-content--cards');
+        } else {
+          mountTarget.classList.remove('dossier-content--cards');
+        }
+
+        for (var si = 0; si < normRes.sections.length; si++) {
+          var sec = normRes.sections[si];
+          var preview = extractSectionPreview(sec, normRes.sections, langCode);
+
+          var card = document.createElement('section');
+          card.id = sec.id;
+          card.className = 'dossier-card';
+          card.setAttribute('data-section-type', sec.sectionType);
+          card.setAttribute('data-section-index', String(sec.index));
+          card.setAttribute('data-expanded', 'false');
+
+          var header = document.createElement('div');
+          header.className = 'card-header';
+
+          var headerMain = document.createElement('div');
+          headerMain.className = 'card-header-main';
+
+          var idxBadge = document.createElement('span');
+          idxBadge.className = 'card-index';
+          idxBadge.setAttribute('aria-hidden', 'true');
+          idxBadge.textContent = sec.numBadge;
+
+          var iconWrap = document.createElement('span');
+          iconWrap.className = 'card-icon';
+          iconWrap.setAttribute('aria-hidden', 'true');
+          iconWrap.appendChild(createSvgIcon(SECTION_ICON_PATHS[sec.sectionType] || SECTION_ICON_PATHS.generic));
+
+          var h2 = sec.headingEl;
+          h2.className = 'card-title';
+          h2.textContent = '';
+
+          var bodyWrapId = 'sec-body-' + sec.index;
+          var toggleBtn = document.createElement('button');
+          toggleBtn.type = 'button';
+          toggleBtn.className = 'section-toggle';
+          toggleBtn.setAttribute('aria-expanded', 'false');
+          toggleBtn.setAttribute('aria-controls', bodyWrapId);
+          toggleBtn.textContent = sec.cleanTitle;
+          (function (sectionId) {
+            toggleBtn.addEventListener('click', function () {
+              toggleSection(sectionId, { source: 'header' });
+            });
+          })(sec.id);
+
+          h2.appendChild(toggleBtn);
+          headerMain.appendChild(idxBadge);
+          headerMain.appendChild(iconWrap);
+          headerMain.appendChild(h2);
+
+          var metaWrap = document.createElement('div');
+          metaWrap.className = 'card-meta';
+          metaWrap.setAttribute('aria-hidden', 'true');
+          for (var mi = 0; mi < preview.metaChips.length; mi++) {
+            var chip = document.createElement('span');
+            chip.className = 'meta-chip';
+            chip.textContent = preview.metaChips[mi];
+            metaWrap.appendChild(chip);
+          }
+          var chevron = document.createElement('span');
+          chevron.className = 'card-chevron';
+          chevron.appendChild(createSvgIcon(CHEVRON_DOWN_SVG));
+          metaWrap.appendChild(chevron);
+
+          header.appendChild(headerMain);
+          header.appendChild(metaWrap);
+          card.appendChild(header);
+
+          var previewEl = document.createElement('div');
+          previewEl.id = 'sec-preview-' + sec.index;
+          previewEl.className = 'section-preview';
+
+          var tldrEl = document.createElement('p');
+          tldrEl.className = 'preview-tldr';
+          tldrEl.textContent = preview.tldr;
+          previewEl.appendChild(tldrEl);
+
+          if (preview.pills.length > 0) {
+            var pillsRow = document.createElement('div');
+            pillsRow.className = 'preview-pills';
+            for (var pIdx = 0; pIdx < preview.pills.length; pIdx++) {
+              var pSpan = document.createElement('span');
+              pSpan.className = 'preview-pill';
+              pSpan.textContent = preview.pills[pIdx];
+              pillsRow.appendChild(pSpan);
+            }
+            previewEl.appendChild(pillsRow);
+          }
+
+          var cueEl = document.createElement('span');
+          cueEl.className = 'preview-cue';
+          cueEl.setAttribute('aria-hidden', 'true');
+          cueEl.textContent = preview.cue;
+          previewEl.appendChild(cueEl);
+
+          (function (sectionId) {
+            previewEl.addEventListener('click', function () {
+              var sel = window.getSelection ? String(window.getSelection()) : '';
+              if (sel) return;
+              expandSection(sectionId, { source: 'preview' });
+            });
+          })(sec.id);
+
+          card.appendChild(previewEl);
+
+          var bodyWrap = document.createElement('div');
+          bodyWrap.id = bodyWrapId;
+          bodyWrap.className = 'section-body-wrap';
+
+          var bodyInner = document.createElement('div');
+          bodyInner.className = 'section-body-inner';
+          bodyInner.setAttribute('hidden', 'until-found');
+
+          var bodyContent = document.createElement('div');
+          bodyContent.className = 'section-body-content';
+          for (var ni = 0; ni < sec.nodes.length; ni++) {
+            bodyContent.appendChild(sec.nodes[ni]);
+          }
+
+          bodyInner.appendChild(bodyContent);
+          bodyWrap.appendChild(bodyInner);
+          card.appendChild(bodyWrap);
+
+          sec.cardEl = card;
+          sec.bodyEl = bodyContent;
+          sec.toggleBtn = toggleBtn;
+          sec.previewEl = previewEl;
+          sec.preview = preview;
+
+          cardMap[sec.id] = card;
+          orderedCards.push(card);
+          mountNodes.push(card);
+        }
+
+        mountTarget.replaceChildren.apply(mountTarget, mountNodes);
+        wrapTables(mountTarget);
+        populateBasicToc(mountTarget);
+
+        mountTarget.addEventListener('beforematch', function (ev) {
+          var matchedCard = ev.target && ev.target.closest ? ev.target.closest('.dossier-card') : null;
+          if (matchedCard) {
+            setSectionExpanded(matchedCard.id, true, { animate: false, persist: true, source: 'beforematch' });
+          }
+        });
+
+        var savedIds = readOpenState(accordionStorageKey);
+        for (var ri = 0; ri < savedIds.length; ri++) {
+          setSectionExpanded(savedIds[ri], true, { animate: false, persist: false, source: 'restore' });
+        }
+
+        applyHashExpansion({ scroll: true });
+        window.addEventListener('hashchange', function () {
+          applyHashExpansion({ scroll: true });
+        });
+      }
+
+      if (target) {
+        renderTier1Accordions(target, normalizedResult, lang);
       }
 
       var bentoData = extractBentoData(normalizedResult.sections, lang);
@@ -3224,8 +4136,26 @@
         getData: function () { return bentoData; }
       };
 
+      var accordionApi = {
+        storageKey: accordionStorageKey,
+        extractSectionTldr: extractSectionTldr,
+        extractSectionTopicPills: extractSectionTopicPills,
+        extractSectionPreview: extractSectionPreview,
+        renderTier1Accordions: renderTier1Accordions,
+        setSectionExpanded: setSectionExpanded,
+        expandSection: expandSection,
+        collapseSection: collapseSection,
+        toggleSection: toggleSection,
+        expandAll: expandAll,
+        collapseAll: collapseAll,
+        getExpandedSectionIds: getExpandedSectionIds,
+        getCard: resolveSectionCard,
+        applyHashExpansion: applyHashExpansion
+      };
+
       window.JourKaParser = parserApi;
       window.JourKaBento = bentoApi;
+      window.JourKaAccordion = accordionApi;
       window.JourKaShell = {
         lang: lang,
         getTheme: getTheme,
@@ -3235,8 +4165,15 @@
         populateBasicToc: populateBasicToc,
         closeTocDrawer: closeTocDrawer,
         scrollToAndExpandSection: scrollToAndExpandSection,
+        expandSection: expandSection,
+        collapseSection: collapseSection,
+        toggleSection: toggleSection,
+        expandAll: expandAll,
+        collapseAll: collapseAll,
+        getExpandedSectionIds: getExpandedSectionIds,
         parser: parserApi,
         bento: bentoApi,
+        accordion: accordionApi,
         sections: normalizedResult.sections
       };
     })();
