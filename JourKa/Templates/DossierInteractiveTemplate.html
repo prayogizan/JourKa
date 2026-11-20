@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{LANG_CODE}}" data-jourka-ui="v2" data-theme="light">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,9 +9,9 @@
   <script>
     (function () {
       var stored = null;
-      try { stored = localStorage.getItem('jourka_theme'); } catch (e) {}
+      try { stored = localStorage.getItem('jourka_theme'); } catch (e) { }
       var sysDark = false;
-      try { sysDark = !!(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches); } catch (e) {}
+      try { sysDark = !!(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches); } catch (e) { }
       var theme = (stored === 'dark' || stored === 'light') ? stored : (sysDark ? 'dark' : 'light');
       document.documentElement.setAttribute('data-theme', theme);
       var meta = document.querySelector('meta[name="color-scheme"]');
@@ -85,7 +86,9 @@
       --shadow-md: 0 10px 28px rgba(0, 0, 0, 0.45);
     }
 
-    *, *::before, *::after {
+    *,
+    *::before,
+    *::after {
       box-sizing: border-box;
     }
 
@@ -98,7 +101,9 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
+      html {
+        scroll-behavior: auto;
+      }
     }
 
     body {
@@ -163,9 +168,15 @@
     @media (prefers-reduced-motion: no-preference) {
       @supports (animation-timeline: scroll()) {
         @keyframes jourka-scroll-progress {
-          from { transform: scaleX(0); }
-          to { transform: scaleX(1); }
+          from {
+            transform: scaleX(0);
+          }
+
+          to {
+            transform: scaleX(1);
+          }
         }
+
         .reading-progress {
           animation: jourka-scroll-progress auto linear both;
           animation-timeline: scroll(root block);
@@ -341,8 +352,13 @@
     }
 
     /* Theme icon visibility driven purely by html[data-theme] */
-    :root[data-theme="light"] .icon-sun { display: none; }
-    :root[data-theme="dark"] .icon-moon { display: none; }
+    :root[data-theme="light"] .icon-sun {
+      display: none;
+    }
+
+    :root[data-theme="dark"] .icon-moon {
+      display: none;
+    }
 
     /* Responsive 2-Column Workspace */
     .app-workspace {
@@ -489,7 +505,6 @@
 
     .vital-sep {
       color: #94a3b8;
-      aria-hidden: true;
     }
 
     /* Reserved Tier 0 Bento Slot (JK-FE-005) */
@@ -653,6 +668,25 @@
       background: var(--bg-canvas);
     }
 
+    .dossier-content th.col-align-left,
+    .dossier-content td.col-align-left {
+      text-align: left;
+    }
+
+    .dossier-content th.col-align-center,
+    .dossier-content td.col-align-center {
+      text-align: center;
+    }
+
+    .dossier-content th.col-align-right,
+    .dossier-content td.col-align-right {
+      text-align: right;
+    }
+
+    .dossier-section {
+      min-width: 0;
+    }
+
     /* Footer */
     .app-footer {
       max-width: 1240px;
@@ -758,26 +792,31 @@
     }
 
     @media (max-width: 639px) {
+
       .toolbar-search-wrap,
       #view-mode-group {
         display: none;
       }
+
       .toolbar-role-badge {
         max-inline-size: 145px;
       }
     }
 
     @media (pointer: coarse) {
+
       .tool-btn,
       .seg-btn {
         min-block-size: 40px;
       }
+
       .toc-link {
         padding: 10px 12px;
       }
     }
 
     @media (forced-colors: active) {
+
       .app-toolbar,
       .toc-sidebar,
       .dossier-content,
@@ -787,14 +826,23 @@
       .toc-fab {
         border: 1px solid CanvasText;
       }
+
       :where(a:any-link, button, input, [tabindex="0"]):focus-visible {
         outline: 2px solid Highlight;
       }
     }
 
     @media print {
-      @page { size: A4; margin: 14mm; }
-      body { background: #ffffff; color: #0f172a; }
+      @page {
+        size: A4;
+        margin: 14mm;
+      }
+
+      body {
+        background: #ffffff;
+        color: #0f172a;
+      }
+
       .reading-progress,
       .app-toolbar,
       .toc-sidebar,
@@ -804,11 +852,13 @@
       .app-footer {
         display: none !important;
       }
+
       .app-workspace {
         display: block;
         padding: 0;
         max-width: none;
       }
+
       .dossier-content {
         border: 0;
         box-shadow: none;
@@ -818,6 +868,7 @@
   </style>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
+
 <body>
   <a href="#main-content" class="skip-link visually-hidden" id="skip-link">Skip to main content</a>
   <div id="reading-progress" class="reading-progress" aria-hidden="true"></div>
@@ -837,7 +888,8 @@
 
         <div class="toolbar-search-wrap">
           <label for="dossier-search" class="visually-hidden" id="search-label">Search dossier</label>
-          <input id="dossier-search" class="toolbar-search" type="search" placeholder="Search (Ctrl+K)" aria-disabled="true" readonly>
+          <input id="dossier-search" class="toolbar-search" type="search" placeholder="Search (Ctrl+K)"
+            aria-disabled="true" readonly>
         </div>
 
         <nav id="lang-switcher" class="segmented-group" aria-label="Language switcher">
@@ -846,13 +898,26 @@
         </nav>
 
         <button type="button" id="theme-toggle" class="tool-btn" aria-label="Toggle color theme" aria-pressed="false">
-          <svg class="icon-moon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-          <svg class="icon-sun" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+          <svg class="icon-moon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+          </svg>
+          <svg class="icon-sun" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="4" />
+            <path
+              d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+          </svg>
           <span class="visually-hidden" id="theme-toggle-text">Switch theme</span>
         </button>
 
         <button type="button" id="print-btn" class="tool-btn" aria-label="Print dossier">
-          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 6 2 18 2 18 9" />
+            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
+            <rect x="6" y="14" width="12" height="8" />
+          </svg>
           <span class="visually-hidden" id="print-btn-text">Print</span>
         </button>
       </div>
@@ -887,7 +952,15 @@
   </footer>
 
   <button type="button" id="toc-fab" class="toc-fab" aria-haspopup="dialog" aria-controls="toc-drawer">
-    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+      stroke-linecap="round" stroke-linejoin="round">
+      <line x1="8" y1="6" x2="21" y2="6" />
+      <line x1="8" y1="12" x2="21" y2="12" />
+      <line x1="8" y1="18" x2="21" y2="18" />
+      <line x1="3" y1="6" x2="3.01" y2="6" />
+      <line x1="3" y1="12" x2="3.01" y2="12" />
+      <line x1="3" y1="18" x2="3.01" y2="18" />
+    </svg>
     <span id="toc-fab-label">Sections</span>
   </button>
 
@@ -1014,7 +1087,7 @@
             var mq = window.matchMedia('(prefers-color-scheme: dark)');
             var onMediaChange = function (ev) {
               var stored = null;
-              try { stored = localStorage.getItem('jourka_theme'); } catch (e) {}
+              try { stored = localStorage.getItem('jourka_theme'); } catch (e) { }
               if (stored !== 'light' && stored !== 'dark') {
                 setTheme(ev.matches ? 'dark' : 'light', false);
               }
@@ -1022,7 +1095,7 @@
             if (typeof mq.addEventListener === 'function') mq.addEventListener('change', onMediaChange);
             else if (typeof mq.addListener === 'function') mq.addListener(onMediaChange);
           }
-        } catch (e) {}
+        } catch (e) { }
         window.addEventListener('storage', function (ev) {
           if (ev.key === 'jourka_theme') {
             var next = (ev.newValue === 'dark' || ev.newValue === 'light') ? ev.newValue : getSystemTheme();
@@ -1035,7 +1108,7 @@
         var supportsTimeline = false;
         try {
           supportsTimeline = !!(window.CSS && CSS.supports && CSS.supports('animation-timeline', 'scroll()'));
-        } catch (e) {}
+        } catch (e) { }
         if (supportsTimeline) return;
         var bar = document.getElementById('reading-progress');
         if (!bar) return;
@@ -1057,27 +1130,10 @@
         update();
       }
 
-      function computeVitalStats(rawMd) {
-        var h2Matches = rawMd.match(/^##\s+.+$/gm);
-        var sectionCount = h2Matches ? h2Matches.length : 0;
-        var words = rawMd.trim() ? rawMd.trim().split(/\s+/).length : 0;
-        var readMins = Math.max(1, Math.round(words / 220));
-        var citeMatches = rawMd.match(/\[([JYA]\d{2,})\]/g) || [];
-        var seen = Object.create(null);
-        var uniqueCites = 0;
-        for (var i = 0; i < citeMatches.length; i++) {
-          if (!seen[citeMatches[i]]) {
-            seen[citeMatches[i]] = true;
-            uniqueCites++;
-          }
-        }
-        return { sections: sectionCount, readMins: readMins, sources: uniqueCites };
-      }
-
       function updateVitals(stats) {
         var el = document.getElementById('hero-vitals');
         if (!el || !stats) return;
-        el.innerHTML = '';
+        el.replaceChildren();
         var parts = t.vitals(stats.sections, stats.readMins, stats.sources);
         for (var i = 0; i < parts.length; i++) {
           if (i > 0) {
@@ -1114,8 +1170,8 @@
         var headings = root.querySelectorAll('h2');
         var desktopList = document.getElementById('toc-list');
         var drawerList = document.getElementById('toc-drawer-list');
-        if (desktopList) desktopList.innerHTML = '';
-        if (drawerList) drawerList.innerHTML = '';
+        if (desktopList) desktopList.replaceChildren();
+        if (drawerList) drawerList.replaceChildren();
 
         for (var i = 0; i < headings.length; i++) {
           var h = headings[i];
@@ -1175,6 +1231,909 @@
         }
       }
 
+      function escapeHtml(str) {
+        return String(str)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
+      function splitPipeCells(line) {
+        var trimmed = line.trim();
+        if (trimmed.charAt(0) === '|') trimmed = trimmed.slice(1);
+        if (trimmed.length > 0 && trimmed.charAt(trimmed.length - 1) === '|' && trimmed.charAt(trimmed.length - 2) !== '\\') {
+          trimmed = trimmed.slice(0, -1);
+        }
+        var cells = [];
+        var buf = '';
+        var inCode = false;
+        for (var i = 0; i < trimmed.length; i++) {
+          var ch = trimmed.charAt(i);
+          if (ch === '\\' && i + 1 < trimmed.length && trimmed.charAt(i + 1) === '|') {
+            buf += '\\|';
+            i++;
+            continue;
+          }
+          if (ch === '`') {
+            inCode = !inCode;
+            buf += ch;
+            continue;
+          }
+          if (ch === '|' && !inCode) {
+            cells.push(buf.trim());
+            buf = '';
+            continue;
+          }
+          buf += ch;
+        }
+        cells.push(buf.trim());
+        return cells;
+      }
+
+      function isTableSeparatorLine(line) {
+        return /^\s*\|?\s*:?-{3,}:?\s*(?:\|\s*:?-{3,}:?\s*)+\|?\s*$/.test(line) ||
+          /^\s*\|\s*:?-{3,}:?\s*\|\s*$/.test(line);
+      }
+
+      function normalizeMarkdownInput(rawMd) {
+        var text = String(rawMd || '');
+        if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
+        text = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+
+        var lines = text.split('\n');
+        var out = [];
+        var inFence = false;
+        var fenceChar = '';
+        var fenceLen = 0;
+        var i = 0;
+
+        while (i < lines.length) {
+          var line = lines[i];
+          var fenceMatch = line.match(/^\s*(```+|~~~+)/);
+          if (fenceMatch) {
+            var marker = fenceMatch[1];
+            if (!inFence) {
+              inFence = true;
+              fenceChar = marker.charAt(0);
+              fenceLen = marker.length;
+            } else if (marker.charAt(0) === fenceChar && marker.length >= fenceLen && line.trim().length === marker.length) {
+              inFence = false;
+            }
+            out.push(line);
+            i++;
+            continue;
+          }
+
+          if (!inFence && i + 1 < lines.length && line.indexOf('|') !== -1 && isTableSeparatorLine(lines[i + 1])) {
+            var hdrCells = splitPipeCells(line);
+            var sepCells = splitPipeCells(lines[i + 1]);
+            if (hdrCells.length >= 2 && sepCells.length === hdrCells.length) {
+              var colCount = hdrCells.length;
+              out.push(line);
+              out.push(lines[i + 1]);
+              i += 2;
+              while (i < lines.length) {
+                var rowLine = lines[i];
+                if (!rowLine.trim() || rowLine.indexOf('|') === -1 || /^\s*(```+|~~~+|#{1,6}\s|>\s?)/.test(rowLine)) {
+                  break;
+                }
+                var rowCells = splitPipeCells(rowLine);
+                if (rowCells.length > colCount) {
+                  var fixed;
+                  if (colCount >= 4) {
+                    var tailCount = colCount - 3;
+                    var titleEnd = rowCells.length - tailCount;
+                    var mergedTitle = rowCells.slice(2, titleEnd).join(' \\| ');
+                    fixed = [rowCells[0], rowCells[1], mergedTitle].concat(rowCells.slice(titleEnd));
+                  } else {
+                    fixed = rowCells.slice(0, colCount - 1).concat([rowCells.slice(colCount - 1).join(' \\| ')]);
+                  }
+                  out.push('| ' + fixed.join(' | ') + ' |');
+                } else {
+                  out.push(rowLine);
+                }
+                i++;
+              }
+              continue;
+            }
+          }
+
+          out.push(line);
+          i++;
+        }
+
+        return out.join('\n');
+      }
+
+      function formatInlineText(text, allowLinks) {
+        var tokens = [];
+        function stash(html) {
+          var id = '\u0007JKTOK' + tokens.length + '\u0007';
+          tokens.push(html);
+          return id;
+        }
+
+        var s = String(text || '');
+
+        s = s.replace(/\\([\\`*_{}[\]()#+\-.!|])/g, function (_, ch) {
+          return stash(escapeHtml(ch));
+        });
+
+        s = s.replace(/(`+)([\s\S]*?)\1/g, function (_, _ticks, code) {
+          return stash('<code>' + escapeHtml(code.trim()) + '</code>');
+        });
+
+        if (allowLinks) {
+          var linked = '';
+          var pos = 0;
+          while (pos < s.length) {
+            var openIdx = s.indexOf('[', pos);
+            if (openIdx === -1) {
+              linked += s.slice(pos);
+              break;
+            }
+            var closeBracket = -1;
+            var depthB = 0;
+            for (var bi = openIdx; bi < s.length; bi++) {
+              if (s.charAt(bi) === '[') depthB++;
+              else if (s.charAt(bi) === ']') {
+                depthB--;
+                if (depthB === 0) {
+                  closeBracket = bi;
+                  break;
+                }
+              }
+            }
+            if (closeBracket === -1 || s.charAt(closeBracket + 1) !== '(') {
+              linked += s.slice(pos, openIdx + 1);
+              pos = openIdx + 1;
+              continue;
+            }
+            var urlStart = closeBracket + 2;
+            var closeParen = -1;
+            var depthP = 1;
+            for (var pi = urlStart; pi < s.length; pi++) {
+              var pc = s.charAt(pi);
+              if (pc === '(') depthP++;
+              else if (pc === ')') {
+                depthP--;
+                if (depthP === 0) {
+                  closeParen = pi;
+                  break;
+                }
+              }
+            }
+            if (closeParen === -1) {
+              linked += s.slice(pos, openIdx + 1);
+              pos = openIdx + 1;
+              continue;
+            }
+            var labelRaw = s.slice(openIdx + 1, closeBracket);
+            var hrefRaw = s.slice(urlStart, closeParen).trim();
+            var titleMatch = hrefRaw.match(/^([^\s]+)\s+"([^"]*)"$/);
+            var cleanHref = titleMatch ? titleMatch[1] : hrefRaw;
+            var linkTitle = titleMatch ? ' title="' + escapeHtml(titleMatch[2]) + '"' : '';
+            linked += s.slice(pos, openIdx) + stash(
+              '<a href="' + escapeHtml(cleanHref) + '"' + linkTitle + '>' + formatInlineText(labelRaw, false) + '</a>'
+            );
+            pos = closeParen + 1;
+          }
+          s = linked;
+        }
+
+        s = escapeHtml(s);
+        s = s.replace(/\*\*([^\n]+?)\*\*/g, '<strong>$1</strong>');
+        s = s.replace(/(^|[^\w])__([^\n]+?)__(?=[^\w]|$)/g, '$1<strong>$2</strong>');
+        s = s.replace(/~~([^\n]+?)~~/g, '<del>$1</del>');
+        s = s.replace(/\*([^*\n]+?)\*/g, '<em>$1</em>');
+        s = s.replace(/(^|[^\w])_([^_\n]+?)_(?=[^\w]|$)/g, '$1<em>$2</em>');
+
+        var guard = 0;
+        while (s.indexOf('\u0007JKTOK') !== -1 && guard < 10) {
+          s = s.replace(/\u0007JKTOK(\d+)\u0007/g, function (_, idx) {
+            return tokens[Number(idx)] || '';
+          });
+          guard++;
+        }
+        return s;
+      }
+
+      function fallbackMarkdownToHtml(rawMd) {
+        var md = normalizeMarkdownInput(rawMd);
+        if (!md.trim()) return '';
+
+        var lines = md.split('\n');
+        var html = [];
+        var i = 0;
+
+        function isBlockBoundary(idx) {
+          if (idx >= lines.length) return true;
+          var ln = lines[idx];
+          if (!ln.trim()) return true;
+          if (/^\s*(```+|~~~+)/.test(ln)) return true;
+          if (/^\s*#{1,6}\s+/.test(ln)) return true;
+          if (/^\s*(?:-\s*){3,}$|^\s*(?:\*\s*){3,}$|^\s*(?:_\s*){3,}$/.test(ln)) return true;
+          if (/^\s*>\s?/.test(ln)) return true;
+          if (/^\s*(?:[-*+]|\d+[.)])\s+/.test(ln)) return true;
+          if (idx + 1 < lines.length && ln.indexOf('|') !== -1 && isTableSeparatorLine(lines[idx + 1])) return true;
+          return false;
+        }
+
+        while (i < lines.length) {
+          var line = lines[i];
+
+          if (!line.trim()) {
+            i++;
+            continue;
+          }
+
+          var fenceMatch = line.match(/^\s*(```+|~~~+)\s*([a-zA-Z0-9_-]*)/);
+          if (fenceMatch) {
+            var fChar = fenceMatch[1].charAt(0);
+            var fLen = fenceMatch[1].length;
+            var fLang = fenceMatch[2] || '';
+            var codeLines = [];
+            i++;
+            while (i < lines.length) {
+              var endMatch = lines[i].match(/^\s*(```+|~~~+)\s*$/);
+              if (endMatch && endMatch[1].charAt(0) === fChar && endMatch[1].length >= fLen) {
+                i++;
+                break;
+              }
+              codeLines.push(lines[i]);
+              i++;
+            }
+            var cls = fLang ? ' class="language-' + escapeHtml(fLang) + '"' : '';
+            html.push('<pre><code' + cls + '>' + escapeHtml(codeLines.join('\n')) + '</code></pre>');
+            continue;
+          }
+
+          var hMatch = line.match(/^\s*(#{1,6})\s+(.+?)\s*#*$/);
+          if (hMatch) {
+            var level = hMatch[1].length;
+            html.push('<h' + level + '>' + formatInlineText(hMatch[2], true) + '</h' + level + '>');
+            i++;
+            continue;
+          }
+
+          if (/^\s*(?:-\s*){3,}$|^\s*(?:\*\s*){3,}$|^\s*(?:_\s*){3,}$/.test(line)) {
+            html.push('<hr>');
+            i++;
+            continue;
+          }
+
+          if (/^\s*>\s?/.test(line)) {
+            var bqLines = [];
+            while (i < lines.length && (/^\s*>\s?/.test(lines[i]) || (lines[i].trim() && !isBlockBoundary(i)))) {
+              bqLines.push(lines[i].replace(/^\s*>\s?/, ''));
+              i++;
+            }
+            html.push('<blockquote>' + fallbackMarkdownToHtml(bqLines.join('\n')) + '</blockquote>');
+            continue;
+          }
+
+          if (i + 1 < lines.length && line.indexOf('|') !== -1 && isTableSeparatorLine(lines[i + 1])) {
+            var thCells = splitPipeCells(line);
+            var sepCells = splitPipeCells(lines[i + 1]);
+            var aligns = [];
+            for (var ai = 0; ai < thCells.length; ai++) {
+              var sc = (sepCells[ai] || '').trim();
+              if (sc.charAt(0) === ':' && sc.charAt(sc.length - 1) === ':') aligns.push('col-align-center');
+              else if (sc.charAt(sc.length - 1) === ':') aligns.push('col-align-right');
+              else if (sc.charAt(0) === ':') aligns.push('col-align-left');
+              else aligns.push('');
+            }
+            var tbl = ['<table><thead><tr>'];
+            for (var hi = 0; hi < thCells.length; hi++) {
+              var hCls = aligns[hi] ? ' class="' + aligns[hi] + '"' : '';
+              tbl.push('<th' + hCls + '>' + formatInlineText(thCells[hi].replace(/\\\|/g, '|'), true) + '</th>');
+            }
+            tbl.push('</tr></thead><tbody>');
+            i += 2;
+            while (i < lines.length && lines[i].trim() && lines[i].indexOf('|') !== -1 && !/^\s*(```+|~~~+|#{1,6}\s|>\s?)/.test(lines[i])) {
+              var tdCells = splitPipeCells(lines[i]);
+              tbl.push('<tr>');
+              for (var ci = 0; ci < thCells.length; ci++) {
+                var dCls = aligns[ci] ? ' class="' + aligns[ci] + '"' : '';
+                var rawCell = (ci < tdCells.length ? tdCells[ci] : '').replace(/\\\|/g, '|');
+                tbl.push('<td' + dCls + '>' + formatInlineText(rawCell, true) + '</td>');
+              }
+              tbl.push('</tr>');
+              i++;
+            }
+            tbl.push('</tbody></table>');
+            html.push(tbl.join(''));
+            continue;
+          }
+
+          var listMatch = line.match(/^(\s*)([-*+]|\d+[.)])\s+(.*)$/);
+          if (listMatch) {
+            var stack = [];
+            while (i < lines.length) {
+              var curLine = lines[i];
+              if (!curLine.trim()) {
+                var peek = i + 1;
+                while (peek < lines.length && !lines[peek].trim()) peek++;
+                if (peek < lines.length) {
+                  var peekMatch = lines[peek].match(/^(\s*)([-*+]|\d+[.)])\s+(.*)$/);
+                  if (peekMatch && stack.length > 0) {
+                    var pIndent = peekMatch[1].length;
+                    var pType = /^\d/.test(peekMatch[2]) ? 'ol' : 'ul';
+                    if (pIndent > stack[0].indent || (pIndent === stack[0].indent && pType === stack[0].type)) {
+                      i = peek;
+                      continue;
+                    }
+                  }
+                }
+                break;
+              }
+
+              var lm = curLine.match(/^(\s*)([-*+]|\d+[.)])\s+(.*)$/);
+              if (!lm) break;
+
+              var indent = lm[1].length;
+              var marker = lm[2];
+              var lType = /^\d/.test(marker) ? 'ol' : 'ul';
+              var itemParts = [lm[3]];
+              i++;
+
+              while (i < lines.length) {
+                var nextLn = lines[i];
+                if (!nextLn.trim() || /^\s*([-*+]|\d+[.)])\s+/.test(nextLn) || isBlockBoundary(i)) break;
+                itemParts.push(nextLn.trim());
+                i++;
+              }
+
+              while (stack.length > 0 && indent < stack[stack.length - 1].indent) {
+                var popped = stack.pop();
+                html.push('</li></' + popped.type + '>');
+              }
+              if (stack.length > 0 && indent === stack[stack.length - 1].indent && stack[stack.length - 1].type !== lType) {
+                var switched = stack.pop();
+                html.push('</li></' + switched.type + '>');
+              }
+              if (stack.length === 0 || indent > stack[stack.length - 1].indent) {
+                var startAttr = '';
+                if (lType === 'ol') {
+                  var startNum = parseInt(marker, 10);
+                  if (startNum > 1) startAttr = ' start="' + startNum + '"';
+                }
+                html.push('<' + lType + startAttr + '><li>');
+                stack.push({ type: lType, indent: indent });
+              } else {
+                html.push('</li><li>');
+              }
+              html.push(formatInlineText(itemParts.join(' '), true));
+            }
+            while (stack.length > 0) {
+              var rem = stack.pop();
+              html.push('</li></' + rem.type + '>');
+            }
+            continue;
+          }
+
+          var pLines = [line.trim()];
+          i++;
+          while (i < lines.length && !isBlockBoundary(i)) {
+            pLines.push(lines[i].trim());
+            i++;
+          }
+          html.push('<p>' + formatInlineText(pLines.join(' '), true) + '</p>');
+        }
+
+        return html.join('\n');
+      }
+
+      function parseMarkdown(rawMd, opts) {
+        var normalized = normalizeMarkdownInput(rawMd);
+        var forceFallback = !!(opts && opts.forceFallback);
+        if (!forceFallback && window.marked && typeof window.marked.parse === 'function') {
+          try {
+            return {
+              html: window.marked.parse(normalized, { gfm: true, breaks: false }),
+              engine: 'marked',
+              normalizedMd: normalized
+            };
+          } catch (e) { }
+        }
+        return {
+          html: fallbackMarkdownToHtml(normalized),
+          engine: 'fallback',
+          normalizedMd: normalized
+        };
+      }
+
+      var ALLOWED_TAGS = {
+        H1: 1, H2: 1, H3: 1, H4: 1, H5: 1, H6: 1,
+        P: 1, BR: 1, HR: 1,
+        UL: 1, OL: 1, LI: 1,
+        BLOCKQUOTE: 1, PRE: 1, CODE: 1,
+        TABLE: 1, THEAD: 1, TBODY: 1, TFOOT: 1, TR: 1, TH: 1, TD: 1,
+        STRONG: 1, B: 1, EM: 1, I: 1, DEL: 1, S: 1,
+        A: 1, SPAN: 1, DIV: 1, SUP: 1, SUB: 1
+      };
+      var REMOVED_SUBTREE_TAGS = {
+        SCRIPT: 1, STYLE: 1, IFRAME: 1, OBJECT: 1, EMBED: 1,
+        SVG: 1, MATH: 1, FORM: 1, INPUT: 1, BUTTON: 1,
+        TEXTAREA: 1, SELECT: 1, META: 1, LINK: 1, BASE: 1,
+        TEMPLATE: 1, NOSCRIPT: 1, FRAME: 1, FRAMESET: 1
+      };
+      var ALLOWED_ATTRS = {
+        id: 1, class: 1, title: 1, colspan: 1, rowspan: 1,
+        start: 1, href: 1, target: 1, rel: 1
+      };
+
+      function isSafeHref(rawHref) {
+        if (typeof rawHref !== 'string') return false;
+        var cleaned = rawHref.replace(/[\u0000-\u0020\u007F]+/g, '').trim();
+        if (!cleaned) return false;
+        var colonIdx = cleaned.indexOf(':');
+        if (colonIdx === -1) return true;
+        var slashIdx = cleaned.indexOf('/');
+        var hashIdx = cleaned.indexOf('#');
+        var qIdx = cleaned.indexOf('?');
+        if ((slashIdx !== -1 && slashIdx < colonIdx) ||
+          (hashIdx !== -1 && hashIdx < colonIdx) ||
+          (qIdx !== -1 && qIdx < colonIdx)) {
+          return true;
+        }
+        var scheme = cleaned.slice(0, colonIdx + 1).toLowerCase();
+        return scheme === 'http:' || scheme === 'https:' || scheme === 'mailto:';
+      }
+
+      function pruneAndHardenTree(root) {
+        var children = Array.prototype.slice.call(root.childNodes);
+        for (var i = 0; i < children.length; i++) {
+          var node = children[i];
+          if (node.nodeType === 3) continue;
+          if (node.nodeType !== 1) {
+            root.removeChild(node);
+            continue;
+          }
+          var tag = node.tagName.toUpperCase();
+          if (REMOVED_SUBTREE_TAGS[tag]) {
+            root.removeChild(node);
+            continue;
+          }
+          if (!ALLOWED_TAGS[tag]) {
+            pruneAndHardenTree(node);
+            while (node.firstChild) {
+              root.insertBefore(node.firstChild, node);
+            }
+            root.removeChild(node);
+            continue;
+          }
+
+          var attrs = Array.prototype.slice.call(node.attributes);
+          for (var ai = 0; ai < attrs.length; ai++) {
+            var aName = attrs[ai].name.toLowerCase();
+            if (!ALLOWED_ATTRS[aName] || aName.indexOf('on') === 0) {
+              node.removeAttribute(attrs[ai].name);
+            }
+          }
+
+          if (tag === 'A') {
+            var hrefVal = node.getAttribute('href');
+            if (hrefVal !== null) {
+              if (!isSafeHref(hrefVal)) {
+                node.removeAttribute('href');
+              } else if (/^https?:\/\//i.test(hrefVal.trim())) {
+                node.setAttribute('target', '_blank');
+                node.setAttribute('rel', 'noopener noreferrer');
+              }
+            }
+          }
+
+          pruneAndHardenTree(node);
+        }
+      }
+
+      function sanitizeHtmlToFragment(rawHtml) {
+        var htmlStr = String(rawHtml || '');
+        var parsedDoc = null;
+
+        if (typeof Document !== 'undefined' && typeof Document.parseHTML === 'function') {
+          try {
+            parsedDoc = Document.parseHTML(htmlStr);
+          } catch (e) {
+            parsedDoc = null;
+          }
+        }
+
+        if (!parsedDoc) {
+          parsedDoc = new DOMParser().parseFromString(htmlStr, 'text/html');
+        }
+
+        var body = parsedDoc && parsedDoc.body;
+        var frag = document.createDocumentFragment();
+        if (!body) return frag;
+
+        pruneAndHardenTree(body);
+        var bodyChildren = body.childNodes;
+        for (var ci = 0; ci < bodyChildren.length; ci++) {
+          frag.appendChild(document.importNode(bodyChildren[ci], true));
+        }
+        return frag;
+      }
+
+      var SECTION_RULES = [
+        { type: 'evidence', rx: /verified\s+evidence|source\s+register|daftar\s+bukti|sumber\s+terverifikasi/i },
+        { type: 'abroad', rx: /abroad|visa\s+sponsorship|luar\s+negeri|sponsor\s+visa/i },
+        { type: 'onboarding', rx: /30\s*\/\s*60\s*\/\s*90|onboarding|rencana\s+aksi/i },
+        { type: 'overview', rx: /role\s+description|executive\s+overview|deskripsi\s+peran|ringkasan\s+eksekutif/i },
+        { type: 'skills', rx: /skillset|competenc|tech\s+stack|kebutuhan\s+kompetensi|keahlian/i },
+        { type: 'roadmap', rx: /what\s+you\s+need\s+to\s+learn|roadmap|portfolio|peta\s+jalan\s+belajar|proyek\s+portofolio/i },
+        { type: 'routine', rx: /daily\s+routine|day\s+in\s+the\s+life|rutinitas\s+harian|keseharian\s+kerja/i },
+        { type: 'salary', rx: /salar|progression|compensation|estimasi\s+gaji|perjalanan\s+karier|kompensasi/i },
+        { type: 'guidance', rx: /career\s+guidance|\bpros\b|ai\s+sentiment|panduan\s+karier|sentimen\s+ai|\bpro,\s*kontra\b/i }
+      ];
+
+      function classifySection(title, index, totalSections) {
+        var clean = String(title || '').replace(/^\d+\.\s*/, '').trim();
+        for (var i = 0; i < SECTION_RULES.length; i++) {
+          if (SECTION_RULES[i].rx.test(clean)) return SECTION_RULES[i].type;
+        }
+        if (typeof index === 'number' && typeof totalSections === 'number') {
+          if (index === 1 && /^(overview|summary|introduction|ringkasan|pendahuluan|\d*)$/i.test(clean)) return 'overview';
+          if (index === 2 && /^(skills?|kompetensi|\d*)$/i.test(clean)) return 'skills';
+          if (index === 3 && /^(learning|curriculum|kurikulum|\d*)$/i.test(clean)) return 'roadmap';
+          if (index === 4 && /^(routine|schedule|rutinitas|\d*)$/i.test(clean)) return 'routine';
+          if (index === 5 && /^(pay|gaji|karier|\d*)$/i.test(clean)) return 'salary';
+          if (index === 6 && /^(guidance|realities|panduan|\d*)$/i.test(clean)) return 'guidance';
+          if (index === 7 && totalSections >= 8 && !clean) return 'onboarding';
+          if (totalSections >= 9 && index === totalSections - 1 && /^(international|global|overseas|\d*)$/i.test(clean)) return 'abroad';
+          if (index === totalSections && /^(sources?|references?|bukti|referensi|\d*)$/i.test(clean)) return 'evidence';
+        }
+        return 'generic';
+      }
+
+      var SECTION_ICON_PATHS = {
+        overview: '<circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>',
+        skills: '<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>',
+        roadmap: '<polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/>',
+        routine: '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
+        salary: '<line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>',
+        guidance: '<circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>',
+        onboarding: '<polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>',
+        abroad: '<circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>',
+        evidence: '<path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>',
+        generic: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>'
+      };
+
+      function getSectionIconSvg(sectionType) {
+        var inner = SECTION_ICON_PATHS[sectionType] || SECTION_ICON_PATHS.generic;
+        return '<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' + inner + '</svg>';
+      }
+
+      function trimBoundaryHrs(nodes) {
+        var arr = nodes.slice();
+        while (arr.length && arr[0].nodeType === 1 && arr[0].tagName === 'HR') arr.shift();
+        while (arr.length && arr[arr.length - 1].nodeType === 1 && arr[arr.length - 1].tagName === 'HR') arr.pop();
+        return arr;
+      }
+
+      function computeSectionStats(nodes) {
+        var textParts = [];
+        var tableCount = 0;
+        var subsectionCount = 0;
+        var codeBlockCount = 0;
+
+        for (var i = 0; i < nodes.length; i++) {
+          var n = nodes[i];
+          var txt = (n.textContent || '').trim();
+          if (txt) textParts.push(txt);
+          if (n.nodeType === 1) {
+            var tag = n.tagName;
+            if (tag === 'TABLE') tableCount++;
+            else tableCount += n.querySelectorAll('table').length;
+
+            if (tag === 'H3' || tag === 'H4') subsectionCount++;
+            else subsectionCount += n.querySelectorAll('h3, h4').length;
+
+            if (tag === 'PRE') codeBlockCount++;
+            else codeBlockCount += n.querySelectorAll('pre').length;
+          }
+        }
+
+        var joined = textParts.join(' ').trim();
+        var wordCount = joined ? joined.split(/\s+/).length : 0;
+        return {
+          wordCount: wordCount,
+          readMins: Math.max(1, Math.round(wordCount / 220)),
+          tableCount: tableCount,
+          subsectionCount: subsectionCount,
+          codeBlockCount: codeBlockCount
+        };
+      }
+
+      function countUniqueCitationsFromText(str) {
+        var matches = String(str || '').match(/\[([JYA]\d{2,})\]/g) || [];
+        var seen = Object.create(null);
+        var count = 0;
+        for (var i = 0; i < matches.length; i++) {
+          if (!seen[matches[i]]) {
+            seen[matches[i]] = true;
+            count++;
+          }
+        }
+        return count;
+      }
+
+      function normalizeSections(fragment, opts) {
+        var children = Array.prototype.slice.call(fragment.childNodes);
+        var filtered = [];
+        var skippedFirstH1 = false;
+
+        for (var i = 0; i < children.length; i++) {
+          var node = children[i];
+          if (node.nodeType === 3 && !node.textContent.trim()) continue;
+          if (!skippedFirstH1 && node.nodeType === 1 && node.tagName === 'H1') {
+            skippedFirstH1 = true;
+            continue;
+          }
+          filtered.push(node);
+        }
+
+        var preamble = [];
+        var rawSections = [];
+        var current = null;
+
+        for (var j = 0; j < filtered.length; j++) {
+          var el = filtered[j];
+          if (el.nodeType === 1 && el.tagName === 'H2') {
+            if (current) rawSections.push(current);
+            current = { headingEl: el, nodes: [] };
+          } else if (current) {
+            current.nodes.push(el);
+          } else {
+            preamble.push(el);
+          }
+        }
+        if (current) rawSections.push(current);
+
+        preamble = trimBoundaryHrs(preamble);
+
+        if (rawSections.length === 0 && preamble.length > 0) {
+          var fallbackTitle = (opts && opts.lang === 'id') ? 'Ringkasan Dosier' : 'Dossier Overview';
+          var h2 = document.createElement('h2');
+          h2.textContent = fallbackTitle;
+          rawSections.push({ headingEl: h2, nodes: preamble });
+          preamble = [];
+        }
+
+        var total = rawSections.length;
+        var sections = [];
+        var totalWords = 0;
+        var citeTextParts = [];
+
+        for (var sIdx = 0; sIdx < total; sIdx++) {
+          var rs = rawSections[sIdx];
+          var index = sIdx + 1;
+          var id = 'section-' + index;
+          var numBadge = (index < 10 ? '0' : '') + index;
+          var rawTitle = (rs.headingEl.textContent || '').trim();
+          var cleanTitle = rawTitle.replace(/^\d+\.\s*/, '').trim() || rawTitle;
+          var sectionType = classifySection(cleanTitle, index, total);
+          var cleanNodes = trimBoundaryHrs(rs.nodes);
+          var stats = computeSectionStats(cleanNodes);
+
+          rs.headingEl.id = id;
+          rs.headingEl.setAttribute('data-section-type', sectionType);
+
+          totalWords += stats.wordCount;
+          citeTextParts.push(rawTitle);
+          for (var ni = 0; ni < cleanNodes.length; ni++) {
+            citeTextParts.push(cleanNodes[ni].textContent || '');
+          }
+
+          sections.push({
+            index: index,
+            id: id,
+            numBadge: numBadge,
+            rawTitle: rawTitle,
+            cleanTitle: cleanTitle,
+            sectionType: sectionType,
+            iconSvg: getSectionIconSvg(sectionType),
+            headingEl: rs.headingEl,
+            nodes: cleanNodes,
+            stats: stats
+          });
+        }
+
+        return {
+          sections: sections,
+          preambleNodes: preamble,
+          stats: {
+            sections: sections.length,
+            wordCount: totalWords,
+            readMins: sections.length ? Math.max(1, Math.round(totalWords / 220)) : 0,
+            sources: countUniqueCitationsFromText(citeTextParts.join(' '))
+          }
+        };
+      }
+
+      function findTableElement(tableOrContainer) {
+        if (!tableOrContainer) return null;
+        if (tableOrContainer.nodeType === 1) {
+          return tableOrContainer.tagName === 'TABLE'
+            ? tableOrContainer
+            : tableOrContainer.querySelector('table');
+        }
+        if (Array.isArray(tableOrContainer.nodes)) {
+          for (var i = 0; i < tableOrContainer.nodes.length; i++) {
+            var n = tableOrContainer.nodes[i];
+            if (n.nodeType === 1) {
+              if (n.tagName === 'TABLE') return n;
+              var found = n.querySelector('table');
+              if (found) return found;
+            }
+          }
+        }
+        return null;
+      }
+
+      function extractTableData(tableOrContainer) {
+        var tableEl = findTableElement(tableOrContainer);
+        if (!tableEl) {
+          return { headers: [], normalizedHeaders: [], rows: [], rowCount: 0, colCount: 0 };
+        }
+
+        var headers = [];
+        var normalizedHeaders = [];
+        var ths = tableEl.querySelectorAll('thead th, thead td');
+        if (ths.length === 0) {
+          var firstTr = tableEl.querySelector('tr');
+          if (firstTr) ths = firstTr.querySelectorAll('th, td');
+        }
+        for (var hi = 0; hi < ths.length; hi++) {
+          var hText = (ths[hi].textContent || '').replace(/\s+/g, ' ').trim();
+          headers.push(hText);
+          normalizedHeaders.push(hText.toLowerCase());
+        }
+
+        var bodyRows = tableEl.querySelectorAll('tbody tr');
+        if (bodyRows.length === 0) {
+          var allTrs = Array.prototype.slice.call(tableEl.querySelectorAll('tr'));
+          bodyRows = allTrs.slice(ths.length ? 1 : 0);
+        }
+
+        var rows = [];
+        for (var ri = 0; ri < bodyRows.length; ri++) {
+          var tr = bodyRows[ri];
+          var tds = tr.querySelectorAll('td, th');
+          var cells = [];
+          var htmlCells = [];
+          var links = [];
+          var byHeader = Object.create(null);
+
+          for (var ci = 0; ci < tds.length; ci++) {
+            var cellEl = tds[ci];
+            var cText = (cellEl.textContent || '').replace(/\s+/g, ' ').trim();
+            cells.push(cText);
+            htmlCells.push(cellEl.innerHTML);
+            if (normalizedHeaders[ci]) {
+              byHeader[normalizedHeaders[ci]] = cText;
+            }
+            var anchors = cellEl.querySelectorAll('a[href]');
+            for (var ai = 0; ai < anchors.length; ai++) {
+              links.push({
+                text: (anchors[ai].textContent || '').trim(),
+                href: anchors[ai].getAttribute('href') || '',
+                colIndex: ci
+              });
+            }
+          }
+          rows.push({
+            cells: cells,
+            htmlCells: htmlCells,
+            links: links,
+            byHeader: byHeader,
+            rowEl: tr
+          });
+        }
+
+        return {
+          headers: headers,
+          normalizedHeaders: normalizedHeaders,
+          rows: rows,
+          rowCount: rows.length,
+          colCount: headers.length
+        };
+      }
+
+      var ABBREV_PROTECT_RX = /\b(e\.g\.|i\.e\.|(?:vs|etc|dr|Dr|Apt|No|Jl|Rp|dkk|dst|dll|S\.Farm|S\.Kom|S\.T|S\.E)\.)/g;
+
+      function extractPlainText(source, opts) {
+        var stripCitations = !opts || opts.stripCitations !== false;
+        var nodes = [];
+        if (typeof source === 'string') {
+          nodes = [];
+        } else if (source && Array.isArray(source.nodes)) {
+          nodes = source.nodes;
+        } else if (Array.isArray(source)) {
+          nodes = source;
+        } else if (source && source.nodeType === 1) {
+          nodes = [source];
+        }
+
+        var rawText = '';
+        if (typeof source === 'string') {
+          rawText = source;
+        } else {
+          var parts = [];
+          var pTexts = [];
+          var liTexts = [];
+          for (var i = 0; i < nodes.length; i++) {
+            var n = nodes[i];
+            if (n.nodeType === 3) {
+              var t3 = n.textContent.trim();
+              if (t3) pTexts.push(t3);
+              continue;
+            }
+            if (n.nodeType !== 1) continue;
+            var tag = n.tagName;
+            if (tag === 'PRE' || tag === 'TABLE' || tag === 'HR' || /^H[1-6]$/.test(tag)) continue;
+            if (tag === 'P' || tag === 'BLOCKQUOTE') {
+              var pt = (n.textContent || '').trim();
+              if (pt) pTexts.push(pt);
+            } else if (tag === 'UL' || tag === 'OL') {
+              var lis = n.querySelectorAll('li');
+              for (var li = 0; li < lis.length; li++) {
+                var lt = (lis[li].textContent || '').trim();
+                if (lt) liTexts.push(lt);
+              }
+            } else {
+              var gt = (n.textContent || '').trim();
+              if (gt) parts.push(gt);
+            }
+          }
+          var useList = opts && opts.fallbackToList !== false && pTexts.length === 0;
+          rawText = (pTexts.length ? pTexts : (useList && liTexts.length ? liTexts : parts)).join(' ');
+        }
+
+        var cleaned = rawText.replace(/\s+/g, ' ').trim();
+        if (stripCitations) {
+          cleaned = cleaned
+            .replace(/\s*\[[JYA]\d{2,}(?:\s*[,\-\u2013]\s*[JYA]?\d{2,})*\]/g, '')
+            .replace(/\s+([.,;:!?])/g, '$1')
+            .replace(/\s{2,}/g, ' ')
+            .trim();
+        }
+        return cleaned;
+      }
+
+      function extractPlainSentences(source, opts) {
+        var maxSentences = (opts && typeof opts.maxSentences === 'number') ? opts.maxSentences : 2;
+        var maxChars = (opts && typeof opts.maxChars === 'number') ? opts.maxChars : 220;
+        var text = extractPlainText(source, opts);
+        if (!text) return { text: '', sentences: [], truncated: false };
+
+        var protectedText = text.replace(ABBREV_PROTECT_RX, function (m) {
+          return m.replace(/\./g, '\u0007DOT');
+        });
+        var rawSentences = protectedText.match(/[^.!?]+(?:[.!?]+|$)/g) || [protectedText];
+        var sentences = [];
+        for (var i = 0; i < rawSentences.length; i++) {
+          var s = rawSentences[i].replace(/\u0007DOT/g, '.').trim();
+          if (s) sentences.push(s);
+        }
+
+        var picked = sentences.slice(0, maxSentences);
+        var joined = picked.join(' ').trim();
+        var truncated = sentences.length > picked.length;
+
+        if (joined.length > maxChars) {
+          var slice = joined.slice(0, maxChars);
+          var lastSpace = slice.lastIndexOf(' ');
+          joined = (lastSpace > maxChars * 0.55 ? slice.slice(0, lastSpace) : slice).replace(/[.,;:!?\-\s]+$/, '') + '\u2026';
+          truncated = true;
+        }
+
+        return { text: joined, sentences: picked, truncated: truncated };
+      }
+
       applyShellLabels();
       initThemeController();
       initReadingProgressFallback();
@@ -1183,26 +2142,56 @@
       var rawEl = document.getElementById('m');
       var target = document.getElementById('c');
       var rawMd = rawEl ? rawEl.value : '';
+      var roleNameEl = document.getElementById('toolbar-role');
+      var roleName = roleNameEl ? roleNameEl.textContent.trim() : '';
 
-      updateVitals(computeVitalStats(rawMd));
+      var parsedResult = parseMarkdown(rawMd);
+      var sanitizedFrag = sanitizeHtmlToFragment(parsedResult.html);
+      var normalizedResult = normalizeSections(sanitizedFrag, { roleName: roleName, lang: lang });
+
+      updateVitals(normalizedResult.stats);
 
       if (target) {
-        if (window.marked && typeof window.marked.parse === 'function') {
-          target.innerHTML = window.marked.parse(rawMd);
-          var firstEl = target.firstElementChild;
-          if (firstEl && firstEl.tagName === 'H1') {
-            firstEl.remove();
-          }
-          wrapTables(target);
-          populateBasicToc(target);
-        } else {
-          var pre = document.createElement('pre');
-          pre.className = 'markdown-fallback';
-          pre.textContent = rawMd;
-          target.appendChild(pre);
+        var mountNodes = [];
+        for (var pi = 0; pi < normalizedResult.preambleNodes.length; pi++) {
+          mountNodes.push(normalizedResult.preambleNodes[pi]);
         }
+        for (var si = 0; si < normalizedResult.sections.length; si++) {
+          var sec = normalizedResult.sections[si];
+          var secEl = document.createElement('section');
+          secEl.id = sec.id;
+          secEl.className = 'dossier-section';
+          secEl.setAttribute('data-section-type', sec.sectionType);
+          secEl.setAttribute('data-section-index', String(sec.index));
+          secEl.appendChild(sec.headingEl);
+          for (var ni = 0; ni < sec.nodes.length; ni++) {
+            secEl.appendChild(sec.nodes[ni]);
+          }
+          mountNodes.push(secEl);
+        }
+        target.replaceChildren.apply(target, mountNodes);
+        wrapTables(target);
+        populateBasicToc(target);
       }
 
+      var parserApi = {
+        engine: parsedResult.engine,
+        normalizeMarkdownInput: normalizeMarkdownInput,
+        fallbackMarkdownToHtml: fallbackMarkdownToHtml,
+        parseMarkdown: parseMarkdown,
+        sanitizeHtmlToFragment: sanitizeHtmlToFragment,
+        isSafeHref: isSafeHref,
+        classifySection: classifySection,
+        getSectionIconSvg: getSectionIconSvg,
+        normalizeSections: normalizeSections,
+        extractTableData: extractTableData,
+        extractPlainText: extractPlainText,
+        extractPlainSentences: extractPlainSentences,
+        getSections: function () { return normalizedResult.sections; },
+        getStats: function () { return normalizedResult.stats; }
+      };
+
+      window.JourKaParser = parserApi;
       window.JourKaShell = {
         lang: lang,
         getTheme: getTheme,
@@ -1210,9 +2199,12 @@
         updateVitals: updateVitals,
         wrapTables: wrapTables,
         populateBasicToc: populateBasicToc,
-        closeTocDrawer: closeTocDrawer
+        closeTocDrawer: closeTocDrawer,
+        parser: parserApi,
+        sections: normalizedResult.sections
       };
     })();
   </script>
 </body>
+
 </html>
