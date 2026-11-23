@@ -138,6 +138,10 @@
       <Variable x:TypeArguments="x:String" Name="strEmailSubject" />
       <Variable x:TypeArguments="x:String" Name="strEmailBodyHtml" />
       <Variable x:TypeArguments="x:Boolean" Name="dossierReadyForDispatch" />
+      <Variable x:TypeArguments="x:Boolean" Name="guardPassed" />
+      <Variable x:TypeArguments="x:Boolean" Name="emailDispatchSuccess" />
+      <Variable x:TypeArguments="x:String" Name="emailDispatchError" />
+      <Variable x:TypeArguments="x:Int32" Default="0" Name="consecutiveSmtpAuthFailures" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -173,7 +177,7 @@
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <ui:InvokeCode ContinueOnError="{x:Null}" Code="' Per-Row Variable Reset for Iteration Isolation (JK-RPA-006 / #25)&#xA;out_PrimaryKeyEmail = &quot;&quot;&#xA;out_NormalizedRecipients = &quot;&quot;&#xA;out_StudentName = &quot;&quot;&#xA;out_RoleName = &quot;&quot;&#xA;out_RoleLevel = &quot;&quot;&#xA;out_RoleLocation = &quot;&quot;&#xA;out_ExtraKeywords = &quot;&quot;&#xA;out_AbroadMarkets = &quot;&quot;&#xA;out_CurrentStatus = &quot;&quot;&#xA;out_RowBreReason = &quot;&quot;&#xA;out_SafeRoleName = &quot;&quot;&#xA;out_RoleFolder = &quot;&quot;&#xA;out_MarkdownPath = &quot;&quot;&#xA;out_HtmlPath = &quot;&quot;&#xA;out_PdfPath = &quot;&quot;&#xA;out_MarkdownPathID = &quot;&quot;&#xA;out_HtmlPathID = &quot;&quot;&#xA;out_PdfPathID = &quot;&quot;&#xA;out_DossierMarkdown = &quot;&quot;&#xA;out_DossierMarkdownID = &quot;&quot;&#xA;out_AbroadEvidenceText = &quot;&quot;&#xA;out_AbroadCount = 0&#xA;out_AbroadStatus = &quot;&quot;&#xA;out_ListAttachments = New System.Collections.Generic.List(Of String)()&#xA;out_EmailSubject = &quot;&quot;&#xA;out_EmailBodyHtml = &quot;&quot;&#xA;out_DossierReadyForDispatch = False&#xA;" DisplayName="Reset Row-Scoped Variables for Iteration Isolation" sap2010:WorkflowViewState.IdRef="InvokeCode_3" Language="VBNet">
+            <ui:InvokeCode ContinueOnError="{x:Null}" Code="' Per-Row Variable Reset for Iteration Isolation (JK-RPA-006 / #25, JK-RPA-007 / #27)&#xA;out_PrimaryKeyEmail = &quot;&quot;&#xA;out_NormalizedRecipients = &quot;&quot;&#xA;out_StudentName = &quot;&quot;&#xA;out_RoleName = &quot;&quot;&#xA;out_RoleLevel = &quot;&quot;&#xA;out_RoleLocation = &quot;&quot;&#xA;out_ExtraKeywords = &quot;&quot;&#xA;out_AbroadMarkets = &quot;&quot;&#xA;out_CurrentStatus = &quot;&quot;&#xA;out_RowBreReason = &quot;&quot;&#xA;out_SafeRoleName = &quot;&quot;&#xA;out_RoleFolder = &quot;&quot;&#xA;out_MarkdownPath = &quot;&quot;&#xA;out_HtmlPath = &quot;&quot;&#xA;out_PdfPath = &quot;&quot;&#xA;out_MarkdownPathID = &quot;&quot;&#xA;out_HtmlPathID = &quot;&quot;&#xA;out_PdfPathID = &quot;&quot;&#xA;out_DossierMarkdown = &quot;&quot;&#xA;out_DossierMarkdownID = &quot;&quot;&#xA;out_AbroadEvidenceText = &quot;&quot;&#xA;out_AbroadCount = 0&#xA;out_AbroadStatus = &quot;&quot;&#xA;out_ListAttachments = New System.Collections.Generic.List(Of String)()&#xA;out_EmailSubject = &quot;&quot;&#xA;out_EmailBodyHtml = &quot;&quot;&#xA;out_DossierReadyForDispatch = False&#xA;out_GuardPassed = False&#xA;out_EmailDispatchSuccess = False&#xA;out_EmailDispatchError = &quot;&quot;&#xA;" DisplayName="Reset Row-Scoped Variables for Iteration Isolation" sap2010:WorkflowViewState.IdRef="InvokeCode_3" Language="VBNet">
               <ui:InvokeCode.Arguments>
                 <OutArgument x:TypeArguments="x:String" x:Key="out_PrimaryKeyEmail">[strPrimaryKeyEmail]</OutArgument>
                 <OutArgument x:TypeArguments="x:String" x:Key="out_NormalizedRecipients">[strNormalizedRecipients]</OutArgument>
@@ -202,6 +206,9 @@
                 <OutArgument x:TypeArguments="x:String" x:Key="out_EmailSubject">[strEmailSubject]</OutArgument>
                 <OutArgument x:TypeArguments="x:String" x:Key="out_EmailBodyHtml">[strEmailBodyHtml]</OutArgument>
                 <OutArgument x:TypeArguments="x:Boolean" x:Key="out_DossierReadyForDispatch">[dossierReadyForDispatch]</OutArgument>
+                <OutArgument x:TypeArguments="x:Boolean" x:Key="out_GuardPassed">[guardPassed]</OutArgument>
+                <OutArgument x:TypeArguments="x:Boolean" x:Key="out_EmailDispatchSuccess">[emailDispatchSuccess]</OutArgument>
+                <OutArgument x:TypeArguments="x:String" x:Key="out_EmailDispatchError">[emailDispatchError]</OutArgument>
               </ui:InvokeCode.Arguments>
             </ui:InvokeCode>
             <Assign DisplayName="Assign roleName" sap:VirtualizedContainerService.HintSize="454,82" sap2010:WorkflowViewState.IdRef="Assign_1">
@@ -688,6 +695,14 @@
                                 </ui:InvokeCode.Arguments>
                               </ui:InvokeCode>
                               <ui:LogMessage DisplayName="Log 1-to-1 Pre-Dispatch Guard Passed" sap2010:WorkflowViewState.IdRef="LogMessage_4" Level="Info" Message="[&quot;[PK: &quot; &amp; strPrimaryKeyEmail &amp; &quot;] 1-to-1 Pre-Dispatch Guard PASSED | Role: &quot; &amp; roleName &amp; &quot; | Attachments: &quot; &amp; String.Join(&quot;, &quot;, listAttachments.Select(Function(p) System.IO.Path.GetFileName(p))) &amp; &quot; | Ready for Email Dispatch&quot;]" />
+                              <Assign DisplayName="Mark 1-to-1 Guard Passed" sap2010:WorkflowViewState.IdRef="Assign_25">
+                                <Assign.To>
+                                  <OutArgument x:TypeArguments="x:Boolean">[guardPassed]</OutArgument>
+                                </Assign.To>
+                                <Assign.Value>
+                                  <InArgument x:TypeArguments="x:Boolean">[True]</InArgument>
+                                </Assign.Value>
+                              </Assign>
                             </Sequence>
                           </TryCatch.Try>
                           <TryCatch.Catches>
@@ -727,6 +742,196 @@
                             </Catch>
                           </TryCatch.Catches>
                         </TryCatch>
+                        <If Condition="[guardPassed]" DisplayName="If 1-to-1 Guard Passed, Render and Dispatch Email" sap2010:WorkflowViewState.IdRef="If_5">
+                          <If.Then>
+                            <Sequence DisplayName="Execute Render and SMTP Dispatch Stage" sap2010:WorkflowViewState.IdRef="Sequence_14">
+                              <TryCatch DisplayName="Try Render and Send Student Email" sap2010:WorkflowViewState.IdRef="TryCatch_3">
+                                <TryCatch.Try>
+                                  <Sequence DisplayName="Check Auth Circuit Breaker, Render Email, and Dispatch" sap2010:WorkflowViewState.IdRef="Sequence_15">
+                                    <If Condition="[consecutiveSmtpAuthFailures &gt;= 3]" DisplayName="If SMTP Auth Circuit Breaker Open" sap2010:WorkflowViewState.IdRef="If_6">
+                                      <If.Then>
+                                        <Sequence DisplayName="Skip Dispatch Due to SMTP Auth Circuit Breaker" sap2010:WorkflowViewState.IdRef="Sequence_16">
+                                          <Assign DisplayName="Set EmailStatus Failed - System (Circuit Breaker)" sap2010:WorkflowViewState.IdRef="Assign_26">
+                                            <Assign.To>
+                                              <OutArgument x:TypeArguments="x:Object">[CurrentRow("EmailStatus")]</OutArgument>
+                                            </Assign.To>
+                                            <Assign.Value>
+                                              <InArgument x:TypeArguments="x:Object">["Failed - System"]</InArgument>
+                                            </Assign.Value>
+                                          </Assign>
+                                          <Assign DisplayName="Set EmailTimestamp (Circuit Breaker)" sap2010:WorkflowViewState.IdRef="Assign_27">
+                                            <Assign.To>
+                                              <OutArgument x:TypeArguments="x:Object">[CurrentRow("EmailTimestamp")]</OutArgument>
+                                            </Assign.To>
+                                            <Assign.Value>
+                                              <InArgument x:TypeArguments="x:Object">[DateTimeOffset.Now.ToString("yyyy-MM-dd HH:mm:ss zzz")]</InArgument>
+                                            </Assign.Value>
+                                          </Assign>
+                                          <Assign DisplayName="Set ErrorMessage (Circuit Breaker)" sap2010:WorkflowViewState.IdRef="Assign_28">
+                                            <Assign.To>
+                                              <OutArgument x:TypeArguments="x:Object">[CurrentRow("ErrorMessage")]</OutArgument>
+                                            </Assign.To>
+                                            <Assign.Value>
+                                              <InArgument x:TypeArguments="x:Object">["SMTP Dispatch Skipped: Circuit breaker open after 3 consecutive SMTP authentication (535) failures."]</InArgument>
+                                            </Assign.Value>
+                                          </Assign>
+                                          <ui:LogMessage DisplayName="Log SMTP Auth Circuit Breaker Skip" Level="Error" Message="[&quot;[PK: &quot; &amp; strPrimaryKeyEmail &amp; &quot;] SystemException — SMTP circuit breaker open (3 consecutive 535 auth failures). Skipping email dispatch.&quot;]" sap2010:WorkflowViewState.IdRef="LogMessage_6" />
+                                        </Sequence>
+                                      </If.Then>
+                                      <If.Else>
+                                        <Sequence DisplayName="Render Formal HTML Email and Dispatch via SMTP" sap2010:WorkflowViewState.IdRef="Sequence_17">
+                                          <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke RenderStudentEmail Workflow" UnSafe="False" WorkflowFileName="Workflows\RenderStudentEmail.xaml" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1">
+                                            <ui:InvokeWorkflowFile.Arguments>
+                                              <InArgument x:TypeArguments="x:String" x:Key="in_StudentName">[studentName]</InArgument>
+                                              <InArgument x:TypeArguments="x:String" x:Key="in_RoleName">[roleName]</InArgument>
+                                              <InArgument x:TypeArguments="x:String" x:Key="in_RoleLevel">[roleLevel]</InArgument>
+                                              <InArgument x:TypeArguments="x:String" x:Key="in_RoleLocation">[roleLocation]</InArgument>
+                                              <InArgument x:TypeArguments="x:String" x:Key="in_AbroadMarkets">[abroadMarkets]</InArgument>
+                                              <InArgument x:TypeArguments="scg:IEnumerable(x:String)" x:Key="in_AttachmentPaths">[listAttachments]</InArgument>
+                                              <InArgument x:TypeArguments="x:String" x:Key="in_PrimaryKeyEmail">[strPrimaryKeyEmail]</InArgument>
+                                              <InArgument x:TypeArguments="x:String" x:Key="in_TemplatePath">[System.IO.Path.Combine(Environment.CurrentDirectory, "Templates", "StudentParentEmailTemplate.html")]</InArgument>
+                                              <OutArgument x:TypeArguments="x:String" x:Key="out_Subject">[strEmailSubject]</OutArgument>
+                                              <OutArgument x:TypeArguments="x:String" x:Key="out_BodyHtml">[strEmailBodyHtml]</OutArgument>
+                                            </ui:InvokeWorkflowFile.Arguments>
+                                          </ui:InvokeWorkflowFile>
+                                          <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke SendStudentEmail Workflow" UnSafe="False" WorkflowFileName="Workflows\SendStudentEmail.xaml" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2">
+                                            <ui:InvokeWorkflowFile.Arguments>
+                                              <InArgument x:TypeArguments="x:String" x:Key="in_NormalizedRecipients">[strNormalizedRecipients]</InArgument>
+                                              <InArgument x:TypeArguments="x:String" x:Key="in_Subject">[strEmailSubject]</InArgument>
+                                              <InArgument x:TypeArguments="x:String" x:Key="in_BodyHtml">[strEmailBodyHtml]</InArgument>
+                                              <InArgument x:TypeArguments="scg:IEnumerable(x:String)" x:Key="in_AttachmentPaths">[listAttachments]</InArgument>
+                                              <InArgument x:TypeArguments="x:String" x:Key="in_PrimaryKeyEmail">[strPrimaryKeyEmail]</InArgument>
+                                              <OutArgument x:TypeArguments="x:Boolean" x:Key="out_Success">[emailDispatchSuccess]</OutArgument>
+                                              <OutArgument x:TypeArguments="x:String" x:Key="out_ErrorMessage">[emailDispatchError]</OutArgument>
+                                            </ui:InvokeWorkflowFile.Arguments>
+                                          </ui:InvokeWorkflowFile>
+                                          <If Condition="[emailDispatchSuccess]" DisplayName="If Email Dispatch Succeeded" sap2010:WorkflowViewState.IdRef="If_7">
+                                            <If.Then>
+                                              <Sequence DisplayName="Record Successful Email Dispatch" sap2010:WorkflowViewState.IdRef="Sequence_18">
+                                                <Assign DisplayName="Reset SMTP Auth Failure Counter" sap2010:WorkflowViewState.IdRef="Assign_29">
+                                                  <Assign.To>
+                                                    <OutArgument x:TypeArguments="x:Int32">[consecutiveSmtpAuthFailures]</OutArgument>
+                                                  </Assign.To>
+                                                  <Assign.Value>
+                                                    <InArgument x:TypeArguments="x:Int32">[0]</InArgument>
+                                                  </Assign.Value>
+                                                </Assign>
+                                                <Assign DisplayName="Set EmailStatus Sent" sap2010:WorkflowViewState.IdRef="Assign_30">
+                                                  <Assign.To>
+                                                    <OutArgument x:TypeArguments="x:Object">[CurrentRow("EmailStatus")]</OutArgument>
+                                                  </Assign.To>
+                                                  <Assign.Value>
+                                                    <InArgument x:TypeArguments="x:Object">["Sent"]</InArgument>
+                                                  </Assign.Value>
+                                                </Assign>
+                                                <Assign DisplayName="Set EmailTimestamp on Sent" sap2010:WorkflowViewState.IdRef="Assign_31">
+                                                  <Assign.To>
+                                                    <OutArgument x:TypeArguments="x:Object">[CurrentRow("EmailTimestamp")]</OutArgument>
+                                                  </Assign.To>
+                                                  <Assign.Value>
+                                                    <InArgument x:TypeArguments="x:Object">[DateTimeOffset.Now.ToString("yyyy-MM-dd HH:mm:ss zzz")]</InArgument>
+                                                  </Assign.Value>
+                                                </Assign>
+                                                <Assign DisplayName="Clear ErrorMessage on Sent" sap2010:WorkflowViewState.IdRef="Assign_32">
+                                                  <Assign.To>
+                                                    <OutArgument x:TypeArguments="x:Object">[CurrentRow("ErrorMessage")]</OutArgument>
+                                                  </Assign.To>
+                                                  <Assign.Value>
+                                                    <InArgument x:TypeArguments="x:Object">[""]</InArgument>
+                                                  </Assign.Value>
+                                                </Assign>
+                                                <ui:LogMessage DisplayName="Log Email Sent" Level="Info" Message="[&quot;[PK: &quot; &amp; strPrimaryKeyEmail &amp; &quot;] Email SENT | Role: &quot; &amp; roleName &amp; &quot; | Attachments: &quot; &amp; String.Join(&quot;, &quot;, listAttachments.Select(Function(p) System.IO.Path.GetFileName(p))) &amp; &quot; | Timestamp: &quot; &amp; Convert.ToString(CurrentRow(&quot;EmailTimestamp&quot;))]" sap2010:WorkflowViewState.IdRef="LogMessage_7" />
+                                              </Sequence>
+                                            </If.Then>
+                                            <If.Else>
+                                              <Sequence DisplayName="Record Failed Email Dispatch" sap2010:WorkflowViewState.IdRef="Sequence_19">
+                                                <Assign DisplayName="Set EmailStatus Failed - System (Dispatch)" sap2010:WorkflowViewState.IdRef="Assign_33">
+                                                  <Assign.To>
+                                                    <OutArgument x:TypeArguments="x:Object">[CurrentRow("EmailStatus")]</OutArgument>
+                                                  </Assign.To>
+                                                  <Assign.Value>
+                                                    <InArgument x:TypeArguments="x:Object">["Failed - System"]</InArgument>
+                                                  </Assign.Value>
+                                                </Assign>
+                                                <Assign DisplayName="Set EmailTimestamp on Dispatch Failure" sap2010:WorkflowViewState.IdRef="Assign_34">
+                                                  <Assign.To>
+                                                    <OutArgument x:TypeArguments="x:Object">[CurrentRow("EmailTimestamp")]</OutArgument>
+                                                  </Assign.To>
+                                                  <Assign.Value>
+                                                    <InArgument x:TypeArguments="x:Object">[DateTimeOffset.Now.ToString("yyyy-MM-dd HH:mm:ss zzz")]</InArgument>
+                                                  </Assign.Value>
+                                                </Assign>
+                                                <Assign DisplayName="Set Redacted ErrorMessage (Dispatch)" sap2010:WorkflowViewState.IdRef="Assign_35">
+                                                  <Assign.To>
+                                                    <OutArgument x:TypeArguments="x:Object">[CurrentRow("ErrorMessage")]</OutArgument>
+                                                  </Assign.To>
+                                                  <Assign.Value>
+                                                    <InArgument x:TypeArguments="x:Object">[If(String.IsNullOrWhiteSpace(geminiApiKey), emailDispatchError, emailDispatchError.Replace(geminiApiKey, "[REDACTED]"))]</InArgument>
+                                                  </Assign.Value>
+                                                </Assign>
+                                                <If Condition="[Not String.IsNullOrWhiteSpace(emailDispatchError) AndAlso emailDispatchError.Contains(&quot;535&quot;)]" DisplayName="If SMTP 535 Authentication Failure" sap2010:WorkflowViewState.IdRef="If_8">
+                                                  <If.Then>
+                                                    <Sequence DisplayName="Increment SMTP Auth Failure Counter" sap2010:WorkflowViewState.IdRef="Sequence_20">
+                                                      <Assign DisplayName="Increment consecutiveSmtpAuthFailures" sap2010:WorkflowViewState.IdRef="Assign_36">
+                                                        <Assign.To>
+                                                          <OutArgument x:TypeArguments="x:Int32">[consecutiveSmtpAuthFailures]</OutArgument>
+                                                        </Assign.To>
+                                                        <Assign.Value>
+                                                          <InArgument x:TypeArguments="x:Int32">[consecutiveSmtpAuthFailures + 1]</InArgument>
+                                                        </Assign.Value>
+                                                      </Assign>
+                                                      <ui:LogMessage DisplayName="Log SMTP 535 Auth Counter" Level="Warn" Message="[&quot;[PK: &quot; &amp; strPrimaryKeyEmail &amp; &quot;] SMTP 535 authentication failure recorded (&quot; &amp; consecutiveSmtpAuthFailures.ToString() &amp; &quot;/3 before circuit breaker trips).&quot;]" sap2010:WorkflowViewState.IdRef="LogMessage_8" />
+                                                    </Sequence>
+                                                  </If.Then>
+                                                </If>
+                                              </Sequence>
+                                            </If.Else>
+                                          </If>
+                                        </Sequence>
+                                      </If.Else>
+                                    </If>
+                                  </Sequence>
+                                </TryCatch.Try>
+                                <TryCatch.Catches>
+                                  <Catch x:TypeArguments="s:Exception" sap2010:WorkflowViewState.IdRef="Catch`1_3">
+                                    <ActivityAction x:TypeArguments="s:Exception">
+                                      <ActivityAction.Argument>
+                                        <DelegateInArgument x:TypeArguments="s:Exception" Name="dispatchEx" />
+                                      </ActivityAction.Argument>
+                                      <Sequence DisplayName="Handle Unexpected Email Render or Dispatch Exception" sap2010:WorkflowViewState.IdRef="Sequence_21">
+                                        <Assign DisplayName="Set EmailStatus Failed - System (Unexpected)" sap2010:WorkflowViewState.IdRef="Assign_37">
+                                          <Assign.To>
+                                            <OutArgument x:TypeArguments="x:Object">[CurrentRow("EmailStatus")]</OutArgument>
+                                          </Assign.To>
+                                          <Assign.Value>
+                                            <InArgument x:TypeArguments="x:Object">["Failed - System"]</InArgument>
+                                          </Assign.Value>
+                                        </Assign>
+                                        <Assign DisplayName="Set EmailTimestamp (Unexpected)" sap2010:WorkflowViewState.IdRef="Assign_38">
+                                          <Assign.To>
+                                            <OutArgument x:TypeArguments="x:Object">[CurrentRow("EmailTimestamp")]</OutArgument>
+                                          </Assign.To>
+                                          <Assign.Value>
+                                            <InArgument x:TypeArguments="x:Object">[DateTimeOffset.Now.ToString("yyyy-MM-dd HH:mm:ss zzz")]</InArgument>
+                                          </Assign.Value>
+                                        </Assign>
+                                        <Assign DisplayName="Set Redacted ErrorMessage (Unexpected)" sap2010:WorkflowViewState.IdRef="Assign_39">
+                                          <Assign.To>
+                                            <OutArgument x:TypeArguments="x:Object">[CurrentRow("ErrorMessage")]</OutArgument>
+                                          </Assign.To>
+                                          <Assign.Value>
+                                            <InArgument x:TypeArguments="x:Object">[If(String.IsNullOrWhiteSpace(geminiApiKey), dispatchEx.Message, dispatchEx.Message.Replace(geminiApiKey, "[REDACTED]"))]</InArgument>
+                                          </Assign.Value>
+                                        </Assign>
+                                        <ui:LogMessage DisplayName="Log Unexpected Render or Dispatch Error" Level="Error" Message="[&quot;[PK: &quot; &amp; strPrimaryKeyEmail &amp; &quot;] SystemException — Email render/dispatch stage failed. Error: &quot; &amp; Convert.ToString(CurrentRow(&quot;ErrorMessage&quot;))]" sap2010:WorkflowViewState.IdRef="LogMessage_9" />
+                                      </Sequence>
+                                    </ActivityAction>
+                                  </Catch>
+                                </TryCatch.Catches>
+                              </TryCatch>
+                            </Sequence>
+                          </If.Then>
+                        </If>
                       </Sequence>
                     </If.Then>
                   </If>
