@@ -128,16 +128,25 @@ JourKa/
 
 ## 5. Input & Output Data Contracts
 
-### Minimalist Input Workbook Schema (`D:\UiPathProject\Desire Role List.xlsx` — `Sheet1`)
+### Input Workbook Schema v2.0 (`D:\UiPathProject\Desire Role List.xlsx` — `Sheet1`)
 
-The input workbook uses a clean, zero-redundancy **2-column format** (`Job` and `AbroadMarkets`):
+The input workbook uses an 11-column **v2.0 schema** anchored by `RecipientEmail` in **Column A (Primary Key)**, with `Job` in Column B and `AbroadMarkets` in Column C:
 
-| Column | Name | Direction | Default / Fallback | Description |
-|---|---|---|---|---|
-| `A` | `Job` | **In (Required)** | *(Row skipped if blank)* | Target role title (e.g., `Android Developer`, `Apoteker`, `Video Editor`) |
-| `B` | `AbroadMarkets` | **In (Optional)** | `""` *(Skipped if blank)* | Comma-separated target abroad countries per role (e.g., `"Singapore, Germany, Japan"`, or left blank for local-only research) |
+| Column | Index | Name | Direction | Default / Fallback | Description |
+|---|---|---|---|---|---|
+| `A` | `0` | `RecipientEmail` | **In (Mandatory — Primary Key)** | *(Row skipped as BRE once pre-flight validation is enabled)* | Student and/or parent/guardian email address(es). Multiple recipients in a single cell are separated by `;` or `,` (e.g., `student@mail.com; parent@mail.com`). |
+| `B` | `1` | `Job` | **In (Mandatory)** | *(Row skipped if blank; missing column raises BRE)* | Target role title (e.g., `Android Developer`, `Apoteker`, `Video Editor`). |
+| `C` | `2` | `AbroadMarkets` | **In (Optional)** | `""` *(Skipped if blank)* | Comma- or semicolon-separated target abroad countries per role (e.g., `"Singapore, Malaysia, United Kingdom"`, or left blank for local-only research). |
+| `D` | `3` | `StudentName` | **In (Optional)** | `"Valued Student"` | Student display name used for personalized email salutation. |
+| `E` | `4` | `Level` | **In (Optional)** | `"Entry level"` | Seniority level override for job-board scraping and LLM prompts. |
+| `F` | `5` | `Location` | **In (Optional)** | `"Indonesia"` | Local job-market override. |
+| `G` | `6` | `SearchKeywords` | **In (Optional)** | `""` | Additional priority keywords for scraping and dossier synthesis. |
+| `H` | `7` | `Status` | **In/Out (Optional)** | `""` | Row processing status (`"Completed"` enables idempotent skip when artifacts already exist). |
+| `I` | `8` | `EmailStatus` | **Out (System-populated)** | `""` | Automated email dispatch status (`"Sent"`, `"Skipped - BRE"`, `"Failed - System"`). |
+| `J` | `9` | `EmailTimestamp` | **Out (System-populated)** | `""` | ISO-8601 timestamp of the email dispatch attempt. |
+| `K` | `10` | `ErrorMessage` | **Out (System-populated)** | `""` | Redacted error or Business Rule Exception summary if dispatch/validation failed. |
 
-*(Local market defaults to `"Indonesia"` and level defaults to `"Entry level"` automatically in `Main.xaml`.)*
+*(All `Main.xaml` and `Workflows/ResearchAbroadJobs.xaml` lookups resolve columns strictly by header name via `CurrentRow("<ColName>")` — never by hardcoded index or cell address.)*
 
 ### Output Artifacts Per Role
 
