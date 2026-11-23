@@ -1,0 +1,141 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="Tests_Test_E8E9_SmtpFailureAndRedaction" VisualBasic.Settings="{x:Null}" sap2010:WorkflowViewState.IdRef="ActivityBuilder_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:s="clr-namespace:System;assembly=System.Private.CoreLib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:sns="clr-namespace:System.Net.Sockets;assembly=System.Net.Sockets" xmlns:st="clr-namespace:System.Threading;assembly=System.Private.CoreLib" xmlns:stt="clr-namespace:System.Threading.Tasks;assembly=System.Private.CoreLib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uta="clr-namespace:UiPath.Testing.Activities;assembly=UiPath.Testing.Activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>GlobalConstantsNamespace</x:String>
+      <x:String>GlobalVariablesNamespace</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net</x:String>
+      <x:String>System.Net.Sockets</x:String>
+      <x:String>System.Threading</x:String>
+      <x:String>System.Threading.Tasks</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>UiPath.Testing.Activities</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>System.Collections</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.TypeConverter</AssemblyReference>
+      <AssemblyReference>System.Linq</AssemblyReference>
+      <AssemblyReference>System.Net.Primitives</AssemblyReference>
+      <AssemblyReference>System.Net.Sockets</AssemblyReference>
+      <AssemblyReference>System.ObjectModel</AssemblyReference>
+      <AssemblyReference>System.Private.CoreLib</AssemblyReference>
+      <AssemblyReference>System.Runtime</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Testing.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="Test_E8E9_SmtpFailureAndRedaction" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Name="zeroBytePdfPath" />
+      <Variable x:TypeArguments="x:String" Name="validPdfPath" />
+      <Variable x:TypeArguments="scg:List(x:String)" Name="zeroAttachments" />
+      <Variable x:TypeArguments="scg:List(x:String)" Name="validAttachments" />
+      <Variable x:TypeArguments="x:Boolean" Default="True" Name="successZeroByte" />
+      <Variable x:TypeArguments="x:String" Default="" Name="errorZeroByte" />
+      <Variable x:TypeArguments="x:Boolean" Default="True" Name="success535" />
+      <Variable x:TypeArguments="x:String" Default="" Name="error535" />
+      <Variable x:TypeArguments="sns:TcpListener" Name="mockListener" />
+      <Variable x:TypeArguments="st:CancellationTokenSource" Name="mockCts" />
+      <Variable x:TypeArguments="stt:Task" Name="mockServerTask" />
+      <Variable x:TypeArguments="scg:Dictionary(x:String, x:String)" Name="savedProcessEnv" />
+    </Sequence.Variables>
+    <TryCatch DisplayName="Run E8/E9 SMTP Failure and Redaction Test with Guaranteed Cleanup" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+      <TryCatch.Try>
+        <Sequence DisplayName="Execute Given-When-Then for E8/E9" sap2010:WorkflowViewState.IdRef="Sequence_2">
+          <Sequence DisplayName="... Given" sap2010:WorkflowViewState.IdRef="Sequence_3">
+            <ui:InvokeCode ContinueOnError="{x:Null}" Code="' Guard no real .env files shadow Process env vars, create 0-byte temp file, and start mock 535 SMTP server&#xA;Dim envRoot As String = System.IO.Path.GetFullPath(System.IO.Path.Combine(System.Environment.CurrentDirectory, &quot;..&quot;, &quot;.env&quot;))&#xA;Dim envProj As String = System.IO.Path.Combine(System.Environment.CurrentDirectory, &quot;.env&quot;)&#xA;If System.IO.File.Exists(envRoot) OrElse System.IO.File.Exists(envProj) Then&#xA;    Throw New System.InvalidOperationException(&quot;Real .env file detected; remove or move .env before running offline SMTP mock tests.&quot;)&#xA;End If&#xA;&#xA;Dim tmpZero As String = System.IO.Path.Combine(System.IO.Path.GetTempPath(), &quot;jourka_test_zero_&quot; &amp; System.Guid.NewGuid().ToString(&quot;N&quot;) &amp; &quot;.pdf&quot;)&#xA;System.IO.File.WriteAllBytes(tmpZero, New Byte() {})&#xA;out_ZeroBytePdfPath = tmpZero&#xA;&#xA;Dim keys As String() = New String() {&quot;SMTP_HOST&quot;, &quot;SMTP_PORT&quot;, &quot;SMTP_USER&quot;, &quot;SMTP_PASSWORD&quot;, &quot;SMTP_FROM&quot;, &quot;SMTP_SENDER_NAME&quot;}&#xA;Dim saved As New System.Collections.Generic.Dictionary(Of String, String)()&#xA;For Each k As String In keys&#xA;    saved(k) = System.Environment.GetEnvironmentVariable(k, System.EnvironmentVariableTarget.Process)&#xA;Next&#xA;out_SavedProcessEnv = saved&#xA;&#xA;Dim listener As New System.Net.Sockets.TcpListener(System.Net.IPAddress.Loopback, 0)&#xA;listener.Start()&#xA;Dim port As Integer = CType(listener.LocalEndpoint, System.Net.IPEndPoint).Port&#xA;Dim cts As New System.Threading.CancellationTokenSource()&#xA;&#xA;Dim serverTask As System.Threading.Tasks.Task = System.Threading.Tasks.Task.Run(Sub()&#xA;    While Not cts.IsCancellationRequested&#xA;        Try&#xA;            If Not listener.Pending() Then&#xA;                System.Threading.Thread.Sleep(25)&#xA;                Continue While&#xA;            End If&#xA;            Using client As System.Net.Sockets.TcpClient = listener.AcceptTcpClient()&#xA;                client.ReceiveTimeout = 5000&#xA;                client.SendTimeout = 5000&#xA;                Using ns As System.Net.Sockets.NetworkStream = client.GetStream()&#xA;                    Using sr As New System.IO.StreamReader(ns, System.Text.Encoding.ASCII, False, 1024, True)&#xA;                        Using sw As New System.IO.StreamWriter(ns, System.Text.Encoding.ASCII, 1024, True)&#xA;                            sw.NewLine = vbCrLf&#xA;                            sw.AutoFlush = True&#xA;                            sw.WriteLine(&quot;220 localhost ESMTP Mock535&quot;)&#xA;                            While True&#xA;                                Dim line As String = sr.ReadLine()&#xA;                                If line Is Nothing Then Exit While&#xA;                                Dim upper As String = line.Trim().ToUpperInvariant()&#xA;                                If upper.StartsWith(&quot;EHLO&quot;) OrElse upper.StartsWith(&quot;HELO&quot;) Then&#xA;                                    sw.WriteLine(&quot;250-localhost&quot;)&#xA;                                    sw.WriteLine(&quot;250 AUTH PLAIN LOGIN&quot;)&#xA;                                ElseIf upper.StartsWith(&quot;AUTH&quot;) Then&#xA;                                    sw.WriteLine(&quot;535 5.7.8 Authentication failed for secret-user-xyz with dummy-smtp-pass-999&quot;)&#xA;                                ElseIf upper.StartsWith(&quot;QUIT&quot;) Then&#xA;                                    sw.WriteLine(&quot;221 Bye&quot;)&#xA;                                    Exit While&#xA;                                Else&#xA;                                    sw.WriteLine(&quot;502 Command not implemented&quot;)&#xA;                                End If&#xA;                            End While&#xA;                        End Using&#xA;                    End Using&#xA;                End Using&#xA;            End Using&#xA;        Catch&#xA;        End Try&#xA;    End While&#xA;End Sub)&#xA;&#xA;System.Environment.SetEnvironmentVariable(&quot;SMTP_HOST&quot;, &quot;127.0.0.1&quot;, System.EnvironmentVariableTarget.Process)&#xA;System.Environment.SetEnvironmentVariable(&quot;SMTP_PORT&quot;, port.ToString(), System.EnvironmentVariableTarget.Process)&#xA;System.Environment.SetEnvironmentVariable(&quot;SMTP_USER&quot;, &quot;secret-user-xyz&quot;, System.EnvironmentVariableTarget.Process)&#xA;System.Environment.SetEnvironmentVariable(&quot;SMTP_PASSWORD&quot;, &quot;dummy-smtp-pass-999&quot;, System.EnvironmentVariableTarget.Process)&#xA;System.Environment.SetEnvironmentVariable(&quot;SMTP_FROM&quot;, &quot;counselor@jourka.test&quot;, System.EnvironmentVariableTarget.Process)&#xA;System.Environment.SetEnvironmentVariable(&quot;SMTP_SENDER_NAME&quot;, &quot;JourKa Test Runner&quot;, System.EnvironmentVariableTarget.Process)&#xA;&#xA;out_Listener = listener&#xA;out_Cts = cts&#xA;out_ServerTask = serverTask&#xA;" DisplayName="Setup 0-Byte Temp PDF and Mock 535 SMTP Server" sap2010:WorkflowViewState.IdRef="InvokeCode_1" Language="VBNet">
+              <ui:InvokeCode.Arguments>
+                <OutArgument x:TypeArguments="x:String" x:Key="out_ZeroBytePdfPath">[zeroBytePdfPath]</OutArgument>
+                <OutArgument x:TypeArguments="scg:Dictionary(x:String, x:String)" x:Key="out_SavedProcessEnv">[savedProcessEnv]</OutArgument>
+                <OutArgument x:TypeArguments="sns:TcpListener" x:Key="out_Listener">[mockListener]</OutArgument>
+                <OutArgument x:TypeArguments="st:CancellationTokenSource" x:Key="out_Cts">[mockCts]</OutArgument>
+                <OutArgument x:TypeArguments="stt:Task" x:Key="out_ServerTask">[mockServerTask]</OutArgument>
+              </ui:InvokeCode.Arguments>
+            </ui:InvokeCode>
+            <Assign DisplayName="Resolve Valid PDF Path" sap2010:WorkflowViewState.IdRef="Assign_1">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[validPdfPath]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">D:\UiPathProject\JourKa\PDF_Results\Android Developer - EN.pdf</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign DisplayName="Build Zero-Byte Attachment List" sap2010:WorkflowViewState.IdRef="Assign_2">
+              <Assign.To>
+                <OutArgument x:TypeArguments="scg:List(x:String)">[zeroAttachments]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="scg:List(x:String)">[New System.Collections.Generic.List(Of String) From {zeroBytePdfPath}]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign DisplayName="Build Valid Attachment List" sap2010:WorkflowViewState.IdRef="Assign_3">
+              <Assign.To>
+                <OutArgument x:TypeArguments="scg:List(x:String)">[validAttachments]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="scg:List(x:String)">[New System.Collections.Generic.List(Of String) From {validPdfPath}]</InArgument>
+              </Assign.Value>
+            </Assign>
+          </Sequence>
+          <Sequence DisplayName="... When" sap2010:WorkflowViewState.IdRef="Sequence_4">
+            <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke SendStudentEmail with 0-Byte PDF" UnSafe="False" WorkflowFileName="Workflows\SendStudentEmail.xaml" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1">
+              <ui:InvokeWorkflowFile.Arguments>
+                <InArgument x:TypeArguments="x:String" x:Key="in_NormalizedRecipients">test@student.id</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_Subject">Test Zero Byte</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_BodyHtml">&lt;p&gt;Test&lt;/p&gt;</InArgument>
+                <InArgument x:TypeArguments="scg:IEnumerable(x:String)" x:Key="in_AttachmentPaths">[zeroAttachments]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_PrimaryKeyEmail">test@student.id</InArgument>
+                <OutArgument x:TypeArguments="x:Boolean" x:Key="out_Success">[successZeroByte]</OutArgument>
+                <OutArgument x:TypeArguments="x:String" x:Key="out_ErrorMessage">[errorZeroByte]</OutArgument>
+              </ui:InvokeWorkflowFile.Arguments>
+            </ui:InvokeWorkflowFile>
+            <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke SendStudentEmail Against Mock 535 Server" UnSafe="False" WorkflowFileName="Workflows\SendStudentEmail.xaml" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2">
+              <ui:InvokeWorkflowFile.Arguments>
+                <InArgument x:TypeArguments="x:String" x:Key="in_NormalizedRecipients">test535@student.id</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_Subject">Test 535 Redaction</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_BodyHtml">&lt;p&gt;Test&lt;/p&gt;</InArgument>
+                <InArgument x:TypeArguments="scg:IEnumerable(x:String)" x:Key="in_AttachmentPaths">[validAttachments]</InArgument>
+                <InArgument x:TypeArguments="x:String" x:Key="in_PrimaryKeyEmail">test535@student.id</InArgument>
+                <OutArgument x:TypeArguments="x:Boolean" x:Key="out_Success">[success535]</OutArgument>
+                <OutArgument x:TypeArguments="x:String" x:Key="out_ErrorMessage">[error535]</OutArgument>
+              </ui:InvokeWorkflowFile.Arguments>
+            </ui:InvokeWorkflowFile>
+          </Sequence>
+          <Sequence DisplayName="... Then" sap2010:WorkflowViewState.IdRef="Sequence_5">
+            <uta:VerifyExpression AlternativeVerificationTitle="0-byte PDF attachment is rejected cleanly" ContinueOnFailure="False" DisplayName="Verify 0-Byte PDF Rejected" Expression="[(Not successZeroByte) AndAlso errorZeroByte.Contains(&quot;0 bytes&quot;)]" OutputMessageFormat="0-byte attachment rejection: {Result}" TakeScreenshotInCaseOfFailingAssertion="False" TakeScreenshotInCaseOfSucceedingAssertion="False" sap2010:WorkflowViewState.IdRef="VerifyExpression_1" />
+            <uta:VerifyExpression AlternativeVerificationTitle="E8/E9: SMTP 535 failure returns out_Success=False with redacted credentials" ContinueOnFailure="False" DisplayName="Verify SMTP 535 Failure and Secret Redaction" Expression="[(Not success535) AndAlso error535.Contains(&quot;535&quot;) AndAlso (Not error535.Contains(&quot;dummy-smtp-pass-999&quot;)) AndAlso (Not error535.Contains(&quot;secret-user-xyz&quot;)) AndAlso error535.Contains(&quot;[REDACTED]&quot;) AndAlso error535.Contains(&quot;[REDACTED_SMTP_USER]&quot;)]" OutputMessageFormat="SMTP 535 failure &amp; redaction verified: {Result}" TakeScreenshotInCaseOfFailingAssertion="False" TakeScreenshotInCaseOfSucceedingAssertion="False" sap2010:WorkflowViewState.IdRef="VerifyExpression_2" />
+            <ui:LogMessage DisplayName="Log E8/E9 Redaction Test Passed" Level="Info" Message="[&quot;[E8/E9] Verified 0-byte attachment rejection and SMTP 535 secret redaction: &quot; &amp; error535]" sap2010:WorkflowViewState.IdRef="LogMessage_1" />
+          </Sequence>
+        </Sequence>
+      </TryCatch.Try>
+      <TryCatch.Finally>
+        <Sequence DisplayName="Teardown Mock SMTP Server, Env Vars and Temp File" sap2010:WorkflowViewState.IdRef="Sequence_6">
+          <ui:InvokeCode ContinueOnError="{x:Null}" Code="Try&#xA;    If in_Cts IsNot Nothing Then in_Cts.Cancel()&#xA;Catch&#xA;End Try&#xA;Try&#xA;    If in_Listener IsNot Nothing Then in_Listener.Stop()&#xA;Catch&#xA;End Try&#xA;Try&#xA;    If in_ServerTask IsNot Nothing Then in_ServerTask.Wait(2000)&#xA;Catch&#xA;End Try&#xA;&#xA;Try&#xA;    If in_SavedProcessEnv IsNot Nothing Then&#xA;        For Each kvp As System.Collections.Generic.KeyValuePair(Of String, String) In in_SavedProcessEnv&#xA;            System.Environment.SetEnvironmentVariable(kvp.Key, kvp.Value, System.EnvironmentVariableTarget.Process)&#xA;        Next&#xA;    End If&#xA;Catch&#xA;End Try&#xA;&#xA;Try&#xA;    If Not String.IsNullOrWhiteSpace(in_ZeroBytePdfPath) AndAlso System.IO.File.Exists(in_ZeroBytePdfPath) Then&#xA;        System.IO.File.Delete(in_ZeroBytePdfPath)&#xA;    End If&#xA;Catch&#xA;End Try" DisplayName="Cleanup Mock Server, Process Env, and Temp PDF" sap2010:WorkflowViewState.IdRef="InvokeCode_2" Language="VBNet">
+            <ui:InvokeCode.Arguments>
+              <InArgument x:TypeArguments="sns:TcpListener" x:Key="in_Listener">[mockListener]</InArgument>
+              <InArgument x:TypeArguments="st:CancellationTokenSource" x:Key="in_Cts">[mockCts]</InArgument>
+              <InArgument x:TypeArguments="stt:Task" x:Key="in_ServerTask">[mockServerTask]</InArgument>
+              <InArgument x:TypeArguments="scg:Dictionary(x:String, x:String)" x:Key="in_SavedProcessEnv">[savedProcessEnv]</InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="in_ZeroBytePdfPath">[zeroBytePdfPath]</InArgument>
+            </ui:InvokeCode.Arguments>
+          </ui:InvokeCode>
+        </Sequence>
+      </TryCatch.Finally>
+    </TryCatch>
+  </Sequence>
+</Activity>
