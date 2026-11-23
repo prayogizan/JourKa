@@ -1,7 +1,7 @@
 {
   "name": "JourKa",
   "projectId": "917bd9a7-408d-4734-97a7-61275efaa497",
-  "description": "Journey of \"Kita\"",
+  "description": "Journey Merdeka",
   "main": "Main.xaml",
   "dependencies": {
     "UiPath.Excel.Activities": "[3.6.1]",
