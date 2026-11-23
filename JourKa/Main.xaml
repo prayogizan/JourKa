@@ -1,4 +1,4 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="Main" VisualBasic.Settings="{x:Null}" sap2010:WorkflowViewState.IdRef="ActivityBuilder_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:s="clr-namespace:System;assembly=System.Private.CoreLib" xmlns:ue="clr-namespace:UiPath.Excel;assembly=UiPath.Excel.Activities" xmlns:ueab="clr-namespace:UiPath.Excel.Activities.Business;assembly=UiPath.Excel.Activities" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="Main" VisualBasic.Settings="{x:Null}" sap2010:WorkflowViewState.IdRef="ActivityBuilder_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:scgc="clr-namespace:System.Collections.Generic;assembly=System.Collections" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:s="clr-namespace:System;assembly=System.Private.CoreLib" xmlns:ue="clr-namespace:UiPath.Excel;assembly=UiPath.Excel.Activities" xmlns:ueab="clr-namespace:UiPath.Excel.Activities.Business;assembly=UiPath.Excel.Activities" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
       <x:String>System.Activities</x:String>
@@ -125,6 +125,13 @@
       <Variable x:TypeArguments="x:String" Name="htmlPathID" />
       <Variable x:TypeArguments="x:String" Name="pdfPathID" />
       <Variable x:TypeArguments="x:String" Name="dossierMarkdownID" />
+      <Variable x:TypeArguments="scgc:HashSet(x:String)" Name="duplicateKeys" />
+      <Variable x:TypeArguments="scg:Dictionary(x:Int32, x:String)" Name="rowCanonicalKeys" />
+      <Variable x:TypeArguments="scg:Dictionary(x:Int32, x:String)" Name="rowBreReasons" />
+      <Variable x:TypeArguments="scg:List(x:String)" Name="overlapWarnings" />
+      <Variable x:TypeArguments="x:Int32" Name="currentRowIndex" />
+      <Variable x:TypeArguments="x:String" Name="strPrimaryKeyEmail" />
+      <Variable x:TypeArguments="x:String" Name="currentRowBreReason" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -132,12 +139,23 @@
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
     <ui:ReadRange Range="{x:Null}" WorkbookPathResource="{x:Null}" AddHeaders="True" DataTable="[dtRoles]" DisplayName="Read Sheet1 into dtRoles (Workbook)" sap:VirtualizedContainerService.HintSize="522,120" sap2010:WorkflowViewState.IdRef="ReadRange_1" SheetName="Sheet1" WorkbookPath="[strExcelPathDesireRole]" />
-    <ui:InvokeCode ContinueOnError="{x:Null}" Code="If io_dtRoles Is Nothing OrElse Not io_dtRoles.Columns.Contains(&quot;Job&quot;) Then&#xA;    Throw New UiPath.Core.BusinessRuleException(&quot;Invalid Input Schema: Mandatory column 'Job' was not found in Sheet1 of Desire Role List.xlsx.&quot;)&#xA;End If&#xA;If Not io_dtRoles.Columns.Contains(&quot;AbroadMarkets&quot;) Then&#xA;    io_dtRoles.Columns.Add(&quot;AbroadMarkets&quot;, GetType(String))&#xA;End If" DisplayName="Ensure Minimalist AbroadMarkets Column Exists in dtRoles" sap:VirtualizedContainerService.HintSize="522,165" sap2010:WorkflowViewState.IdRef="InvokeCode_EnsureCols" Language="VBNet">
+    <ui:InvokeCode ContinueOnError="{x:Null}" Code="' Pre-Flight Schema Validation, Column A Email Normalization &amp; Duplicate PK Detection (JK-RPA-005 / #24)&#xA;' Arguments:&#xA;'   io_dtRoles (InOut System.Data.DataTable)&#xA;'   out_DuplicateKeys (Out System.Collections.Generic.HashSet(Of String))&#xA;'   out_RowCanonicalKeys (Out System.Collections.Generic.Dictionary(Of Integer, String))&#xA;'   out_RowBreReasons (Out System.Collections.Generic.Dictionary(Of Integer, String))&#xA;'   out_OverlapWarnings (Out System.Collections.Generic.List(Of String))&#xA;&#xA;' 1. Fatal Schema Checks (E1 — halt batch before ForEachRow_1)&#xA;If io_dtRoles Is Nothing OrElse io_dtRoles.Columns.Count = 0 Then&#xA;    Throw New UiPath.Core.BusinessRuleException(&quot;Input Excel Sheet1 is empty or contains no header row.&quot;)&#xA;End If&#xA;&#xA;Dim col0Name As String = io_dtRoles.Columns(0).ColumnName.Trim()&#xA;If Not col0Name.Equals(&quot;RecipientEmail&quot;, System.StringComparison.OrdinalIgnoreCase) Then&#xA;    Throw New UiPath.Core.BusinessRuleException( _&#xA;        String.Format(&quot;Invalid Input Schema: Column A (Index 0) must be 'RecipientEmail' (Primary Key), but found '{0}'.&quot;, col0Name))&#xA;End If&#xA;&#xA;io_dtRoles.Columns(0).ColumnName = &quot;RecipientEmail&quot;&#xA;&#xA;If Not io_dtRoles.Columns.Contains(&quot;Job&quot;) Then&#xA;    Throw New UiPath.Core.BusinessRuleException(&quot;Invalid Input Schema: Required column 'Job' is missing from Sheet1.&quot;)&#xA;End If&#xA;&#xA;' 2. Auto-append missing optional &amp; audit columns in-memory without disturbing Column A&#xA;For Each optCol As String In New String() {&quot;AbroadMarkets&quot;, &quot;StudentName&quot;, &quot;Status&quot;, &quot;EmailStatus&quot;, &quot;EmailTimestamp&quot;, &quot;ErrorMessage&quot;}&#xA;    If Not io_dtRoles.Columns.Contains(optCol) Then&#xA;        io_dtRoles.Columns.Add(optCol, GetType(String))&#xA;    End If&#xA;Next&#xA;&#xA;' 3. Initialize output collections unconditionally&#xA;Dim seenKeys As New System.Collections.Generic.HashSet(Of String)(System.StringComparer.OrdinalIgnoreCase)&#xA;Dim dupKeys As New System.Collections.Generic.HashSet(Of String)(System.StringComparer.OrdinalIgnoreCase)&#xA;Dim canonicalByRow As New System.Collections.Generic.Dictionary(Of Integer, String)()&#xA;Dim breByRow As New System.Collections.Generic.Dictionary(Of Integer, String)()&#xA;Dim overlapWarns As New System.Collections.Generic.List(Of String)()&#xA;Dim seenComponents As New System.Collections.Generic.Dictionary(Of String, Integer)(System.StringComparer.OrdinalIgnoreCase)&#xA;&#xA;' 4. Shared Canonical Email Normalization &amp; Strict Validation Helper (E2, E3, E5)&#xA;Dim emailRegex As New System.Text.RegularExpressions.Regex(&quot;^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$&quot;, System.Text.RegularExpressions.RegexOptions.Compiled)&#xA;Dim normalizeEmailCell As Func(Of String, System.Tuple(Of Boolean, String, String, System.Collections.Generic.List(Of String))) = _&#xA;    Function(rawCell As String) As System.Tuple(Of Boolean, String, String, System.Collections.Generic.List(Of String))&#xA;        Dim emptyList As New System.Collections.Generic.List(Of String)()&#xA;        Dim cleaned As String = If(rawCell, &quot;&quot;).Replace(ChrW(160), &quot; &quot;).Replace(ChrW(&amp;H200B), &quot;&quot;).Trim()&#xA;        If String.IsNullOrWhiteSpace(cleaned) Then&#xA;            Return System.Tuple.Create(False, &quot;&quot;, &quot;Missing mandatory RecipientEmail in Column A&quot;, emptyList)&#xA;        End If&#xA;&#xA;        Dim rawTokens As System.Collections.Generic.List(Of String) = cleaned _&#xA;            .Split(New Char() {&quot;;&quot;c, &quot;,&quot;c}, System.StringSplitOptions.RemoveEmptyEntries) _&#xA;            .Select(Function(t As String) t.Trim().ToLowerInvariant()) _&#xA;            .Where(Function(t As String) Not String.IsNullOrWhiteSpace(t)) _&#xA;            .ToList()&#xA;&#xA;        If rawTokens.Count = 0 Then&#xA;            Return System.Tuple.Create(False, &quot;&quot;, &quot;Missing mandatory RecipientEmail in Column A&quot;, emptyList)&#xA;        End If&#xA;&#xA;        For Each tok As String In rawTokens&#xA;            If Not emailRegex.IsMatch(tok) Then&#xA;                Return System.Tuple.Create(False, &quot;&quot;, &quot;Invalid email format in Column A&quot;, emptyList)&#xA;            End If&#xA;        Next&#xA;&#xA;        Dim distinctTokens As System.Collections.Generic.List(Of String) = rawTokens _&#xA;            .Distinct(System.StringComparer.OrdinalIgnoreCase) _&#xA;            .ToList()&#xA;        Dim canonicalKey As String = String.Join(&quot;;&quot;, distinctTokens)&#xA;        Return System.Tuple.Create(True, canonicalKey, &quot;&quot;, distinctTokens)&#xA;    End Function&#xA;&#xA;' 5. Scan all rows: normalize, validate, detect duplicates (E4) &amp; component overlaps (Warn)&#xA;For rowIdx As Integer = 0 To io_dtRoles.Rows.Count - 1&#xA;    Dim row As System.Data.DataRow = io_dtRoles.Rows(rowIdx)&#xA;    Dim rawEmail As String = Convert.ToString(row(&quot;RecipientEmail&quot;))&#xA;    Dim rawJob As String = Convert.ToString(row(&quot;Job&quot;)).Trim()&#xA;    Dim cleanedProbe As String = If(rawEmail, &quot;&quot;).Replace(ChrW(160), &quot; &quot;).Replace(ChrW(&amp;H200B), &quot;&quot;).Trim()&#xA;&#xA;    ' Completely empty trailing Excel row: preserve existing blank-row skip in If_1&#xA;    If String.IsNullOrWhiteSpace(cleanedProbe) AndAlso String.IsNullOrWhiteSpace(rawJob) Then&#xA;        canonicalByRow(rowIdx) = &quot;&quot;&#xA;        Continue For&#xA;    End If&#xA;&#xA;    Dim normResult As System.Tuple(Of Boolean, String, String, System.Collections.Generic.List(Of String)) = normalizeEmailCell(rawEmail)&#xA;    If Not normResult.Item1 Then&#xA;        canonicalByRow(rowIdx) = &quot;&quot;&#xA;        breByRow(rowIdx) = normResult.Item3&#xA;        row(&quot;EmailStatus&quot;) = &quot;Skipped - BRE&quot;&#xA;        row(&quot;ErrorMessage&quot;) = normResult.Item3&#xA;        Continue For&#xA;    End If&#xA;&#xA;    Dim canonicalKey As String = normResult.Item2&#xA;    Dim tokens As System.Collections.Generic.List(Of String) = normResult.Item4&#xA;    canonicalByRow(rowIdx) = canonicalKey&#xA;&#xA;    If Not seenKeys.Add(canonicalKey) Then&#xA;        dupKeys.Add(canonicalKey)&#xA;        Dim dupMsg As String = &quot;Duplicate Primary Key in Column A: &quot; &amp; canonicalKey&#xA;        breByRow(rowIdx) = dupMsg&#xA;        row(&quot;EmailStatus&quot;) = &quot;Skipped - BRE&quot;&#xA;        row(&quot;ErrorMessage&quot;) = dupMsg&#xA;        Continue For&#xA;    End If&#xA;&#xA;    ' Component overlap check (non-blocking Warn when an individual sub-address repeats across distinct valid rows)&#xA;    For Each tok As String In tokens&#xA;        If seenComponents.ContainsKey(tok) Then&#xA;            overlapWarns.Add(String.Format( _&#xA;                &quot;Component email overlap detected (non-blocking): '{0}' appears in Excel Row {1} and Excel Row {2} (PK: '{3}').&quot;, _&#xA;                tok, seenComponents(tok), rowIdx + 2, canonicalKey))&#xA;        Else&#xA;            seenComponents(tok) = rowIdx + 2&#xA;        End If&#xA;    Next&#xA;Next&#xA;&#xA;out_DuplicateKeys = dupKeys&#xA;out_RowCanonicalKeys = canonicalByRow&#xA;out_RowBreReasons = breByRow&#xA;out_OverlapWarnings = overlapWarns" DisplayName="Pre-Flight Schema Validation, Email Normalization &amp; Duplicate PK Detection" sap:VirtualizedContainerService.HintSize="522,165" sap2010:WorkflowViewState.IdRef="InvokeCode_EnsureCols" Language="VBNet">
       <ui:InvokeCode.Arguments>
         <InOutArgument x:TypeArguments="sd:DataTable" x:Key="io_dtRoles">[dtRoles]</InOutArgument>
+        <OutArgument x:TypeArguments="scgc:HashSet(x:String)" x:Key="out_DuplicateKeys">[duplicateKeys]</OutArgument>
+        <OutArgument x:TypeArguments="scg:Dictionary(x:Int32, x:String)" x:Key="out_RowCanonicalKeys">[rowCanonicalKeys]</OutArgument>
+        <OutArgument x:TypeArguments="scg:Dictionary(x:Int32, x:String)" x:Key="out_RowBreReasons">[rowBreReasons]</OutArgument>
+        <OutArgument x:TypeArguments="scg:List(x:String)" x:Key="out_OverlapWarnings">[overlapWarnings]</OutArgument>
       </ui:InvokeCode.Arguments>
     </ui:InvokeCode>
-    <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[dtRoles]" DisplayName="For Each Desired Role in dtRoles" sap:VirtualizedContainerService.HintSize="522,2520" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
+    <If Condition="[overlapWarnings IsNot Nothing AndAlso overlapWarnings.Count &gt; 0]" DisplayName="If Component Email Overlaps Detected" sap2010:WorkflowViewState.IdRef="If_OverlapWarnings">
+      <If.Then>
+        <Sequence DisplayName="Log Component Email Overlap Warnings" sap2010:WorkflowViewState.IdRef="Sequence_OverlapWarnings">
+          <ui:LogMessage DisplayName="Log Component Email Overlaps" Level="Warn" Message="[String.Join(Environment.NewLine, overlapWarnings)]" sap2010:WorkflowViewState.IdRef="LogMessage_OverlapWarnings" />
+        </Sequence>
+      </If.Then>
+    </If>
+    <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="[currentRowIndex]" DataTable="[dtRoles]" DisplayName="For Each Desired Role in dtRoles" sap:VirtualizedContainerService.HintSize="522,2520" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
       <ui:ForEachRow.Body>
         <ActivityAction x:TypeArguments="sd:DataRow">
           <ActivityAction.Argument>
@@ -197,6 +215,30 @@
                 <InArgument x:TypeArguments="x:String">[If(dtRoles.Columns.Contains("Status"), Convert.ToString(CurrentRow("Status")).Trim(), "")]</InArgument>
               </Assign.Value>
             </Assign>
+            <Assign DisplayName="Assign strPrimaryKeyEmail" sap:VirtualizedContainerService.HintSize="454,82" sap2010:WorkflowViewState.IdRef="Assign_PrimaryKeyEmail">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[strPrimaryKeyEmail]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">[If(rowCanonicalKeys IsNot Nothing AndAlso rowCanonicalKeys.ContainsKey(currentRowIndex), rowCanonicalKeys(currentRowIndex), "")]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign DisplayName="Assign currentRowBreReason" sap:VirtualizedContainerService.HintSize="454,82" sap2010:WorkflowViewState.IdRef="Assign_RowBreReason">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[currentRowBreReason]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">[If(rowBreReasons IsNot Nothing AndAlso rowBreReasons.ContainsKey(currentRowIndex), rowBreReasons(currentRowIndex), "")]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <If Condition="[Not String.IsNullOrWhiteSpace(currentRowBreReason)]" DisplayName="If Row Failed Pre-Flight BRE" sap:VirtualizedContainerService.HintSize="454,1850" sap2010:WorkflowViewState.IdRef="If_RowPreFlightBre">
+              <If.Then>
+                <Sequence DisplayName="Skip Row Failing Pre-Flight BRE" sap:VirtualizedContainerService.HintSize="376,180" sap2010:WorkflowViewState.IdRef="Sequence_SkipRowBre">
+                  <ui:LogMessage DisplayName="Log Row Pre-Flight BRE Skipped" sap:VirtualizedContainerService.HintSize="334,92" sap2010:WorkflowViewState.IdRef="LogMessage_RowBreSkip" Level="Warn" Message="[&quot;[PK: &quot; &amp; If(String.IsNullOrWhiteSpace(strPrimaryKeyEmail), &quot;Row &quot; &amp; (currentRowIndex + 2).ToString(), strPrimaryKeyEmail) &amp; &quot;] BusinessRuleException — Row skipped. Reason: &quot; &amp; currentRowBreReason &amp; &quot; | Role: &quot; &amp; roleName]" />
+                </Sequence>
+              </If.Then>
+              <If.Else>
+                <Sequence DisplayName="Execute Valid Row Pipeline" sap:VirtualizedContainerService.HintSize="420,1700" sap2010:WorkflowViewState.IdRef="Sequence_ValidRow">
             <If Condition="[String.IsNullOrWhiteSpace(roleName)]" DisplayName="If Role Name is Blank" sap:VirtualizedContainerService.HintSize="454,1650" sap2010:WorkflowViewState.IdRef="If_1">
               <If.Then>
                 <ui:LogMessage DisplayName="Log Blank Row Skipped" sap:VirtualizedContainerService.HintSize="334,92" sap2010:WorkflowViewState.IdRef="LogMessage_BlankRow" Level="Info" Message="[&quot;Skipping blank role row.&quot;]" />
@@ -506,6 +548,9 @@
                       </TryCatch>
                     </If.Else>
                   </If>
+                </Sequence>
+              </If.Else>
+            </If>
                 </Sequence>
               </If.Else>
             </If>
