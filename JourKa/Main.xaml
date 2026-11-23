@@ -142,6 +142,11 @@
       <Variable x:TypeArguments="x:Boolean" Name="emailDispatchSuccess" />
       <Variable x:TypeArguments="x:String" Name="emailDispatchError" />
       <Variable x:TypeArguments="x:Int32" Default="0" Name="consecutiveSmtpAuthFailures" />
+      <Variable x:TypeArguments="x:String" Default="" Name="smtpUserSecret" />
+      <Variable x:TypeArguments="x:String" Default="" Name="smtpPasswordSecret" />
+      <Variable x:TypeArguments="x:String" Default="" Name="redactedErrorBuffer" />
+      <Variable x:TypeArguments="x:String" Default="" Name="auditCsvPath" />
+      <Variable x:TypeArguments="x:String" Default="" Name="writeBackErrorMessage" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -149,13 +154,16 @@
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
     <ui:ReadRange Range="{x:Null}" WorkbookPathResource="{x:Null}" AddHeaders="True" DataTable="[dtRoles]" DisplayName="Read Sheet1 into dtRoles (Workbook)" sap:VirtualizedContainerService.HintSize="522,120" sap2010:WorkflowViewState.IdRef="ReadRange_1" SheetName="Sheet1" WorkbookPath="[strExcelPathDesireRole]" />
-    <ui:InvokeCode ContinueOnError="{x:Null}" Code="' Pre-Flight Schema Validation, Column A Email Normalization &amp; Duplicate PK Detection (JK-RPA-005 / #24)&#xA;' Arguments:&#xA;'   io_dtRoles (InOut System.Data.DataTable)&#xA;'   out_DuplicateKeys (Out System.Collections.Generic.HashSet(Of String))&#xA;'   out_RowCanonicalKeys (Out System.Collections.Generic.Dictionary(Of Integer, String))&#xA;'   out_RowBreReasons (Out System.Collections.Generic.Dictionary(Of Integer, String))&#xA;'   out_OverlapWarnings (Out System.Collections.Generic.List(Of String))&#xA;&#xA;' 1. Fatal Schema Checks (E1 — halt batch before ForEachRow_1)&#xA;If io_dtRoles Is Nothing OrElse io_dtRoles.Columns.Count = 0 Then&#xA;    Throw New UiPath.Core.BusinessRuleException(&quot;Input Excel Sheet1 is empty or contains no header row.&quot;)&#xA;End If&#xA;&#xA;Dim col0Name As String = io_dtRoles.Columns(0).ColumnName.Trim()&#xA;If Not col0Name.Equals(&quot;RecipientEmail&quot;, System.StringComparison.OrdinalIgnoreCase) Then&#xA;    Throw New UiPath.Core.BusinessRuleException( _&#xA;        String.Format(&quot;Invalid Input Schema: Column A (Index 0) must be 'RecipientEmail' (Primary Key), but found '{0}'.&quot;, col0Name))&#xA;End If&#xA;&#xA;io_dtRoles.Columns(0).ColumnName = &quot;RecipientEmail&quot;&#xA;&#xA;If Not io_dtRoles.Columns.Contains(&quot;Job&quot;) Then&#xA;    Throw New UiPath.Core.BusinessRuleException(&quot;Invalid Input Schema: Required column 'Job' is missing from Sheet1.&quot;)&#xA;End If&#xA;&#xA;' 2. Auto-append missing optional &amp; audit columns in-memory without disturbing Column A&#xA;For Each optCol As String In New String() {&quot;AbroadMarkets&quot;, &quot;StudentName&quot;, &quot;Status&quot;, &quot;EmailStatus&quot;, &quot;EmailTimestamp&quot;, &quot;ErrorMessage&quot;}&#xA;    If Not io_dtRoles.Columns.Contains(optCol) Then&#xA;        io_dtRoles.Columns.Add(optCol, GetType(String))&#xA;    End If&#xA;Next&#xA;&#xA;' 3. Initialize output collections unconditionally&#xA;Dim seenKeys As New System.Collections.Generic.HashSet(Of String)(System.StringComparer.OrdinalIgnoreCase)&#xA;Dim dupKeys As New System.Collections.Generic.HashSet(Of String)(System.StringComparer.OrdinalIgnoreCase)&#xA;Dim canonicalByRow As New System.Collections.Generic.Dictionary(Of Integer, String)()&#xA;Dim breByRow As New System.Collections.Generic.Dictionary(Of Integer, String)()&#xA;Dim overlapWarns As New System.Collections.Generic.List(Of String)()&#xA;Dim seenComponents As New System.Collections.Generic.Dictionary(Of String, Integer)(System.StringComparer.OrdinalIgnoreCase)&#xA;&#xA;' 4. Shared Canonical Email Normalization &amp; Strict Validation Helper (E2, E3, E5)&#xA;Dim emailRegex As New System.Text.RegularExpressions.Regex(&quot;^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$&quot;, System.Text.RegularExpressions.RegexOptions.Compiled)&#xA;Dim normalizeEmailCell As Func(Of String, System.Tuple(Of Boolean, String, String, System.Collections.Generic.List(Of String))) = _&#xA;    Function(rawCell As String) As System.Tuple(Of Boolean, String, String, System.Collections.Generic.List(Of String))&#xA;        Dim emptyList As New System.Collections.Generic.List(Of String)()&#xA;        Dim cleaned As String = If(rawCell, &quot;&quot;).Replace(ChrW(160), &quot; &quot;).Replace(ChrW(&amp;H200B), &quot;&quot;).Trim()&#xA;        If String.IsNullOrWhiteSpace(cleaned) Then&#xA;            Return System.Tuple.Create(False, &quot;&quot;, &quot;Missing mandatory RecipientEmail in Column A&quot;, emptyList)&#xA;        End If&#xA;&#xA;        Dim rawTokens As System.Collections.Generic.List(Of String) = cleaned _&#xA;            .Split(New Char() {&quot;;&quot;c, &quot;,&quot;c}, System.StringSplitOptions.RemoveEmptyEntries) _&#xA;            .Select(Function(t As String) t.Trim().ToLowerInvariant()) _&#xA;            .Where(Function(t As String) Not String.IsNullOrWhiteSpace(t)) _&#xA;            .ToList()&#xA;&#xA;        If rawTokens.Count = 0 Then&#xA;            Return System.Tuple.Create(False, &quot;&quot;, &quot;Missing mandatory RecipientEmail in Column A&quot;, emptyList)&#xA;        End If&#xA;&#xA;        For Each tok As String In rawTokens&#xA;            If Not emailRegex.IsMatch(tok) Then&#xA;                Return System.Tuple.Create(False, &quot;&quot;, &quot;Invalid email format in Column A&quot;, emptyList)&#xA;            End If&#xA;        Next&#xA;&#xA;        Dim distinctTokens As System.Collections.Generic.List(Of String) = rawTokens _&#xA;            .Distinct(System.StringComparer.OrdinalIgnoreCase) _&#xA;            .ToList()&#xA;        Dim canonicalKey As String = String.Join(&quot;;&quot;, distinctTokens)&#xA;        Return System.Tuple.Create(True, canonicalKey, &quot;&quot;, distinctTokens)&#xA;    End Function&#xA;&#xA;' 5. Scan all rows: normalize, validate, detect duplicates (E4) &amp; component overlaps (Warn)&#xA;For rowIdx As Integer = 0 To io_dtRoles.Rows.Count - 1&#xA;    Dim row As System.Data.DataRow = io_dtRoles.Rows(rowIdx)&#xA;    Dim rawEmail As String = Convert.ToString(row(&quot;RecipientEmail&quot;))&#xA;    Dim rawJob As String = Convert.ToString(row(&quot;Job&quot;)).Trim()&#xA;    Dim cleanedProbe As String = If(rawEmail, &quot;&quot;).Replace(ChrW(160), &quot; &quot;).Replace(ChrW(&amp;H200B), &quot;&quot;).Trim()&#xA;&#xA;    ' Completely empty trailing Excel row: preserve existing blank-row skip in If_1&#xA;    If String.IsNullOrWhiteSpace(cleanedProbe) AndAlso String.IsNullOrWhiteSpace(rawJob) Then&#xA;        canonicalByRow(rowIdx) = &quot;&quot;&#xA;        Continue For&#xA;    End If&#xA;&#xA;    Dim normResult As System.Tuple(Of Boolean, String, String, System.Collections.Generic.List(Of String)) = normalizeEmailCell(rawEmail)&#xA;    If Not normResult.Item1 Then&#xA;        canonicalByRow(rowIdx) = &quot;&quot;&#xA;        breByRow(rowIdx) = normResult.Item3&#xA;        row(&quot;EmailStatus&quot;) = &quot;Skipped - BRE&quot;&#xA;        row(&quot;ErrorMessage&quot;) = normResult.Item3&#xA;        Continue For&#xA;    End If&#xA;&#xA;    Dim canonicalKey As String = normResult.Item2&#xA;    Dim tokens As System.Collections.Generic.List(Of String) = normResult.Item4&#xA;    canonicalByRow(rowIdx) = canonicalKey&#xA;&#xA;    If Not seenKeys.Add(canonicalKey) Then&#xA;        dupKeys.Add(canonicalKey)&#xA;        Dim dupMsg As String = &quot;Duplicate Primary Key in Column A: &quot; &amp; canonicalKey&#xA;        breByRow(rowIdx) = dupMsg&#xA;        row(&quot;EmailStatus&quot;) = &quot;Skipped - BRE&quot;&#xA;        row(&quot;ErrorMessage&quot;) = dupMsg&#xA;        Continue For&#xA;    End If&#xA;&#xA;    ' Component overlap check (non-blocking Warn when an individual sub-address repeats across distinct valid rows)&#xA;    For Each tok As String In tokens&#xA;        If seenComponents.ContainsKey(tok) Then&#xA;            overlapWarns.Add(String.Format( _&#xA;                &quot;Component email overlap detected (non-blocking): '{0}' appears in Excel Row {1} and Excel Row {2} (PK: '{3}').&quot;, _&#xA;                tok, seenComponents(tok), rowIdx + 2, canonicalKey))&#xA;        Else&#xA;            seenComponents(tok) = rowIdx + 2&#xA;        End If&#xA;    Next&#xA;Next&#xA;&#xA;out_DuplicateKeys = dupKeys&#xA;out_RowCanonicalKeys = canonicalByRow&#xA;out_RowBreReasons = breByRow&#xA;out_OverlapWarnings = overlapWarns" DisplayName="Pre-Flight Schema Validation, Email Normalization &amp; Duplicate PK Detection" sap:VirtualizedContainerService.HintSize="522,165" sap2010:WorkflowViewState.IdRef="InvokeCode_EnsureCols" Language="VBNet">
+    <ui:InvokeCode ContinueOnError="{x:Null}" Code="' Pre-Flight Schema Validation, Column A Email Normalization, Duplicate PK Detection &amp; Secret Loading (JK-RPA-005 / #24, JK-RPA-008 / #28)&#xA;' Arguments:&#xA;'   io_dtRoles (InOut System.Data.DataTable)&#xA;'   io_GeminiApiKey (InOut String)&#xA;'   out_DuplicateKeys (Out System.Collections.Generic.HashSet(Of String))&#xA;'   out_RowCanonicalKeys (Out System.Collections.Generic.Dictionary(Of Integer, String))&#xA;'   out_RowBreReasons (Out System.Collections.Generic.Dictionary(Of Integer, String))&#xA;'   out_OverlapWarnings (Out System.Collections.Generic.List(Of String))&#xA;'   out_SmtpUserSecret (Out String)&#xA;'   out_SmtpPasswordSecret (Out String)&#xA;&#xA;' 0. Load secrets from .env / Environment Variables for 3-secret redaction (JK-RPA-008)&#xA;Dim envValues As New System.Collections.Generic.Dictionary(Of String, String)(System.StringComparer.OrdinalIgnoreCase)&#xA;Dim envCandidates As String() = New String() {&#xA;    System.IO.Path.GetFullPath(System.IO.Path.Combine(System.Environment.CurrentDirectory, &quot;..&quot;, &quot;.env&quot;)),&#xA;    System.IO.Path.Combine(System.Environment.CurrentDirectory, &quot;.env&quot;)&#xA;}&#xA;For Each envPath As String In envCandidates&#xA;    If System.IO.File.Exists(envPath) Then&#xA;        For Each rawLine As String In System.IO.File.ReadAllLines(envPath, System.Text.Encoding.UTF8)&#xA;            Dim line As String = rawLine.Trim()&#xA;            If String.IsNullOrWhiteSpace(line) OrElse line.StartsWith(&quot;#&quot;) Then Continue For&#xA;            If line.StartsWith(&quot;export &quot;, System.StringComparison.OrdinalIgnoreCase) Then&#xA;                line = line.Substring(7).Trim()&#xA;            End If&#xA;            Dim eqIdx As Integer = line.IndexOf(&quot;=&quot;c)&#xA;            If eqIdx &lt;= 0 Then Continue For&#xA;            Dim k As String = line.Substring(0, eqIdx).Trim()&#xA;            Dim v As String = line.Substring(eqIdx + 1).Trim()&#xA;            If v.Length &gt;= 2 AndAlso ((v.StartsWith(&quot;&quot;&quot;&quot;) AndAlso v.EndsWith(&quot;&quot;&quot;&quot;)) OrElse (v.StartsWith(&quot;'&quot;) AndAlso v.EndsWith(&quot;'&quot;))) Then&#xA;                v = v.Substring(1, v.Length - 2)&#xA;            End If&#xA;            If Not String.IsNullOrWhiteSpace(k) Then&#xA;                envValues(k) = v&#xA;            End If&#xA;        Next&#xA;    End If&#xA;Next&#xA;&#xA;Dim getEnvSetting As Func(Of String, String) = Function(keyName As String) As String&#xA;    If envValues.ContainsKey(keyName) AndAlso Not String.IsNullOrWhiteSpace(envValues(keyName)) Then&#xA;        Return envValues(keyName).Trim()&#xA;    End If&#xA;    Dim procVal As String = System.Environment.GetEnvironmentVariable(keyName, System.EnvironmentVariableTarget.Process)&#xA;    If Not String.IsNullOrWhiteSpace(procVal) Then Return procVal.Trim()&#xA;    Dim userVal As String = System.Environment.GetEnvironmentVariable(keyName, System.EnvironmentVariableTarget.User)&#xA;    If Not String.IsNullOrWhiteSpace(userVal) Then Return userVal.Trim()&#xA;    Return &quot;&quot;&#xA;End Function&#xA;&#xA;If String.IsNullOrWhiteSpace(io_GeminiApiKey) OrElse io_GeminiApiKey = &quot;AIzaqwertyuiop&quot; Then&#xA;    Dim resolvedGemini As String = getEnvSetting(&quot;GEMINI_API_KEY&quot;)&#xA;    If Not String.IsNullOrWhiteSpace(resolvedGemini) Then&#xA;        io_GeminiApiKey = resolvedGemini&#xA;    End If&#xA;End If&#xA;out_SmtpUserSecret = getEnvSetting(&quot;SMTP_USER&quot;)&#xA;out_SmtpPasswordSecret = getEnvSetting(&quot;SMTP_PASSWORD&quot;)&#xA;&#xA;' 1. Fatal Schema Checks (E1 — halt batch before ForEachRow_1)&#xA;If io_dtRoles Is Nothing OrElse io_dtRoles.Columns.Count = 0 Then&#xA;    Throw New UiPath.Core.BusinessRuleException(&quot;Input Excel Sheet1 is empty or contains no header row.&quot;)&#xA;End If&#xA;&#xA;Dim col0Name As String = io_dtRoles.Columns(0).ColumnName.Trim()&#xA;If Not col0Name.Equals(&quot;RecipientEmail&quot;, System.StringComparison.OrdinalIgnoreCase) Then&#xA;    Throw New UiPath.Core.BusinessRuleException( _&#xA;        String.Format(&quot;Invalid Input Schema: Column A (Index 0) must be 'RecipientEmail' (Primary Key), but found '{0}'.&quot;, col0Name))&#xA;End If&#xA;&#xA;io_dtRoles.Columns(0).ColumnName = &quot;RecipientEmail&quot;&#xA;&#xA;If Not io_dtRoles.Columns.Contains(&quot;Job&quot;) Then&#xA;    Throw New UiPath.Core.BusinessRuleException(&quot;Invalid Input Schema: Required column 'Job' is missing from Sheet1.&quot;)&#xA;End If&#xA;&#xA;' 2. Auto-append missing optional &amp; audit columns in-memory without disturbing Column A&#xA;For Each optCol As String In New String() {&quot;AbroadMarkets&quot;, &quot;StudentName&quot;, &quot;Status&quot;, &quot;EmailStatus&quot;, &quot;EmailTimestamp&quot;, &quot;ErrorMessage&quot;}&#xA;    If Not io_dtRoles.Columns.Contains(optCol) Then&#xA;        io_dtRoles.Columns.Add(optCol, GetType(String))&#xA;    End If&#xA;Next&#xA;&#xA;' 3. Initialize output collections unconditionally&#xA;Dim seenKeys As New System.Collections.Generic.HashSet(Of String)(System.StringComparer.OrdinalIgnoreCase)&#xA;Dim dupKeys As New System.Collections.Generic.HashSet(Of String)(System.StringComparer.OrdinalIgnoreCase)&#xA;Dim canonicalByRow As New System.Collections.Generic.Dictionary(Of Integer, String)()&#xA;Dim breByRow As New System.Collections.Generic.Dictionary(Of Integer, String)()&#xA;Dim overlapWarns As New System.Collections.Generic.List(Of String)()&#xA;Dim seenComponents As New System.Collections.Generic.Dictionary(Of String, Integer)(System.StringComparer.OrdinalIgnoreCase)&#xA;&#xA;' 4. Shared Canonical Email Normalization &amp; Strict Validation Helper (E2, E3, E5)&#xA;Dim emailRegex As New System.Text.RegularExpressions.Regex(&quot;^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$&quot;, System.Text.RegularExpressions.RegexOptions.Compiled)&#xA;Dim normalizeEmailCell As Func(Of String, System.Tuple(Of Boolean, String, String, System.Collections.Generic.List(Of String))) = _&#xA;    Function(rawCell As String) As System.Tuple(Of Boolean, String, String, System.Collections.Generic.List(Of String))&#xA;        Dim emptyList As New System.Collections.Generic.List(Of String)()&#xA;        Dim cleaned As String = If(rawCell, &quot;&quot;).Replace(ChrW(160), &quot; &quot;).Replace(ChrW(&amp;H200B), &quot;&quot;).Trim()&#xA;        If String.IsNullOrWhiteSpace(cleaned) Then&#xA;            Return System.Tuple.Create(False, &quot;&quot;, &quot;Missing mandatory RecipientEmail in Column A&quot;, emptyList)&#xA;        End If&#xA;&#xA;        Dim rawTokens As System.Collections.Generic.List(Of String) = cleaned _&#xA;            .Split(New Char() {&quot;;&quot;c, &quot;,&quot;c}, System.StringSplitOptions.RemoveEmptyEntries) _&#xA;            .Select(Function(t As String) t.Trim().ToLowerInvariant()) _&#xA;            .Where(Function(t As String) Not String.IsNullOrWhiteSpace(t)) _&#xA;            .ToList()&#xA;&#xA;        If rawTokens.Count = 0 Then&#xA;            Return System.Tuple.Create(False, &quot;&quot;, &quot;Missing mandatory RecipientEmail in Column A&quot;, emptyList)&#xA;        End If&#xA;&#xA;        For Each tok As String In rawTokens&#xA;            If Not emailRegex.IsMatch(tok) Then&#xA;                Return System.Tuple.Create(False, &quot;&quot;, &quot;Invalid email format in Column A&quot;, emptyList)&#xA;            End If&#xA;        Next&#xA;&#xA;        Dim distinctTokens As System.Collections.Generic.List(Of String) = rawTokens _&#xA;            .Distinct(System.StringComparer.OrdinalIgnoreCase) _&#xA;            .ToList()&#xA;        Dim canonicalKey As String = String.Join(&quot;;&quot;, distinctTokens)&#xA;        Return System.Tuple.Create(True, canonicalKey, &quot;&quot;, distinctTokens)&#xA;    End Function&#xA;&#xA;' 5. Scan all rows: normalize, validate, detect duplicates (E4) &amp; component overlaps (Warn)&#xA;Dim preflightTimestamp As String = System.DateTimeOffset.Now.ToString(&quot;yyyy-MM-dd HH:mm:ss zzz&quot;)&#xA;For rowIdx As Integer = 0 To io_dtRoles.Rows.Count - 1&#xA;    Dim row As System.Data.DataRow = io_dtRoles.Rows(rowIdx)&#xA;    Dim rawEmail As String = Convert.ToString(row(&quot;RecipientEmail&quot;))&#xA;    Dim rawJob As String = Convert.ToString(row(&quot;Job&quot;)).Trim()&#xA;    Dim cleanedProbe As String = If(rawEmail, &quot;&quot;).Replace(ChrW(160), &quot; &quot;).Replace(ChrW(&amp;H200B), &quot;&quot;).Trim()&#xA;&#xA;    ' Completely empty trailing Excel row: preserve existing blank-row skip in If_1&#xA;    If String.IsNullOrWhiteSpace(cleanedProbe) AndAlso String.IsNullOrWhiteSpace(rawJob) Then&#xA;        canonicalByRow(rowIdx) = &quot;&quot;&#xA;        Continue For&#xA;    End If&#xA;&#xA;    Dim normResult As System.Tuple(Of Boolean, String, String, System.Collections.Generic.List(Of String)) = normalizeEmailCell(rawEmail)&#xA;    If Not normResult.Item1 Then&#xA;        canonicalByRow(rowIdx) = &quot;&quot;&#xA;        breByRow(rowIdx) = normResult.Item3&#xA;        row(&quot;EmailStatus&quot;) = &quot;Skipped - BRE&quot;&#xA;        row(&quot;EmailTimestamp&quot;) = preflightTimestamp&#xA;        row(&quot;ErrorMessage&quot;) = normResult.Item3&#xA;        Continue For&#xA;    End If&#xA;&#xA;    Dim canonicalKey As String = normResult.Item2&#xA;    Dim tokens As System.Collections.Generic.List(Of String) = normResult.Item4&#xA;    canonicalByRow(rowIdx) = canonicalKey&#xA;&#xA;    If Not seenKeys.Add(canonicalKey) Then&#xA;        dupKeys.Add(canonicalKey)&#xA;        Dim dupMsg As String = &quot;Duplicate Primary Key in Column A: &quot; &amp; canonicalKey&#xA;        breByRow(rowIdx) = dupMsg&#xA;        row(&quot;EmailStatus&quot;) = &quot;Skipped - BRE&quot;&#xA;        row(&quot;EmailTimestamp&quot;) = preflightTimestamp&#xA;        row(&quot;ErrorMessage&quot;) = dupMsg&#xA;        Continue For&#xA;    End If&#xA;&#xA;    ' Component overlap check (non-blocking Warn when an individual sub-address repeats across distinct valid rows)&#xA;    For Each tok As String In tokens&#xA;        If seenComponents.ContainsKey(tok) Then&#xA;            overlapWarns.Add(String.Format( _&#xA;                &quot;[PK: {3}] Component email overlap detected (non-blocking): '{0}' appears in Excel Row {1} and Excel Row {2}.&quot;, _&#xA;                tok, seenComponents(tok), rowIdx + 2, canonicalKey))&#xA;        Else&#xA;            seenComponents(tok) = rowIdx + 2&#xA;        End If&#xA;    Next&#xA;Next&#xA;&#xA;out_DuplicateKeys = dupKeys&#xA;out_RowCanonicalKeys = canonicalByRow&#xA;out_RowBreReasons = breByRow&#xA;out_OverlapWarnings = overlapWarns" DisplayName="Pre-Flight Schema Validation, Email Normalization &amp; Duplicate PK Detection" sap:VirtualizedContainerService.HintSize="522,165" sap2010:WorkflowViewState.IdRef="InvokeCode_EnsureCols" Language="VBNet">
       <ui:InvokeCode.Arguments>
         <InOutArgument x:TypeArguments="sd:DataTable" x:Key="io_dtRoles">[dtRoles]</InOutArgument>
+        <InOutArgument x:TypeArguments="x:String" x:Key="io_GeminiApiKey">[geminiApiKey]</InOutArgument>
         <OutArgument x:TypeArguments="scgc:HashSet(x:String)" x:Key="out_DuplicateKeys">[duplicateKeys]</OutArgument>
         <OutArgument x:TypeArguments="scg:Dictionary(x:Int32, x:String)" x:Key="out_RowCanonicalKeys">[rowCanonicalKeys]</OutArgument>
         <OutArgument x:TypeArguments="scg:Dictionary(x:Int32, x:String)" x:Key="out_RowBreReasons">[rowBreReasons]</OutArgument>
         <OutArgument x:TypeArguments="scg:List(x:String)" x:Key="out_OverlapWarnings">[overlapWarnings]</OutArgument>
+        <OutArgument x:TypeArguments="x:String" x:Key="out_SmtpUserSecret">[smtpUserSecret]</OutArgument>
+        <OutArgument x:TypeArguments="x:String" x:Key="out_SmtpPasswordSecret">[smtpPasswordSecret]</OutArgument>
       </ui:InvokeCode.Arguments>
     </ui:InvokeCode>
     <If Condition="[overlapWarnings IsNot Nothing AndAlso overlapWarnings.Count &gt; 0]" DisplayName="If Component Email Overlaps Detected" sap2010:WorkflowViewState.IdRef="If_OverlapWarnings">
@@ -301,7 +309,9 @@
                 <Sequence DisplayName="Execute Valid Row Pipeline" sap:VirtualizedContainerService.HintSize="420,1700" sap2010:WorkflowViewState.IdRef="Sequence_ValidRow">
             <If Condition="[String.IsNullOrWhiteSpace(roleName)]" DisplayName="If Role Name is Blank" sap:VirtualizedContainerService.HintSize="454,1650" sap2010:WorkflowViewState.IdRef="If_1">
               <If.Then>
-                <ui:LogMessage DisplayName="Log Blank Row Skipped" sap:VirtualizedContainerService.HintSize="334,92" sap2010:WorkflowViewState.IdRef="LogMessage_BlankRow" Level="Info" Message="[&quot;Skipping blank role row.&quot;]" />
+                <Sequence DisplayName="Skip Blank Role Row" sap2010:WorkflowViewState.IdRef="Sequence_22">
+                  <ui:LogMessage DisplayName="Log Blank Row Skipped" sap:VirtualizedContainerService.HintSize="334,92" sap2010:WorkflowViewState.IdRef="LogMessage_BlankRow" Level="Info" Message="[&quot;[PK: &quot; &amp; If(String.IsNullOrWhiteSpace(strPrimaryKeyEmail), &quot;Row &quot; &amp; (currentRowIndex + 2).ToString(), strPrimaryKeyEmail) &amp; &quot;] Skipping blank role row.&quot;]" />
+                </Sequence>
               </If.Then>
               <If.Else>
                 <Sequence DisplayName="Prepare Paths and Execute Role Research" sap:VirtualizedContainerService.HintSize="420,1480" sap2010:WorkflowViewState.IdRef="Sequence_5">
@@ -310,6 +320,15 @@
                       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
+                  <ui:LogMessage DisplayName="Log Starting Row Processing" sap2010:WorkflowViewState.IdRef="LogMessage_10" Level="Info" Message="[&quot;[PK: &quot; &amp; strPrimaryKeyEmail &amp; &quot;] Starting processing for Role: &quot; &amp; roleName]" />
+                  <If Condition="[Convert.ToString(CurrentRow(&quot;EmailStatus&quot;)).Trim().Equals(&quot;Sent&quot;, StringComparison.OrdinalIgnoreCase)]" DisplayName="If Email Already Sent (Idempotent Skip)" sap2010:WorkflowViewState.IdRef="If_9">
+                    <If.Then>
+                      <Sequence DisplayName="Skip Already Sent Row Idempotently" sap2010:WorkflowViewState.IdRef="Sequence_23">
+                        <ui:LogMessage DisplayName="Log Idempotent Already Sent Skip" sap2010:WorkflowViewState.IdRef="LogMessage_11" Level="Info" Message="[&quot;[PK: &quot; &amp; strPrimaryKeyEmail &amp; &quot;] Skipped - Already Sent | Role: &quot; &amp; roleName &amp; &quot; | Preserving existing EmailStatus='Sent'.&quot;]" />
+                      </Sequence>
+                    </If.Then>
+                    <If.Else>
+                      <Sequence DisplayName="Process Unsent Role Row" sap2010:WorkflowViewState.IdRef="Sequence_24">
                   <Assign DisplayName="Assign safeRoleName" sap:VirtualizedContainerService.HintSize="386,82" sap2010:WorkflowViewState.IdRef="Assign_7">
                     <Assign.To>
                       <OutArgument x:TypeArguments="x:String">[safeRoleName]</OutArgument>
@@ -390,7 +409,7 @@
                                   <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                                 </scg:Dictionary>
                               </sap:WorkflowViewStateService.ViewState>
-                              <ui:LogMessage DisplayName="Log Skip Completed Role" sap:VirtualizedContainerService.HintSize="334,92" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Skipping already completed bilingual role (HTML v2 up to date): &quot; &amp; roleName]" />
+                              <ui:LogMessage DisplayName="Log Skip Completed Role" sap:VirtualizedContainerService.HintSize="334,92" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;[PK: &quot; &amp; strPrimaryKeyEmail &amp; &quot;] Skipping already completed bilingual role (HTML v2 up to date): &quot; &amp; roleName]" />
                             </Sequence>
                           </If.Then>
                           <If.Else>
@@ -413,7 +432,7 @@
                                   <InArgument x:TypeArguments="x:String" x:Key="in_HtmlPathID">[htmlPathID]</InArgument>
                                 </ui:InvokeCode.Arguments>
                               </ui:InvokeCode>
-                              <ui:LogMessage DisplayName="Log Upgraded HTML to Interactive v2" sap:VirtualizedContainerService.HintSize="334,92" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[&quot;Upgraded HTML-only output to interactive v2 (MD &amp; PDF untouched) for: &quot; &amp; roleName]" />
+                              <ui:LogMessage DisplayName="Log Upgraded HTML to Interactive v2" sap:VirtualizedContainerService.HintSize="334,92" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[&quot;[PK: &quot; &amp; strPrimaryKeyEmail &amp; &quot;] Upgraded HTML-only output to interactive v2 (MD &amp; PDF untouched) for: &quot; &amp; roleName]" />
                             </Sequence>
                           </If.Else>
                         </If>
@@ -436,7 +455,7 @@
                                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                               </scg:Dictionary>
                             </sap:WorkflowViewStateService.ViewState>
-                            <ui:LogMessage DisplayName="Log Starting Role" sap:VirtualizedContainerService.HintSize="338,92" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;Starting research for role: &quot; &amp; roleName &amp; &quot; | AbroadMarkets: &quot; &amp; If(String.IsNullOrWhiteSpace(abroadMarkets), &quot;(none)&quot;, abroadMarkets)]" />
+                            <ui:LogMessage DisplayName="Log Starting Role" sap:VirtualizedContainerService.HintSize="338,92" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;[PK: &quot; &amp; strPrimaryKeyEmail &amp; &quot;] Starting research for role: &quot; &amp; roleName &amp; &quot; | AbroadMarkets: &quot; &amp; If(String.IsNullOrWhiteSpace(abroadMarkets), &quot;(none)&quot;, abroadMarkets)]" />
                             <If Condition="[String.IsNullOrWhiteSpace(abroadMarkets) OrElse abroadMarkets.Split(New Char() {&quot;,&quot;c, &quot;;&quot;c}, StringSplitOptions.RemoveEmptyEntries).Select(Function(m) m.Trim()).Where(Function(m) Not String.IsNullOrWhiteSpace(m) AndAlso Not m.Equals(&quot;Indonesia&quot;, StringComparison.OrdinalIgnoreCase) AndAlso Not m.Equals(&quot;None&quot;, StringComparison.OrdinalIgnoreCase) AndAlso Not m.Equals(&quot;-&quot;, StringComparison.OrdinalIgnoreCase)).Count() = 0]" DisplayName="If AbroadMarkets Is Empty in Excel" sap:VirtualizedContainerService.HintSize="338,520" sap2010:WorkflowViewState.IdRef="If_AbroadMarketsCheck">
                               <If.Then>
                                 <Sequence DisplayName="Skip Abroad Research - No Abroad Country Configured" sap:VirtualizedContainerService.HintSize="376,360" sap2010:WorkflowViewState.IdRef="Sequence_AbroadSkipBlank">
@@ -445,7 +464,7 @@
                                       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                                     </scg:Dictionary>
                                   </sap:WorkflowViewStateService.ViewState>
-                                  <ui:LogMessage DisplayName="Log Skip Abroad Search (Blank)" sap:VirtualizedContainerService.HintSize="334,92" sap2010:WorkflowViewState.IdRef="LogMessage_SkipAbroad" Level="Info" Message="[&quot;Skipping 'Searching verified abroad entry-level visa-sponsored jobs' process for &quot; &amp; roleName &amp; &quot; (Abroad country is blank or empty)&quot;]" />
+                                  <ui:LogMessage DisplayName="Log Skip Abroad Search (Blank)" sap:VirtualizedContainerService.HintSize="334,92" sap2010:WorkflowViewState.IdRef="LogMessage_SkipAbroad" Level="Info" Message="[&quot;[PK: &quot; &amp; strPrimaryKeyEmail &amp; &quot;] Skipping 'Searching verified abroad entry-level visa-sponsored jobs' process for &quot; &amp; roleName &amp; &quot; (Abroad country is blank or empty)&quot;]" />
                                   <Assign DisplayName="Set abroadEvidenceText Empty (No Abroad Country)" sap:VirtualizedContainerService.HintSize="334,82" sap2010:WorkflowViewState.IdRef="Assign_SkipAbroadEv">
                                     <Assign.To>
                                       <OutArgument x:TypeArguments="x:String">[abroadEvidenceText]</OutArgument>
@@ -611,7 +630,7 @@
                                 <InArgument x:TypeArguments="x:Boolean">[True]</InArgument>
                               </Assign.Value>
                             </Assign>
-                            <ui:LogMessage DisplayName="Log Role Dossier Completed" sap:VirtualizedContainerService.HintSize="338,92" sap2010:WorkflowViewState.IdRef="LogMessage_RoleCompleted" Level="Info" Message="[&quot;Completed role: &quot; &amp; roleName &amp; &quot; | AbroadStatus: &quot; &amp; abroadStatus &amp; &quot; (&quot; &amp; abroadCount.ToString() &amp; &quot;) | EN PDF: &quot; &amp; pdfPath &amp; &quot; | ID PDF: &quot; &amp; pdfPathID]" />
+                            <ui:LogMessage DisplayName="Log Role Dossier Completed" sap:VirtualizedContainerService.HintSize="338,92" sap2010:WorkflowViewState.IdRef="LogMessage_RoleCompleted" Level="Info" Message="[&quot;[PK: &quot; &amp; strPrimaryKeyEmail &amp; &quot;] Completed role: &quot; &amp; roleName &amp; &quot; | AbroadStatus: &quot; &amp; abroadStatus &amp; &quot; (&quot; &amp; abroadCount.ToString() &amp; &quot;) | EN PDF: &quot; &amp; pdfPath &amp; &quot; | ID PDF: &quot; &amp; pdfPathID]" />
                           </Sequence>
                         </TryCatch.Try>
                         <TryCatch.Catches>
@@ -648,12 +667,44 @@
                                     <InArgument x:TypeArguments="x:Object">["Failed - System"]</InArgument>
                                   </Assign.Value>
                                 </Assign>
+                                <Assign DisplayName="Set Row EmailTimestamp Failed - System (E7)" sap2010:WorkflowViewState.IdRef="Assign_40">
+                                  <Assign.To>
+                                    <OutArgument x:TypeArguments="x:Object">[CurrentRow("EmailTimestamp")]</OutArgument>
+                                  </Assign.To>
+                                  <Assign.Value>
+                                    <InArgument x:TypeArguments="x:Object">[DateTimeOffset.Now.ToString("yyyy-MM-dd HH:mm:ss zzz")]</InArgument>
+                                  </Assign.Value>
+                                </Assign>
+                                <Assign DisplayName="Buffer Raw Error (E7)" sap2010:WorkflowViewState.IdRef="Assign_41">
+                                  <Assign.To>
+                                    <OutArgument x:TypeArguments="x:String">[redactedErrorBuffer]</OutArgument>
+                                  </Assign.To>
+                                  <Assign.Value>
+                                    <InArgument x:TypeArguments="x:String">[If(exception.InnerException IsNot Nothing, exception.Message &amp; " | Inner: " &amp; exception.InnerException.Message, exception.Message)]</InArgument>
+                                  </Assign.Value>
+                                </Assign>
+                                <Assign DisplayName="Redact SMTP_PASSWORD (E7)" sap2010:WorkflowViewState.IdRef="Assign_42">
+                                  <Assign.To>
+                                    <OutArgument x:TypeArguments="x:String">[redactedErrorBuffer]</OutArgument>
+                                  </Assign.To>
+                                  <Assign.Value>
+                                    <InArgument x:TypeArguments="x:String">[If(String.IsNullOrEmpty(smtpPasswordSecret), redactedErrorBuffer, redactedErrorBuffer.Replace(smtpPasswordSecret, "[REDACTED]"))]</InArgument>
+                                  </Assign.Value>
+                                </Assign>
+                                <Assign DisplayName="Redact SMTP_USER (E7)" sap2010:WorkflowViewState.IdRef="Assign_43">
+                                  <Assign.To>
+                                    <OutArgument x:TypeArguments="x:String">[redactedErrorBuffer]</OutArgument>
+                                  </Assign.To>
+                                  <Assign.Value>
+                                    <InArgument x:TypeArguments="x:String">[If(String.IsNullOrEmpty(smtpUserSecret), redactedErrorBuffer, redactedErrorBuffer.Replace(smtpUserSecret, "[REDACTED_SMTP_USER]"))]</InArgument>
+                                  </Assign.Value>
+                                </Assign>
                                 <Assign DisplayName="Set Redacted Row ErrorMessage (E7)" sap2010:WorkflowViewState.IdRef="Assign_19">
                                   <Assign.To>
                                     <OutArgument x:TypeArguments="x:Object">[CurrentRow("ErrorMessage")]</OutArgument>
                                   </Assign.To>
                                   <Assign.Value>
-                                    <InArgument x:TypeArguments="x:Object">[If(String.IsNullOrWhiteSpace(geminiApiKey), exception.Message, exception.Message.Replace(geminiApiKey, "[REDACTED]"))]</InArgument>
+                                    <InArgument x:TypeArguments="x:Object">[If(String.IsNullOrEmpty(geminiApiKey), redactedErrorBuffer, redactedErrorBuffer.Replace(geminiApiKey, "[REDACTED]"))]</InArgument>
                                   </Assign.Value>
                                 </Assign>
                                 <Assign DisplayName="Block Dispatch on E7 Failure" sap2010:WorkflowViewState.IdRef="Assign_20">
@@ -664,7 +715,7 @@
                                     <InArgument x:TypeArguments="x:Boolean">[False]</InArgument>
                                   </Assign.Value>
                                 </Assign>
-                                <ui:LogMessage DisplayName="Log Redacted Role Error" sap:VirtualizedContainerService.HintSize="338,92" sap2010:WorkflowViewState.IdRef="LogMessage_RoleError" Level="Error" Message="[&quot;[PK: &quot; &amp; If(String.IsNullOrWhiteSpace(strPrimaryKeyEmail), &quot;Row &quot; &amp; (currentRowIndex + 2).ToString(), strPrimaryKeyEmail) &amp; &quot;] SystemException — Failed role: &quot; &amp; roleName &amp; &quot; | Error: &quot; &amp; If(String.IsNullOrWhiteSpace(geminiApiKey), exception.Message, exception.Message.Replace(geminiApiKey, &quot;[REDACTED]&quot;))]" />
+                                <ui:LogMessage DisplayName="Log Redacted Role Error" sap:VirtualizedContainerService.HintSize="338,92" sap2010:WorkflowViewState.IdRef="LogMessage_RoleError" Level="Error" Message="[&quot;[PK: &quot; &amp; If(String.IsNullOrWhiteSpace(strPrimaryKeyEmail), &quot;Row &quot; &amp; (currentRowIndex + 2).ToString(), strPrimaryKeyEmail) &amp; &quot;] SystemException — Failed role: &quot; &amp; roleName &amp; &quot; | Error: &quot; &amp; Convert.ToString(CurrentRow(&quot;ErrorMessage&quot;))]" />
                               </Sequence>
                             </ActivityAction>
                           </Catch>
@@ -720,12 +771,44 @@
                                       <InArgument x:TypeArguments="x:Object">["Failed - System"]</InArgument>
                                     </Assign.Value>
                                   </Assign>
+                                  <Assign DisplayName="Set EmailTimestamp on Guard Error" sap2010:WorkflowViewState.IdRef="Assign_44">
+                                    <Assign.To>
+                                      <OutArgument x:TypeArguments="x:Object">[CurrentRow("EmailTimestamp")]</OutArgument>
+                                    </Assign.To>
+                                    <Assign.Value>
+                                      <InArgument x:TypeArguments="x:Object">[DateTimeOffset.Now.ToString("yyyy-MM-dd HH:mm:ss zzz")]</InArgument>
+                                    </Assign.Value>
+                                  </Assign>
+                                  <Assign DisplayName="Buffer Raw Error (Guard)" sap2010:WorkflowViewState.IdRef="Assign_45">
+                                    <Assign.To>
+                                      <OutArgument x:TypeArguments="x:String">[redactedErrorBuffer]</OutArgument>
+                                    </Assign.To>
+                                    <Assign.Value>
+                                      <InArgument x:TypeArguments="x:String">[If(guardEx.InnerException IsNot Nothing, guardEx.Message &amp; " | Inner: " &amp; guardEx.InnerException.Message, guardEx.Message)]</InArgument>
+                                    </Assign.Value>
+                                  </Assign>
+                                  <Assign DisplayName="Redact SMTP_PASSWORD (Guard)" sap2010:WorkflowViewState.IdRef="Assign_46">
+                                    <Assign.To>
+                                      <OutArgument x:TypeArguments="x:String">[redactedErrorBuffer]</OutArgument>
+                                    </Assign.To>
+                                    <Assign.Value>
+                                      <InArgument x:TypeArguments="x:String">[If(String.IsNullOrEmpty(smtpPasswordSecret), redactedErrorBuffer, redactedErrorBuffer.Replace(smtpPasswordSecret, "[REDACTED]"))]</InArgument>
+                                    </Assign.Value>
+                                  </Assign>
+                                  <Assign DisplayName="Redact SMTP_USER (Guard)" sap2010:WorkflowViewState.IdRef="Assign_47">
+                                    <Assign.To>
+                                      <OutArgument x:TypeArguments="x:String">[redactedErrorBuffer]</OutArgument>
+                                    </Assign.To>
+                                    <Assign.Value>
+                                      <InArgument x:TypeArguments="x:String">[If(String.IsNullOrEmpty(smtpUserSecret), redactedErrorBuffer, redactedErrorBuffer.Replace(smtpUserSecret, "[REDACTED_SMTP_USER]"))]</InArgument>
+                                    </Assign.Value>
+                                  </Assign>
                                   <Assign DisplayName="Set Redacted ErrorMessage on Guard Error" sap2010:WorkflowViewState.IdRef="Assign_23">
                                     <Assign.To>
                                       <OutArgument x:TypeArguments="x:Object">[CurrentRow("ErrorMessage")]</OutArgument>
                                     </Assign.To>
                                     <Assign.Value>
-                                      <InArgument x:TypeArguments="x:Object">[If(String.IsNullOrWhiteSpace(geminiApiKey), guardEx.Message, guardEx.Message.Replace(geminiApiKey, "[REDACTED]"))]</InArgument>
+                                      <InArgument x:TypeArguments="x:Object">[If(String.IsNullOrEmpty(geminiApiKey), redactedErrorBuffer, redactedErrorBuffer.Replace(geminiApiKey, "[REDACTED]"))]</InArgument>
                                     </Assign.Value>
                                   </Assign>
                                   <Assign DisplayName="Clear listAttachments on Guard Error" sap2010:WorkflowViewState.IdRef="Assign_24">
@@ -736,7 +819,7 @@
                                       <InArgument x:TypeArguments="scg:List(x:String)">[New System.Collections.Generic.List(Of String)()]</InArgument>
                                     </Assign.Value>
                                   </Assign>
-                                  <ui:LogMessage DisplayName="Log 1-to-1 Guard Failure" sap2010:WorkflowViewState.IdRef="LogMessage_5" Level="Error" Message="[&quot;[PK: &quot; &amp; If(String.IsNullOrWhiteSpace(strPrimaryKeyEmail), &quot;Row &quot; &amp; (currentRowIndex + 2).ToString(), strPrimaryKeyEmail) &amp; &quot;] SystemException — Pre-Dispatch 1-to-1 Guard failed. Error: &quot; &amp; If(String.IsNullOrWhiteSpace(geminiApiKey), guardEx.Message, guardEx.Message.Replace(geminiApiKey, &quot;[REDACTED]&quot;))]" />
+                                  <ui:LogMessage DisplayName="Log 1-to-1 Guard Failure" sap2010:WorkflowViewState.IdRef="LogMessage_5" Level="Error" Message="[&quot;[PK: &quot; &amp; If(String.IsNullOrWhiteSpace(strPrimaryKeyEmail), &quot;Row &quot; &amp; (currentRowIndex + 2).ToString(), strPrimaryKeyEmail) &amp; &quot;] SystemException — Pre-Dispatch 1-to-1 Guard failed. Error: &quot; &amp; Convert.ToString(CurrentRow(&quot;ErrorMessage&quot;))]" />
                                 </Sequence>
                               </ActivityAction>
                             </Catch>
@@ -861,12 +944,36 @@
                                                     <InArgument x:TypeArguments="x:Object">[DateTimeOffset.Now.ToString("yyyy-MM-dd HH:mm:ss zzz")]</InArgument>
                                                   </Assign.Value>
                                                 </Assign>
+                                                <Assign DisplayName="Buffer Raw Error (Dispatch)" sap2010:WorkflowViewState.IdRef="Assign_48">
+                                                  <Assign.To>
+                                                    <OutArgument x:TypeArguments="x:String">[redactedErrorBuffer]</OutArgument>
+                                                  </Assign.To>
+                                                  <Assign.Value>
+                                                    <InArgument x:TypeArguments="x:String">[If(emailDispatchError, "")]</InArgument>
+                                                  </Assign.Value>
+                                                </Assign>
+                                                <Assign DisplayName="Redact SMTP_PASSWORD (Dispatch)" sap2010:WorkflowViewState.IdRef="Assign_49">
+                                                  <Assign.To>
+                                                    <OutArgument x:TypeArguments="x:String">[redactedErrorBuffer]</OutArgument>
+                                                  </Assign.To>
+                                                  <Assign.Value>
+                                                    <InArgument x:TypeArguments="x:String">[If(String.IsNullOrEmpty(smtpPasswordSecret), redactedErrorBuffer, redactedErrorBuffer.Replace(smtpPasswordSecret, "[REDACTED]"))]</InArgument>
+                                                  </Assign.Value>
+                                                </Assign>
+                                                <Assign DisplayName="Redact SMTP_USER (Dispatch)" sap2010:WorkflowViewState.IdRef="Assign_50">
+                                                  <Assign.To>
+                                                    <OutArgument x:TypeArguments="x:String">[redactedErrorBuffer]</OutArgument>
+                                                  </Assign.To>
+                                                  <Assign.Value>
+                                                    <InArgument x:TypeArguments="x:String">[If(String.IsNullOrEmpty(smtpUserSecret), redactedErrorBuffer, redactedErrorBuffer.Replace(smtpUserSecret, "[REDACTED_SMTP_USER]"))]</InArgument>
+                                                  </Assign.Value>
+                                                </Assign>
                                                 <Assign DisplayName="Set Redacted ErrorMessage (Dispatch)" sap2010:WorkflowViewState.IdRef="Assign_35">
                                                   <Assign.To>
                                                     <OutArgument x:TypeArguments="x:Object">[CurrentRow("ErrorMessage")]</OutArgument>
                                                   </Assign.To>
                                                   <Assign.Value>
-                                                    <InArgument x:TypeArguments="x:Object">[If(String.IsNullOrWhiteSpace(geminiApiKey), emailDispatchError, emailDispatchError.Replace(geminiApiKey, "[REDACTED]"))]</InArgument>
+                                                    <InArgument x:TypeArguments="x:Object">[If(String.IsNullOrEmpty(geminiApiKey), redactedErrorBuffer, redactedErrorBuffer.Replace(geminiApiKey, "[REDACTED]"))]</InArgument>
                                                   </Assign.Value>
                                                 </Assign>
                                                 <If Condition="[Not String.IsNullOrWhiteSpace(emailDispatchError) AndAlso emailDispatchError.Contains(&quot;535&quot;)]" DisplayName="If SMTP 535 Authentication Failure" sap2010:WorkflowViewState.IdRef="If_8">
@@ -915,12 +1022,36 @@
                                             <InArgument x:TypeArguments="x:Object">[DateTimeOffset.Now.ToString("yyyy-MM-dd HH:mm:ss zzz")]</InArgument>
                                           </Assign.Value>
                                         </Assign>
+                                        <Assign DisplayName="Buffer Raw Error (Unexpected)" sap2010:WorkflowViewState.IdRef="Assign_51">
+                                          <Assign.To>
+                                            <OutArgument x:TypeArguments="x:String">[redactedErrorBuffer]</OutArgument>
+                                          </Assign.To>
+                                          <Assign.Value>
+                                            <InArgument x:TypeArguments="x:String">[If(dispatchEx.InnerException IsNot Nothing, dispatchEx.Message &amp; " | Inner: " &amp; dispatchEx.InnerException.Message, dispatchEx.Message)]</InArgument>
+                                          </Assign.Value>
+                                        </Assign>
+                                        <Assign DisplayName="Redact SMTP_PASSWORD (Unexpected)" sap2010:WorkflowViewState.IdRef="Assign_52">
+                                          <Assign.To>
+                                            <OutArgument x:TypeArguments="x:String">[redactedErrorBuffer]</OutArgument>
+                                          </Assign.To>
+                                          <Assign.Value>
+                                            <InArgument x:TypeArguments="x:String">[If(String.IsNullOrEmpty(smtpPasswordSecret), redactedErrorBuffer, redactedErrorBuffer.Replace(smtpPasswordSecret, "[REDACTED]"))]</InArgument>
+                                          </Assign.Value>
+                                        </Assign>
+                                        <Assign DisplayName="Redact SMTP_USER (Unexpected)" sap2010:WorkflowViewState.IdRef="Assign_53">
+                                          <Assign.To>
+                                            <OutArgument x:TypeArguments="x:String">[redactedErrorBuffer]</OutArgument>
+                                          </Assign.To>
+                                          <Assign.Value>
+                                            <InArgument x:TypeArguments="x:String">[If(String.IsNullOrEmpty(smtpUserSecret), redactedErrorBuffer, redactedErrorBuffer.Replace(smtpUserSecret, "[REDACTED_SMTP_USER]"))]</InArgument>
+                                          </Assign.Value>
+                                        </Assign>
                                         <Assign DisplayName="Set Redacted ErrorMessage (Unexpected)" sap2010:WorkflowViewState.IdRef="Assign_39">
                                           <Assign.To>
                                             <OutArgument x:TypeArguments="x:Object">[CurrentRow("ErrorMessage")]</OutArgument>
                                           </Assign.To>
                                           <Assign.Value>
-                                            <InArgument x:TypeArguments="x:Object">[If(String.IsNullOrWhiteSpace(geminiApiKey), dispatchEx.Message, dispatchEx.Message.Replace(geminiApiKey, "[REDACTED]"))]</InArgument>
+                                            <InArgument x:TypeArguments="x:Object">[If(String.IsNullOrEmpty(geminiApiKey), redactedErrorBuffer, redactedErrorBuffer.Replace(geminiApiKey, "[REDACTED]"))]</InArgument>
                                           </Assign.Value>
                                         </Assign>
                                         <ui:LogMessage DisplayName="Log Unexpected Render or Dispatch Error" Level="Error" Message="[&quot;[PK: &quot; &amp; strPrimaryKeyEmail &amp; &quot;] SystemException — Email render/dispatch stage failed. Error: &quot; &amp; Convert.ToString(CurrentRow(&quot;ErrorMessage&quot;))]" sap2010:WorkflowViewState.IdRef="LogMessage_9" />
@@ -935,6 +1066,9 @@
                       </Sequence>
                     </If.Then>
                   </If>
+                      </Sequence>
+                    </If.Else>
+                  </If>
                 </Sequence>
               </If.Else>
             </If>
@@ -945,5 +1079,75 @@
         </ActivityAction>
       </ui:ForEachRow.Body>
     </ui:ForEachRow>
+    <TryCatch DisplayName="Try End-of-Batch Audit Write-Back (E10)" sap2010:WorkflowViewState.IdRef="TryCatch_4">
+      <TryCatch.Try>
+        <Sequence DisplayName="Write Audit Columns Back to Workbook With Retry" sap2010:WorkflowViewState.IdRef="Sequence_25">
+          <ui:RetryScope DisplayName="Retry Audit Write-Back (3x / 5s)" NumberOfRetries="[3]" RetryInterval="00:00:05" sap2010:WorkflowViewState.IdRef="RetryScope_1">
+            <ui:RetryScope.ActivityBody>
+              <ActivityAction>
+                <Sequence DisplayName="Write Full dtRoles to Sheet1" sap2010:WorkflowViewState.IdRef="Sequence_26">
+                  <ui:WriteRange AddHeaders="True" DataTable="[dtRoles]" DisplayName="Write Updated dtRoles Audit Columns to Sheet1" sap2010:WorkflowViewState.IdRef="WriteRange_1" SheetName="Sheet1" StartingCell="A1" WorkbookPath="[strExcelPathDesireRole]" WorkbookPathResource="{x:Null}" />
+                </Sequence>
+              </ActivityAction>
+            </ui:RetryScope.ActivityBody>
+            <ui:RetryScope.Condition>
+              <ActivityFunc x:TypeArguments="x:Boolean" />
+            </ui:RetryScope.Condition>
+          </ui:RetryScope>
+          <ui:LogMessage DisplayName="Log End-of-Batch Audit Write-Back Success" sap2010:WorkflowViewState.IdRef="LogMessage_12" Level="Info" Message="[&quot;[PK: BATCH-AUDIT] End-of-batch audit write-back succeeded to &quot; &amp; strExcelPathDesireRole &amp; &quot; (&quot; &amp; dtRoles.Rows.Count.ToString() &amp; &quot; rows).&quot;]" />
+        </Sequence>
+      </TryCatch.Try>
+      <TryCatch.Catches>
+        <Catch x:TypeArguments="s:Exception" sap2010:WorkflowViewState.IdRef="Catch`1_4">
+          <ActivityAction x:TypeArguments="s:Exception">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="s:Exception" Name="writeBackEx" />
+            </ActivityAction.Argument>
+            <Sequence DisplayName="Handle Locked Workbook With CSV Fallback" sap2010:WorkflowViewState.IdRef="Sequence_27">
+              <Assign DisplayName="Build Fallback Audit CSV Path" sap2010:WorkflowViewState.IdRef="Assign_54">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:String">[auditCsvPath]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:String">[System.IO.Path.Combine(outputRoot, "EmailAudit_" &amp; DateTimeOffset.Now.ToString("yyyyMMdd_HHmmss") &amp; ".csv")]</InArgument>
+                </Assign.Value>
+              </Assign>
+              <ui:InvokeCode ContinueOnError="{x:Null}" Code="' Write Locked-Workbook Fallback Audit CSV (RFC-4180 UTF-8) &amp; Redact Write-Back Exception (JK-RPA-008 / E10)&#xA;' Arguments:&#xA;'   in_dtRoles (In System.Data.DataTable)&#xA;'   in_CsvPath (In String)&#xA;'   in_RawError (In String)&#xA;'   in_GeminiApiKey (In String)&#xA;'   in_SmtpUserSecret (In String)&#xA;'   in_SmtpPasswordSecret (In String)&#xA;'   out_RedactedError (Out String)&#xA;&#xA;Dim redacted As String = If(String.IsNullOrWhiteSpace(in_RawError), &quot;Unknown write-back error.&quot;, in_RawError)&#xA;If Not String.IsNullOrEmpty(in_SmtpPasswordSecret) Then&#xA;    redacted = redacted.Replace(in_SmtpPasswordSecret, &quot;[REDACTED]&quot;)&#xA;End If&#xA;If Not String.IsNullOrEmpty(in_SmtpUserSecret) Then&#xA;    redacted = redacted.Replace(in_SmtpUserSecret, &quot;[REDACTED_SMTP_USER]&quot;)&#xA;End If&#xA;If Not String.IsNullOrEmpty(in_GeminiApiKey) Then&#xA;    redacted = redacted.Replace(in_GeminiApiKey, &quot;[REDACTED]&quot;)&#xA;End If&#xA;redacted = System.Text.RegularExpressions.Regex.Replace(redacted, &quot;\s+&quot;, &quot; &quot;).Trim()&#xA;If redacted.Length &gt; 500 Then&#xA;    redacted = redacted.Substring(0, 500) &amp; &quot;...&quot;&#xA;End If&#xA;out_RedactedError = redacted&#xA;&#xA;Dim csvDir As String = System.IO.Path.GetDirectoryName(in_CsvPath)&#xA;If Not String.IsNullOrWhiteSpace(csvDir) Then&#xA;    System.IO.Directory.CreateDirectory(csvDir)&#xA;End If&#xA;&#xA;Dim escapeCsv As Func(Of String, String) = Function(field As String) As String&#xA;    Dim s As String = If(field, &quot;&quot;)&#xA;    If s.Contains(&quot;&quot;&quot;&quot;) Then s = s.Replace(&quot;&quot;&quot;&quot;, &quot;&quot;&quot;&quot;&quot;&quot;)&#xA;    If s.Contains(&quot;,&quot;) OrElse s.Contains(&quot;&quot;&quot;&quot;) OrElse s.Contains(vbCr) OrElse s.Contains(vbLf) Then&#xA;        Return &quot;&quot;&quot;&quot; &amp; s &amp; &quot;&quot;&quot;&quot;&#xA;    End If&#xA;    Return s&#xA;End Function&#xA;&#xA;Dim sb As New System.Text.StringBuilder()&#xA;If in_dtRoles IsNot Nothing AndAlso in_dtRoles.Columns.Count &gt; 0 Then&#xA;    Dim headers As New System.Collections.Generic.List(Of String)()&#xA;    For Each col As System.Data.DataColumn In in_dtRoles.Columns&#xA;        headers.Add(escapeCsv(col.ColumnName))&#xA;    Next&#xA;    sb.AppendLine(String.Join(&quot;,&quot;, headers))&#xA;&#xA;    For Each row As System.Data.DataRow In in_dtRoles.Rows&#xA;        Dim cells As New System.Collections.Generic.List(Of String)()&#xA;        For colIdx As Integer = 0 To in_dtRoles.Columns.Count - 1&#xA;            Dim cellVal As String = If(row.IsNull(colIdx), &quot;&quot;, Convert.ToString(row(colIdx)))&#xA;            If Not String.IsNullOrEmpty(in_SmtpPasswordSecret) Then&#xA;                cellVal = cellVal.Replace(in_SmtpPasswordSecret, &quot;[REDACTED]&quot;)&#xA;            End If&#xA;            If Not String.IsNullOrEmpty(in_SmtpUserSecret) Then&#xA;                cellVal = cellVal.Replace(in_SmtpUserSecret, &quot;[REDACTED_SMTP_USER]&quot;)&#xA;            End If&#xA;            If Not String.IsNullOrEmpty(in_GeminiApiKey) Then&#xA;                cellVal = cellVal.Replace(in_GeminiApiKey, &quot;[REDACTED]&quot;)&#xA;            End If&#xA;            cells.Add(escapeCsv(cellVal))&#xA;        Next&#xA;        sb.AppendLine(String.Join(&quot;,&quot;, cells))&#xA;    Next&#xA;End If&#xA;&#xA;System.IO.File.WriteAllText(in_CsvPath, sb.ToString(), System.Text.Encoding.UTF8)" DisplayName="Write Locked-Workbook Fallback Audit CSV and Redact Error" sap2010:WorkflowViewState.IdRef="InvokeCode_6" Language="VBNet">
+                <ui:InvokeCode.Arguments>
+                  <InArgument x:TypeArguments="sd:DataTable" x:Key="in_dtRoles">[dtRoles]</InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="in_CsvPath">[auditCsvPath]</InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="in_RawError">[If(writeBackEx.InnerException IsNot Nothing, writeBackEx.Message &amp; " | Inner: " &amp; writeBackEx.InnerException.Message, writeBackEx.Message)]</InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="in_GeminiApiKey">[geminiApiKey]</InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="in_SmtpUserSecret">[smtpUserSecret]</InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="in_SmtpPasswordSecret">[smtpPasswordSecret]</InArgument>
+                  <OutArgument x:TypeArguments="x:String" x:Key="out_RedactedError">[writeBackErrorMessage]</OutArgument>
+                </ui:InvokeCode.Arguments>
+              </ui:InvokeCode>
+              <ui:LogMessage DisplayName="Log Locked Workbook Fallback Audit CSV" sap2010:WorkflowViewState.IdRef="LogMessage_13" Level="Warn" Message="[&quot;[PK: BATCH-AUDIT] Workbook locked or write-back failed after 3 retries (&quot; &amp; writeBackErrorMessage &amp; &quot;). Fallback audit CSV written to: &quot; &amp; auditCsvPath]" />
+            </Sequence>
+          </ActivityAction>
+        </Catch>
+      </TryCatch.Catches>
+      <TryCatch.Finally>
+        <Sequence DisplayName="Clear End-of-Batch Redaction Secret Buffers" sap2010:WorkflowViewState.IdRef="Sequence_28">
+          <Assign DisplayName="Clear End-of-Batch SMTP Password Secret" sap2010:WorkflowViewState.IdRef="Assign_55">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:String">[smtpPasswordSecret]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:String">[""]</InArgument>
+            </Assign.Value>
+          </Assign>
+          <Assign DisplayName="Clear End-of-Batch SMTP User Secret" sap2010:WorkflowViewState.IdRef="Assign_56">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:String">[smtpUserSecret]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:String">[""]</InArgument>
+            </Assign.Value>
+          </Assign>
+        </Sequence>
+      </TryCatch.Finally>
+    </TryCatch>
   </Sequence>
 </Activity>
