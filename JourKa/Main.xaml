@@ -132,6 +132,12 @@
       <Variable x:TypeArguments="x:Int32" Name="currentRowIndex" />
       <Variable x:TypeArguments="x:String" Name="strPrimaryKeyEmail" />
       <Variable x:TypeArguments="x:String" Name="currentRowBreReason" />
+      <Variable x:TypeArguments="x:String" Name="strNormalizedRecipients" />
+      <Variable x:TypeArguments="x:String" Name="studentName" />
+      <Variable x:TypeArguments="scg:List(x:String)" Name="listAttachments" />
+      <Variable x:TypeArguments="x:String" Name="strEmailSubject" />
+      <Variable x:TypeArguments="x:String" Name="strEmailBodyHtml" />
+      <Variable x:TypeArguments="x:Boolean" Name="dossierReadyForDispatch" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -167,6 +173,37 @@
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
+            <ui:InvokeCode ContinueOnError="{x:Null}" Code="' Per-Row Variable Reset for Iteration Isolation (JK-RPA-006 / #25)&#xA;out_PrimaryKeyEmail = &quot;&quot;&#xA;out_NormalizedRecipients = &quot;&quot;&#xA;out_StudentName = &quot;&quot;&#xA;out_RoleName = &quot;&quot;&#xA;out_RoleLevel = &quot;&quot;&#xA;out_RoleLocation = &quot;&quot;&#xA;out_ExtraKeywords = &quot;&quot;&#xA;out_AbroadMarkets = &quot;&quot;&#xA;out_CurrentStatus = &quot;&quot;&#xA;out_RowBreReason = &quot;&quot;&#xA;out_SafeRoleName = &quot;&quot;&#xA;out_RoleFolder = &quot;&quot;&#xA;out_MarkdownPath = &quot;&quot;&#xA;out_HtmlPath = &quot;&quot;&#xA;out_PdfPath = &quot;&quot;&#xA;out_MarkdownPathID = &quot;&quot;&#xA;out_HtmlPathID = &quot;&quot;&#xA;out_PdfPathID = &quot;&quot;&#xA;out_DossierMarkdown = &quot;&quot;&#xA;out_DossierMarkdownID = &quot;&quot;&#xA;out_AbroadEvidenceText = &quot;&quot;&#xA;out_AbroadCount = 0&#xA;out_AbroadStatus = &quot;&quot;&#xA;out_ListAttachments = New System.Collections.Generic.List(Of String)()&#xA;out_EmailSubject = &quot;&quot;&#xA;out_EmailBodyHtml = &quot;&quot;&#xA;out_DossierReadyForDispatch = False&#xA;" DisplayName="Reset Row-Scoped Variables for Iteration Isolation" sap2010:WorkflowViewState.IdRef="InvokeCode_3" Language="VBNet">
+              <ui:InvokeCode.Arguments>
+                <OutArgument x:TypeArguments="x:String" x:Key="out_PrimaryKeyEmail">[strPrimaryKeyEmail]</OutArgument>
+                <OutArgument x:TypeArguments="x:String" x:Key="out_NormalizedRecipients">[strNormalizedRecipients]</OutArgument>
+                <OutArgument x:TypeArguments="x:String" x:Key="out_StudentName">[studentName]</OutArgument>
+                <OutArgument x:TypeArguments="x:String" x:Key="out_RoleName">[roleName]</OutArgument>
+                <OutArgument x:TypeArguments="x:String" x:Key="out_RoleLevel">[roleLevel]</OutArgument>
+                <OutArgument x:TypeArguments="x:String" x:Key="out_RoleLocation">[roleLocation]</OutArgument>
+                <OutArgument x:TypeArguments="x:String" x:Key="out_ExtraKeywords">[extraKeywords]</OutArgument>
+                <OutArgument x:TypeArguments="x:String" x:Key="out_AbroadMarkets">[abroadMarkets]</OutArgument>
+                <OutArgument x:TypeArguments="x:String" x:Key="out_CurrentStatus">[currentStatus]</OutArgument>
+                <OutArgument x:TypeArguments="x:String" x:Key="out_RowBreReason">[currentRowBreReason]</OutArgument>
+                <OutArgument x:TypeArguments="x:String" x:Key="out_SafeRoleName">[safeRoleName]</OutArgument>
+                <OutArgument x:TypeArguments="x:String" x:Key="out_RoleFolder">[roleFolder]</OutArgument>
+                <OutArgument x:TypeArguments="x:String" x:Key="out_MarkdownPath">[markdownPath]</OutArgument>
+                <OutArgument x:TypeArguments="x:String" x:Key="out_HtmlPath">[htmlPath]</OutArgument>
+                <OutArgument x:TypeArguments="x:String" x:Key="out_PdfPath">[pdfPath]</OutArgument>
+                <OutArgument x:TypeArguments="x:String" x:Key="out_MarkdownPathID">[markdownPathID]</OutArgument>
+                <OutArgument x:TypeArguments="x:String" x:Key="out_HtmlPathID">[htmlPathID]</OutArgument>
+                <OutArgument x:TypeArguments="x:String" x:Key="out_PdfPathID">[pdfPathID]</OutArgument>
+                <OutArgument x:TypeArguments="x:String" x:Key="out_DossierMarkdown">[dossierMarkdown]</OutArgument>
+                <OutArgument x:TypeArguments="x:String" x:Key="out_DossierMarkdownID">[dossierMarkdownID]</OutArgument>
+                <OutArgument x:TypeArguments="x:String" x:Key="out_AbroadEvidenceText">[abroadEvidenceText]</OutArgument>
+                <OutArgument x:TypeArguments="x:Int32" x:Key="out_AbroadCount">[abroadCount]</OutArgument>
+                <OutArgument x:TypeArguments="x:String" x:Key="out_AbroadStatus">[abroadStatus]</OutArgument>
+                <OutArgument x:TypeArguments="scg:List(x:String)" x:Key="out_ListAttachments">[listAttachments]</OutArgument>
+                <OutArgument x:TypeArguments="x:String" x:Key="out_EmailSubject">[strEmailSubject]</OutArgument>
+                <OutArgument x:TypeArguments="x:String" x:Key="out_EmailBodyHtml">[strEmailBodyHtml]</OutArgument>
+                <OutArgument x:TypeArguments="x:Boolean" x:Key="out_DossierReadyForDispatch">[dossierReadyForDispatch]</OutArgument>
+              </ui:InvokeCode.Arguments>
+            </ui:InvokeCode>
             <Assign DisplayName="Assign roleName" sap:VirtualizedContainerService.HintSize="454,82" sap2010:WorkflowViewState.IdRef="Assign_1">
               <Assign.To>
                 <OutArgument x:TypeArguments="x:String">[roleName]</OutArgument>
@@ -229,6 +266,22 @@
               </Assign.To>
               <Assign.Value>
                 <InArgument x:TypeArguments="x:String">[If(rowBreReasons IsNot Nothing AndAlso rowBreReasons.ContainsKey(currentRowIndex), rowBreReasons(currentRowIndex), "")]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign DisplayName="Assign studentName" sap2010:WorkflowViewState.IdRef="Assign_12">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[studentName]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">[If(dtRoles.Columns.Contains("StudentName") AndAlso Not String.IsNullOrWhiteSpace(Convert.ToString(CurrentRow("StudentName"))), Convert.ToString(CurrentRow("StudentName")).Trim(), "")]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign DisplayName="Assign strNormalizedRecipients" sap2010:WorkflowViewState.IdRef="Assign_13">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[strNormalizedRecipients]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">[strPrimaryKeyEmail]</InArgument>
               </Assign.Value>
             </Assign>
             <If Condition="[Not String.IsNullOrWhiteSpace(currentRowBreReason)]" DisplayName="If Row Failed Pre-Flight BRE" sap:VirtualizedContainerService.HintSize="454,1850" sap2010:WorkflowViewState.IdRef="If_RowPreFlightBre">
@@ -357,6 +410,14 @@
                             </Sequence>
                           </If.Else>
                         </If>
+                        <Assign DisplayName="Mark Cached Dossier Ready for Dispatch" sap2010:WorkflowViewState.IdRef="Assign_14">
+                          <Assign.To>
+                            <OutArgument x:TypeArguments="x:Boolean">[dossierReadyForDispatch]</OutArgument>
+                          </Assign.To>
+                          <Assign.Value>
+                            <InArgument x:TypeArguments="x:Boolean">[True]</InArgument>
+                          </Assign.Value>
+                        </Assign>
                       </Sequence>
                     </If.Then>
                     <If.Else>
@@ -519,6 +580,30 @@
                                 <OutArgument x:TypeArguments="x:String" x:Key="out_DossierMarkdownID">[dossierMarkdownID]</OutArgument>
                               </ui:InvokeCode.Arguments>
                             </ui:InvokeCode>
+                            <ui:InvokeCode ContinueOnError="{x:Null}" Code="' Verify Generated Bilingual PDFs Exist and Are Non-Empty (JK-RPA-006 E7)&#xA;For Each generatedPdf As String In New String() {in_PdfPath, in_PdfPathID}&#xA;    If String.IsNullOrWhiteSpace(generatedPdf) OrElse Not System.IO.File.Exists(generatedPdf) Then&#xA;        Throw New System.IO.FileNotFoundException( _&#xA;            String.Format(&quot;E7 Dossier Generation Failure: Missing PDF '{0}' for role '{1}' (PK: '{2}').&quot;, generatedPdf, in_SafeRoleName, in_PrimaryKeyEmail), generatedPdf)&#xA;    End If&#xA;    Dim pdfInfo As New System.IO.FileInfo(generatedPdf)&#xA;    If pdfInfo.Length &lt;= 0 Then&#xA;        Throw New System.IO.FileNotFoundException( _&#xA;            String.Format(&quot;E7 Dossier Generation Failure: 0-byte PDF '{0}' for role '{1}' (PK: '{2}').&quot;, generatedPdf, in_SafeRoleName, in_PrimaryKeyEmail), generatedPdf)&#xA;    End If&#xA;Next&#xA;" DisplayName="Verify Generated Bilingual PDFs Exist and Are Non-Empty (E7)" sap2010:WorkflowViewState.IdRef="InvokeCode_4" Language="VBNet">
+                              <ui:InvokeCode.Arguments>
+                                <InArgument x:TypeArguments="x:String" x:Key="in_PdfPath">[pdfPath]</InArgument>
+                                <InArgument x:TypeArguments="x:String" x:Key="in_PdfPathID">[pdfPathID]</InArgument>
+                                <InArgument x:TypeArguments="x:String" x:Key="in_SafeRoleName">[safeRoleName]</InArgument>
+                                <InArgument x:TypeArguments="x:String" x:Key="in_PrimaryKeyEmail">[strPrimaryKeyEmail]</InArgument>
+                              </ui:InvokeCode.Arguments>
+                            </ui:InvokeCode>
+                            <Assign DisplayName="Set Row Status Completed" sap2010:WorkflowViewState.IdRef="Assign_15">
+                              <Assign.To>
+                                <OutArgument x:TypeArguments="x:Object">[CurrentRow("Status")]</OutArgument>
+                              </Assign.To>
+                              <Assign.Value>
+                                <InArgument x:TypeArguments="x:Object">["Completed"]</InArgument>
+                              </Assign.Value>
+                            </Assign>
+                            <Assign DisplayName="Mark Generated Dossier Ready for Dispatch" sap2010:WorkflowViewState.IdRef="Assign_16">
+                              <Assign.To>
+                                <OutArgument x:TypeArguments="x:Boolean">[dossierReadyForDispatch]</OutArgument>
+                              </Assign.To>
+                              <Assign.Value>
+                                <InArgument x:TypeArguments="x:Boolean">[True]</InArgument>
+                              </Assign.Value>
+                            </Assign>
                             <ui:LogMessage DisplayName="Log Role Dossier Completed" sap:VirtualizedContainerService.HintSize="338,92" sap2010:WorkflowViewState.IdRef="LogMessage_RoleCompleted" Level="Info" Message="[&quot;Completed role: &quot; &amp; roleName &amp; &quot; | AbroadStatus: &quot; &amp; abroadStatus &amp; &quot; (&quot; &amp; abroadCount.ToString() &amp; &quot;) | EN PDF: &quot; &amp; pdfPath &amp; &quot; | ID PDF: &quot; &amp; pdfPathID]" />
                           </Sequence>
                         </TryCatch.Try>
@@ -540,13 +625,110 @@
                                     <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                                   </scg:Dictionary>
                                 </sap:WorkflowViewStateService.ViewState>
-                                <ui:LogMessage DisplayName="Log Redacted Role Error" sap:VirtualizedContainerService.HintSize="338,92" sap2010:WorkflowViewState.IdRef="LogMessage_RoleError" Level="Error" Message="[&quot;Failed role: &quot; &amp; roleName &amp; &quot; | Error: &quot; &amp; If(String.IsNullOrWhiteSpace(geminiApiKey), exception.Message, exception.Message.Replace(geminiApiKey, &quot;[REDACTED]&quot;))]" />
+                                <Assign DisplayName="Set Row Status Failed (E7)" sap2010:WorkflowViewState.IdRef="Assign_17">
+                                  <Assign.To>
+                                    <OutArgument x:TypeArguments="x:Object">[CurrentRow("Status")]</OutArgument>
+                                  </Assign.To>
+                                  <Assign.Value>
+                                    <InArgument x:TypeArguments="x:Object">["Failed"]</InArgument>
+                                  </Assign.Value>
+                                </Assign>
+                                <Assign DisplayName="Set Row EmailStatus Failed - System (E7)" sap2010:WorkflowViewState.IdRef="Assign_18">
+                                  <Assign.To>
+                                    <OutArgument x:TypeArguments="x:Object">[CurrentRow("EmailStatus")]</OutArgument>
+                                  </Assign.To>
+                                  <Assign.Value>
+                                    <InArgument x:TypeArguments="x:Object">["Failed - System"]</InArgument>
+                                  </Assign.Value>
+                                </Assign>
+                                <Assign DisplayName="Set Redacted Row ErrorMessage (E7)" sap2010:WorkflowViewState.IdRef="Assign_19">
+                                  <Assign.To>
+                                    <OutArgument x:TypeArguments="x:Object">[CurrentRow("ErrorMessage")]</OutArgument>
+                                  </Assign.To>
+                                  <Assign.Value>
+                                    <InArgument x:TypeArguments="x:Object">[If(String.IsNullOrWhiteSpace(geminiApiKey), exception.Message, exception.Message.Replace(geminiApiKey, "[REDACTED]"))]</InArgument>
+                                  </Assign.Value>
+                                </Assign>
+                                <Assign DisplayName="Block Dispatch on E7 Failure" sap2010:WorkflowViewState.IdRef="Assign_20">
+                                  <Assign.To>
+                                    <OutArgument x:TypeArguments="x:Boolean">[dossierReadyForDispatch]</OutArgument>
+                                  </Assign.To>
+                                  <Assign.Value>
+                                    <InArgument x:TypeArguments="x:Boolean">[False]</InArgument>
+                                  </Assign.Value>
+                                </Assign>
+                                <ui:LogMessage DisplayName="Log Redacted Role Error" sap:VirtualizedContainerService.HintSize="338,92" sap2010:WorkflowViewState.IdRef="LogMessage_RoleError" Level="Error" Message="[&quot;[PK: &quot; &amp; If(String.IsNullOrWhiteSpace(strPrimaryKeyEmail), &quot;Row &quot; &amp; (currentRowIndex + 2).ToString(), strPrimaryKeyEmail) &amp; &quot;] SystemException — Failed role: &quot; &amp; roleName &amp; &quot; | Error: &quot; &amp; If(String.IsNullOrWhiteSpace(geminiApiKey), exception.Message, exception.Message.Replace(geminiApiKey, &quot;[REDACTED]&quot;))]" />
                               </Sequence>
                             </ActivityAction>
                           </Catch>
                         </TryCatch.Catches>
                       </TryCatch>
                     </If.Else>
+                  </If>
+                  <If Condition="[dossierReadyForDispatch]" DisplayName="If Dossier Ready for Dispatch Stage" sap2010:WorkflowViewState.IdRef="If_4">
+                    <If.Then>
+                      <Sequence DisplayName="Prepare Row Attachments and Run 1-to-1 Guard" sap2010:WorkflowViewState.IdRef="Sequence_11">
+                        <TryCatch DisplayName="Try Pre-Dispatch 1-to-1 Integrity Guard" sap2010:WorkflowViewState.IdRef="TryCatch_2">
+                          <TryCatch.Try>
+                            <Sequence DisplayName="Resolve Attachments and Validate 1-to-1 Binding" sap2010:WorkflowViewState.IdRef="Sequence_12">
+                              <Assign DisplayName="Resolve Row Attachment Paths" sap2010:WorkflowViewState.IdRef="Assign_21">
+                                <Assign.To>
+                                  <OutArgument x:TypeArguments="scg:List(x:String)">[listAttachments]</OutArgument>
+                                </Assign.To>
+                                <Assign.Value>
+                                  <InArgument x:TypeArguments="scg:List(x:String)">[New System.Collections.Generic.List(Of String) From {pdfPath, pdfPathID}]</InArgument>
+                                </Assign.Value>
+                              </Assign>
+                              <ui:InvokeCode ContinueOnError="{x:Null}" Code="' Pre-Dispatch 1-to-1 Binding and Attachment Integrity Guard (JK-RPA-006 / #25)&#xA;If String.IsNullOrWhiteSpace(in_PrimaryKeyEmail) OrElse _&#xA;   String.IsNullOrWhiteSpace(in_NormalizedRecipients) OrElse _&#xA;   Not in_NormalizedRecipients.Equals(in_PrimaryKeyEmail, System.StringComparison.OrdinalIgnoreCase) Then&#xA;    Throw New System.InvalidOperationException( _&#xA;        String.Format(&quot;1-to-1 Binding Integrity Violation: Recipient '{0}' does not match row Primary Key '{1}'.&quot;, in_NormalizedRecipients, in_PrimaryKeyEmail))&#xA;End If&#xA;&#xA;If String.IsNullOrWhiteSpace(in_SafeRoleName) Then&#xA;    Throw New System.InvalidOperationException( _&#xA;        String.Format(&quot;1-to-1 Binding Integrity Violation: safeRoleName is blank for PK '{0}'.&quot;, in_PrimaryKeyEmail))&#xA;End If&#xA;&#xA;If in_Attachments Is Nothing OrElse in_Attachments.Count = 0 Then&#xA;    Throw New System.InvalidOperationException( _&#xA;        String.Format(&quot;1-to-1 Attachment Integrity Violation: Attachment list is empty for role '{0}' (PK: '{1}').&quot;, in_SafeRoleName, in_PrimaryKeyEmail))&#xA;End If&#xA;&#xA;For Each attPath As String In in_Attachments&#xA;    If String.IsNullOrWhiteSpace(attPath) Then&#xA;        Throw New System.InvalidOperationException( _&#xA;            String.Format(&quot;1-to-1 Attachment Mismatch: Blank attachment path for role '{0}' (PK: '{1}').&quot;, in_SafeRoleName, in_PrimaryKeyEmail))&#xA;    End If&#xA;&#xA;    Dim fileName As String = System.IO.Path.GetFileName(attPath)&#xA;    Dim matchesPrefix As Boolean = fileName.StartsWith(in_SafeRoleName &amp; &quot; - &quot;, System.StringComparison.OrdinalIgnoreCase) OrElse _&#xA;                                   fileName.Equals(in_SafeRoleName &amp; &quot;.pdf&quot;, System.StringComparison.OrdinalIgnoreCase)&#xA;    If Not matchesPrefix Then&#xA;        Throw New System.InvalidOperationException( _&#xA;            String.Format(&quot;1-to-1 Attachment Mismatch: File '{0}' does not match row role '{1}' for PK '{2}'.&quot;, attPath, in_SafeRoleName, in_PrimaryKeyEmail))&#xA;    End If&#xA;&#xA;    If Not System.IO.File.Exists(attPath) OrElse New System.IO.FileInfo(attPath).Length &lt;= 0 Then&#xA;        Throw New System.IO.FileNotFoundException(&quot;Generated output attachment missing or empty: &quot; &amp; attPath, attPath)&#xA;    End If&#xA;Next&#xA;" DisplayName="Pre-Dispatch 1-to-1 Binding and Attachment Integrity Guard" sap2010:WorkflowViewState.IdRef="InvokeCode_5" Language="VBNet">
+                                <ui:InvokeCode.Arguments>
+                                  <InArgument x:TypeArguments="x:String" x:Key="in_PrimaryKeyEmail">[strPrimaryKeyEmail]</InArgument>
+                                  <InArgument x:TypeArguments="x:String" x:Key="in_NormalizedRecipients">[strNormalizedRecipients]</InArgument>
+                                  <InArgument x:TypeArguments="x:String" x:Key="in_SafeRoleName">[safeRoleName]</InArgument>
+                                  <InArgument x:TypeArguments="scg:List(x:String)" x:Key="in_Attachments">[listAttachments]</InArgument>
+                                </ui:InvokeCode.Arguments>
+                              </ui:InvokeCode>
+                              <ui:LogMessage DisplayName="Log 1-to-1 Pre-Dispatch Guard Passed" sap2010:WorkflowViewState.IdRef="LogMessage_4" Level="Info" Message="[&quot;[PK: &quot; &amp; strPrimaryKeyEmail &amp; &quot;] 1-to-1 Pre-Dispatch Guard PASSED | Role: &quot; &amp; roleName &amp; &quot; | Attachments: &quot; &amp; String.Join(&quot;, &quot;, listAttachments.Select(Function(p) System.IO.Path.GetFileName(p))) &amp; &quot; | Ready for Email Dispatch&quot;]" />
+                            </Sequence>
+                          </TryCatch.Try>
+                          <TryCatch.Catches>
+                            <Catch x:TypeArguments="s:Exception" sap2010:WorkflowViewState.IdRef="Catch`1_2">
+                              <ActivityAction x:TypeArguments="s:Exception">
+                                <ActivityAction.Argument>
+                                  <DelegateInArgument x:TypeArguments="s:Exception" Name="guardEx" />
+                                </ActivityAction.Argument>
+                                <Sequence DisplayName="Handle Pre-Dispatch 1-to-1 Guard Failure" sap2010:WorkflowViewState.IdRef="Sequence_13">
+                                  <Assign DisplayName="Set EmailStatus Failed - System on Guard Error" sap2010:WorkflowViewState.IdRef="Assign_22">
+                                    <Assign.To>
+                                      <OutArgument x:TypeArguments="x:Object">[CurrentRow("EmailStatus")]</OutArgument>
+                                    </Assign.To>
+                                    <Assign.Value>
+                                      <InArgument x:TypeArguments="x:Object">["Failed - System"]</InArgument>
+                                    </Assign.Value>
+                                  </Assign>
+                                  <Assign DisplayName="Set Redacted ErrorMessage on Guard Error" sap2010:WorkflowViewState.IdRef="Assign_23">
+                                    <Assign.To>
+                                      <OutArgument x:TypeArguments="x:Object">[CurrentRow("ErrorMessage")]</OutArgument>
+                                    </Assign.To>
+                                    <Assign.Value>
+                                      <InArgument x:TypeArguments="x:Object">[If(String.IsNullOrWhiteSpace(geminiApiKey), guardEx.Message, guardEx.Message.Replace(geminiApiKey, "[REDACTED]"))]</InArgument>
+                                    </Assign.Value>
+                                  </Assign>
+                                  <Assign DisplayName="Clear listAttachments on Guard Error" sap2010:WorkflowViewState.IdRef="Assign_24">
+                                    <Assign.To>
+                                      <OutArgument x:TypeArguments="scg:List(x:String)">[listAttachments]</OutArgument>
+                                    </Assign.To>
+                                    <Assign.Value>
+                                      <InArgument x:TypeArguments="scg:List(x:String)">[New System.Collections.Generic.List(Of String)()]</InArgument>
+                                    </Assign.Value>
+                                  </Assign>
+                                  <ui:LogMessage DisplayName="Log 1-to-1 Guard Failure" sap2010:WorkflowViewState.IdRef="LogMessage_5" Level="Error" Message="[&quot;[PK: &quot; &amp; If(String.IsNullOrWhiteSpace(strPrimaryKeyEmail), &quot;Row &quot; &amp; (currentRowIndex + 2).ToString(), strPrimaryKeyEmail) &amp; &quot;] SystemException — Pre-Dispatch 1-to-1 Guard failed. Error: &quot; &amp; If(String.IsNullOrWhiteSpace(geminiApiKey), guardEx.Message, guardEx.Message.Replace(geminiApiKey, &quot;[REDACTED]&quot;))]" />
+                                </Sequence>
+                              </ActivityAction>
+                            </Catch>
+                          </TryCatch.Catches>
+                        </TryCatch>
+                      </Sequence>
+                    </If.Then>
                   </If>
                 </Sequence>
               </If.Else>
