@@ -132,7 +132,7 @@
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
     <ui:ReadRange Range="{x:Null}" WorkbookPathResource="{x:Null}" AddHeaders="True" DataTable="[dtRoles]" DisplayName="Read Sheet1 into dtRoles (Workbook)" sap:VirtualizedContainerService.HintSize="522,120" sap2010:WorkflowViewState.IdRef="ReadRange_1" SheetName="Sheet1" WorkbookPath="[strExcelPathDesireRole]" />
-    <ui:InvokeCode ContinueOnError="{x:Null}" Code="If Not io_dtRoles.Columns.Contains(&quot;AbroadMarkets&quot;) Then&#xA;    io_dtRoles.Columns.Add(&quot;AbroadMarkets&quot;, GetType(String))&#xA;End If" DisplayName="Ensure Minimalist AbroadMarkets Column Exists in dtRoles" sap:VirtualizedContainerService.HintSize="522,165" sap2010:WorkflowViewState.IdRef="InvokeCode_EnsureCols" Language="VBNet">
+    <ui:InvokeCode ContinueOnError="{x:Null}" Code="If io_dtRoles Is Nothing OrElse Not io_dtRoles.Columns.Contains(&quot;Job&quot;) Then&#xA;    Throw New UiPath.Core.BusinessRuleException(&quot;Invalid Input Schema: Mandatory column 'Job' was not found in Sheet1 of Desire Role List.xlsx.&quot;)&#xA;End If&#xA;If Not io_dtRoles.Columns.Contains(&quot;AbroadMarkets&quot;) Then&#xA;    io_dtRoles.Columns.Add(&quot;AbroadMarkets&quot;, GetType(String))&#xA;End If" DisplayName="Ensure Minimalist AbroadMarkets Column Exists in dtRoles" sap:VirtualizedContainerService.HintSize="522,165" sap2010:WorkflowViewState.IdRef="InvokeCode_EnsureCols" Language="VBNet">
       <ui:InvokeCode.Arguments>
         <InOutArgument x:TypeArguments="sd:DataTable" x:Key="io_dtRoles">[dtRoles]</InOutArgument>
       </ui:InvokeCode.Arguments>
@@ -154,7 +154,7 @@
                 <OutArgument x:TypeArguments="x:String">[roleName]</OutArgument>
               </Assign.To>
               <Assign.Value>
-                <InArgument x:TypeArguments="x:String">[Convert.ToString(CurrentRow("Job")).Trim()]</InArgument>
+                <InArgument x:TypeArguments="x:String">[If(dtRoles.Columns.Contains("Job"), Convert.ToString(CurrentRow("Job")).Trim(), "")]</InArgument>
               </Assign.Value>
             </Assign>
             <Assign DisplayName="Assign roleLevel" sap:VirtualizedContainerService.HintSize="454,82" sap2010:WorkflowViewState.IdRef="Assign_2">
