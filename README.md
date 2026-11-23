@@ -138,9 +138,9 @@ JourKa/
 
 ## 5. Input & Output Data Contracts
 
-### Input Workbook Schema v2.0 (`D:\UiPathProject\Desire Role List.xlsx` — `Sheet1`)
+### Input Workbook Schema v2.0 (`JourKa/Input/Desire Role List.xlsx` — `Sheet1`)
 
-The input workbook uses an 11-column **v2.0 schema** anchored by `RecipientEmail` in **Column A (Primary Key)**, with `Job` in Column B and `AbroadMarkets` in Column C:
+The input workbook uses a simplified **7-column schema** (4 user-input columns `A`–`D` + 3 system-populated audit columns `E`–`G`) anchored by `RecipientEmail` in **Column A (Primary Key)**, with `Job` in Column B:
 
 | Column | Index | Name | Direction | Default / Fallback | Description |
 |---|---|---|---|---|---|
@@ -148,15 +148,11 @@ The input workbook uses an 11-column **v2.0 schema** anchored by `RecipientEmail
 | `B` | `1` | `Job` | **In (Mandatory)** | *(Row skipped if blank; missing column raises BRE)* | Target role title (e.g., `Android Developer`, `Apoteker`, `Video Editor`). |
 | `C` | `2` | `AbroadMarkets` | **In (Optional)** | `""` *(Skipped if blank)* | Comma- or semicolon-separated target abroad countries per role (e.g., `"Singapore, Malaysia, United Kingdom"`, or left blank for local-only research). |
 | `D` | `3` | `StudentName` | **In (Optional)** | `"Valued Student"` | Student display name used for personalized email salutation. |
-| `E` | `4` | `Level` | **In (Optional)** | `"Entry level"` | Seniority level override for job-board scraping and LLM prompts. |
-| `F` | `5` | `Location` | **In (Optional)** | `"Indonesia"` | Local job-market override. |
-| `G` | `6` | `SearchKeywords` | **In (Optional)** | `""` | Additional priority keywords for scraping and dossier synthesis. |
-| `H` | `7` | `Status` | **In/Out (Optional)** | `""` | Row processing status (`"Completed"` enables idempotent skip when artifacts already exist). |
-| `I` | `8` | `EmailStatus` | **Out (System-populated)** | `""` | Automated email dispatch status (`"Sent"`, `"Skipped - BRE"`, `"Failed - System"`). Rows marked `"Sent"` are preserved and skipped idempotently on reruns. |
-| `J` | `9` | `EmailTimestamp` | **Out (System-populated)** | `""` | ISO-8601 timestamp (`yyyy-MM-dd HH:mm:ss zzz`) of the email dispatch or BRE validation attempt. |
-| `K` | `10` | `ErrorMessage` | **Out (System-populated)** | `""` | Redacted error or Business Rule Exception summary if dispatch/validation failed. *(Written back to `Sheet1` with 3x retry; falls back to `JourKa/Output/EmailAudit_<timestamp>.csv` if locked.)* |
+| `E` | `4` | `EmailStatus` | **Out (System-populated)** | `""` | Automated email dispatch status (`"Sent"`, `"Skipped - BRE"`, `"Failed - System"`). Rows marked `"Sent"` are preserved and skipped idempotently on reruns. |
+| `F` | `5` | `EmailTimestamp` | **Out (System-populated)** | `""` | ISO-8601 timestamp (`yyyy-MM-dd HH:mm:ss zzz`) of the email dispatch or BRE validation attempt. |
+| `G` | `6` | `ErrorMessage` | **Out (System-populated)** | `""` | Redacted error or Business Rule Exception summary if dispatch/validation failed. *(Written back to `Sheet1` with 3x retry; falls back to `JourKa/Output/EmailAudit_<timestamp>.csv` if locked.)* |
 
-*(All `Main.xaml` and `Workflows/ResearchAbroadJobs.xaml` lookups resolve columns strictly by header name via `CurrentRow("<ColName>")` — never by hardcoded index or cell address.)*
+*(All `Main.xaml` and `Workflows/ResearchAbroadJobs.xaml` lookups resolve columns strictly by header name via `CurrentRow("<ColName>")` — never by hardcoded index or cell address. Optional `Level` and `Location` columns also default automatically to `"Entry level"` and `"Indonesia"` when omitted.)*
 
 ### Output Artifacts Per Role
 
@@ -252,5 +248,5 @@ $uip = "C:\Program Files\UiPathPlatform\Studio\26.10.0-cloud.25715\cli\uip.cmd"
   - Each role row in `ForEachRow` is wrapped in a outer `TryCatch` block.
   - Abroad job research (`ResearchAbroadJobs.xaml`) runs inside its own inner `TryCatch` block so an international network timeout or rate limit sets `AbroadStatus = "Error"` and never blocks local Indonesian EN/ID dossier generation.
 - **Automatic Multi-Model LLM Failover & Translation Validation:** Automatically iterates through `gemini-3.5-flash`, `gemini-3.8-flash`, `gemini-3.1-flash-lite`, and `gemini-3.5-flash-lite`. The Bahasa Indonesia (`ID`) output is structurally validated against the English (`EN`) output (matching `## ` heading count and 100% of cited URLs) before PDF publication.
-- **Idempotent Re-Runs (`skipCompleted`):** Skips roles only when `Status = "Completed"`, both `<Role> - EN.pdf` and `<Role> - ID.pdf` exist, and both EN and ID Markdown files exceed `2,500` bytes.
+- **Idempotent Re-Runs (`skipCompleted`):** Skips roles when `EmailStatus = "Sent"`, and reuses cached dossiers when both `<Role> - EN.pdf` and `<Role> - ID.pdf` exist and both EN and ID Markdown files exceed `2,500` bytes.
 - **Credential Hygiene & Log Redaction:** API keys are loaded from git-ignored `.env` files or User Environment Variables, passed via HTTP request headers (`x-goog-api-key`), and redacted (`exception.Message.Replace(geminiApiKey, "[REDACTED]")`) before writing any error messages to Excel.
