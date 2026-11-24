@@ -15,6 +15,7 @@ export default function App() {
   const [studentInfo, setStudentInfo] = useState({ name: '', grade: '11' });
   const [profile, setProfile] = useState(null);
   const [recommendations, setRecommendations] = useState(null);
+  const [selectedItems, setSelectedItems] = useState({ roleIds: [], majorIds: [] });
   const [theme, setTheme] = useState('light');
 
   const toggleTheme = () => {
@@ -39,16 +40,28 @@ export default function App() {
       pathway: answers['q8']?.value || 's1_academic'
     };
 
-    // 3. Compute Recommendations
+    // 3. Compute Recommendations (all sorted highest to lowest)
     const computedRecs = computeRecommendations(computedProfile, preferences, catalogData);
     setRecommendations(computedRecs);
 
+    // Pre-select top 1 role and top 1 major as initial smart default
+    setSelectedItems({
+      roleIds: computedRecs.topRoles.slice(0, 1).map(r => r.id),
+      majorIds: computedRecs.topMajors.slice(0, 1).map(m => m.id)
+    });
+
     setCurrentStep('profile');
+  };
+
+  const handleProceedToActionPlan = (selected) => {
+    setSelectedItems(selected);
+    setCurrentStep('actionplan');
   };
 
   const handleRestart = () => {
     setProfile(null);
     setRecommendations(null);
+    setSelectedItems({ roleIds: [], majorIds: [] });
     setCurrentStep('onboarding');
   };
 
@@ -107,7 +120,8 @@ export default function App() {
           <Recommendations
             recommendations={recommendations}
             studentInfo={studentInfo}
-            onNextAction={() => setCurrentStep('actionplan')}
+            initialSelected={selectedItems}
+            onNextAction={handleProceedToActionPlan}
             onBackProfile={() => setCurrentStep('profile')}
           />
         )}
@@ -117,6 +131,8 @@ export default function App() {
             studentInfo={studentInfo}
             profile={profile}
             recommendations={recommendations}
+            selectedItems={selectedItems}
+            onBackToRecs={() => setCurrentStep('recommendations')}
             onRestart={handleRestart}
           />
         )}

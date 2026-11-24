@@ -61,15 +61,17 @@ export function computeRecommendations(profile, preferences, catalog) {
 
     return {
       ...role,
-      matchScore: Math.min(98, Math.max(55, totalScore)),
+      matchScore: Math.min(98, Math.max(45, totalScore)),
       reasons
     };
   });
 
-  // Sort and pick top 3-4
-  const topRoles = scoredRoles.sort((a, b) => b.matchScore - a.matchScore).slice(0, 4);
+  // Sort ALL roles from highest to lowest recommendation
+  const allRolesSorted = scoredRoles.sort((a, b) => b.matchScore - a.matchScore);
+  const topRoles = allRolesSorted.slice(0, 3);
+  const otherRoles = allRolesSorted.slice(3);
 
-  // Match Majors
+  // Match and sort Majors from highest to lowest
   const scoredMajors = catalog.majors.map(major => {
     let majorScore = 0;
     major.top_match_dimensions.forEach(dim => {
@@ -78,13 +80,20 @@ export function computeRecommendations(profile, preferences, catalog) {
     const avgScore = Math.round(majorScore / major.top_match_dimensions.length);
     return {
       ...major,
-      matchScore: Math.min(95, Math.max(60, avgScore))
+      matchScore: Math.min(95, Math.max(50, avgScore))
     };
-  }).sort((a, b) => b.matchScore - a.matchScore).slice(0, 3);
+  }).sort((a, b) => b.matchScore - a.matchScore);
+
+  const topMajors = scoredMajors.slice(0, 2);
+  const otherMajors = scoredMajors.slice(2);
 
   return {
-    recommendedRoles: topRoles,
-    recommendedMajors: scoredMajors
+    allRoles: allRolesSorted,
+    topRoles,
+    otherRoles,
+    allMajors: scoredMajors,
+    topMajors,
+    otherMajors
   };
 }
 
