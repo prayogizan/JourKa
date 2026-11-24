@@ -1,0 +1,117 @@
+{
+  "roles": [
+    {
+      "id": "android-developer",
+      "title": "Android Developer",
+      "riasec_weights": { "R": 0.4, "I": 0.6, "A": 0.2, "S": 0.1, "E": 0.1, "C": 0.3 },
+      "preferred_env": ["remote_flexible", "corporate_business"],
+      "preferred_pathways": ["s1_academic", "vokasi_politeknik", "bootcamp_training"],
+      "degree_verdict": "S1/D4 Sangat Dianjurkan (Bisa Jalur Portofolio)",
+      "salary_idr": "Rp 6.000.000 - Rp 11.000.000 (Junior)",
+      "brief_desc": "Membangun dan mengembangkan aplikasi mobile untuk ekosistem Android menggunakan Kotlin dan arsitektur modern.",
+      "related_majors": ["Teknik Informatika", "Rekayasa Perangkat Lunak", "Sistem Informasi"],
+      "alternative_pathway": "Google Bangkit Academy / Dicoding Bootcamp + Portofolio Google Play Store",
+      "dossier_available": true,
+      "dossier_html_path": "Output/Android Developer/Android Developer - ID.html",
+      "dossier_pdf_path": "Output/Android Developer/Android Developer - ID.pdf"
+    },
+    {
+      "id": "video-editor",
+      "title": "Video Editor & Motion Designer",
+      "riasec_weights": { "R": 0.5, "I": 0.2, "A": 0.8, "S": 0.2, "E": 0.3, "C": 0.2 },
+      "preferred_env": ["creative_studio", "remote_flexible"],
+      "preferred_pathways": ["vokasi_politeknik", "bootcamp_training", "direct_work", "s1_academic"],
+      "degree_verdict": "Gelar Opsional (Portfolio & Showreel 100% Menentukan)",
+      "salary_idr": "Rp 4.500.000 - Rp 8.500.000 (Junior)",
+      "brief_desc": "Menyusun cerita visual, efek dinamis, dan ritme audio-visual untuk konten YouTube, film, iklan komersial, dan media digital.",
+      "related_majors": ["Desain Komunikasi Visual (DKV)", "Animasi & Media Kreatif", "Televisi & Film"],
+      "alternative_pathway": "Kursus Premiere Pro & DaVinci Resolve + Channel Portofolio YouTube / Behance",
+      "dossier_available": true,
+      "dossier_html_path": "Output/Video Editor/Video Editor - ID.html",
+      "dossier_pdf_path": "Output/Video Editor/Video Editor - ID.pdf"
+    },
+    {
+      "id": "apoteker",
+      "title": "Apoteker (Pharmacist)",
+      "riasec_weights": { "R": 0.3, "I": 0.7, "A": 0.1, "S": 0.6, "E": 0.2, "C": 0.6 },
+      "preferred_env": ["structured_lab", "corporate_business"],
+      "preferred_pathways": ["s1_academic"],
+      "degree_verdict": "S1 Farmasi + Program Profesi Apoteker (Wajib Regulasi)",
+      "salary_idr": "Rp 5.500.000 - Rp 9.000.000 (Fresh Graduate)",
+      "brief_desc": "Ahli formulasi obat, pelayanan kefarmasian klinik, serta pengendalian mutu bahan medis untuk kesehatan masyarakat.",
+      "related_majors": ["Farmasi (S1)", "Biologi Medis / Bioteknologi"],
+      "alternative_pathway": "D3 Farmasi untuk posisi Tenaga Teknis Kefarmasian (TTK)",
+      "dossier_available": true,
+      "dossier_html_path": "Output/Apoteker/Apoteker - ID.html",
+      "dossier_pdf_path": "Output/Apoteker/Apoteker - ID.pdf"
+    },
+    {
+      "id": "mobile-engineer",
+      "title": "Mobile Engineer (Cross-Platform)",
+      "riasec_weights": { "R": 0.4, "I": 0.7, "A": 0.2, "S": 0.1, "E": 0.2, "C": 0.3 },
+      "preferred_env": ["remote_flexible", "corporate_business"],
+      "preferred_pathways": ["s1_academic", "vokasi_politeknik", "bootcamp_training"],
+      "degree_verdict": "S1/D4 Teknik Informatika Sangat Diutamakan",
+      "salary_idr": "Rp 7.000.000 - Rp 12.000.000 (Junior)",
+      "brief_desc": "Merancang arsitektur aplikasi mobile multi-platform skala besar (iOS & Android) dengan keandalan performa tinggi.",
+      "related_majors": ["Ilmu Komputer", "Teknik Komputer", "Teknik Informatika"],
+      "alternative_pathway": "Flutter / React Native Engineering Bootcamp + GitHub Open Source Proof",
+      "dossier_available": true,
+      "dossier_html_path": "Output/Mobile Engineer/Mobile Engineer - ID.html",
+      "dossier_pdf_path": "Output/Mobile Engineer/Mobile Engineer - ID.pdf"
+    },
+    {
+      "id": "kotlin-multiplatform",
+      "title": "Kotlin Multiplatform Engineer",
+      "riasec_weights": { "R": 0.4, "I": 0.8, "A": 0.1, "S": 0.1, "E": 0.1, "C": 0.4 },
+      "preferred_env": ["remote_flexible", "corporate_business"],
+      "preferred_pathways": ["s1_academic", "vokasi_politeknik"],
+      "degree_verdict": "S1 Informatika Diutamakan (Kekuatan Logika Kompilasi)",
+      "salary_idr": "Rp 7.500.000 - Rp 13.000.000 (Junior)",
+      "brief_desc": "Mengembangkan kode logika bersama (shared business logic) lintas Android, iOS, dan Desktop menggunakan Kotlin.",
+      "related_majors": ["Teknik Informatika", "Ilmu Komputer"],
+      "alternative_pathway": "Advanced Android Developer yang mendalami ekosistem JetBrains & KMP",
+      "dossier_available": true,
+      "dossier_html_path": "Output/Kotlin Multiplatform/Kotlin Multiplatform - ID.html",
+      "dossier_pdf_path": "Output/Kotlin Multiplatform/Kotlin Multiplatform - ID.pdf"
+    }
+  ],
+  "majors": [
+    {
+      "id": "ti",
+      "name": "Teknik Informatika / Ilmu Komputer",
+      "type": "S1 Akademik / D4 Terapan",
+      "top_match_dimensions": ["I", "R"],
+      "description": "Mempelajari algoritma, rekayasa perangkat lunak, arsitektur data, dan kecerdasan buatan untuk membangun sistem teknologi masa depan.",
+      "key_subjects": ["Struktur Data & Algoritma", "Pemrograman Berorientasi Objek", "Basis Data", "Jaringan & Keamanan"],
+      "career_links": ["Android Developer", "Mobile Engineer", "Software Engineer"]
+    },
+    {
+      "id": "dkv",
+      "name": "Desain Komunikasi Visual (DKV)",
+      "type": "S1 Akademik / D4 Vokasi",
+      "top_match_dimensions": ["A", "R"],
+      "description": "Mengolah pesan dan cerita menjadi media visual terpadu melalui desain grafis, ilustrasi, motion graphics, video, dan fotografi.",
+      "key_subjects": ["Tipografi", "Digital Imaging & Video Editing", "Audio Visual Storytelling", "Brand Identity"],
+      "career_links": ["Video Editor", "Motion Designer", "UI/UX Designer"]
+    },
+    {
+      "id": "farmasi",
+      "name": "Farmasi & Farmakologi",
+      "type": "S1 Sains Farmasi",
+      "top_match_dimensions": ["I", "S", "C"],
+      "description": "Mempelajari interaksi zat kimia dan biologi terhadap tubuh, peracikan obat, fitofarmaka, dan hukum regulasi kefarmasian.",
+      "key_subjects": ["Kimia Farmasi", "Farmakologi & Toksikologi", "Teknologi Sediaan Obat", "Farmasi Klinis"],
+      "career_links": ["Apoteker", "Formulator Obat", "Medical Representative"]
+    },
+    {
+      "id": "si",
+      "name": "Sistem Informasi & Bisnis Digital",
+      "type": "S1 Akademik",
+      "top_match_dimensions": ["I", "E", "C"],
+      "description": "Jembatan antara kebutuhan bisnis strategis dan implementasi teknologi komputer, termasuk analisis proses bisnis dan sistem ERP.",
+      "key_subjects": ["Analisis & Desain Sistem", "Manajemen Proyek TI", "Enterprise Architecture", "E-Commerce Management"],
+      "career_links": ["Product Manager", "Business Analyst", "IT Consultant"]
+    }
+  ]
+}

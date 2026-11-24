@@ -1,0 +1,112 @@
+[
+  {
+    "id": "q1",
+    "category": "riasec",
+    "dimension": "R",
+    "title": "Aktivitas Praktik & Teknologi",
+    "scenario": "Saat ada peralatan komputer atau perangkat praktikum di sekolah yang mengalami kendala, bagaimana responmu?",
+    "options": [
+      { "text": "Sangat antusias membongkar, merakit komponen fisik, dan mencoba memperbaiki sampai jalan.", "score": 4 },
+      { "text": "Tertarik membantu jika ada panduan langkah demi langkah yang jelas.", "score": 3 },
+      { "text": "Lebih suka mengamati teman yang sedang memperbaiki.", "score": 2 },
+      { "text": "Kurang berminat dengan urusan mekanikal/perangkat keras.", "score": 1 },
+      { "text": "Belum pernah mencoba / Ingin eksplorasi lebih jauh.", "score": 0 }
+    ]
+  },
+  {
+    "id": "q2",
+    "category": "riasec",
+    "dimension": "I",
+    "title": "Riset & Pemecahan Masalah Logis",
+    "scenario": "Ketika menghadapi masalah rumit (misal tugas analisis data atau teka-teki logika pemrograman), apa yang kamu rasakan?",
+    "options": [
+      { "text": "Sangat tertantang menelusuri akar masalah secara mendalam sampai ketemu pola solusinya.", "score": 4 },
+      { "text": "Senang mencari referensi di Google/YouTube untuk menemukan jawaban yang masuk akal.", "score": 3 },
+      { "text": "Bisa mengerjakan jika dipandu atau dikerjakan bersama teman.", "score": 2 },
+      { "text": "Cepat merasa jenuh jika harus berpikir teoritis atau analisis terlalu lama.", "score": 1 },
+      { "text": "Belum tahu / Penasaran ingin mencobanya.", "score": 0 }
+    ]
+  },
+  {
+    "id": "q3",
+    "category": "riasec",
+    "dimension": "A",
+    "title": "Kreativitas Visual & Ekspresi Media",
+    "scenario": "Dalam proyek kelompok kelas, bagian pekerjaan mana yang paling membuatmu merasa 'in the zone'?",
+    "options": [
+      { "text": "Merancang slide presentasi yang estetik, mengedit video teaser, atau membuat desain visual kreatif.", "score": 4 },
+      { "text": "Senang memberikan ide-ide visual dan memilih konsep warna/gaya tampilan.", "score": 3 },
+      { "text": "Menikmati hasil karya visual orang lain, tapi kurang percaya diri membuat sendiri.", "score": 2 },
+      { "text": "Lebih suka tugas berbasis angka atau teks murni daripada visual kreatif.", "score": 1 },
+      { "text": "Belum pernah coba membuat desain/video tapi ingin belajar.", "score": 0 }
+    ]
+  },
+  {
+    "id": "q4",
+    "category": "riasec",
+    "dimension": "S",
+    "title": "Kolaborasi & Berbagi Pengetahuan",
+    "scenario": "Bagaimana perasaanmu ketika teman sekelas meminta bantuan untuk diajari suatu topik pelajaran yang kamu kuasai?",
+    "options": [
+      { "text": "Sangat senang menjelaskan dengan sabar sampai teman tersebut benar-benar paham.", "score": 4 },
+      { "text": "Senang membantu jika ada waktu senggang.", "score": 3 },
+      { "text": "Membantu seadanya, tapi lebih nyaman belajar dan bekerja sendiri.", "score": 2 },
+      { "text": "Merasa canggung atau kurang nyaman jika harus menjadi mentor orang lain.", "score": 1 },
+      { "text": "Belum pernah mengajar teman / Ingin mencoba melatih empati.", "score": 0 }
+    ]
+  },
+  {
+    "id": "q5",
+    "category": "riasec",
+    "dimension": "E",
+    "title": "Inisiatif, Presentasi & Kepemimpinan",
+    "scenario": "Saat ada peluang membuka bazar wirausaha sekolah atau memimpin acara festival tahunan, apa peran yang kamu ambil?",
+    "options": [
+      { "text": "Mengambil peran sebagai koordinator/ketua, bernegosiasi, dan meyakinkan banyak orang agar acara sukses.", "score": 4 },
+      { "text": "Ikut dalam tim promosi, public relation, atau pitching ide ke pihak luar.", "score": 3 },
+      { "text": "Lebih memilih menjadi anggota pelaksana tugas di balik layar.", "score": 2 },
+      { "text": "Menghindari posisi yang harus bicara di depan publik atau memimpin orang banyak.", "score": 1 },
+      { "text": "Belum pernah mencoba kepemimpinan tapi ingin mengasah keberanian.", "score": 0 }
+    ]
+  },
+  {
+    "id": "q6",
+    "category": "riasec",
+    "dimension": "C",
+    "title": "Ketelitian & Keteraturan Prosedur",
+    "scenario": "Saat mengelola uang kas, jadwal kegiatan, atau mencatat data inventaris kelas, apa gayamu?",
+    "options": [
+      { "text": "Sangat rapi, teliti, mencatat setiap detail di spreadsheet/buku kas agar tidak ada selisih sekecil apapun.", "score": 4 },
+      { "text": "Suka dengan prosedur yang teratur dan jadwal yang pasti.", "score": 3 },
+      { "text": "Bisa mencatat rapi jika diingatkan atau ada deadline.", "score": 2 },
+      { "text": "Sering lupa mencatat dan lebih suka bekerja spontan tanpa aturan kaku.", "score": 1 },
+      { "text": "Belum terbiasa tapi ingin belajar disiplin pencatatan data.", "score": 0 }
+    ]
+  },
+  {
+    "id": "q7",
+    "category": "preference",
+    "dimension": "environment",
+    "title": "Preferensi Lingkungan Kerja Masa Depan",
+    "scenario": "Bayangkan 5 tahun lagi kamu bekerja. Suasana kerja seperti apa yang paling kamu impikan sehari-hari?",
+    "options": [
+      { "text": "Remote / Fleksibel — Bekerja di depan laptop di mana saja dengan jam kerja mandiri berorientasi hasil.", "value": "remote_flexible" },
+      { "text": "Studio Kreatif / Dinamis — Suasana kasual, brainstorming seru, dan kolaborasi konstan dengan tim kreatif.", "value": "creative_studio" },
+      { "text": "Laboratorium / Fasilitas Kesehatan — Lingkungan higienis, terstruktur, disiplin tinggi untuk melayani publik.", "value": "structured_lab" },
+      { "text": "Korporasi Modern / Konsultansi — Kantor profesional dengan jenjang karier jelas dan pertemuan bisnis rutin.", "value": "corporate_business" }
+    ]
+  },
+  {
+    "id": "q8",
+    "category": "preference",
+    "dimension": "pathway",
+    "title": "Arah Rencana Setelah Lulus SMA/SMK",
+    "scenario": "Jika dihadapkan pada pilihan setelah wisuda sekolah, jalur mana yang paling ingin kamu eksplorasi lebih dulu?",
+    "options": [
+      { "text": "Kuliah S1 Universitas (Jalur Akademik: Teori mendalam, riset, dan gelar sarjana).", "value": "s1_academic" },
+      { "text": "Kuliah Vokasi / Politeknik D3/D4 (Praktik terapan 70%, magang industri langsung).", "value": "vokasi_politeknik" },
+      { "text": "Bootcamp / Pelatihan Kerja Intensif (Fokus portofolio, skill siap kerja dalam 6-12 bulan).", "value": "bootcamp_training" },
+      { "text": "Langsung Bekerja / Wirausaha Mandiri / Eksplorasi Minat Lapangan.", "value": "direct_work" }
+    ]
+  }
+]
