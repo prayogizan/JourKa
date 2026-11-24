@@ -3,77 +3,227 @@
     {
       "id": "android-developer",
       "title": "Android Developer",
-      "riasec_weights": { "R": 0.4, "I": 0.6, "A": 0.2, "S": 0.1, "E": 0.1, "C": 0.3 },
-      "preferred_env": ["remote_flexible", "corporate_business"],
-      "preferred_pathways": ["s1_academic", "vokasi_politeknik", "bootcamp_training"],
-      "degree_verdict": "S1/D4 Sangat Dianjurkan (Bisa Jalur Portofolio)",
-      "salary_idr": "Rp 6.000.000 - Rp 11.000.000 (Junior)",
-      "brief_desc": "Membangun dan mengembangkan aplikasi mobile untuk ekosistem Android menggunakan Kotlin dan arsitektur modern.",
-      "related_majors": ["Teknik Informatika", "Rekayasa Perangkat Lunak", "Sistem Informasi"],
-      "alternative_pathway": "Google Bangkit Academy / Dicoding Bootcamp + Portofolio Google Play Store",
+      "riasec_weights": {
+        "R": 0.4,
+        "I": 0.8,
+        "A": 0.2,
+        "S": 0.1,
+        "E": 0.2,
+        "C": 0.3
+      },
+      "preferred_env": [
+        "remote_flexible",
+        "corporate_business"
+      ],
+      "preferred_pathways": [
+        "s1_academic",
+        "vokasi_politeknik",
+        "bootcamp_training"
+      ],
+      "degree_verdict": "S1/D4 Sangat Diutamakan",
+      "salary_idr": "Rp 5.000.000 - Rp 8.000.000 (Entry-Level)",
+      "brief_desc": "Memasuki peran sebagai Android Developer tingkat entry-level di Indonesia menempatkan Anda tepat di jantung perekonomian digital paling dinamis di Asia Tenggara. Di balik antarmuka pengguna yang mulus dari aplikasi superapp seperti Grab , disrupsi fintech berkecepatan tinggi seperti Kredivo dan BJAK , raksasa streaming seperti Vidio , hingga agensi teknik yang tangkas seperti Vodjo , Andalah arsitek di balik produk-produk yang menyentuh puluhan juta kehidupan setiap hari.",
+      "related_majors": [
+        "Teknik Informatika",
+        "Rekayasa Perangkat Lunak",
+        "Sistem Informasi"
+      ],
+      "alternative_pathway": "Google Bangkit Academy / Bootcamp Mobile + Portofolio Play Store & GitHub",
       "dossier_available": true,
-      "dossier_html_path": "Output/Android Developer/Android Developer - ID.html",
-      "dossier_pdf_path": "Output/Android Developer/Android Developer - ID.pdf"
+      "dossier_html_path": "Android Developer/Android Developer - ID.html",
+      "dossier_pdf_path": "Android Developer/Android Developer - ID.pdf"
     },
     {
-      "id": "video-editor",
-      "title": "Video Editor & Motion Designer",
-      "riasec_weights": { "R": 0.5, "I": 0.2, "A": 0.8, "S": 0.2, "E": 0.3, "C": 0.2 },
-      "preferred_env": ["creative_studio", "remote_flexible"],
-      "preferred_pathways": ["vokasi_politeknik", "bootcamp_training", "direct_work", "s1_academic"],
-      "degree_verdict": "Gelar Opsional (Portfolio & Showreel 100% Menentukan)",
-      "salary_idr": "Rp 4.500.000 - Rp 8.500.000 (Junior)",
-      "brief_desc": "Menyusun cerita visual, efek dinamis, dan ritme audio-visual untuk konten YouTube, film, iklan komersial, dan media digital.",
-      "related_majors": ["Desain Komunikasi Visual (DKV)", "Animasi & Media Kreatif", "Televisi & Film"],
-      "alternative_pathway": "Kursus Premiere Pro & DaVinci Resolve + Channel Portofolio YouTube / Behance",
+      "id": "android-engineer",
+      "title": "Android Engineer",
+      "riasec_weights": {
+        "R": 0.4,
+        "I": 0.8,
+        "A": 0.2,
+        "S": 0.1,
+        "E": 0.2,
+        "C": 0.3
+      },
+      "preferred_env": [
+        "remote_flexible",
+        "corporate_business"
+      ],
+      "preferred_pathways": [
+        "s1_academic",
+        "vokasi_politeknik",
+        "bootcamp_training"
+      ],
+      "degree_verdict": "S1/D4 Sangat Dianjurkan (Bisa Jalur Portofolio)",
+      "salary_idr": "Rp 6.000.000 - Rp 9.000.000 (Entry-Level)",
+      "brief_desc": "Di balik layar ponsel pintar yang menyala dalam ekosistem digital Indonesia yang dinamis—mulai dari memesan perjalanan malam hari di tengah kemacetan Jakarta lewat Grab , mengajukan cicilan digital instan dengan Kredivo , menonton siaran langsung olahraga di Vidio , hingga mengelola portofolio finansial melalui agen keuangan berbasis AI di BJAK —terdapat ketekunan dan keahlian seorang Android Engineer. Sebagai seorang Android Engineer level entry-level di Indonesia, misi harian Anda bukan sekadar merangkai sintaks kode, melainkan merancang pengalaman aplikasi mobile yang handal, mulus, serta hemat baterai guna melayani puluhan juta pengguna di ribuan model perangkat berbeda, mulai dari ponsel flagship Samsung kelas atas hingga smartphone entry-level ramah kantong yang tersebar di seluruh penjuru nusantara.",
+      "related_majors": [
+        "Teknik Informatika",
+        "Rekayasa Perangkat Lunak",
+        "Sistem Informasi"
+      ],
+      "alternative_pathway": "Google Bangkit Academy / Bootcamp Mobile + Portofolio Play Store & GitHub",
       "dossier_available": true,
-      "dossier_html_path": "Output/Video Editor/Video Editor - ID.html",
-      "dossier_pdf_path": "Output/Video Editor/Video Editor - ID.pdf"
+      "dossier_html_path": "Android Engineer/Android Engineer - ID.html",
+      "dossier_pdf_path": "Android Engineer/Android Engineer - ID.pdf"
     },
     {
       "id": "apoteker",
-      "title": "Apoteker (Pharmacist)",
-      "riasec_weights": { "R": 0.3, "I": 0.7, "A": 0.1, "S": 0.6, "E": 0.2, "C": 0.6 },
-      "preferred_env": ["structured_lab", "corporate_business"],
-      "preferred_pathways": ["s1_academic"],
-      "degree_verdict": "S1 Farmasi + Program Profesi Apoteker (Wajib Regulasi)",
-      "salary_idr": "Rp 5.500.000 - Rp 9.000.000 (Fresh Graduate)",
-      "brief_desc": "Ahli formulasi obat, pelayanan kefarmasian klinik, serta pengendalian mutu bahan medis untuk kesehatan masyarakat.",
-      "related_majors": ["Farmasi (S1)", "Biologi Medis / Bioteknologi"],
+      "title": "Apoteker",
+      "riasec_weights": {
+        "R": 0.3,
+        "I": 0.8,
+        "A": 0.1,
+        "S": 0.7,
+        "E": 0.2,
+        "C": 0.7
+      },
+      "preferred_env": [
+        "structured_lab",
+        "corporate_business"
+      ],
+      "preferred_pathways": [
+        "s1_academic"
+      ],
+      "degree_verdict": "S1/D4 Sangat Dianjurkan (Bisa Jalur Portofolio)",
+      "salary_idr": "Rp 5.500.000 - Rp 9.000.000 (Entry-Level)",
+      "brief_desc": "Selamat datang di profesi Apoteker di Indonesia. Sebagai seorang apoteker entry-level yang menapakkan kaki di lanskap layanan kesehatan, ritel, atau industri, peran Anda jauh melampaui sekadar menyerahkan obat di balik counter atau meracik puyer di ruang belakang.",
+      "related_majors": [
+        "Farmasi (S1)",
+        "Biologi Medis"
+      ],
       "alternative_pathway": "D3 Farmasi untuk posisi Tenaga Teknis Kefarmasian (TTK)",
       "dossier_available": true,
-      "dossier_html_path": "Output/Apoteker/Apoteker - ID.html",
-      "dossier_pdf_path": "Output/Apoteker/Apoteker - ID.pdf"
-    },
-    {
-      "id": "mobile-engineer",
-      "title": "Mobile Engineer (Cross-Platform)",
-      "riasec_weights": { "R": 0.4, "I": 0.7, "A": 0.2, "S": 0.1, "E": 0.2, "C": 0.3 },
-      "preferred_env": ["remote_flexible", "corporate_business"],
-      "preferred_pathways": ["s1_academic", "vokasi_politeknik", "bootcamp_training"],
-      "degree_verdict": "S1/D4 Teknik Informatika Sangat Diutamakan",
-      "salary_idr": "Rp 7.000.000 - Rp 12.000.000 (Junior)",
-      "brief_desc": "Merancang arsitektur aplikasi mobile multi-platform skala besar (iOS & Android) dengan keandalan performa tinggi.",
-      "related_majors": ["Ilmu Komputer", "Teknik Komputer", "Teknik Informatika"],
-      "alternative_pathway": "Flutter / React Native Engineering Bootcamp + GitHub Open Source Proof",
-      "dossier_available": true,
-      "dossier_html_path": "Output/Mobile Engineer/Mobile Engineer - ID.html",
-      "dossier_pdf_path": "Output/Mobile Engineer/Mobile Engineer - ID.pdf"
+      "dossier_html_path": "Apoteker/Apoteker - ID.html",
+      "dossier_pdf_path": "Apoteker/Apoteker - ID.pdf"
     },
     {
       "id": "kotlin-multiplatform",
-      "title": "Kotlin Multiplatform Engineer",
-      "riasec_weights": { "R": 0.4, "I": 0.8, "A": 0.1, "S": 0.1, "E": 0.1, "C": 0.4 },
-      "preferred_env": ["remote_flexible", "corporate_business"],
-      "preferred_pathways": ["s1_academic", "vokasi_politeknik"],
-      "degree_verdict": "S1 Informatika Diutamakan (Kekuatan Logika Kompilasi)",
-      "salary_idr": "Rp 7.500.000 - Rp 13.000.000 (Junior)",
-      "brief_desc": "Mengembangkan kode logika bersama (shared business logic) lintas Android, iOS, dan Desktop menggunakan Kotlin.",
-      "related_majors": ["Teknik Informatika", "Ilmu Komputer"],
-      "alternative_pathway": "Advanced Android Developer yang mendalami ekosistem JetBrains & KMP",
+      "title": "Kotlin Multiplatform",
+      "riasec_weights": {
+        "R": 0.4,
+        "I": 0.85,
+        "A": 0.1,
+        "S": 0.1,
+        "E": 0.2,
+        "C": 0.4
+      },
+      "preferred_env": [
+        "remote_flexible",
+        "corporate_business"
+      ],
+      "preferred_pathways": [
+        "s1_academic",
+        "vokasi_politeknik"
+      ],
+      "degree_verdict": "S1/D4 Sangat Dianjurkan (Bisa Jalur Portofolio)",
+      "salary_idr": "Rp 6,000,000 - Rp 9,000,000 (Entry-Level)",
+      "brief_desc": "Selamat datang di garis depan rekayasa seluler dan multiplatform di Indonesia. Sebagai pengembang Kotlin Multiplatform (KMP) entry-level, Anda sedang melangkah ke dalam ekosistem yang dinamis di mana perusahaan rintisan (startup) berpikiran maju, agensi digital, dan raksasa teknologi perusahaan (seperti yang membangun aplikasi super dan platform konsumen berskala besar mirip dengan Indosat dan Bukalapak ) mulai meninggalkan basis kode asli (native codebase) yang terduplikasi.",
+      "related_majors": [
+        "Teknik Informatika",
+        "Ilmu Komputer"
+      ],
+      "alternative_pathway": "Spesialisasi Android Developer mendalami JetBrains KMP & Compose",
       "dossier_available": true,
-      "dossier_html_path": "Output/Kotlin Multiplatform/Kotlin Multiplatform - ID.html",
-      "dossier_pdf_path": "Output/Kotlin Multiplatform/Kotlin Multiplatform - ID.pdf"
+      "dossier_html_path": "Kotlin Multiplatform/Kotlin Multiplatform - ID.html",
+      "dossier_pdf_path": "Kotlin Multiplatform/Kotlin Multiplatform - ID.pdf"
+    },
+    {
+      "id": "mobile-developer",
+      "title": "Mobile Developer",
+      "riasec_weights": {
+        "R": 0.4,
+        "I": 0.8,
+        "A": 0.2,
+        "S": 0.1,
+        "E": 0.2,
+        "C": 0.3
+      },
+      "preferred_env": [
+        "remote_flexible",
+        "corporate_business"
+      ],
+      "preferred_pathways": [
+        "s1_academic",
+        "vokasi_politeknik",
+        "bootcamp_training"
+      ],
+      "degree_verdict": "S1/D4 Sangat Dianjurkan (Bisa Jalur Portofolio)",
+      "salary_idr": "Rp 5,000,000 - Rp 8,000,000 (Entry-Level)",
+      "brief_desc": "Di balik antarmuka aplikasi berkilau yang digunakan oleh jutaan masyarakat Indonesia setiap hari—baik saat mereka memesan penerbangan menit terakhir di BookCabin , memesan logistik melalui Meratus Group , memanggil ojek online dan mengelola dompet fintech di Superapps seperti Grab , maupun mengeksekusi transaksi kredit di Kredivo —terdapat kerja teliti dari seorang Mobile Developer. Sebagai pengembang aplikasi mobile tingkat pemula (entry-level) di Indonesia, mandat utama Anda adalah menerjemahkan spesifikasi produk tingkat tinggi dan desain UI/UX menjadi kode aplikasi native maupun cross-platform yang responsif, stabil, dan memiliki performa tinggi.",
+      "related_majors": [
+        "Teknik Informatika",
+        "Rekayasa Perangkat Lunak",
+        "Sistem Informasi"
+      ],
+      "alternative_pathway": "Google Bangkit Academy / Bootcamp Mobile + Portofolio Play Store & GitHub",
+      "dossier_available": true,
+      "dossier_html_path": "Mobile Developer/Mobile Developer - ID.html",
+      "dossier_pdf_path": "Mobile Developer/Mobile Developer - ID.pdf"
+    },
+    {
+      "id": "mobile-engineer",
+      "title": "Mobile Engineer",
+      "riasec_weights": {
+        "R": 0.4,
+        "I": 0.8,
+        "A": 0.2,
+        "S": 0.1,
+        "E": 0.2,
+        "C": 0.3
+      },
+      "preferred_env": [
+        "remote_flexible",
+        "corporate_business"
+      ],
+      "preferred_pathways": [
+        "s1_academic",
+        "vokasi_politeknik",
+        "bootcamp_training"
+      ],
+      "degree_verdict": "S1/D4 Sangat Dianjurkan (Bisa Jalur Portofolio)",
+      "salary_idr": "Rp 6,000,000 - Rp 9,000,000 (Entry-Level)",
+      "brief_desc": "Selamat datang di garis depan teknologi konsumen Indonesia. Sebagai seorang Mobile Engineer entry-level di Jakarta, Surabaya, Bandung, atau Yogyakarta, Anda sedang membangun fondasi digital dari salah satu ekonomi paling dinamis di Asia Tenggara.",
+      "related_majors": [
+        "Teknik Informatika",
+        "Rekayasa Perangkat Lunak",
+        "Sistem Informasi"
+      ],
+      "alternative_pathway": "Google Bangkit Academy / Bootcamp Mobile + Portofolio Play Store & GitHub",
+      "dossier_available": true,
+      "dossier_html_path": "Mobile Engineer/Mobile Engineer - ID.html",
+      "dossier_pdf_path": "Mobile Engineer/Mobile Engineer - ID.pdf"
+    },
+    {
+      "id": "video-editor",
+      "title": "Video Editor",
+      "riasec_weights": {
+        "R": 0.5,
+        "I": 0.2,
+        "A": 0.9,
+        "S": 0.2,
+        "E": 0.3,
+        "C": 0.2
+      },
+      "preferred_env": [
+        "creative_studio",
+        "remote_flexible"
+      ],
+      "preferred_pathways": [
+        "vokasi_politeknik",
+        "bootcamp_training",
+        "direct_work"
+      ],
+      "degree_verdict": "S1/D4 Sangat Dianjurkan (Bisa Jalur Portofolio)",
+      "salary_idr": "Rp 5.500.000 - Rp 9.000.000 (Entry-Level)",
+      "brief_desc": "Di balik gemerlapnya timeline Adobe Premiere Pro dan CapCut di agensi-agensi butik Jakarta, rumah produksi di Bali, hingga lini e-commerce jarak jauh (remote), seorang Video Editor tingkat pemula (entry-level) adalah arsitek naratif utama dalam ekonomi perhatian digital modern. Di lanskap media Indonesia yang sangat dinamis—mulai dari perusahaan media digital yang berkembang pesat seperti Trans TV dan ekosistem berbasis influencer seperti Mantappu Academy , hingga pusat kekuatan pemasaran performa (performance marketing) dan merek gaya hidup direct-to-consumer —hasil kerja harian Anda adalah faktor penentu yang menghentikan seorang pekerja komuter yang lelah di bus TransJakarta agar tidak terus menggulir (swiping) layar TikTok atau Instagram Reels.",
+      "related_majors": [
+        "Desain Komunikasi Visual (DKV)",
+        "Animasi & Media Kreatif"
+      ],
+      "alternative_pathway": "Kursus Editing (Premiere/DaVinci) + Showreel YouTube/Behance",
+      "dossier_available": true,
+      "dossier_html_path": "Video Editor/Video Editor - ID.html",
+      "dossier_pdf_path": "Video Editor/Video Editor - ID.pdf"
     }
   ],
   "majors": [
@@ -81,37 +231,84 @@
       "id": "ti",
       "name": "Teknik Informatika / Ilmu Komputer",
       "type": "S1 Akademik / D4 Terapan",
-      "top_match_dimensions": ["I", "R"],
-      "description": "Mempelajari algoritma, rekayasa perangkat lunak, arsitektur data, dan kecerdasan buatan untuk membangun sistem teknologi masa depan.",
-      "key_subjects": ["Struktur Data & Algoritma", "Pemrograman Berorientasi Objek", "Basis Data", "Jaringan & Keamanan"],
-      "career_links": ["Android Developer", "Mobile Engineer", "Software Engineer"]
+      "top_match_dimensions": [
+        "I",
+        "R"
+      ],
+      "description": "Mempelajari algoritma, rekayasa perangkat lunak, arsitektur sistem, dan AI untuk membangun platform digital.",
+      "key_subjects": [
+        "Struktur Data & Algoritma",
+        "Pemrograman Native & Web",
+        "Basis Data",
+        "Jaringan & Keamanan"
+      ],
+      "career_links": [
+        "Android Developer",
+        "Android Engineer",
+        "Kotlin Multiplatform",
+        "Mobile Developer",
+        "Mobile Engineer"
+      ]
     },
     {
       "id": "dkv",
-      "name": "Desain Komunikasi Visual (DKV)",
+      "name": "Desain Komunikasi Visual (DKV) & Media",
       "type": "S1 Akademik / D4 Vokasi",
-      "top_match_dimensions": ["A", "R"],
-      "description": "Mengolah pesan dan cerita menjadi media visual terpadu melalui desain grafis, ilustrasi, motion graphics, video, dan fotografi.",
-      "key_subjects": ["Tipografi", "Digital Imaging & Video Editing", "Audio Visual Storytelling", "Brand Identity"],
-      "career_links": ["Video Editor", "Motion Designer", "UI/UX Designer"]
+      "top_match_dimensions": [
+        "A",
+        "R"
+      ],
+      "description": "Mengolah cerita dan pesan visual melalui video editing, motion graphics, ilustrasi digital, dan branding.",
+      "key_subjects": [
+        "Digital Video Editing",
+        "Tipografi & Estetika",
+        "Audio Visual Storytelling",
+        "Motion Design"
+      ],
+      "career_links": [
+        "Video Editor"
+      ]
     },
     {
       "id": "farmasi",
-      "name": "Farmasi & Farmakologi",
-      "type": "S1 Sains Farmasi",
-      "top_match_dimensions": ["I", "S", "C"],
-      "description": "Mempelajari interaksi zat kimia dan biologi terhadap tubuh, peracikan obat, fitofarmaka, dan hukum regulasi kefarmasian.",
-      "key_subjects": ["Kimia Farmasi", "Farmakologi & Toksikologi", "Teknologi Sediaan Obat", "Farmasi Klinis"],
-      "career_links": ["Apoteker", "Formulator Obat", "Medical Representative"]
+      "name": "Farmasi & Farmakologi Klinis",
+      "type": "S1 Farmasi + Program Profesi",
+      "top_match_dimensions": [
+        "I",
+        "S",
+        "C"
+      ],
+      "description": "Mempelajari formulasi obat, biokimia medis, pelayanan resep klinis, serta kepatuhan regulasi BPOM/Kemenkes.",
+      "key_subjects": [
+        "Kimia Farmasi",
+        "Farmakologi & Toksikologi",
+        "Teknologi Sediaan Obat",
+        "Farmasi Rumah Sakit"
+      ],
+      "career_links": [
+        "Apoteker"
+      ]
     },
     {
       "id": "si",
       "name": "Sistem Informasi & Bisnis Digital",
       "type": "S1 Akademik",
-      "top_match_dimensions": ["I", "E", "C"],
-      "description": "Jembatan antara kebutuhan bisnis strategis dan implementasi teknologi komputer, termasuk analisis proses bisnis dan sistem ERP.",
-      "key_subjects": ["Analisis & Desain Sistem", "Manajemen Proyek TI", "Enterprise Architecture", "E-Commerce Management"],
-      "career_links": ["Product Manager", "Business Analyst", "IT Consultant"]
+      "top_match_dimensions": [
+        "I",
+        "E",
+        "C"
+      ],
+      "description": "Menghubungkan proses bisnis modern dengan solusi arsitektur teknologi informasi dan manajemen data.",
+      "key_subjects": [
+        "Analisis & Desain Sistem",
+        "Manajemen Proyek TI",
+        "Enterprise Architecture",
+        "E-Commerce Strategy"
+      ],
+      "career_links": [
+        "Software Engineering",
+        "Tech Industry"
+      ]
     }
   ]
 }

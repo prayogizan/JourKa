@@ -6,6 +6,7 @@ export default function Recommendations({ recommendations, studentInfo, onNextAc
   const [showAllMajors, setShowAllMajors] = useState(false);
   const [selectedRoleIds, setSelectedRoleIds] = useState(initialSelected.roleIds || []);
   const [selectedMajorIds, setSelectedMajorIds] = useState(initialSelected.majorIds || []);
+  const [previewRole, setPreviewRole] = useState(null); // Role to preview in modal
 
   const { topRoles, otherRoles, topMajors, otherMajors } = recommendations;
 
@@ -23,8 +24,14 @@ export default function Recommendations({ recommendations, studentInfo, onNextAc
 
   const handleOpenDossier = (e, role) => {
     e.stopPropagation();
-    const path = `../JourKa/${role.dossier_html_path}`;
-    window.open(path, '_blank');
+    // Buka modal preview di dalam app agar sesi asesmen tidak hilang
+    setPreviewRole(role);
+  };
+
+  const handleOpenNewTab = (e, role) => {
+    e.stopPropagation();
+    const url = `/dossiers/${encodeURIComponent(role.dossier_html_path.split('/')[0])}/${encodeURIComponent(role.dossier_html_path.split('/')[1])}`;
+    window.open(url, '_blank');
   };
 
   const handleProceed = () => {
@@ -178,6 +185,50 @@ export default function Recommendations({ recommendations, studentInfo, onNextAc
           </button>
         </div>
       </div>
+
+      {/* Modal Dossier Viewer — Tidak me-reload halaman & tidak kehilangan sesi */}
+      {previewRole && (
+        <div className="modal-backdrop" onClick={() => setPreviewRole(null)}>
+          <div className="modal-container card" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header d-flex justify-between align-center pb-3 border-bottom mb-3">
+              <div className="d-flex align-center gap-2">
+                <span style={{ fontSize: '1.25rem' }}>📖</span>
+                <div>
+                  <h3 className="modal-title font-bold">{previewRole.title} — Dossier Lengkap</h3>
+                  <span className="text-xs text-muted">Hasil Riset Otomatis Robot UiPath & Gemini AI</span>
+                </div>
+              </div>
+
+              <div className="d-flex align-center gap-2">
+                <button
+                  type="button"
+                  className="btn btn-secondary btn-sm"
+                  onClick={(e) => handleOpenNewTab(e, previewRole)}
+                  title="Buka di Jendela Baru"
+                >
+                  Buka di Tab Baru ↗
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-outline btn-sm"
+                  onClick={() => setPreviewRole(null)}
+                  style={{ fontSize: '1.1rem', padding: '4px 10px' }}
+                >
+                  ✕
+                </button>
+              </div>
+            </div>
+
+            <div className="modal-body" style={{ flex: 1, minHeight: '550px' }}>
+              <iframe
+                title={`Dossier ${previewRole.title}`}
+                src={`/dossiers/${encodeURIComponent(previewRole.dossier_html_path.split('/')[0])}/${encodeURIComponent(previewRole.dossier_html_path.split('/')[1])}`}
+                style={{ width: '100%', height: '100%', border: 'none', borderRadius: '8px' }}
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
