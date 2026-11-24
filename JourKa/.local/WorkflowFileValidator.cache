@@ -1,6 +1,11 @@
-Workflows/PublishDossier.xaml|639306975498999594
 Workflows/GenerateDossier.xaml|639305566776968349
+Workflows/RenderStudentEmail.xaml|639310392339160320
+Workflows/PublishDossier.xaml|639310350279196105
 Workflows/ResearchYouTubeRoutine.xaml|639305566776968349
 Workflows/ResearchJobBoards.xaml|639305566776968349
-Workflows/ResearchAbroadJobs.xaml|639305566776968349
-Main.xaml|639307779051653756
+Workflows/ResearchAbroadJobs.xaml|639310556533602857
+Workflows/SendStudentEmail.xaml|639310508149427385
+Main.xaml|639310556492535653
+Workflows/RenderStudentEmail.xaml|639310392339160320
+Workflows/ResearchAbroadJobs.xaml|639310556533602857
+Workflows/SendStudentEmail.xaml|639310508149427385

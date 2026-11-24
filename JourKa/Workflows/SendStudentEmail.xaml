@@ -1,0 +1,244 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="Workflows_SendStudentEmail" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:s="clr-namespace:System;assembly=System.Private.CoreLib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:ss="clr-namespace:System.Security;assembly=System.Private.CoreLib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:umae="clr-namespace:UiPath.Mail.Activities.Enums;assembly=UiPath.Mail.Activities" xmlns:umame="clr-namespace:UiPath.MicrosoftOffice365.Activities.Mail.Enums;assembly=UiPath.Mail.Activities" xmlns:usau="clr-namespace:UiPath.Shared.Activities.Utils;assembly=UiPath.Mail.Activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="in_NormalizedRecipients" Type="InArgument(x:String)" />
+    <x:Property Name="in_Subject" Type="InArgument(x:String)" />
+    <x:Property Name="in_BodyHtml" Type="InArgument(x:String)" />
+    <x:Property Name="in_AttachmentPaths" Type="InArgument(scg:IEnumerable(x:String))" />
+    <x:Property Name="in_PrimaryKeyEmail" Type="InArgument(x:String)" />
+    <x:Property Name="out_Success" Type="OutArgument(x:Boolean)" />
+    <x:Property Name="out_ErrorMessage" Type="OutArgument(x:String)" />
+  </x:Members>
+  <VisualBasic.Settings>
+    <x:Null />
+  </VisualBasic.Settings>
+  <sap2010:WorkflowViewState.IdRef>ActivityBuilder_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>GlobalConstantsNamespace</x:String>
+      <x:String>GlobalVariablesNamespace</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Security</x:String>
+      <x:String>System.Text</x:String>
+      <x:String>System.Text.RegularExpressions</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>UiPath.Mail</x:String>
+      <x:String>UiPath.Mail.Activities</x:String>
+      <x:String>UiPath.Mail.Activities.Enums</x:String>
+      <x:String>UiPath.Mail.SMTP.Activities</x:String>
+      <x:String>UiPath.MicrosoftOffice365.Activities.Mail.Enums</x:String>
+      <x:String>UiPath.Shared.Activities</x:String>
+      <x:String>UiPath.Shared.Activities.Utils</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>System.Collections</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.TypeConverter</AssemblyReference>
+      <AssemblyReference>System.Linq</AssemblyReference>
+      <AssemblyReference>System.Net.Mail</AssemblyReference>
+      <AssemblyReference>System.Net.Primitives</AssemblyReference>
+      <AssemblyReference>System.ObjectModel</AssemblyReference>
+      <AssemblyReference>System.Private.CoreLib</AssemblyReference>
+      <AssemblyReference>System.Security.Permissions</AssemblyReference>
+      <AssemblyReference>System.Security.SecureString</AssemblyReference>
+      <AssemblyReference>System.Text.RegularExpressions</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>UiPath.Mail.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Mail.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="SendStudentEmail" sap:VirtualizedContainerService.HintSize="942,2335" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Name="smtpHost" />
+      <Variable x:TypeArguments="x:Int32" Name="smtpPort" />
+      <Variable x:TypeArguments="x:String" Name="smtpUser" />
+      <Variable x:TypeArguments="x:String" Name="smtpFrom" />
+      <Variable x:TypeArguments="x:String" Name="smtpSenderName" />
+      <Variable x:TypeArguments="x:String" Name="smtpPasswordPlain" />
+      <Variable x:TypeArguments="x:String" Name="smtpStatusCode" />
+      <Variable x:TypeArguments="x:String" Name="safePrimaryKey" />
+      <Variable x:TypeArguments="scg:List(x:String)" Name="validAttachments" />
+      <Variable x:TypeArguments="x:String" Name="redactedError" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <Assign DisplayName="Initialize out_Success False" sap:VirtualizedContainerService.HintSize="488,175" sap2010:WorkflowViewState.IdRef="Assign_1">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:Boolean">[out_Success]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:Boolean">[False]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <Assign DisplayName="Initialize out_ErrorMessage Empty" sap:VirtualizedContainerService.HintSize="488,175" sap2010:WorkflowViewState.IdRef="Assign_2">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[out_ErrorMessage]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">[""]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <Assign DisplayName="Resolve Safe Primary Key For Logging" sap:VirtualizedContainerService.HintSize="488,175" sap2010:WorkflowViewState.IdRef="Assign_3">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[safePrimaryKey]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">[If(String.IsNullOrWhiteSpace(in_PrimaryKeyEmail), If(String.IsNullOrWhiteSpace(in_NormalizedRecipients), "(unknown-pk)", in_NormalizedRecipients.Trim()), in_PrimaryKeyEmail.Trim())]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <TryCatch DisplayName="Try Dispatch Student Email via SMTP" sap:VirtualizedContainerService.HintSize="488,1787" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+      <TryCatch.Try>
+        <Sequence DisplayName="Validate Inputs, Load SMTP Config, and Send Email" sap:VirtualizedContainerService.HintSize="486,1615" sap2010:WorkflowViewState.IdRef="Sequence_2">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <ui:InvokeCode ContinueOnError="{x:Null}" Code="' Validate inputs, verify attachments, and load SMTP credentials from .env or Environment Variables (JK-RPA-007 / #27)&#xA;If String.IsNullOrWhiteSpace(in_NormalizedRecipients) Then&#xA;    Throw New System.ArgumentException(&quot;in_NormalizedRecipients cannot be blank.&quot;, &quot;in_NormalizedRecipients&quot;)&#xA;End If&#xA;If String.IsNullOrWhiteSpace(in_Subject) Then&#xA;    Throw New System.ArgumentException(&quot;in_Subject cannot be blank.&quot;, &quot;in_Subject&quot;)&#xA;End If&#xA;If String.IsNullOrWhiteSpace(in_BodyHtml) Then&#xA;    Throw New System.ArgumentException(&quot;in_BodyHtml cannot be blank.&quot;, &quot;in_BodyHtml&quot;)&#xA;End If&#xA;&#xA;Dim cleanAttachments As New System.Collections.Generic.List(Of String)()&#xA;If in_AttachmentPaths IsNot Nothing Then&#xA;    For Each rawPath As String In in_AttachmentPaths&#xA;        If Not String.IsNullOrWhiteSpace(rawPath) Then&#xA;            Dim trimmedPath As String = rawPath.Trim()&#xA;            If Not System.IO.File.Exists(trimmedPath) Then&#xA;                Throw New System.IO.FileNotFoundException(&quot;Email attachment not found: &quot; &amp; trimmedPath, trimmedPath)&#xA;            End If&#xA;            Dim fi As New System.IO.FileInfo(trimmedPath)&#xA;            If fi.Length &lt;= 0 Then&#xA;                Throw New System.IO.FileNotFoundException(&quot;Email attachment is 0 bytes: &quot; &amp; trimmedPath, trimmedPath)&#xA;            End If&#xA;            If Not cleanAttachments.Contains(trimmedPath, System.StringComparer.OrdinalIgnoreCase) Then&#xA;                cleanAttachments.Add(trimmedPath)&#xA;            End If&#xA;        End If&#xA;    Next&#xA;End If&#xA;If cleanAttachments.Count = 0 Then&#xA;    Throw New System.ArgumentException(&quot;At least one non-empty attachment path is required.&quot;, &quot;in_AttachmentPaths&quot;)&#xA;End If&#xA;out_ValidAttachments = cleanAttachments&#xA;&#xA;' Load .env values (project dir first, then parent repo root) without overriding non-empty process env vars&#xA;Dim envValues As New System.Collections.Generic.Dictionary(Of String, String)(System.StringComparer.OrdinalIgnoreCase)&#xA;Dim envCandidates As String() = New String() {&#xA;    System.IO.Path.GetFullPath(System.IO.Path.Combine(System.Environment.CurrentDirectory, &quot;..&quot;, &quot;.env&quot;)),&#xA;    System.IO.Path.Combine(System.Environment.CurrentDirectory, &quot;.env&quot;)&#xA;}&#xA;For Each envPath As String In envCandidates&#xA;    If System.IO.File.Exists(envPath) Then&#xA;        For Each rawLine As String In System.IO.File.ReadAllLines(envPath, System.Text.Encoding.UTF8)&#xA;            Dim line As String = rawLine.Trim()&#xA;            If String.IsNullOrWhiteSpace(line) OrElse line.StartsWith(&quot;#&quot;) Then Continue For&#xA;            If line.StartsWith(&quot;export &quot;, System.StringComparison.OrdinalIgnoreCase) Then&#xA;                line = line.Substring(7).Trim()&#xA;            End If&#xA;            Dim eqIdx As Integer = line.IndexOf(&quot;=&quot;c)&#xA;            If eqIdx &lt;= 0 Then Continue For&#xA;            Dim k As String = line.Substring(0, eqIdx).Trim()&#xA;            Dim v As String = line.Substring(eqIdx + 1).Trim()&#xA;            If v.Length &gt;= 2 AndAlso ((v.StartsWith(&quot;&quot;&quot;&quot;) AndAlso v.EndsWith(&quot;&quot;&quot;&quot;)) OrElse (v.StartsWith(&quot;'&quot;) AndAlso v.EndsWith(&quot;'&quot;))) Then&#xA;                v = v.Substring(1, v.Length - 2)&#xA;            End If&#xA;            If Not String.IsNullOrWhiteSpace(k) Then&#xA;                envValues(k) = v&#xA;            End If&#xA;        Next&#xA;    End If&#xA;Next&#xA;&#xA;Dim getSetting As Func(Of String, String) = Function(keyName As String) As String&#xA;    If envValues.ContainsKey(keyName) AndAlso Not String.IsNullOrWhiteSpace(envValues(keyName)) Then&#xA;        Return envValues(keyName).Trim()&#xA;    End If&#xA;    Dim procVal As String = System.Environment.GetEnvironmentVariable(keyName, System.EnvironmentVariableTarget.Process)&#xA;    If Not String.IsNullOrWhiteSpace(procVal) Then Return procVal.Trim()&#xA;    Dim userVal As String = System.Environment.GetEnvironmentVariable(keyName, System.EnvironmentVariableTarget.User)&#xA;    If Not String.IsNullOrWhiteSpace(userVal) Then Return userVal.Trim()&#xA;    Return &quot;&quot;&#xA;End Function&#xA;&#xA;Dim hostVal As String = getSetting(&quot;SMTP_HOST&quot;)&#xA;Dim portText As String = getSetting(&quot;SMTP_PORT&quot;)&#xA;Dim userVal2 As String = getSetting(&quot;SMTP_USER&quot;)&#xA;Dim passVal As String = getSetting(&quot;SMTP_PASSWORD&quot;)&#xA;Dim fromVal As String = getSetting(&quot;SMTP_FROM&quot;)&#xA;Dim senderNameVal As String = getSetting(&quot;SMTP_SENDER_NAME&quot;)&#xA;&#xA;If String.IsNullOrWhiteSpace(hostVal) Then&#xA;    Throw New System.InvalidOperationException(&quot;Missing SMTP_HOST configuration in .env or environment variables.&quot;)&#xA;End If&#xA;If String.IsNullOrWhiteSpace(userVal2) Then&#xA;    Throw New System.InvalidOperationException(&quot;Missing SMTP_USER configuration in .env or environment variables.&quot;)&#xA;End If&#xA;If String.IsNullOrWhiteSpace(passVal) Then&#xA;    Throw New System.InvalidOperationException(&quot;Missing SMTP_PASSWORD configuration in .env or environment variables.&quot;)&#xA;End If&#xA;&#xA;Dim parsedPort As Integer = 587&#xA;If Not String.IsNullOrWhiteSpace(portText) Then&#xA;    If Not Integer.TryParse(portText, parsedPort) OrElse parsedPort &lt;= 0 OrElse parsedPort &gt; 65535 Then&#xA;        Throw New System.InvalidOperationException(&quot;Invalid SMTP_PORT value: '&quot; &amp; portText &amp; &quot;'. Expected integer 1..65535.&quot;)&#xA;    End If&#xA;End If&#xA;&#xA;out_SmtpHost = hostVal&#xA;out_SmtpPort = parsedPort&#xA;out_SmtpUser = userVal2&#xA;out_SmtpFrom = If(String.IsNullOrWhiteSpace(fromVal), userVal2, fromVal)&#xA;out_SmtpSenderName = If(String.IsNullOrWhiteSpace(senderNameVal), &quot;JourKa Career Intelligence&quot;, senderNameVal)&#xA;out_SmtpPasswordPlain = passVal&#xA;" DisplayName="Validate Inputs and Load Secured SMTP Credentials" sap:VirtualizedContainerService.HintSize="452,403" sap2010:WorkflowViewState.IdRef="InvokeCode_1">
+            <ui:InvokeCode.Arguments>
+              <InArgument x:TypeArguments="x:String" x:Key="in_NormalizedRecipients">[in_NormalizedRecipients]</InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="in_Subject">[in_Subject]</InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="in_BodyHtml">[in_BodyHtml]</InArgument>
+              <InArgument x:TypeArguments="scg:IEnumerable(x:String)" x:Key="in_AttachmentPaths">[in_AttachmentPaths]</InArgument>
+              <OutArgument x:TypeArguments="scg:List(x:String)" x:Key="out_ValidAttachments">[validAttachments]</OutArgument>
+              <OutArgument x:TypeArguments="x:String" x:Key="out_SmtpHost">[smtpHost]</OutArgument>
+              <OutArgument x:TypeArguments="x:Int32" x:Key="out_SmtpPort">[smtpPort]</OutArgument>
+              <OutArgument x:TypeArguments="x:String" x:Key="out_SmtpUser">[smtpUser]</OutArgument>
+              <OutArgument x:TypeArguments="x:String" x:Key="out_SmtpFrom">[smtpFrom]</OutArgument>
+              <OutArgument x:TypeArguments="x:String" x:Key="out_SmtpSenderName">[smtpSenderName]</OutArgument>
+              <OutArgument x:TypeArguments="x:String" x:Key="out_SmtpPasswordPlain">[smtpPasswordPlain]</OutArgument>
+            </ui:InvokeCode.Arguments>
+          </ui:InvokeCode>
+          <ui:RetryScope LogRetriedExceptions="{x:Null}" RetriedExceptionsLogLevel="{x:Null}" DisplayName="Retry SMTP Dispatch (3x / 10s)" sap:VirtualizedContainerService.HintSize="452,1092" sap2010:WorkflowViewState.IdRef="RetryScope_1" NumberOfRetries="[3]" RetryInterval="00:00:10">
+            <ui:RetryScope.ActivityBody>
+              <ActivityAction>
+                <Sequence DisplayName="Send Formal HTML Email via SMTP" sap:VirtualizedContainerService.HintSize="450,885" sap2010:WorkflowViewState.IdRef="Sequence_3">
+                  <Sequence.Variables>
+                    <Variable x:TypeArguments="ss:SecureString" Name="smtpSecurePassword" />
+                  </Sequence.Variables>
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ui:InvokeCode ContinueOnError="{x:Null}" Code="Dim secPwd As New System.Security.SecureString()&#xA;For Each ch As Char In in_PasswordPlain&#xA;    secPwd.AppendChar(ch)&#xA;Next&#xA;secPwd.MakeReadOnly()&#xA;out_SecurePassword = secPwd" DisplayName="Build Scoped SecureString for SMTP Auth" sap:VirtualizedContainerService.HintSize="416,403" sap2010:WorkflowViewState.IdRef="InvokeCode_3">
+                    <ui:InvokeCode.Arguments>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_PasswordPlain">[smtpPasswordPlain]</InArgument>
+                      <OutArgument x:TypeArguments="ss:SecureString" x:Key="out_SecurePassword">[smtpSecurePassword]</OutArgument>
+                    </ui:InvokeCode.Arguments>
+                  </ui:InvokeCode>
+                  <ui:SendMail Bcc="{x:Null}" Cc="{x:Null}" ContinueOnError="{x:Null}" MailMessage="{x:Null}" Password="{x:Null}" ReplyTo="{x:Null}" ResourceAttachmentList="{x:Null}" ResourceAttachments="{x:Null}" UseOAuth="{x:Null}" Action="Forward" AttachmentInputMode="FilePaths" AttachmentsCollection="[validAttachments]" Body="[in_BodyHtml]" ConnectionMode="LegacyConfiguration" CreatedAfterSolutionSupport="True" DisplayName="Send SMTP Mail Message to Student and Parent" Email="[smtpUser]" EnableSSL="True" From="[smtpFrom]" sap:VirtualizedContainerService.HintSize="416,422" sap2010:WorkflowViewState.IdRef="SendMail_1" IgnoreCRL="False" IsBodyHtml="True" Name="[smtpSenderName]" Port="[smtpPort]" Result="[smtpStatusCode]" SecureConnection="Auto" SecurePassword="[smtpSecurePassword]" Server="[smtpHost]" Subject="[in_Subject]" TimeoutMS="[60000]" To="[in_NormalizedRecipients]" UseISConnection="False" UseRichTextEditor="True">
+                    <ui:SendMail.AttachmentsBackup>
+                      <usau:BackupSlot x:TypeArguments="umame:AttachmentInputMode" StoredValue="FilePaths">
+                        <usau:BackupSlot.BackupValues>
+                          <scg:Dictionary x:TypeArguments="umame:AttachmentInputMode, scg:List(x:Object)" />
+                        </usau:BackupSlot.BackupValues>
+                      </usau:BackupSlot>
+                    </ui:SendMail.AttachmentsBackup>
+                    <ui:SendMail.ConnectionDetailsBackupSlot>
+                      <usau:BackupSlot x:TypeArguments="umae:ConnectionDetails" StoredValue="LegacyConfiguration">
+                        <usau:BackupSlot.BackupValues>
+                          <scg:Dictionary x:TypeArguments="umae:ConnectionDetails, scg:List(x:Object)" />
+                        </usau:BackupSlot.BackupValues>
+                      </usau:BackupSlot>
+                    </ui:SendMail.ConnectionDetailsBackupSlot>
+                    <ui:SendMail.Files>
+                      <scg:List x:TypeArguments="InArgument(x:String)" Capacity="0" />
+                    </ui:SendMail.Files>
+                  </ui:SendMail>
+                </Sequence>
+              </ActivityAction>
+            </ui:RetryScope.ActivityBody>
+            <ui:RetryScope.Condition>
+              <ActivityFunc x:TypeArguments="x:Boolean" />
+            </ui:RetryScope.Condition>
+          </ui:RetryScope>
+          <Assign DisplayName="Set out_Success True" sap2010:WorkflowViewState.IdRef="Assign_4">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:Boolean">[out_Success]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:Boolean">[True]</InArgument>
+            </Assign.Value>
+          </Assign>
+          <Assign DisplayName="Clear out_ErrorMessage on Success" sap2010:WorkflowViewState.IdRef="Assign_5">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:String">[out_ErrorMessage]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:String">[""]</InArgument>
+            </Assign.Value>
+          </Assign>
+          <ui:LogMessage DisplayName="Log SMTP Dispatch Success" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;[PK: &quot; &amp; safePrimaryKey &amp; &quot;] SMTP Email SENT | To: &quot; &amp; in_NormalizedRecipients &amp; &quot; | Attachments: &quot; &amp; String.Join(&quot;, &quot;, validAttachments.Select(Function(p) System.IO.Path.GetFileName(p))) &amp; If(String.IsNullOrWhiteSpace(smtpStatusCode), &quot;&quot;, &quot; | SMTP Status: &quot; &amp; smtpStatusCode)]" />
+        </Sequence>
+      </TryCatch.Try>
+      <TryCatch.Catches>
+        <Catch x:TypeArguments="s:Exception" sap2010:WorkflowViewState.IdRef="Catch`1_1">
+          <ActivityAction x:TypeArguments="s:Exception">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="s:Exception" Name="smtpEx" />
+            </ActivityAction.Argument>
+            <Sequence DisplayName="Handle and Redact SMTP Dispatch Failure" sap2010:WorkflowViewState.IdRef="Sequence_4">
+              <ui:InvokeCode ContinueOnError="{x:Null}" Code="' Redact secrets and summarize SMTP exception (E8 / E9)&#xA;Dim msg As String = If(in_RawError, &quot;Unknown SMTP dispatch error.&quot;)&#xA;If Not String.IsNullOrEmpty(in_SmtpPassword) Then&#xA;    msg = msg.Replace(in_SmtpPassword, &quot;[REDACTED]&quot;)&#xA;End If&#xA;If Not String.IsNullOrEmpty(in_SmtpUser) Then&#xA;    msg = msg.Replace(in_SmtpUser, &quot;[REDACTED_SMTP_USER]&quot;)&#xA;End If&#xA;msg = System.Text.RegularExpressions.Regex.Replace(msg, &quot;\s+&quot;, &quot; &quot;).Trim()&#xA;If msg.Contains(&quot;535&quot;) Then&#xA;    msg = &quot;SMTP Authentication Failed (535): &quot; &amp; msg&#xA;ElseIf msg.Contains(&quot;550&quot;) Then&#xA;    msg = &quot;SMTP Mailbox Rejected (550): &quot; &amp; msg&#xA;End If&#xA;If msg.Length &gt; 500 Then&#xA;    msg = msg.Substring(0, 500) &amp; &quot;...&quot;&#xA;End If&#xA;out_RedactedError = msg&#xA;" DisplayName="Redact Secrets From SMTP Error Message" sap2010:WorkflowViewState.IdRef="InvokeCode_2">
+                <ui:InvokeCode.Arguments>
+                  <InArgument x:TypeArguments="x:String" x:Key="in_RawError">[If(smtpEx.InnerException IsNot Nothing, smtpEx.Message &amp; " | Inner: " &amp; smtpEx.InnerException.Message, smtpEx.Message)]</InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="in_SmtpPassword">[smtpPasswordPlain]</InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="in_SmtpUser">[smtpUser]</InArgument>
+                  <OutArgument x:TypeArguments="x:String" x:Key="out_RedactedError">[redactedError]</OutArgument>
+                </ui:InvokeCode.Arguments>
+              </ui:InvokeCode>
+              <Assign DisplayName="Set out_Success False on Error" sap2010:WorkflowViewState.IdRef="Assign_6">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:Boolean">[out_Success]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:Boolean">[False]</InArgument>
+                </Assign.Value>
+              </Assign>
+              <Assign DisplayName="Set Redacted out_ErrorMessage" sap2010:WorkflowViewState.IdRef="Assign_7">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:String">[out_ErrorMessage]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:String">[redactedError]</InArgument>
+                </Assign.Value>
+              </Assign>
+              <ui:LogMessage DisplayName="Log Redacted SMTP Dispatch Failure" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Error" Message="[&quot;[PK: &quot; &amp; safePrimaryKey &amp; &quot;] SystemException — Email dispatch failed. Error: &quot; &amp; redactedError]" />
+            </Sequence>
+          </ActivityAction>
+        </Catch>
+      </TryCatch.Catches>
+      <TryCatch.Finally>
+        <Sequence DisplayName="Clear In-Memory Credential State" sap2010:WorkflowViewState.IdRef="Sequence_5">
+          <Assign DisplayName="Clear Plaintext Password Buffer" sap2010:WorkflowViewState.IdRef="Assign_8">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:String">[smtpPasswordPlain]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:String">[""]</InArgument>
+            </Assign.Value>
+          </Assign>
+        </Sequence>
+      </TryCatch.Finally>
+    </TryCatch>
+  </Sequence>
+</Activity>
