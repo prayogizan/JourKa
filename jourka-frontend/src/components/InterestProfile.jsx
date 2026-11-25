@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import RadarChart from './RadarChart';
 
 const DIM_DESCRIPTIONS = {
@@ -10,8 +10,19 @@ const DIM_DESCRIPTIONS = {
   C: { name: 'Conventional (Teratur)', desc: 'Menyukai keteraturan, prosedur terencana, ketelitian, dan pengarsipan data.' }
 };
 
-export default function InterestProfile({ profile, studentInfo, onProceed }) {
-  const { scores, archetypeTitle, archetypeDesc } = profile;
+export default function InterestProfile({ profile, studentInfo, onProceed, loadingRecs = false }) {
+  const { scores, topDimensions, archetypeTitle, archetypeDesc } = profile;
+  const [email, setEmail] = useState(studentInfo.email || '');
+  const [autoQueue, setAutoQueue] = useState(true);
+
+  const topDimNames = (topDimensions || []).map(d => `${d} (${scores[d]}%)`).join(' & ');
+
+  const handleClickProceed = () => {
+    onProceed({
+      email: email.trim(),
+      autoQueue
+    });
+  };
 
   return (
     <div className="card profile-card">
@@ -55,9 +66,49 @@ export default function InterestProfile({ profile, studentInfo, onProceed }) {
         </div>
       </div>
 
+      {/* RIASEC -> UiPath Basis Panel */}
+      <div className="uipath-handoff-box card-subtle p-3 mb-4">
+        <div className="d-flex justify-between align-center flex-wrap gap-2 mb-2">
+          <div className="font-bold text-sm text-accent">
+            🤖 Acuan Rekomendasi & Sinkronisasi ke Robot UiPath
+          </div>
+          <span className="badge-pill">Dimensi Dominan: {topDimNames}</span>
+        </div>
+        <p className="text-xs text-muted mb-2">
+          Skor RIASEC di atas akan dipakai sebagai acuan penyusunan daftar profesi & jurusan yang paling cocok untukmu.
+          Jika kamu mengisi email, profesi rekomendasi teratas otomatis masuk ke antrean <code>Desire Role List.xlsx</code> Robot UiPath saat tombol di bawah ditekan.
+        </p>
+        <div className="d-flex gap-2 flex-wrap align-center">
+          <input
+            type="email"
+            className="input-control text-sm"
+            style={{ flex: '1 1 240px' }}
+            placeholder="Email siswa (opsional, untuk antrean otomatis UiPath)"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <label className="d-flex align-center gap-2 text-xs text-muted" style={{ cursor: 'pointer' }}>
+            <input
+              type="checkbox"
+              checked={autoQueue}
+              onChange={(e) => setAutoQueue(e.target.checked)}
+            />
+            <span>Auto-antrekan profesi teratas ke UiPath</span>
+          </label>
+        </div>
+      </div>
+
       <div className="text-center pt-2">
-        <button type="button" className="btn btn-primary btn-lg" onClick={onProceed}>
-          Lihat Rekomendasi Profesi & Jurusan →
+        <button
+          type="button"
+          className="btn btn-primary btn-lg"
+          onClick={handleClickProceed}
+          disabled={loadingRecs}
+        >
+          {loadingRecs
+            ? '⏳ Menyusun Rekomendasi RIASEC & Menghubungkan UiPath...'
+            : 'Lihat Rekomendasi Profesi & Jurusan →'
+          }
         </button>
       </div>
     </div>

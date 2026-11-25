@@ -28,10 +28,11 @@
         "Rekayasa Perangkat Lunak",
         "Sistem Informasi"
       ],
-      "alternative_pathway": "Google Bangkit Academy / Bootcamp Mobile + Portofolio Play Store & GitHub",
+      "alternative_pathway": "Google Bangkit Academy / Bootcamp Intensif + Portofolio GitHub",
       "dossier_available": true,
       "dossier_html_path": "Android Developer/Android Developer - ID.html",
-      "dossier_pdf_path": "Android Developer/Android Developer - ID.pdf"
+      "dossier_pdf_path": "Android Developer/Android Developer - ID.pdf",
+      "source": "uipath-output"
     },
     {
       "id": "android-engineer",
@@ -53,7 +54,7 @@
         "vokasi_politeknik",
         "bootcamp_training"
       ],
-      "degree_verdict": "S1/D4 Sangat Dianjurkan (Bisa Jalur Portofolio)",
+      "degree_verdict": "S1/D4 Sangat Diutamakan",
       "salary_idr": "Rp 6.000.000 - Rp 9.000.000 (Entry-Level)",
       "brief_desc": "Di balik layar ponsel pintar yang menyala dalam ekosistem digital Indonesia yang dinamis—mulai dari memesan perjalanan malam hari di tengah kemacetan Jakarta lewat Grab , mengajukan cicilan digital instan dengan Kredivo , menonton siaran langsung olahraga di Vidio , hingga mengelola portofolio finansial melalui agen keuangan berbasis AI di BJAK —terdapat ketekunan dan keahlian seorang Android Engineer. Sebagai seorang Android Engineer level entry-level di Indonesia, misi harian Anda bukan sekadar merangkai sintaks kode, melainkan merancang pengalaman aplikasi mobile yang handal, mulus, serta hemat baterai guna melayani puluhan juta pengguna di ribuan model perangkat berbeda, mulai dari ponsel flagship Samsung kelas atas hingga smartphone entry-level ramah kantong yang tersebar di seluruh penjuru nusantara.",
       "related_majors": [
@@ -61,10 +62,11 @@
         "Rekayasa Perangkat Lunak",
         "Sistem Informasi"
       ],
-      "alternative_pathway": "Google Bangkit Academy / Bootcamp Mobile + Portofolio Play Store & GitHub",
+      "alternative_pathway": "Google Bangkit Academy / Bootcamp Intensif + Portofolio GitHub",
       "dossier_available": true,
       "dossier_html_path": "Android Engineer/Android Engineer - ID.html",
-      "dossier_pdf_path": "Android Engineer/Android Engineer - ID.pdf"
+      "dossier_pdf_path": "Android Engineer/Android Engineer - ID.pdf",
+      "source": "uipath-output"
     },
     {
       "id": "apoteker",
@@ -84,17 +86,18 @@
       "preferred_pathways": [
         "s1_academic"
       ],
-      "degree_verdict": "S1/D4 Sangat Dianjurkan (Bisa Jalur Portofolio)",
+      "degree_verdict": "S1 Formal + Profesi (Wajib Regulasi)",
       "salary_idr": "Rp 5.500.000 - Rp 9.000.000 (Entry-Level)",
       "brief_desc": "Selamat datang di profesi Apoteker di Indonesia. Sebagai seorang apoteker entry-level yang menapakkan kaki di lanskap layanan kesehatan, ritel, atau industri, peran Anda jauh melampaui sekadar menyerahkan obat di balik counter atau meracik puyer di ruang belakang.",
       "related_majors": [
         "Farmasi (S1)",
-        "Biologi Medis"
+        "Ilmu Kesehatan / Biologi Medis"
       ],
-      "alternative_pathway": "D3 Farmasi untuk posisi Tenaga Teknis Kefarmasian (TTK)",
+      "alternative_pathway": "D3 Farmasi untuk Tenaga Teknis Kefarmasian (TTK)",
       "dossier_available": true,
       "dossier_html_path": "Apoteker/Apoteker - ID.html",
-      "dossier_pdf_path": "Apoteker/Apoteker - ID.pdf"
+      "dossier_pdf_path": "Apoteker/Apoteker - ID.pdf",
+      "source": "uipath-output"
     },
     {
       "id": "kotlin-multiplatform",
@@ -115,17 +118,18 @@
         "s1_academic",
         "vokasi_politeknik"
       ],
-      "degree_verdict": "S1/D4 Sangat Dianjurkan (Bisa Jalur Portofolio)",
+      "degree_verdict": "S1/D4 Dianjurkan (Portofolio Prioritas)",
       "salary_idr": "Rp 6,000,000 - Rp 9,000,000 (Entry-Level)",
       "brief_desc": "Selamat datang di garis depan rekayasa seluler dan multiplatform di Indonesia. Sebagai pengembang Kotlin Multiplatform (KMP) entry-level, Anda sedang melangkah ke dalam ekosistem yang dinamis di mana perusahaan rintisan (startup) berpikiran maju, agensi digital, dan raksasa teknologi perusahaan (seperti yang membangun aplikasi super dan platform konsumen berskala besar mirip dengan Indosat dan Bukalapak ) mulai meninggalkan basis kode asli (native codebase) yang terduplikasi.",
       "related_majors": [
         "Teknik Informatika",
         "Ilmu Komputer"
       ],
-      "alternative_pathway": "Spesialisasi Android Developer mendalami JetBrains KMP & Compose",
+      "alternative_pathway": "Spesialisasi Android & Multiplatform (Kotlin / Jetpack Compose)",
       "dossier_available": true,
       "dossier_html_path": "Kotlin Multiplatform/Kotlin Multiplatform - ID.html",
-      "dossier_pdf_path": "Kotlin Multiplatform/Kotlin Multiplatform - ID.pdf"
+      "dossier_pdf_path": "Kotlin Multiplatform/Kotlin Multiplatform - ID.pdf",
+      "source": "uipath-output"
     },
     {
       "id": "mobile-developer",
@@ -155,10 +159,11 @@
         "Rekayasa Perangkat Lunak",
         "Sistem Informasi"
       ],
-      "alternative_pathway": "Google Bangkit Academy / Bootcamp Mobile + Portofolio Play Store & GitHub",
+      "alternative_pathway": "Google Bangkit Academy / Bootcamp Intensif + Portofolio GitHub",
       "dossier_available": true,
       "dossier_html_path": "Mobile Developer/Mobile Developer - ID.html",
-      "dossier_pdf_path": "Mobile Developer/Mobile Developer - ID.pdf"
+      "dossier_pdf_path": "Mobile Developer/Mobile Developer - ID.pdf",
+      "source": "uipath-output"
     },
     {
       "id": "mobile-engineer",
@@ -188,10 +193,11 @@
         "Rekayasa Perangkat Lunak",
         "Sistem Informasi"
       ],
-      "alternative_pathway": "Google Bangkit Academy / Bootcamp Mobile + Portofolio Play Store & GitHub",
+      "alternative_pathway": "Google Bangkit Academy / Bootcamp Intensif + Portofolio GitHub",
       "dossier_available": true,
       "dossier_html_path": "Mobile Engineer/Mobile Engineer - ID.html",
-      "dossier_pdf_path": "Mobile Engineer/Mobile Engineer - ID.pdf"
+      "dossier_pdf_path": "Mobile Engineer/Mobile Engineer - ID.pdf",
+      "source": "uipath-output"
     },
     {
       "id": "video-editor",
@@ -213,17 +219,275 @@
         "bootcamp_training",
         "direct_work"
       ],
-      "degree_verdict": "S1/D4 Sangat Dianjurkan (Bisa Jalur Portofolio)",
+      "degree_verdict": "S1/D4 Dianjurkan (Portofolio Prioritas)",
       "salary_idr": "Rp 5.500.000 - Rp 9.000.000 (Entry-Level)",
       "brief_desc": "Di balik gemerlapnya timeline Adobe Premiere Pro dan CapCut di agensi-agensi butik Jakarta, rumah produksi di Bali, hingga lini e-commerce jarak jauh (remote), seorang Video Editor tingkat pemula (entry-level) adalah arsitek naratif utama dalam ekonomi perhatian digital modern. Di lanskap media Indonesia yang sangat dinamis—mulai dari perusahaan media digital yang berkembang pesat seperti Trans TV dan ekosistem berbasis influencer seperti Mantappu Academy , hingga pusat kekuatan pemasaran performa (performance marketing) dan merek gaya hidup direct-to-consumer —hasil kerja harian Anda adalah faktor penentu yang menghentikan seorang pekerja komuter yang lelah di bus TransJakarta agar tidak terus menggulir (swiping) layar TikTok atau Instagram Reels.",
       "related_majors": [
         "Desain Komunikasi Visual (DKV)",
-        "Animasi & Media Kreatif"
+        "Desain Film & Media Kreatif"
       ],
-      "alternative_pathway": "Kursus Editing (Premiere/DaVinci) + Showreel YouTube/Behance",
+      "alternative_pathway": "Kursus Spesialis & Showreel Portofolio (Behance/YouTube)",
       "dossier_available": true,
       "dossier_html_path": "Video Editor/Video Editor - ID.html",
-      "dossier_pdf_path": "Video Editor/Video Editor - ID.pdf"
+      "dossier_pdf_path": "Video Editor/Video Editor - ID.pdf",
+      "source": "uipath-output"
+    },
+    {
+      "id": "data-analyst",
+      "title": "Data Analyst",
+      "riasec_weights": {
+        "R": 0.2,
+        "I": 0.9,
+        "A": 0.2,
+        "S": 0.2,
+        "E": 0.4,
+        "C": 0.8
+      },
+      "preferred_env": [
+        "remote_flexible",
+        "corporate_business"
+      ],
+      "preferred_pathways": [
+        "s1_academic",
+        "vokasi_politeknik",
+        "bootcamp_training"
+      ],
+      "degree_verdict": "S1 Statistika/TI/Matematika Dianjurkan (Bisa Portofolio)",
+      "salary_idr": "Rp 6.000.000 - Rp 10.500.000 (Entry-Level)",
+      "brief_desc": "Mengolah data mentah perusahaan menjadi visualisasi dan insight bisnis strategis menggunakan SQL, Python, dan BI Tools.",
+      "related_majors": [
+        "Sains Data & Statistika",
+        "Teknik Informatika",
+        "Sistem Informasi"
+      ],
+      "alternative_pathway": "Bootcamp Data Analytics + Studi Kasus Kaggle/Tableau",
+      "dossier_available": false,
+      "needs_uipath_research": true,
+      "source": "riasec-blueprint-ready-for-uipath"
+    },
+    {
+      "id": "ui-ux-designer",
+      "title": "UI/UX Designer",
+      "riasec_weights": {
+        "R": 0.3,
+        "I": 0.5,
+        "A": 0.9,
+        "S": 0.6,
+        "E": 0.4,
+        "C": 0.2
+      },
+      "preferred_env": [
+        "creative_studio",
+        "remote_flexible"
+      ],
+      "preferred_pathways": [
+        "s1_academic",
+        "vokasi_politeknik",
+        "bootcamp_training"
+      ],
+      "degree_verdict": "S1 DKV/Informatika Dianjurkan (Portofolio Figma Utama)",
+      "salary_idr": "Rp 5.500.000 - Rp 9.500.000 (Entry-Level)",
+      "brief_desc": "Merancang pengalaman pengguna dan antarmuka aplikasi digital yang intuitif berdasarkan riset perilaku pengguna.",
+      "related_majors": [
+        "Desain Komunikasi Visual (DKV)",
+        "Sistem Informasi",
+        "Psikologi"
+      ],
+      "alternative_pathway": "Bootcamp UI/UX + Portofolio Redesign Aplikasi di Dribbble/Behance",
+      "dossier_available": false,
+      "needs_uipath_research": true,
+      "source": "riasec-blueprint-ready-for-uipath"
+    },
+    {
+      "id": "product-manager",
+      "title": "Associate Product Manager",
+      "riasec_weights": {
+        "R": 0.1,
+        "I": 0.6,
+        "A": 0.3,
+        "S": 0.7,
+        "E": 0.9,
+        "C": 0.5
+      },
+      "preferred_env": [
+        "corporate_business",
+        "remote_flexible"
+      ],
+      "preferred_pathways": [
+        "s1_academic",
+        "bootcamp_training"
+      ],
+      "degree_verdict": "S1 Bisnis/SI/Teknik (Lintas Jurusan Terbuka)",
+      "salary_idr": "Rp 7.000.000 - Rp 12.000.000 (Entry-Level)",
+      "brief_desc": "Menjembatani tim bisnis, desain, dan engineer untuk menentukan fitur produk digital yang paling berdampak bagi pengguna.",
+      "related_majors": [
+        "Sistem Informasi & Bisnis Digital",
+        "Manajemen & Bisnis"
+      ],
+      "alternative_pathway": "Program Management Trainee / Product Management Bootcamp",
+      "dossier_available": false,
+      "needs_uipath_research": true,
+      "source": "riasec-blueprint-ready-for-uipath"
+    },
+    {
+      "id": "digital-marketing-specialist",
+      "title": "Digital Marketing Specialist",
+      "riasec_weights": {
+        "R": 0.1,
+        "I": 0.4,
+        "A": 0.7,
+        "S": 0.6,
+        "E": 0.9,
+        "C": 0.3
+      },
+      "preferred_env": [
+        "creative_studio",
+        "corporate_business",
+        "remote_flexible"
+      ],
+      "preferred_pathways": [
+        "s1_academic",
+        "vokasi_politeknik",
+        "bootcamp_training",
+        "direct_work"
+      ],
+      "degree_verdict": "Gelar Opsional (Hasil Kampanye & Sertifikasi Google/Meta Prioritas)",
+      "salary_idr": "Rp 4.800.000 - Rp 8.000.000 (Entry-Level)",
+      "brief_desc": "Merancang kampanye iklan digital, SEO, dan strategi konten media sosial untuk mendorong pertumbuhan merek dan penjualan.",
+      "related_majors": [
+        "Ilmu Komunikasi & Pemasaran",
+        "Manajemen Bisnis Digital"
+      ],
+      "alternative_pathway": "Sertifikasi Google Ads / Meta Blueprint + Proyek UMKM Nyata",
+      "dossier_available": false,
+      "needs_uipath_research": true,
+      "source": "riasec-blueprint-ready-for-uipath"
+    },
+    {
+      "id": "rpa-automation-engineer",
+      "title": "RPA & Automation Engineer",
+      "riasec_weights": {
+        "R": 0.6,
+        "I": 0.85,
+        "A": 0.1,
+        "S": 0.2,
+        "E": 0.3,
+        "C": 0.85
+      },
+      "preferred_env": [
+        "corporate_business",
+        "remote_flexible",
+        "structured_lab"
+      ],
+      "preferred_pathways": [
+        "s1_academic",
+        "vokasi_politeknik",
+        "bootcamp_training"
+      ],
+      "degree_verdict": "S1/D4 Teknik Informatika/SI + Sertifikasi UiPath",
+      "salary_idr": "Rp 6.500.000 - Rp 11.000.000 (Entry-Level)",
+      "brief_desc": "Membangun robot perangkat lunak (seperti UiPath) untuk mengotomasi alur kerja bisnis berulang di perusahaan modern.",
+      "related_majors": [
+        "Teknik Informatika",
+        "Sistem Informasi"
+      ],
+      "alternative_pathway": "UiPath Academy Official Certification + Proyek Otomasi Nyata",
+      "dossier_available": false,
+      "needs_uipath_research": true,
+      "source": "riasec-blueprint-ready-for-uipath"
+    },
+    {
+      "id": "edtech-trainer",
+      "title": "EdTech & Learning Experience Specialist",
+      "riasec_weights": {
+        "R": 0.2,
+        "I": 0.5,
+        "A": 0.5,
+        "S": 0.95,
+        "E": 0.6,
+        "C": 0.4
+      },
+      "preferred_env": [
+        "creative_studio",
+        "corporate_business",
+        "remote_flexible"
+      ],
+      "preferred_pathways": [
+        "s1_academic",
+        "direct_work"
+      ],
+      "degree_verdict": "S1 Pendidikan / Psikologi / Komunikasi Dianjurkan",
+      "salary_idr": "Rp 4.800.000 - Rp 8.000.000 (Entry-Level)",
+      "brief_desc": "Merancang kurikulum interaktif, mendampingi peserta belajar, dan memanfaatkan teknologi edukasi agar materi mudah dipahami.",
+      "related_majors": [
+        "Teknologi Pendidikan / Psikologi",
+        "Ilmu Komunikasi"
+      ],
+      "alternative_pathway": "Pengalaman Mengajar Komunitas / Mentor Akademik + Modul Ajar Digital",
+      "dossier_available": false,
+      "needs_uipath_research": true,
+      "source": "riasec-blueprint-ready-for-uipath"
+    },
+    {
+      "id": "financial-analyst",
+      "title": "Financial & Risk Analyst",
+      "riasec_weights": {
+        "R": 0.1,
+        "I": 0.75,
+        "A": 0.1,
+        "S": 0.3,
+        "E": 0.6,
+        "C": 0.95
+      },
+      "preferred_env": [
+        "corporate_business",
+        "structured_lab"
+      ],
+      "preferred_pathways": [
+        "s1_academic"
+      ],
+      "degree_verdict": "S1 Akuntansi / Keuangan / Manajemen Sangat Diutamakan",
+      "salary_idr": "Rp 6.000.000 - Rp 10.000.000 (Entry-Level)",
+      "brief_desc": "Menganalisis laporan keuangan, arus kas, dan proyeksi risiko investasi perusahaan dengan ketelitian akurasi tinggi.",
+      "related_majors": [
+        "Akuntansi & Keuangan",
+        "Manajemen & Bisnis"
+      ],
+      "alternative_pathway": "Sertifikasi CFA Level 1 / Brevet Pajak + Pemodelan Excel",
+      "dossier_available": false,
+      "needs_uipath_research": true,
+      "source": "riasec-blueprint-ready-for-uipath"
+    },
+    {
+      "id": "iot-robotics-engineer",
+      "title": "IoT & Robotics Technician",
+      "riasec_weights": {
+        "R": 0.95,
+        "I": 0.8,
+        "A": 0.2,
+        "S": 0.2,
+        "E": 0.2,
+        "C": 0.5
+      },
+      "preferred_env": [
+        "structured_lab",
+        "corporate_business"
+      ],
+      "preferred_pathways": [
+        "vokasi_politeknik",
+        "s1_academic"
+      ],
+      "degree_verdict": "D4/S1 Teknik Elektro / Mekatronika Sangat Diutamakan",
+      "salary_idr": "Rp 5.500.000 - Rp 9.500.000 (Entry-Level)",
+      "brief_desc": "Merakit sensor perangkat keras, mikrokontroler, dan sistem otomasi fisik untuk pabrik pintar maupun perangkat IoT.",
+      "related_majors": [
+        "Teknik Elektro & Mekatronika",
+        "Teknik Informatika"
+      ],
+      "alternative_pathway": "Politeknik Vokasi + Portofolio Arduino/ESP32 & Lomba Robotika",
+      "dossier_available": false,
+      "needs_uipath_research": true,
+      "source": "riasec-blueprint-ready-for-uipath"
     }
   ],
   "majors": [
@@ -306,8 +570,89 @@
         "E-Commerce Strategy"
       ],
       "career_links": [
-        "Software Engineering",
-        "Tech Industry"
+        "Eksplorasi Karier Lintas Bidang"
+      ]
+    },
+    {
+      "id": "manajemen-bisnis",
+      "name": "Manajemen Bisnis & Pemasaran Digital",
+      "type": "S1 Akademik / D4 Vokasi",
+      "top_match_dimensions": [
+        "E",
+        "S"
+      ],
+      "description": "Mempelajari strategi pertumbuhan bisnis, negosiasi, kepemimpinan tim, serta pemasaran produk di era ekonomi digital.",
+      "key_subjects": [
+        "Manajemen Pemasaran",
+        "Kewirausahaan & Pitching",
+        "Perilaku Konsumen",
+        "Strategi Bisnis Digital"
+      ],
+      "career_links": [
+        "Associate Product Manager",
+        "Digital Marketing Specialist"
+      ]
+    },
+    {
+      "id": "psikologi-edukasi",
+      "name": "Psikologi & Teknologi Pendidikan",
+      "type": "S1 Akademik",
+      "top_match_dimensions": [
+        "S",
+        "I",
+        "A"
+      ],
+      "description": "Memahami perilaku manusia, pengembangan bakat, konseling karier, dan perancangan pengalaman belajar yang efektif.",
+      "key_subjects": [
+        "Psikologi Perkembangan",
+        "Asesmen Bakat & Minat",
+        "Desain Instruksional",
+        "Komunikasi Interpersonal"
+      ],
+      "career_links": [
+        "EdTech & Learning Experience Specialist",
+        "UI/UX Designer"
+      ]
+    },
+    {
+      "id": "akuntansi-keuangan",
+      "name": "Akuntansi & Analisis Keuangan",
+      "type": "S1 Akademik / D4 Vokasi",
+      "top_match_dimensions": [
+        "C",
+        "I",
+        "E"
+      ],
+      "description": "Mendalami audit laporan keuangan, perpajakan, pengendalian risiko bisnis, dan tata kelola data finansial terstruktur.",
+      "key_subjects": [
+        "Akuntansi Keuangan",
+        "Audit & Kepatuhan",
+        "Analisis Investasi",
+        "Sistem Informasi Akuntansi"
+      ],
+      "career_links": [
+        "Financial & Risk Analyst"
+      ]
+    },
+    {
+      "id": "mekatronika",
+      "name": "Teknik Elektro & Mekatronika",
+      "type": "D4 Politeknik / S1 Teknik",
+      "top_match_dimensions": [
+        "R",
+        "I",
+        "C"
+      ],
+      "description": "Menggabungkan rekayasa mekanik, elektronika perangkat keras, dan pemrograman embedded untuk robotika serta IoT.",
+      "key_subjects": [
+        "Rangkaian Elektronika",
+        "Sistem Mikrokontroler",
+        "Otomasi Industri (PLC)",
+        "Robotika Terapan"
+      ],
+      "career_links": [
+        "IoT & Robotics Technician",
+        "RPA & Automation Engineer"
       ]
     }
   ]

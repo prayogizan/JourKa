@@ -3,11 +3,16 @@ import React, { useState } from 'react';
 export default function Onboarding({ onStart }) {
   const [name, setName] = useState('');
   const [grade, setGrade] = useState('11');
+  const [email, setEmail] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!name.trim()) return;
-    onStart({ name: name.trim(), grade });
+    onStart({
+      name: name.trim(),
+      grade,
+      email: email.trim()
+    });
   };
 
   return (
@@ -15,8 +20,8 @@ export default function Onboarding({ onStart }) {
       <div className="badge-pill mb-3">🧭 Career & Education Discovery Platform</div>
       <h1 className="hero-title">Temukan Arah & Minat Masa Depanmu</h1>
       <p className="hero-subtitle">
-        Selamat datang di <strong>JourKa (Journey Kita)</strong>. Di sini, tidak ada jawaban benar atau salah. 
-        Kuesioner ini dirancang untuk memetakan kekuatan unikmu dan memberikan rekomendasi profesi serta jurusan 
+        Selamat datang di <strong>JourKa (Journey Kita)</strong>. Di sini, tidak ada jawaban benar atau salah.
+        Kuesioner ini dirancang untuk memetakan kekuatan unikmu dan memberikan rekomendasi profesi serta jurusan
         kuliah yang relevan untuk dieksplorasi.
       </p>
 
@@ -35,7 +40,7 @@ export default function Onboarding({ onStart }) {
           />
         </div>
 
-        <div className="form-group mb-4">
+        <div className="form-group mb-3">
           <label htmlFor="student-grade" className="form-label">Jenjang Pendidikan Saat Ini</label>
           <select
             id="student-grade"
@@ -50,10 +55,24 @@ export default function Onboarding({ onStart }) {
           </select>
         </div>
 
+        <div className="form-group mb-4">
+          <label htmlFor="student-email" className="form-label">
+            Email Siswa <span className="text-xs text-muted font-medium">(Opsional — agar hasil RIASEC langsung dikirim ke Robot UiPath)</span>
+          </label>
+          <input
+            id="student-email"
+            type="email"
+            className="input-control"
+            placeholder="contoh: rina.wijaya@student.sch.id"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+
         <div className="notice-box mb-4">
           <div className="notice-icon">💡</div>
           <div className="notice-text">
-            <strong>Waktu pengisian hanya 3–5 menit.</strong> Kamu bebas memilih opsi <em>"Belum pernah coba"</em> jika belum yakin.
+            <strong>Waktu pengisian cepat (klik jawaban langsung lanjut).</strong> Kamu bebas memilih opsi <em>"Belum pernah coba"</em> jika belum yakin.
           </div>
         </div>
 

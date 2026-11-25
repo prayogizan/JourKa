@@ -19,31 +19,63 @@ Apakah modul ini sudah terintegrasi dengan UiPath? **YA, SUDAH TERINTEGRASI SECA
 ```mermaid
 flowchart LR
     subgraph Frontend ["1. Web Frontend (jourka-frontend)"]
-        A["Asesmen Siswa (RIASEC + Skenario)"] --> B["Pilih Profesi & Masukkan Email"]
-        B --> C["📥 Download / Salin Input Robot\n(Desire Role List.csv)"]
+        A["Onboarding (Nama, Kelas, Email Opsional)"] --> B["Asesmen RIASEC (Klik Jawaban Langsung Lanjut)"]
+        B --> C["Profil Radar RIASEC + Acuan ke UiPath"]
+        C -->|"POST /api/riasec-recommendations"| D["Katalog Profesi & Jurusan Dinamis"]
+        D -->|"POST /api/queue-role"| E["Zero-Touch Auto-Queue"]
     end
 
-    subgraph UiPath ["2. Robot UiPath (JourKa/Main.xaml)"]
-        C --> D["Membaca Input Siswa (Schema v2)"]
-        D --> E["Scraping LinkedIn & YouTube"]
-        E --> F["Google Gemini AI Synthesis"]
-        F --> G["Cetak Dossier PDF & HTML"]
-        G --> H["Kirim Email Otomatis (SMTP)"]
+    subgraph Bridge ["2. Bridge API (vite.config.js + uipathBridge.js)"]
+        E --> F["Tulis Langsung ke JourKa/Input/Desire Role List.xlsx"]
+        G["GET /api/roles & /api/queue-status"] --> D
     end
 
-    subgraph Hasil ["3. Konsumsi Siswa"]
-        H --> I["Laporan PDF di Inbox Email Siswa/Ortu"]
-        G -.->|"📖 Buka Dossier Lengkap"| J["Dossier Interaktif HTML di Browser"]
+    subgraph UiPath ["3. Robot UiPath (JourKa/Main.xaml)"]
+        F --> H["Baca Input Sheet1 (Schema v2)"]
+        H --> I["Scraping LinkedIn & YouTube"]
+        I --> J["Google Gemini AI Synthesis"]
+        J --> K["Simpan Dossier PDF & HTML ke JourKa/Output/"]
+        K -->|"Live Sync"| G
+        K --> L["Kirim Email Otomatis (SMTP)"]
+    end
+
+    subgraph Hasil ["4. Konsumsi Siswa"]
+        L --> M["Laporan PDF di Inbox Email Siswa/Ortu"]
+        K -.->|"📖 Buka Dossier Lengkap"| N["Preview Dossier HTML di Modal Web"]
     end
 ```
 
-### Bentuk Integrasi Konkret:
-1. **Integrasi Input (Frontend $\rightarrow$ UiPath):**  
-   Di layar **Action Plan**, terdapat modul *RPA Handoff*. Siswa memasukkan email penerima, lalu mengklik tombol **"📥 Download Desire Role List.csv"** atau **"📋 Salin Baris Data"**. Data ini dibuat 100% presisi sesuai schema 7-kolom yang dibaca robot UiPath (`RecipientEmail | Job | AbroadMarkets | StudentName | EmailStatus | EmailTimestamp | ErrorMessage`).
-2. **Integrasi Output (UiPath $\rightarrow$ Frontend):**  
-   Di layar **Rekomendasi**, setiap kartu profesi dilengkapi tombol **"📖 Buka Dossier Lengkap"**. Tombol ini langsung membuka file HTML interaktif Bento Grid yang dihasilkan oleh robot UiPath di direktori `JourKa/Output/<Role>/<Role> - ID.html`.
-3. **Integrasi Pengiriman Laporan (UiPath $\rightarrow$ Siswa & Ortu):**  
-   Robot UiPath membaca data dari input, mengompilasi dossier ke format PDF A4, dan mengirimkannya via email SMTP formal ke siswa dan orang tua.
+### Bentuk Integrasi Konkret (Two-Way Dynamic Loop):
+1. **RIASEC sebagai Acuan & Auto-Queue (Profil Minat $\rightarrow$ UiPath):**  
+   Di layar **Profil Minat (RIASEC)**, skor 6 dimensi (`R, I, A, S, E, C`) dikirim ke `POST /api/riasec-recommendations`. Bridge API menyusun daftar profesi & jurusan yang paling relevan dengan profil RIASEC siswa (menggabungkan dossier yang sudah ada di `JourKa/Output/` dan blueprint RIASEC yang siap diriset robot). Jika siswa mengisi email, profesi peringkat #1 langsung ditulis otomatis ke `JourKa/Input/Desire Role List.xlsx`.
+2. **Integrasi Input Zero-Touch & Monitor Live (Action Plan $\rightarrow$ UiPath):**  
+   Di layar **Action Plan**, siswa menekan **"🚀 Kirim Langsung ke Robot UiPath (Otomatis)"**. Frontend memanggil `POST /api/queue-role` yang otomatis menulis seluruh profesi pilihan siswa (termasuk request profesi kustom *On-Demand*) ke `JourKa/Input/Desire Role List.xlsx` menggunakan alias `+tag` email bila memilih >1 profesi agar lolos aturan Primary Key unik di `Main.xaml`. Tabel **Monitor Antrean Live** (`GET /api/queue-status`) menampilkan status real-time (`Pending` / `Sent`).
+3. **Katalog Dinamis & Preview Dossier (UiPath $\rightarrow$ Frontend):**  
+   Frontend membaca live folder `JourKa/Output/` lewat `GET /api/roles`. Begitu robot UiPath selesai menghasilkan dossier baru, tombol **"🔄 Sinkronkan Output UiPath"** langsung memunculkan profesi tersebut dan tombol **"📖 Buka Dossier Lengkap"** menampilkannya di modal interaktif tanpa me-reset sesi.
+
+---
+
+### Panduan Praktis Menjalankan Integrasi End-to-End (Untuk Demo Hackathon):
+1. **Siapkan Konfigurasi Robot UiPath (`JourKa`):**
+   - Pastikan `.env` atau Environment Variable berisi `GEMINI_API_KEY`, `SMTP_USER`, dan `SMTP_PASSWORD` (jangan di-commit ke Git).
+   - Catatan `Main.xaml`: Secara default `Main.xaml` mengecek `D:\UiPathProject\Desire Role List.xlsx` terlebih dahulu, lalu fallback ke `<ProjectDir>\Input\Desire Role List.xlsx`. **Pastikan di laptop Windows saat demo file `D:\UiPathProject\Desire Role List.xlsx` tidak ada (atau arahkan ke `JourKa\Input\Desire Role List.xlsx`)** agar UiPath Studio membaca file Excel yang sama dengan yang ditulis oleh frontend!
+2. **Jalankan Frontend + Bridge API:**
+   ```bash
+   cd jourka-frontend
+   npm install
+   npm run dev
+   ```
+3. **Jalankan Alur di Browser (`http://localhost:3000`):**
+   - Isi **Onboarding** (Nama, Kelas, dan Email aktif Anda).
+   - Jawab 8 pertanyaan **Asesmen** (cukup klik opsi jawaban, layar otomatis lanjut).
+   - Di halaman **Profil RIASEC**, klik **"Lihat Rekomendasi Profesi & Jurusan →"** (daftar profesi otomatis disusun dari profil RIASEC Anda & profesi #1 langsung masuk antrean Excel).
+   - Pilih profesi tambahan / ketik profesi baru di kotak **Request ke Robot** $\rightarrow$ lanjut ke **Action Plan** $\rightarrow$ klik **"🚀 Kirim Langsung ke Robot UiPath (Otomatis)"**.
+4. **Jalankan Robot di UiPath Studio:**
+   - Buka `JourKa/Main.xaml` di UiPath Studio $\rightarrow$ klik **Run**.
+   - Robot otomatis membaca baris baru berstatus kosong di `JourKa/Input/Desire Role List.xlsx`, melakukan scraping LinkedIn/YouTube + Gemini AI, menyimpan HTML/PDF ke `JourKa/Output/<Role>/`, mengirim email ke inbox Anda, dan mengupdate kolom `EmailStatus = Sent`.
+5. **Verifikasi Balik di Frontend:**
+   - Klik **"🔄 Refresh Status"** di **Monitor Antrean Live** (status berubah menjadi `Sent`).
+   - Kembali ke **Rekomendasi** dan klik **"🔄 Sinkronkan Output UiPath"** untuk langsung membuka dossier baru di modal browser!
 
 ---
 
@@ -94,23 +126,21 @@ Perintah ini akan menghasilkan folder `dist/` yang berisi file HTML, CSS, dan JS
 
 1. **Layar 1 — Onboarding:**
    - Menyambut siswa dengan pendekatan ramah tanpa tekanan ujian (*"Tidak ada jawaban salah"*).
-   - Input nama panggilan dan jenjang sekolah (Kelas 10, 11, 12 SMA/SMK, atau Fresh Graduate).
+   - Input nama panggilan, jenjang sekolah (Kelas 10, 11, 12 SMA/SMK, atau Fresh Graduate), dan email siswa (opsional).
 2. **Layar 2 — Hybrid Assessment:**
    - 8 Pertanyaan berbasis skenario konkret kehidupan sekolah & teknologi (6 dimensi RIASEC, 1 preferensi lingkungan kerja, 1 jalur rencana kelulusan).
-   - Progress bar persentase dan navigasi mudah.
+   - **Auto-Advance:** Mengklik opsi jawaban langsung menyimpan pilihan dan berpindah otomatis ke pertanyaan berikutnya.
 3. **Layar 3 — Profil Minat Siswa:**
    - Visualisasi **Radar Chart RIASEC** berbasis grafik vektor SVG murni.
-   - Penentuan Arketipe Minat (misal: *Teknolog & Problem Solver Analitis*) beserta kartu penjelasan kekuatan diri.
+   - Penentuan Arketipe Minat beserta panel **Acuan Rekomendasi & Sinkronisasi ke Robot UiPath** (mengubah skor RIASEC menjadi daftar profesi target & opsional auto-queue ke `Desire Role List.xlsx`).
 4. **Layar 4 — Dashboard Rekomendasi Terurut:**
-   - Tab 1: Pilihan Profesi diurutkan dari korelasi RIASEC tertinggi ke terendah, dilengkapi estimasi gaji awal, kebutuhan gelar, dan poin alasan transparansi (*Why Recommended*).
+   - Tab 1: Pilihan Profesi dinamis sesuai profil RIASEC & output UiPath (diurutkan tertinggi ke terendah), plus kotak **Request Profesi Baru On-Demand**.
    - Tab 2: Program Studi / Jurusan Kuliah terkait.
-   - **Show/Hide Dropdown:** Opsi dengan skor lebih rendah tetap dapat dilihat melalui tombol akordion *"▼ Lihat Opsi Lainnya"*.
-   - **Multi-Selection Checkbox:** Siswa dapat mencentang lebih dari 1 profesi dan jurusan untuk difokuskan.
+   - **Show/Hide Dropdown & Multi-Selection:** Opsi skor rendah tetap bisa dibuka di akordion, dan siswa bisa memilih lebih dari 1 profesi/jurusan.
 5. **Layar 5 — Action Plan & Handoff UiPath:**
-   - Rangkuman profesi dan jurusan yang dipilih siswa.
-   - Kotak ekspor data ke robot UiPath (Input email & download/salin CSV).
-   - Milestone rencana aksi 30/60/90 hari dan panduan diskusi dengan Guru BK.
-   - Fitur cetak ringkasan PDF.
+   - Rangkuman profesi dan jurusan pilihan siswa.
+   - Tombol **"🚀 Kirim Langsung ke Robot UiPath (Otomatis)"**, tabel **Monitor Antrean Live**, plus opsi backup CSV offline.
+   - Milestone rencana aksi 30/60/90 hari, panduan diskusi Guru BK, dan cetak ringkasan PDF.
 
 ---
 
@@ -120,8 +150,10 @@ Perintah ini akan menghasilkan folder `dist/` yang berisi file HTML, CSS, dan JS
 jourka-frontend/
 ├── index.html                   # HTML Entry point dengan styling tokens JourKa
 ├── package.json                 # Konfigurasi dependensi (React 18, Vite, Lucide Icons)
-├── vite.config.js               # Konfigurasi port dev server (port 3000)
+├── vite.config.js               # Dev server (port 3000) & Bridge API routes (/api/*, /dossiers/*)
 ├── README.md                    # Dokumentasi ini
+├── server/
+│   └── uipathBridge.js          # Pure Node.js Bridge: live scan JourKa/Output & R/W Desire Role List.xlsx
 └── src/
     ├── main.jsx                 # React root mount
     ├── App.jsx                  # Master flow state machine

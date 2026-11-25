@@ -1,24 +1,50 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 export default function Assessment({ questions, onComplete, studentName }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState({});
+  const autoAdvanceRef = useRef(null);
+
+  useEffect(() => {
+    return () => {
+      if (autoAdvanceRef.current) {
+        clearTimeout(autoAdvanceRef.current);
+      }
+    };
+  }, []);
 
   const currentQ = questions[currentIndex];
   const progressPercent = Math.round(((currentIndex + 1) / questions.length) * 100);
 
   const handleSelectOption = (option) => {
-    setAnswers(prev => ({
-      ...prev,
+    if (autoAdvanceRef.current) {
+      clearTimeout(autoAdvanceRef.current);
+    }
+
+    const updatedAnswers = {
+      ...answers,
       [currentQ.id]: {
         score: option.score !== undefined ? option.score : 0,
         value: option.value || null,
         text: option.text
       }
-    }));
+    };
+    setAnswers(updatedAnswers);
+
+    // Auto-advance directly to next question (or complete on last question) after brief visual feedback
+    autoAdvanceRef.current = setTimeout(() => {
+      if (currentIndex < questions.length - 1) {
+        setCurrentIndex(prev => prev + 1);
+      } else {
+        onComplete(updatedAnswers);
+      }
+    }, 220);
   };
 
   const handleNext = () => {
+    if (autoAdvanceRef.current) {
+      clearTimeout(autoAdvanceRef.current);
+    }
     if (currentIndex < questions.length - 1) {
       setCurrentIndex(prev => prev + 1);
     } else {
@@ -27,6 +53,9 @@ export default function Assessment({ questions, onComplete, studentName }) {
   };
 
   const handlePrev = () => {
+    if (autoAdvanceRef.current) {
+      clearTimeout(autoAdvanceRef.current);
+    }
     if (currentIndex > 0) {
       setCurrentIndex(prev => prev - 1);
     }
@@ -39,7 +68,9 @@ export default function Assessment({ questions, onComplete, studentName }) {
       {/* Progress Bar */}
       <div className="progress-header mb-3">
         <div className="d-flex justify-between align-center text-muted mb-1">
-          <span className="text-sm font-semibold">Pertanyaan {currentIndex + 1} dari {questions.length}</span>
+          <span className="text-sm font-semibold">
+            Pertanyaan {currentIndex + 1} dari {questions.length} ({studentName})
+          </span>
           <span className="text-sm">{progressPercent}% Selesai</span>
         </div>
         <div className="progress-track">
@@ -89,14 +120,19 @@ export default function Assessment({ questions, onComplete, studentName }) {
           ← Sebelumnya
         </button>
 
-        <button
-          type="button"
-          className="btn btn-primary"
-          onClick={handleNext}
-          disabled={!selectedAnswer}
-        >
-          {currentIndex === questions.length - 1 ? 'Lihat Hasil Minatku ✨' : 'Selanjutnya →'}
-        </button>
+        <span className="text-xs text-muted">
+          ⚡ Pilih salah satu jawaban untuk langsung lanjut
+        </span>
+
+        {selectedAnswer && (
+          <button
+            type="button"
+            className="btn btn-outline btn-sm"
+            onClick={handleNext}
+          >
+            {currentIndex === questions.length - 1 ? 'Lihat Hasil ✨' : 'Lanjut →'}
+          </button>
+        )}
       </div>
     </div>
   );

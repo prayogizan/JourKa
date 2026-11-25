@@ -1,30 +1,42 @@
 import React, { useState } from 'react';
 
-export default function Recommendations({ recommendations, studentInfo, onNextAction, onBackProfile, initialSelected = {} }) {
+export default function Recommendations({
+  recommendations,
+  studentInfo,
+  profile,
+  onNextAction,
+  onBackProfile,
+  initialSelected = {},
+  customRoles = [],
+  riasecQueueNotice = null,
+  onAddCustomRole,
+  onRefreshCatalog,
+  catalogSyncInfo = {}
+}) {
   const [activeTab, setActiveTab] = useState('careers');
   const [showAllRoles, setShowAllRoles] = useState(false);
   const [showAllMajors, setShowAllMajors] = useState(false);
   const [selectedRoleIds, setSelectedRoleIds] = useState(initialSelected.roleIds || []);
   const [selectedMajorIds, setSelectedMajorIds] = useState(initialSelected.majorIds || []);
-  const [previewRole, setPreviewRole] = useState(null); // Role to preview in modal
+  const [previewRole, setPreviewRole] = useState(null);
+  const [customRoleInput, setCustomRoleInput] = useState('');
 
   const { topRoles, otherRoles, topMajors, otherMajors } = recommendations;
 
   const toggleSelectRole = (roleId) => {
-    setSelectedRoleIds(prev => 
+    setSelectedRoleIds(prev =>
       prev.includes(roleId) ? prev.filter(id => id !== roleId) : [...prev, roleId]
     );
   };
 
   const toggleSelectMajor = (majorId) => {
-    setSelectedMajorIds(prev => 
+    setSelectedMajorIds(prev =>
       prev.includes(majorId) ? prev.filter(id => id !== majorId) : [...prev, majorId]
     );
   };
 
   const handleOpenDossier = (e, role) => {
     e.stopPropagation();
-    // Buka modal preview di dalam app agar sesi asesmen tidak hilang
     setPreviewRole(role);
   };
 
@@ -32,6 +44,16 @@ export default function Recommendations({ recommendations, studentInfo, onNextAc
     e.stopPropagation();
     const url = `/dossiers/${encodeURIComponent(role.dossier_html_path.split('/')[0])}/${encodeURIComponent(role.dossier_html_path.split('/')[1])}`;
     window.open(url, '_blank');
+  };
+
+  const handleCustomSubmit = (e) => {
+    e.preventDefault();
+    if (!customRoleInput.trim() || !onAddCustomRole) return;
+    const created = onAddCustomRole(customRoleInput);
+    if (created && !selectedRoleIds.includes(created.id)) {
+      setSelectedRoleIds(prev => [...prev, created.id]);
+    }
+    setCustomRoleInput('');
   };
 
   const handleProceed = () => {
@@ -42,6 +64,7 @@ export default function Recommendations({ recommendations, studentInfo, onNextAc
   };
 
   const totalSelectedCount = selectedRoleIds.length + selectedMajorIds.length;
+  const totalRolesCount = topRoles.length + otherRoles.length + customRoles.length;
 
   return (
     <div className="recommendations-container">
@@ -50,9 +73,36 @@ export default function Recommendations({ recommendations, studentInfo, onNextAc
         <div className="badge-pill mb-2">Hasil Rekomendasi Terurut RIASEC</div>
         <h2 className="title-lg">Pilihan Relevan untuk {studentInfo.name}</h2>
         <p className="text-muted max-w-lg mx-auto">
-          Rekomendasi diurutkan dari skor korelasi <strong>paling tinggi ke rendah</strong>. 
-          Kamu dapat <strong>memilih lebih dari satu opsi</strong> yang menarik untuk dimasukkan ke Rencana Aksi pribadimu.
+          Rekomendasi diurutkan dari skor korelasi <strong>paling tinggi ke rendah</strong>.
+          Kamu dapat <strong>memilih lebih dari satu opsi</strong> atau me-request profesi baru agar diriset langsung oleh Robot UiPath.
         </p>
+
+        {/* Live UiPath Sync Bar */}
+        <div className="sync-status-bar mt-3 mb-2">
+          <span className="text-xs text-muted">
+            {catalogSyncInfo.source === 'riasec-uipath-dynamic'
+              ? `🎯 Disusun dinamis dari profil RIASEC (${(profile?.topDimensions || []).join('+')}) & Output UiPath (${topRoles.length + otherRoles.length} profesi)`
+              : catalogSyncInfo.source === 'live-uipath-output'
+                ? `🤖 Katalog disinkronkan otomatis dari output Robot UiPath (${topRoles.length + otherRoles.length} profesi)`
+                : `📦 Katalog lokal (${topRoles.length + otherRoles.length} profesi)`}
+          </span>
+          {onRefreshCatalog && (
+            <button
+              type="button"
+              className="btn btn-outline btn-sm"
+              onClick={onRefreshCatalog}
+              disabled={catalogSyncInfo.syncing}
+            >
+              {catalogSyncInfo.syncing ? '⏳ Menyinkronkan...' : '🔄 Sinkronkan Output UiPath'}
+            </button>
+          )}
+        </div>
+
+        {riasecQueueNotice && (
+          <div className="feedback-banner feedback-success mt-2 text-left">
+            ✅ <strong>Sinkronisasi RIASEC → UiPath Berhasil:</strong> Rekomendasi teratas sesuai profil RIASEC-mu (<strong>{riasecQueueNotice.job}</strong>) telah otomatis dimasukkan ke antrean <code>Desire Role List.xlsx</code> untuk email <code>{riasecQueueNotice.recipientEmail}</code>!
+          </div>
+        )}
 
         {/* Tab Switcher */}
         <div className="tab-switcher mt-3">
@@ -61,7 +111,7 @@ export default function Recommendations({ recommendations, studentInfo, onNextAc
             className={`tab-btn ${activeTab === 'careers' ? 'active' : ''}`}
             onClick={() => setActiveTab('careers')}
           >
-            💼 Pilihan Profesi ({topRoles.length + otherRoles.length})
+            💼 Pilihan Profesi ({totalRolesCount})
             {selectedRoleIds.length > 0 && (
               <span className="counter-pill">{selectedRoleIds.length}</span>
             )}
@@ -82,6 +132,50 @@ export default function Recommendations({ recommendations, studentInfo, onNextAc
       {/* Tab 1: Careers */}
       {activeTab === 'careers' && (
         <div className="careers-section mb-4">
+          {/* On-Demand Custom Role Request Box */}
+          <form onSubmit={handleCustomSubmit} className="card custom-role-box mb-4">
+            <div className="d-flex justify-between align-center flex-wrap gap-2">
+              <div style={{ flex: '1 1 260px' }}>
+                <div className="font-bold text-sm text-accent">
+                  ✨ Profesi impianmu belum ada di daftar?
+                </div>
+                <div className="text-xs text-muted">
+                  Ketik nama profesi apa saja (contoh: <em>Data Scientist</em>, <em>UI/UX Designer</em>) agar Robot UiPath melakukan riset live khusus untukmu!
+                </div>
+              </div>
+              <div className="d-flex gap-2" style={{ flex: '1 1 300px' }}>
+                <input
+                  type="text"
+                  className="input-control text-sm"
+                  placeholder="Ketik profesi impianmu..."
+                  value={customRoleInput}
+                  onChange={(e) => setCustomRoleInput(e.target.value)}
+                />
+                <button
+                  type="submit"
+                  className="btn btn-primary btn-sm"
+                  disabled={!customRoleInput.trim()}
+                >
+                  + Request ke Robot
+                </button>
+              </div>
+            </div>
+          </form>
+
+          {/* Custom On-Demand Roles Requested by Student */}
+          {customRoles.length > 0 && (
+            <div className="mb-4">
+              <div className="section-label-row mb-2">
+                <span className="font-semibold text-sm text-accent">🤖 Permintaan Riset On-Demand ke Robot UiPath</span>
+              </div>
+              <div className="careers-grid">
+                {customRoles.map(role =>
+                  renderRoleCard(role, selectedRoleIds.includes(role.id), toggleSelectRole, handleOpenDossier)
+                )}
+              </div>
+            </div>
+          )}
+
           <div className="section-label-row mb-3">
             <span className="font-semibold text-sm text-accent">🌟 Rekomendasi Teratas untuk Dieksplorasi</span>
           </div>
@@ -98,7 +192,7 @@ export default function Recommendations({ recommendations, studentInfo, onNextAc
                 className="btn btn-outline btn-block show-more-toggle"
                 onClick={() => setShowAllRoles(!showAllRoles)}
               >
-                {showAllRoles 
+                {showAllRoles
                   ? `▲ Sembunyikan ${otherRoles.length} Opsi Lainnya`
                   : `▼ Lihat ${otherRoles.length} Pilihan Profesi Lainnya (Kesesuaian Lebih Rendah)`
                 }
@@ -138,7 +232,7 @@ export default function Recommendations({ recommendations, studentInfo, onNextAc
                 className="btn btn-outline btn-block show-more-toggle"
                 onClick={() => setShowAllMajors(!showAllMajors)}
               >
-                {showAllMajors 
+                {showAllMajors
                   ? `▲ Sembunyikan ${otherMajors.length} Jurusan Lainnya`
                   : `▼ Lihat ${otherMajors.length} Program Studi Lainnya (Kesesuaian Lebih Rendah)`
                 }
@@ -168,16 +262,16 @@ export default function Recommendations({ recommendations, studentInfo, onNextAc
 
           <div className="text-center">
             <span className="font-bold text-sm text-accent">
-              {totalSelectedCount > 0 
+              {totalSelectedCount > 0
                 ? `✓ ${selectedRoleIds.length} Profesi & ${selectedMajorIds.length} Jurusan Dipilih`
                 : 'Pilih minimal 1 profesi/jurusan yang kamu sukai'
               }
             </span>
           </div>
 
-          <button 
-            type="button" 
-            className="btn btn-primary" 
+          <button
+            type="button"
+            className="btn btn-primary"
             onClick={handleProceed}
             disabled={totalSelectedCount === 0}
           >
@@ -235,25 +329,29 @@ export default function Recommendations({ recommendations, studentInfo, onNextAc
 
 function renderRoleCard(role, isSelected, onToggle, onOpenDossier, isLowerRank = false) {
   return (
-    <div 
-      key={role.id} 
+    <div
+      key={role.id}
       className={`card role-card ${isSelected ? 'selected-card' : ''} ${isLowerRank ? 'lower-rank-card' : ''}`}
       onClick={() => onToggle(role.id)}
     >
       <div className="d-flex justify-between align-center mb-2">
         <div className="d-flex align-center gap-2">
-          <input 
-            type="checkbox" 
-            className="card-checkbox" 
-            checked={isSelected} 
-            onChange={() => onToggle(role.id)} 
+          <input
+            type="checkbox"
+            className="card-checkbox"
+            checked={isSelected}
+            onChange={() => onToggle(role.id)}
             onClick={(e) => e.stopPropagation()}
           />
           <h3 className="role-title">{role.title}</h3>
         </div>
-        <span className={`match-badge ${isLowerRank ? 'match-neutral' : ''}`}>
-          {role.matchScore}% Relevan
-        </span>
+        {role.isCustomRequest ? (
+          <span className="match-badge">🤖 On-Demand</span>
+        ) : (
+          <span className={`match-badge ${isLowerRank ? 'match-neutral' : ''}`}>
+            {role.matchScore}% Relevan
+          </span>
+        )}
       </div>
 
       <p className="role-desc mb-3">{role.brief_desc}</p>
@@ -285,13 +383,19 @@ function renderRoleCard(role, isSelected, onToggle, onOpenDossier, isLowerRank =
           Pilihan Anda: <strong>{isSelected ? '✓ Terpilih' : 'Klik kartu untuk memilih'}</strong>
         </span>
 
-        <button
-          type="button"
-          className="btn btn-secondary btn-sm"
-          onClick={(e) => onOpenDossier(e, role)}
-        >
-          📖 Buka Dossier Lengkap
-        </button>
+        {role.dossier_available !== false ? (
+          <button
+            type="button"
+            className="btn btn-secondary btn-sm"
+            onClick={(e) => onOpenDossier(e, role)}
+          >
+            📖 Buka Dossier Lengkap
+          </button>
+        ) : (
+          <span className="text-xs text-accent font-semibold">
+            ⏳ Menunggu Riset Robot UiPath
+          </span>
+        )}
       </div>
     </div>
   );
@@ -299,34 +403,34 @@ function renderRoleCard(role, isSelected, onToggle, onOpenDossier, isLowerRank =
 
 function renderMajorCard(major, isSelected, onToggle, isLowerRank = false) {
   return (
-    <div 
-      key={major.id} 
+    <div
+      key={major.id}
       className={`card major-card ${isSelected ? 'selected-card' : ''} ${isLowerRank ? 'lower-rank-card' : ''}`}
       onClick={() => onToggle(major.id)}
     >
       <div className="d-flex justify-between align-center mb-2">
         <div className="d-flex align-center gap-2">
-          <input 
-            type="checkbox" 
-            className="card-checkbox" 
-            checked={isSelected} 
+          <input
+            type="checkbox"
+            className="card-checkbox"
+            checked={isSelected}
             onChange={() => onToggle(major.id)}
             onClick={(e) => e.stopPropagation()}
           />
           <div>
-            <span className="badge-pill text-xs mb-1">{major.type}</span>
             <h3 className="major-title">{major.name}</h3>
+            <span className="text-xs text-muted">{major.type}</span>
           </div>
         </div>
-        <span className={`match-badge ${isLowerRank ? 'match-neutral' : 'match-emerald'}`}>
-          {major.matchScore}% Kesesuaian
+        <span className={`match-badge ${isLowerRank ? 'match-neutral' : ''}`}>
+          {major.matchScore}% Cocok
         </span>
       </div>
 
-      <p className="major-desc mb-3">{major.description}</p>
+      <p className="text-sm text-muted mb-3">{major.description}</p>
 
       <div className="mb-3">
-        <div className="meta-label mb-1">Mata Kuliah & Kompetensi Utama:</div>
+        <div className="text-xs font-semibold text-muted mb-1">Mata Kuliah Inti:</div>
         <div className="tags-cloud">
           {major.key_subjects.map((sub, sIdx) => (
             <span key={`sub-${sIdx}`} className="tag-pill">{sub}</span>
@@ -334,9 +438,13 @@ function renderMajorCard(major, isSelected, onToggle, isLowerRank = false) {
         </div>
       </div>
 
-      <div className="d-flex justify-between align-center pt-2 border-top text-xs text-muted">
-        <span>Koneksi Karier: <strong>{major.career_links.join(' · ')}</strong></span>
-        <span>{isSelected ? '✓ Terpilih' : 'Klik untuk memilih'}</span>
+      <div className="pt-2 border-top d-flex justify-between align-center">
+        <div className="text-xs text-muted">
+          Prospek: <strong>{major.career_links.join(', ')}</strong>
+        </div>
+        <span className="text-xs text-accent font-semibold">
+          {isSelected ? '✓ Terpilih' : '+ Pilih'}
+        </span>
       </div>
     </div>
   );
