@@ -1,6 +1,6 @@
-# JourKa (Journey Merdeka) — Automated Career Intelligence & Bilingual Role Dossier RPA
+# JourKa (Journey Karya) — Automated Career Intelligence & Bilingual Role Dossier RPA
 
-> **Journey Merdeka (`JourKa`)** — An end-to-end **UiPath Studio** RPA process that transforms a list of target entry-level roles into evidence-backed **English (`EN`)** and **Bahasa Indonesia (`ID`)** **Markdown (`.md`)**, **styled HTML (`.html`)**, and **publication-ready PDF (`.pdf`)** career dossiers using live job-board scraping, verified abroad visa-sponsored job filtering, YouTube daily-routine extraction, and Google AI Studio (`gemini-3.5-flash`).
+> **Journey Karya (`JourKa`)** — An end-to-end **UiPath Studio** RPA process that transforms a list of target entry-level roles into evidence-backed **English (`EN`)** and **Bahasa Indonesia (`ID`)** **Markdown (`.md`)**, **styled HTML (`.html`)**, and **publication-ready PDF (`.pdf`)** career dossiers using live job-board scraping, verified abroad visa-sponsored job filtering, YouTube daily-routine extraction, and Google AI Studio (`gemini-3.5-flash`).
 
 ---
 
@@ -66,7 +66,7 @@ flowchart TD
 
 | Property | Value |
 |---|---|
-| **Project Name** | `JourKa` (*Journey Merdeka*) |
+| **Project Name** | `JourKa` (*Journey Karya*) |
 | **Output Type** | `Process` |
 | **Studio Version** | `26.10.0` |
 | **Target Framework** | `Windows` (`.NET 10.0`) |
