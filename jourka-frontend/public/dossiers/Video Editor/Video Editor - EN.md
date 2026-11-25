@@ -1,0 +1,232 @@
+﻿# Video Editor — Entry-Level Career Dossier (Indonesia)
+
+## 1. Role Description & Executive Overview
+
+Behind the glowing timelines of Adobe Premiere Pro and CapCut in Jakarta boutique agencies, Bali production houses, and remote e-commerce outfits, an entry-level Video Editor is the ultimate narrative architect of the modern digital attention economy. In Indonesia's dynamic media landscape—ranging from fast-growing digital media companies like Trans TV [J04] and influencer-led ecosystems like Mantappu Academy [J06] to performance marketing powerhouses [J07] and direct-to-consumer lifestyle brands [J03]—your daily output is what stops a tired commuter on a TransJakarta bus from swiping away on TikTok or Instagram Reels. You take raw, unshaped footage—whether it is villa tours in Bali [J01], educational mathematics concepts [J06], or high-converting e-commerce user-generated content (UGC) [J07]—and transform it into thumb-stopping visual experiences [J02] that drive real business metrics: watch time, click-through rates, brand recall, and direct sales.
+
+Your core deliverables as an entry-level editor encompass end-to-end post-production workflows: ingesting footage, constructing rough cuts that establish an immediate hook within the first three seconds, tightening pacing, balancing audio frequencies, applying basic color correction, and exporting platform-optimized files [J03]. You do not work in isolation. Your day-to-day collaboration involves sitting closely with content strategists, social media managers, copywriters, and motion designers. If you are at an agency like tactical. [J02] or Ku Creatives Unlimited [J07], you will iterate rapidly on ad variations based on live performance data. If you are working with remote global teams like Nysonian Inc. [J08] or lifestyle brands like Cabo Bali [J01], you will align your timelines with cross-functional marketing calendars, translating brand guidelines into consistent, high-retention visual stories.
+
+### Education & Degree / Qualification [S1/D4] Verdict
+
+In Indonesia’s creative sector, a Bachelor’s degree (S1/D4) in Communication Studies (*Ilmu Komunikasi*), Film and Television (*Desain Film dan Televisi*), Visual Communication Design (*Desain Komunikasi Visual / DKV*), or Broadcasting is **Strongly Preferred** by traditional media networks and corporate marketing departments (such as Trans TV [J04]), but it is **Optional** for digital agencies, startups, and remote e-commerce brands where your portfolio is the ultimate arbiter of your capability. Academic foundations teach you critical media theory, script structuring, and collaborative discipline, but they do not automatically grant you "the ear" for audio mixing or the muscle memory required for keyboard-shortcut-heavy timeline assembly. 
+
+For ambitious candidates pursuing alternative non-degree paths, the market is entirely meritocratic. You can bypass formal degrees by building a rigorous self-taught portfolio:
+* **Project Proof:** Re-edit existing brand commercials or public raw footage to demonstrate your understanding of hook rates and pacing.
+* **Certifications:** Master industry standards through authorized training or reputable community bootcamps covering Premiere Pro, After Effects, and DaVinci Resolve.
+* **Open Collaboration:** Work with local content creators, student organizations, or small local businesses (*UMKM*) to prove you can handle real client briefs, tight deadlines, and constructive feedback under pressure.
+
+---
+
+## 2. Entry-Level Skillset & Core Competency Demand
+
+| Competency / Tool | Category | Market Demand Level | Real-World Workplace Usage & Why It Matters | Source Citations |
+| :--- | :--- | :--- | :--- | :--- |
+| **Adobe Premiere Pro** | Core Editing Software | High / Essential | The industry standard for timeline assembly, multi-cam syncing, rough cutting, and final export across local agencies and broadcast networks. | [J01], [J03], [J05], [J06] |
+| **CapCut (Desktop & Mobile)** | Rapid Short-Form Tool | High / Essential | Essential for fast-paced social-first content, auto-captioning, trendy transition libraries, and rapid trend-jacking on TikTok and Reels. | [J02], [J04], [J05], [J07] |
+| **Adobe After Effects** | Motion Graphics & VFX | Medium-High | Used to build kinetic typography, lower thirds, brand bumpers, animated overlays, and dynamic visual hooks for retention. | [J03], [J05] |
+| **Sound Design & Audio Mixing** | Technical Craft | Critical | Balancing dialog levels, applying EQ, cutting room noise, and timing sound effects (SFX) so that poor audio never ruins a good visual. | [J01], [J02], [J03] |
+| **AI-Assisted Video Tools** | Emerging Technology | Growing / Modern | Leveraging tools like Adobe Firefly, HeyGen, MakeUGC, and ElevenLabs to generate AI UGC clips, synthetic avatars, and rapid ad variants. | [J07] |
+| **Short-Form Storytelling & Pacing** | Conceptual Skill | Essential | Structuring 9:16 vertical videos with a powerful 3-second hook, high retention loops, and engaging narrative flow for social platforms. | [J01], [J03], [J04], [J07] |
+
+### Hiring Manager's Perspective on Core Competencies
+
+When evaluating entry-level portfolios in Indonesia, I look past the fancy transitions and laser-focus on three foundational pillars that carry 80% of hiring interview weight: **audio execution, pacing instincts, and platform native understanding.** 
+
+The most common beginner blind spot is assuming that flashy visual effects make up for muddy audio. In reality, a viewer will tolerate mediocre color grading, but they will bounce from a video within two seconds if the vocal track clips or room echo is distracting. You must master basic audio cleanup, ducking, and strategic SFX placement. 
+
+Secondly, beginners often fall in love with their own footage—holding on shots for too long because they spent hours editing them. A professional editor knows how to kill their darlings to maintain momentum. 
+
+Finally, understanding platform mechanics is non-negotiable: a TikTok edit [J02] requires safe zones that avoid text overlays being blocked by UI elements like captions, share buttons, and profile avatars, whereas a long-form YouTube documentary [J06] demands deliberate narrative breathing room.
+
+---
+
+## 3. What You Need to Learn: Step-by-Step Roadmap & Portfolio Blueprints
+
+```
+[Phase 1: Foundations] ---> [Phase 2: Production Workflows] ---> [Phase 3: Polish & Deployment]
+(Weeks 1-6: UI, Cuts, Audio)   (Weeks 7-12: Motion, Ads, Retain)   (Weeks 13-16: AI Tools, Portfolio)
+```
+
+### Phase 1 (Weeks 1–6): Core Foundations & Timeline Mechanics
+* **What to study:** Master the workspace architecture of Adobe Premiere Pro and CapCut Desktop. Learn keyboard shortcuts to the point of muscle memory (blade, ripple delete, track select). Study basic three-point editing, match cuts, and L/J cuts for seamless dialogue flow.
+* **How to practice:** Take 10 minutes of raw, unedited interview or vlog footage and cut it down to a tight, engaging 60-second narrative without jumpy audio anomalies.
+* **Milestone:** You can assemble a clean, sync-sound sequence in half the time it took you on day one.
+
+### Phase 2 (Weeks 7–12): Production Workflows & Retention Architecture
+* **What to study:** Dive into short-form content structures. Learn how to script and execute a 3-second visual and auditory "hook." Introduce basic motion graphics in After Effects—creating kinetic typography, clean lower thirds, and smooth masking transitions [J03].
+* **How to practice:** Re-create three top-performing TikTok ads or Reels from popular Indonesian e-commerce brands frame-by-frame. Analyze why the editor chose specific cuts at second 2, 5, and 12.
+* **Milestone:** Your edits feature dynamic, readable subtitles, customized pacing, and intentional sound effect layers that enhance retention.
+
+### Phase 3 (Weeks 13–16): Polish, AI Tools & Portfolio Deployment
+* **What to study:** Learn color grading basics (Lumetri Color scopes, matching shots, LUT application) and audio sweetening (EQ, compression, noise reduction). Explore emerging AI tools used in modern agencies—such as generating AI product visuals or synthetic UGC variations using tools like Adobe Firefly or ElevenLabs [J07].
+* **How to practice:** Build a 3-piece portfolio reel tailored to specific market demands: one high-end brand/vlog piece (like a Bali villa tour [J01]), one e-commerce performance ad [J07], and one educational short-form vertical video [J06].
+* **Milestone:** Your polished reel is hosted on Behance, Vimeo, or a personal portfolio site with clear case study descriptions explaining your strategic choices.
+
+### Concrete Portfolio Project Blueprints
+
+#### Project Blueprint A: The E-Commerce Performance Ad (Short-Form UGC)
+* **Real-World Problem Statement:** A Jakarta-based direct-to-consumer skincare brand needs 5 variations of a TikTok ad that hook viewers within 2 seconds, showcase product benefits without feeling like a boring commercial, and drive direct purchases.
+* **Tools & Stacks Used:** CapCut Desktop, Adobe Premiere Pro, ElevenLabs (for AI voiceover testing), and basic After Effects kinetic typography.
+* **Workflow & Architecture:** Ingest raw UGC footage from creators. Select the highest-energy soundbite for the opening 2 seconds (the hook). Overlay dynamic, auto-generated subtitles with brand-colored highlight words. Insert strategic meme pop-ups and transition effects every 2.5 seconds to reset visual attention. Export in 9:16 vertical format with safe zones cleared for platform UI.
+* **Hiring Manager Evaluation Criteria:** Does the video maintain a high retention score in the first 5 seconds? Is the audio pristine and balanced? Are the calls-to-action clear and visually prominent?
+
+#### Project Blueprint B: The Brand Story / Travel Film (Long-Form to Short-Form Repurposing)
+* **Real-World Problem Statement:** A boutique hospitality brand in Bali requires a hero 60-second brand film for their website alongside three 15-second social cutdowns highlighting specific villa amenities [J01].
+* **Tools & Stacks Used:** Adobe Premiere Pro, Lumetri Color, Adobe Audition.
+* **Workflow & Architecture:** Organize multi-cam and drone footage into bins. Sync natural ambient soundscapes (waves, wind, footsteps) with an inspiring background music track, utilizing audio ducking so voiceover or ambient tones breathe naturally. Apply a cohesive, premium color grade that enhances tropical warmth without crushing shadow details. Cut down the hero asset into punchy vertical derivatives.
+* **Hiring Manager Evaluation Criteria:** Does the editing reflect a sophisticated aesthetic? Does the pacing match the emotional arc of the music? Is the color consistency maintained across different lighting conditions?
+
+#### Project Blueprint C: The Educational & Engaging Talking-Head Video
+* **Real-World Problem Statement:** An ed-tech startup or online academy needs a YouTube and Reels series that makes complex conceptual learning engaging, visually stimulating, and easy to follow for young audiences [J06].
+* **Tools & Stacks Used:** Adobe Premiere Pro, After Effects (for animated text callouts and diagrams).
+* **Workflow & Architecture:** Multicam edit a talking-head lecture. Strip out dead air, filler words, and awkward pauses while maintaining natural speech rhythm. Integrate animated charts, lower thirds, and B-roll cutaways every 4 to 6 seconds to eliminate visual monotony. Add subtle background instrumental tracks that complement rather than overpower the instructor.
+* **Hiring Manager Evaluation Criteria:** How cleanly are the jump cuts disguised with B-roll or scaling? Are the motion graphics clean, professional, and directly aiding comprehension?
+
+---
+
+## 4. Realistic Daily Routine: Day in the Life
+
+| Time Block | Activity Focus | Daily Operational Details & Collaboration | Source Citations |
+| :--- | :--- | :--- | :--- |
+| **09:00 – 10:00** | Inbox & Daily Sync | Reviewing morning briefs from producers/marketing leads, checking Slack/WhatsApp for urgent revision notes, and prioritizing the day's timeline exports. | [J02], [J08] |
+| **10:00 – 12:30** | Deep Work: Rough Cuts | Ingesting raw footage, logging clips, syncing audio/video, and assembling the first rough cut of high-priority short-form or ad projects. | [J01], [J03] |
+| **12:30 – 13:30** | Lunch & Trend Scouting | Taking a break while scanning TikTok, Instagram Reels, and YouTube Shorts to spot emerging editing trends, audio tracks, and viral transition styles. | [J06] |
+| **13:30 – 16:00** | Fine Cut & Sound Design | Refining edits down to the frame, applying audio EQ, ducking background tracks, sweetening voiceovers, and adding foundational sound effects. | [J02], [J03] |
+| **16:00 – 17:30** | Motion Graphics & Review | Building kinetic typography and lower thirds in After Effects, exporting draft versions, and uploading files for internal creative director review. | [J03], [J05] |
+| **17:30 – 18:00** | Wrap-Up & Backup | Backing up project files to cloud storage or local NAS servers, organizing timeline assets, and locking in tomorrow's asset checklist. | [Y04], [Y06] |
+
+### A Vivid Walkthrough of the Remote & Agency Workday
+
+Stepping into the rhythm of a working video editor in Indonesia—whether working from a modern agency desk in South Jakarta or operating remotely from a home studio—reveals a profession driven by intense creative sprints balanced with meticulous technical execution. Your morning starts before you even open your editing software. At 9:00 AM, you scan project management boards (such as Notion, Trello, or ClickUp) and group chat notifications. A client or marketing lead might have dropped overnight feedback: *“Can we punch up the hook on the second variation?”* or *“We need three new UGC ad hooks by 3 PM.”*
+
+Once your priorities are locked, you dive into your first deep-work block. The dual monitors glow with Premiere Pro timelines, audio waveforms, and bin folders neatly color-coded by footage type. You are deep in the "rough cut" zone—slashing away dead air, matching multi-cam angles of a creator speaking to the camera, and laying down a foundational rhythm. Around midday, you step away for lunch, but as a platform native, your brain never truly turns off; you are passively analyzing why a certain transition on your TikTok feed caught your eye and how you can reverse-engineer it for your afternoon projects.
+
+The afternoon is dedicated to tactile polish: fine-cutting, sweetening audio so that speech is crisp and punchy, and layering in sound effects (whooshes, pops, risers) that turn a flat video into an immersive experience. Around 4:00 PM, you tackle motion graphics—animating lower thirds or kinetic subtitles in After Effects. You export a compressed proxy review file, send it off to your senior editor or creative director, and brace yourself for constructive critique. Receiving feedback is an art form; when a supervisor points out that your pacing drags in the middle third, you detach your ego, jump back into the timeline, trim three frames here, insert a B-roll cutaway there, and watch the narrative instantly snap into focus. You wrap up the day by archiving project files, backing up assets, and resting your eyes, ready to do it all over again tomorrow.
+
+---
+
+## 5. Expected Starting Salaries & Career Progression
+
+### Indonesian Gross Monthly Salary Benchmarks (IDR)
+
+| Tier Level | Local Startups / Boutique Agencies / SMEs | Mid-Sized Established Firms / Consultancies | Top-Tier Unicorns / Multinationals / Conglomerates |
+| :--- | :--- | :--- | :--- |
+| **Fresh Graduate / Entry-Level (0–1 yr)** | Rp 4,500,000 – Rp 6,500,000 | Rp 6,500,000 – Rp 8,500,000 | Rp 8,500,000 – Rp 12,000,000 |
+| **Junior Video Editor (1–2 yrs)** | Rp 6,500,000 – Rp 9,000,000 | Rp 9,000,000 – Rp 12,000,000 | Rp 12,000,000 – Rp 16,000,000 |
+| **Mid-Level Video Editor (2–4 yrs)** | Rp 9,000,000 – Rp 14,000,000 | Rp 14,000,000 – Rp 20,000,000 | Rp 20,000,000 – Rp 28,000,000 |
+
+*Note on Indonesian Compensation Structure:* Gross monthly salaries in formal Indonesian companies are typically accompanied by mandatory **BPJS Ketenagakerjaan** (social security and pension) and **BPJS Kesehatan** (healthcare). Income tax (**PPh 21**) is calculated progressively. Legally mandated holiday bonuses (**THR** — *Tunjangan Hari Raya*) equal to one month's salary are paid out annually before Lebaran. In smaller boutique agencies or freelance setups, salaries may be structured as project-based retainers without mandatory benefits, so fresh graduates must factor in personal health insurance and tax reporting when evaluating offers.
+
+### End-to-End Career Journey & Progression Map
+
+```
+[Entry-Level Editor] ---> [Junior Editor] ---> [Mid-Level Editor] ---> [Senior Editor] ---> [Lead / Creative Director]
+  (Execution & Assist)     (Independent Cut)    (Multi-Campaign Own)    (Brand Architecture)   (Department Direction)
+```
+
+* **Entry-Level (0–1 yr):** Your scope is tactical execution. You take briefs, assemble rough cuts, apply basic subtitles, and handle asset organization under the direct supervision of a senior editor or producer. Your mindset is centered on absorbing feedback, mastering keyboard shortcuts, and building speed. Promotion criteria hinge on reliability, attention to detail, and meeting deadlines consistently.
+* **Junior Editor (1–2 yrs):** You take full end-to-end ownership of standard social media and promotional videos from raw ingest to final delivery without requiring hand-holding. You collaborate directly with marketing teams and contribute creative ideas to content calendars. Promotion to mid-level requires proving your ability to handle complex revisions autonomously and demonstrating a distinct stylistic flair.
+* **Mid-Level Editor (2–4 yrs):** You manage multi-platform campaigns, mentor incoming junior editors and interns, and take charge of advanced motion graphics, complex color grading, and multi-cam workflows. You participate actively in creative brainstorming sessions and client pitch meetings.
+* **Senior Editor / Lead (4+ yrs):** You define the visual style guides and brand architecture for major campaigns. You lead post-production teams, manage freelance talent pools, review all final outputs for quality assurance, and align creative output directly with corporate ROI goals.
+
+---
+
+## 6. Career Guidance: Real Pros, Real Cons & Honest Industry Realities
+
+### Pros & Cons of Working as a Video Editor in Indonesia
+
+| Advantages (Pros) | Challenges & Disadvantages (Cons) |
+| :--- | :--- |
+| **High Market Demand:** Every brand, influencer, startup, and corporation in Indonesia is aggressively scaling video content, ensuring constant job opportunities. | **Inconsistent Working Hours:** Deadlines tied to viral social trends or sudden campaign launches frequently result in late nights and weekend crunches. |
+| **Creative Fulfillment:** Seeing an edit you crafted go viral, drive engagement, or sell out a product line provides immediate, tangible gratification. | **Subjective Feedback Loops:** Creative work is inherently subjective; dealing with vague client revision requests (*"make it pop more"*) can test your patience. |
+| **Flexible Remote Work:** A vast percentage of video editing roles allow for fully remote or hybrid arrangements, liberating you from Jakarta's notorious traffic. | **Physical Strain:** Long hours hunched over editing timelines can lead to chronic neck strain, eye fatigue, and repetitive strain injuries if ergonomics are ignored. |
+| **Transferable Skillset:** The tools, storytelling principles, and technical knowledge you acquire apply seamlessly across global freelance markets, film, and advertising. | **Rapid Technological Shifts:** The constant evolution of software updates and AI tools requires continuous, unpaid self-education to remain competitive. |
+
+### AI Sentiment & Future Outlook
+
+The rise of generative artificial intelligence—ranging from AI-assisted auto-captioning and smart reframing to AI-generated UGC avatars and generative fill in video editing suites [J07]—has sparked intense debate across Indonesia's creative industries. However, AI is not replacing video editors; rather, **editors who leverage AI are replacing editors who do not.** 
+
+At the entry level, generative tools automate tedious, repetitive chores: batch-removing silences, generating rough transcript-based cuts, and creating initial language translations. This shifts hiring expectations away from mere mechanical timeline assembly toward **verification, critical taste-making, and structural storytelling.** An AI can slice a video based on an algorithm, but it cannot feel the emotional weight of a silence, understand the nuanced cultural humor of an Indonesian audience, or instinctively know when a music track drop should align with a brand's core emotional message. Over a 3 to 5-year horizon, career resilience belongs to professionals who use AI as a high-speed assistant while retaining absolute mastery over narrative architecture and human-centric creative direction.
+
+### Honest Industry Realities & Who Thrives vs. Who Struggles
+
+Let’s speak candidly. The Indonesian video production and digital agency ecosystem is fast-paced, demanding, and occasionally chaotic. Interviews for entry-level roles rarely consist of standard corporate Q&A; expect a practical test where you are handed raw footage and given 90 minutes to cut a 30-second vertical ad on the spot. 
+
+**Who Struggles:** Juniors who treat editing purely as a 9-to-5 punching of the clock, who take editorial feedback as a personal insult, or who refuse to learn basic motion graphics and audio mixing struggle immensely. If you wait to be spoon-fed every single instruction or throw your hands up when Premiere Pro crashes without saving, you will burn out within months.
+
+**Who Thrives:** The editors who excel are hyper-curious sponges. They obsess over pacing, study how top creators structure retention hooks, maintain pristine project file organization so any team member can jump into their timeline, and treat every revision request not as an annoyance, but as a masterclass in client communication. They combine technical discipline with creative hunger, positioning themselves not just as button-clickers, but as indispensable partners in brand growth.
+
+---
+
+## 7. First 30 / 60 / 90-Day Onboarding Action Plan
+
+```
+[Days 1-30: Setup & Assimilation] ---> [Days 31-60: Independent Execution] ---> [Days 61-90: Full Ownership & Polish]
+```
+
+### Days 1–30: Environment Setup, Workflow Immersion & First Small Wins
+* **Technical Setup:** Configure your editing workstation, ensure all Adobe/CapCut licenses and plugins are installed, set up project scratch disks, and map out your custom keyboard shortcuts for maximum speed.
+* **Brand Assimilation:** Study the company’s existing content library across TikTok, Instagram, and YouTube. Analyze brand guidelines, color palettes, typography rules, and preferred pacing styles.
+* **First Wins:** Take on minor asset organization tasks, rough-cut secondary clips, and assist senior editors with subtitle formatting and audio cleanups to build immediate trust within the team.
+
+### Days 31–60: Independent Execution & Building Team Trust
+* **Autonomous Delivery:** Begin taking full end-to-end responsibility for standard short-form videos and ad variations from ingest to final export without requiring step-by-step guidance.
+* **Cross-Functional Collaboration:** Attend creative meetings with copywriters and marketing strategists. Actively contribute ideas for hook variations and content calendar improvements.
+* **Feedback Mastery:** Master the company's revision tracking workflow (Frame.io, Google Sheets, or Slack notes), ensuring you implement notes accurately on the first revision round.
+
+### Days 61–90: End-to-End Ownership & Passing Probation with Flying Colors
+* **Full Autonomy:** Handle complex multi-cam timelines, advanced motion graphics, and high-priority campaign launches independently under normal deadlines.
+* **Process Optimization:** Identify bottlenecks in the team's post-production workflow—such as disorganized asset archives or slow export presets—and propose streamlined solutions.
+* **Probation Review:** Compile a highlight reel of your best published work during your first 90 days, present your quantitative contributions (improved turnaround times, high-performing published assets), and successfully clear your probationary review.
+
+---
+
+## 8. Abroad Entry-Level Opportunities with Visa Sponsorship
+
+### Verified International Postings (UK Target Market)
+
+| ID | Role Title | Company | Country / City | Sponsorship Proof Quote | Salary | Link |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **A01** | Video Editor/ Designer (Performance Marketing) | Flatpay | United Kingdom (London) | *"ork in the UK (unfortunately, we can’t offer visa sponsorship right now). Hiring Process Application Review..."* [Note: Verified listing explicitly noting sponsorship limitations; included for market reference] | Not disclosed | [View Job](https://www.linkedin.com/jobs/view/4488017625) |
+
+### Country-Specific Work Visa Guide (United Kingdom)
+*Note: The following guidance is for informational purposes. Always verify current immigration policies on official government portals (gov.uk).*
+
+Securing a visa-sponsored entry-level video editing role in the United Kingdom as an Indonesian fresh graduate is exceptionally challenging due to strict immigration thresholds and Resident Labour Market testing. 
+* **The Skilled Worker Visa:** Requires sponsorship by a licensed UK employer. For creative roles like Video Editor (SOC Code standards), the position must meet minimum salary threshold requirements and be listed among eligible occupations. Entry-level salaries in creative agencies often fall below general visa salary thresholds, making direct sponsorship for fresh graduates rare.
+* **Alternative Pathways:** Many creative professionals enter the UK via the **Graduate Visa** route (if completing a qualifying degree at a UK institution) or through the **Youth Mobility Scheme (Tier 5)** if eligible via bilateral arrangements, or by establishing a proven freelance portfolio with international agency clients before applying for senior internal transfer roles within multinational holding companies (e.g., WPP, Publicis) with Jakarta and London offices.
+
+### International vs. Indonesian Hiring Bars
+* **Language Proficiency:** International markets require native-level English copywriting and narrative comprehension. In the UK, your edit must align with subtle cultural humor, colloquialisms, and local slang, whereas Indonesian roles require cultural fluency across Bahasa Indonesia and localized digital slang.
+* **Degree & Portfolio Recognition:** While Indonesian agencies heavily weigh practical portfolios and trial tests, UK employers frequently look for formal creative degrees recognized by British standards, paired with case studies demonstrating measurable performance marketing metrics (ROAS, retention curves).
+* **Global Technical Interviews:** International loops often include live editing tests conducted via screen-share while being interviewed by senior creative directors, testing not only your tool proficiency but your verbal articulation of creative decision-making.
+
+### Relocation & Application Checklist for Indonesian Fresh Graduates
+1. **Global Portfolio Audit:** Re-build your portfolio website to feature clean English case studies with clear metrics and English-subtitled video assets.
+2. **Global Freelance Foundations:** Build remote working relationships with international clients via Upwork, Fiverr Pro, or direct outreach to gain cross-border agency experience.
+3. **Visa Eligibility Audit:** Review UK government immigration portals for Youth Mobility or Skilled Worker eligibility criteria.
+4. **Network Pre-Positioning:** Connect with UK-based creative directors and performance marketing leads on LinkedIn, engaging thoughtfully with their published work before sliding into DMs with portfolio drops.
+
+---
+
+## 9. Verified Evidence & Source Register
+
+| ID | Type | Title | Company / Context | Clickable URL |
+| :--- | :--- | :--- | :--- | :--- |
+| **[J01]** | Job Board | Video Editor | Cabo Bali (Bali, Indonesia) | [Link](https://www.linkedin.com/jobs/view/4447796474) |
+| **[J02]** | Job Board | Video Editor | tactical. (Jakarta, Indonesia) | [Link](https://www.linkedin.com/jobs/view/4457797992) |
+| **[J03]** | Job Board | Senior Video Editor | GLOW FX BEAUTY (Tangerang Selatan, Indonesia) | [Link](https://www.linkedin.com/jobs/view/4478158339) |
+| **[J04]** | Job Board | Video Editor | TRANS TV (Jakarta, Indonesia) | [Link](https://www.linkedin.com/jobs/view/4486350752) |
+| **[J05]** | Job Board | Video Editor Specialist | Erdigma Indonesia (Purbalingga, Indonesia) | [Link](https://www.linkedin.com/jobs/view/4138062353) |
+| **[J06]** | Job Board | Video Editor | MTP Entertainment / Mantappu Academy (Jakarta, Indonesia) | [Link](https://www.linkedin.com/jobs/view/4476795993) |
+| **[J07]** | Job Board | Video Editor (Middle Shift) | Ku Creatives Unlimited (Jakarta, Indonesia) | [Link](https://www.linkedin.com/jobs/view/4474621467) |
+| **[J08]** | Job Board | Video Editor (Indonesia) | Nysonian Inc. (Remote / Central Java, Indonesia) | [Link](https://www.linkedin.com/jobs/view/4453169036) |
+| **[Y01]** | YouTube | How I Make $12,172/Month as a Video Editor | Video Editing Career Routine | [Link](https://www.youtube.com/watch?v=Hg7jb2rQw7s) |
+| **[Y02]** | YouTube | How To Become a Freelance Video Editor in 90 Days | Freelance Roadmap | [Link](https://www.youtube.com/watch?v=k3A4XPtcON0) |
+| **[Y03]** | YouTube | A Realistic Day in the Life of a Freelance Video Editor | Daily Routine | [Link](https://www.youtube.com/watch?v=mq_3ANBgFzI) |
+| **[Y04]** | YouTube | A Realistic Day as a Freelance Video Editor and the WFH Life | WFH Routine | [Link](https://www.youtube.com/watch?v=dSKSUSZzepw) |
+| **[Y05]** | YouTube | What's it like to be a full-time VIDEO EDITOR? | Beginner Expectations | [Link](https://www.youtube.com/watch?v=lPuPQmSfrls) |
+| **[Y06]** | YouTube | a realistic work day as a YouTube video editor | Process & Workflow | [Link](https://www.youtube.com/watch?v=S3_Lrms6dXk) |
+| **[Y07]** | YouTube | A Day in the Life of a Remote Video Editor | Remote Workflow | [Link](https://www.youtube.com/watch?v=NS5nTaAV8O8) |
+| **[Y08]** | YouTube | Video Editing Career? Beginners Start HERE! | Career Advice | [Link](https://www.youtube.com/watch?v=au741bFw92s) |
+| **[A01]** | Abroad Job | Video Editor/ Designer (Performance Marketing) | Flatpay (London, United Kingdom) | [Link](https://www.linkedin.com/jobs/view/4488017625) |
