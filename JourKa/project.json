@@ -1,7 +1,7 @@
 {
   "name": "JourKa",
   "projectId": "917bd9a7-408d-4734-97a7-61275efaa497",
-  "description": "Journey of \"Kita\"",
+  "description": "Journey Karya",
   "main": "Main.xaml",
   "dependencies": {
     "UiPath.Excel.Activities": "[3.6.1]",
@@ -42,7 +42,36 @@
     "processOptions": {
       "ignoredFiles": []
     },
-    "fileInfoCollection": [],
+    "fileInfoCollection": [
+      {
+        "editingStatus": "InProgress",
+        "testCaseId": "c1840d2e-9a4a-4f86-9e77-2b5a8e0e6f01",
+        "testCaseType": "TestCase",
+        "executionTemplateInvokeIsolated": false,
+        "fileName": "Tests\\Test_AC03_SchemaEnforcement.xaml"
+      },
+      {
+        "editingStatus": "InProgress",
+        "testCaseId": "d7b21f40-3c1b-4c55-8a11-7e9c3d4f0b02",
+        "testCaseType": "TestCase",
+        "executionTemplateInvokeIsolated": false,
+        "fileName": "Tests\\Test_AC04_FormalEmailTemplateAndXss.xaml"
+      },
+      {
+        "editingStatus": "InProgress",
+        "testCaseId": "e9c32a51-6d2c-4d66-b222-8f0d4e5a1c03",
+        "testCaseType": "TestCase",
+        "executionTemplateInvokeIsolated": false,
+        "fileName": "Tests\\Test_E8E9_SmtpFailureAndRedaction.xaml"
+      },
+      {
+        "editingStatus": "InProgress",
+        "testCaseId": "f0d43b62-7e3d-4e77-c333-9a1e5f6b2d04",
+        "testCaseType": "TestCase",
+        "executionTemplateInvokeIsolated": false,
+        "fileName": "Tests\\Test_E2E_MixedOutcomeBatch_AC01_to_AC07.xaml"
+      }
+    ],
     "saveToCloud": false
   },
   "expressionLanguage": "VisualBasic",

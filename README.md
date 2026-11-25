@@ -1,6 +1,6 @@
-# JourKa (Journey Kita) — Automated Career Intelligence & Bilingual Role Dossier RPA
+# JourKa (Journey Karya) — Automated Career Intelligence & Bilingual Role Dossier RPA
 
-> **Journey Kita (`JourKa`)** — An end-to-end **UiPath Studio** RPA process that transforms a list of target entry-level roles into evidence-backed **English (`EN`)** and **Bahasa Indonesia (`ID`)** **Markdown (`.md`)**, **styled HTML (`.html`)**, and **publication-ready PDF (`.pdf`)** career dossiers using live job-board scraping, verified abroad visa-sponsored job filtering, YouTube daily-routine extraction, and Google AI Studio (`gemini-3.5-flash`).
+> **Journey Karya (`JourKa`)** — An end-to-end **UiPath Studio** RPA process that transforms a list of target entry-level roles into evidence-backed **English (`EN`)** and **Bahasa Indonesia (`ID`)** **Markdown (`.md`)**, **styled HTML (`.html`)**, and **publication-ready PDF (`.pdf`)** career dossiers using live job-board scraping, verified abroad visa-sponsored job filtering, YouTube daily-routine extraction, and Google AI Studio (`gemini-3.5-flash`).
 
 ---
 
@@ -38,25 +38,26 @@ Choosing an entry-level tech career path often suffers from scattered informatio
 
 ```mermaid
 flowchart TD
-    A["Read Sheet1 (Job, AbroadMarkets) into dtRoles (Workbook)"] --> C["ForEachRow in dtRoles"]
-    C --> D{"Skip? EN+ID PDFs & MDs (>2.5KB) Already Exist"}
-    D -- "Yes" --> N["Next Row"]
-    D -- "No" --> E0{"AbroadMarkets Populated in Excel?"}
-    E0 -- "No (Blank)" --> E1["Skip ResearchAbroadJobs (AbroadStatus = 'Skipped - no abroad country', AbroadCount = 0)"]
-    E0 -- "Yes (Countries Listed)" --> E["TryCatch: Invoke ResearchAbroadJobs.xaml for AbroadMarkets [A01..A08]"]
-    E1 --> F["Local Scrape: LinkedIn [J01..J08] + YouTube [Y01..Y08]"]
+    A["Read Sheet1 into dtRoles (Workbook)"] --> B["Pre-Flight Validation: Col A = RecipientEmail (PK), Job Exists, Normalize &amp; Detect Duplicates"]
+    B -- "Invalid Schema (E1)" --> B_ERR["Throw Fatal BusinessRuleException &amp; Abort Batch"]
+    B -- "Valid Schema" --> C["ForEachRow in dtRoles (Reset Row Vars &amp; Bind PK)"]
+    C --> D{"Row PK Valid &amp; EmailStatus != Sent?"}
+    D -- "BRE (E2-E4)" --> N["Log [PK] Warn, Set EmailStatus='Skipped - BRE'"]
+    D -- "Already Sent" --> N2["Log [PK] Idempotent Skip (Preserve 'Sent')"]
+    D -- "Valid &amp; Unsent" --> D2{"Skip Dossier Gen? EN+ID PDFs &amp; MDs (>2.5KB) Exist"}
+    D2 -- "Yes" --> K0["Verify/Upgrade Interactive HTML v2 Only"]
+    D2 -- "No" --> E0{"AbroadMarkets Populated in Excel?"}
+    E0 -- "No (Blank)" --> E1["Skip ResearchAbroadJobs (AbroadCount = 0)"]
+    E0 -- "Yes (Countries Listed)" --> E["TryCatch: Invoke ResearchAbroadJobs.xaml [A01..A08]"]
+    E1 --> F["Local Scrape [J01..J08] &amp; [Y01..Y08] -> Gemini EN/ID -> Publish HTML v2 &amp; PDFs"]
     E --> F
-    F --> G{"Verified Abroad Postings > 0?"}
-    G -- "Yes" --> H["EN Prompt: 7 Local Sections + Sec 8 Abroad + Sec 9 Register"]
-    G -- "No" --> I["EN Prompt: 8 Sections (No Abroad Section)"]
-    H --> J["Gemini: Generate Comprehensive EN Dossier (.md)"]
-    I --> J
-    J --> K["Gemini: Adapt & Translate EN to Publication-Grade ID + Validate Headings & URLs"]
-    K --> L["Publish EN: <Role> - EN.{md,html,pdf}"]
-    K --> M["Publish ID: <Role> - ID.{md,html,pdf}"]
-    L --> O["Log Completion & Abroad Status"]
-    M --> O
-    O --> N
+    F --> K0
+    K0 --> G["1-to-1 Binding &amp; Non-Empty 4-File Guard (EN/ID PDF + HTML v2)"]
+    G --> R["RenderStudentEmail.xaml (HtmlEncode) + RetryScope: SendStudentEmail.xaml (SMTP)"]
+    R --> O["Log [PK] &amp; Update EmailStatus / EmailTimestamp / ErrorMessage"]
+    N --> W["End of Batch: WriteRange dtRoles to Sheet1 (3x Retry + CSV Fallback E10)"]
+    N2 --> W
+    O --> W
 ```
 
 ---
@@ -65,7 +66,7 @@ flowchart TD
 
 | Property | Value |
 |---|---|
-| **Project Name** | `JourKa` (*Journey Kita*) |
+| **Project Name** | `JourKa` (*Journey Karya*) |
 | **Output Type** | `Process` |
 | **Studio Version** | `26.10.0` |
 | **Target Framework** | `Windows` (`.NET 10.0`) |
@@ -88,7 +89,6 @@ flowchart TD
 
 ```text
 JourKa/
-├── .env.example                                  # Template for Google AI Studio API key
 ├── .gitignore                                    # Ignores .env secrets, .local/ cache, and temp logs
 ├── README.md                                     # Project documentation (this file)
 ├── UiPath_Desire_Role_List_Automation_Guide.md   # Detailed step-by-step Studio implementation guide
@@ -103,9 +103,19 @@ JourKa/
     ├── Input/
     │   └── Desire Role List.xlsx                 # Sample input workbook copy
     ├── Templates/                                # Decoupled HTML templates
-    │   └── DossierInteractiveTemplate.html       # Interactive Web Frontend v2 template (token-injected)
+    │   ├── DossierInteractiveTemplate.html       # Interactive Web Frontend v2 template (token-injected)
+    │   └── StudentParentEmailTemplate.html       # Formal student & parent/guardian HTML email template
+    ├── Tests/                                    # UiPath.Testing.Activities regression suite (AC-01..AC-07)
+    │   ├── Data/                                 # Mixed-outcome & legacy v1 schema test workbooks
+    │   ├── Test_AC03_SchemaEnforcement.xaml
+    │   ├── Test_AC04_FormalEmailTemplateAndXss.xaml
+    │   ├── Test_E8E9_SmtpFailureAndRedaction.xaml
+    │   ├── Test_E2E_MixedOutcomeBatch_AC01_to_AC07.xaml
+    │   └── UAT_Report_JK-RPA-009.md
     ├── Workflows/                                # Modular sub-workflows
     │   ├── ResearchAbroadJobs.xaml               # Verified abroad visa-sponsored entry-level job scraper (Invoked by Main.xaml)
+    │   ├── RenderStudentEmail.xaml               # Formal email subject & HtmlEncode body renderer (Invoked by Main.xaml)
+    │   ├── SendStudentEmail.xaml                 # RetryScope SMTP mail dispatcher with secret redaction (Invoked by Main.xaml)
     │   ├── ResearchJobBoards.xaml                # Standalone LinkedIn Guest Search reference workflow
     │   ├── ResearchYouTubeRoutine.xaml           # Standalone YouTube routine reference workflow
     │   ├── GenerateDossier.xaml                  # Standalone Gemini REST reference workflow
@@ -128,16 +138,21 @@ JourKa/
 
 ## 5. Input & Output Data Contracts
 
-### Minimalist Input Workbook Schema (`D:\UiPathProject\Desire Role List.xlsx` — `Sheet1`)
+### Input Workbook Schema v2.0 (`JourKa/Input/Desire Role List.xlsx` — `Sheet1`)
 
-The input workbook uses a clean, zero-redundancy **2-column format** (`Job` and `AbroadMarkets`):
+The input workbook uses a simplified **7-column schema** (4 user-input columns `A`–`D` + 3 system-populated audit columns `E`–`G`) anchored by `RecipientEmail` in **Column A (Primary Key)**, with `Job` in Column B:
 
-| Column | Name | Direction | Default / Fallback | Description |
-|---|---|---|---|---|
-| `A` | `Job` | **In (Required)** | *(Row skipped if blank)* | Target role title (e.g., `Android Developer`, `Apoteker`, `Video Editor`) |
-| `B` | `AbroadMarkets` | **In (Optional)** | `""` *(Skipped if blank)* | Comma-separated target abroad countries per role (e.g., `"Singapore, Germany, Japan"`, or left blank for local-only research) |
+| Column | Index | Name | Direction | Default / Fallback | Description |
+|---|---|---|---|---|---|
+| `A` | `0` | `RecipientEmail` | **In (Mandatory — Primary Key)** | *(Row skipped as `Skipped - BRE` if blank, invalid, or duplicate; missing/misplaced Col A halts batch)* | Student and/or parent/guardian email address(es). Multiple recipients in a single cell are separated by `;` or `,` (e.g., `student@mail.com; parent@mail.com`). |
+| `B` | `1` | `Job` | **In (Mandatory)** | *(Row skipped if blank; missing column raises BRE)* | Target role title (e.g., `Android Developer`, `Apoteker`, `Video Editor`). |
+| `C` | `2` | `AbroadMarkets` | **In (Optional)** | `""` *(Skipped if blank)* | Comma- or semicolon-separated target abroad countries per role (e.g., `"Singapore, Malaysia, United Kingdom"`, or left blank for local-only research). |
+| `D` | `3` | `StudentName` | **In (Optional)** | `"Valued Student"` | Student display name used for personalized email salutation. |
+| `E` | `4` | `EmailStatus` | **Out (System-populated)** | `""` | Automated email dispatch status (`"Sent"`, `"Skipped - BRE"`, `"Failed - System"`). Rows marked `"Sent"` are preserved and skipped idempotently on reruns. |
+| `F` | `5` | `EmailTimestamp` | **Out (System-populated)** | `""` | ISO-8601 timestamp (`yyyy-MM-dd HH:mm:ss zzz`) of the email dispatch or BRE validation attempt. |
+| `G` | `6` | `ErrorMessage` | **Out (System-populated)** | `""` | Redacted error or Business Rule Exception summary if dispatch/validation failed. *(Written back to `Sheet1` with 3x retry; falls back to `JourKa/Output/EmailAudit_<timestamp>.csv` if locked.)* |
 
-*(Local market defaults to `"Indonesia"` and level defaults to `"Entry level"` automatically in `Main.xaml`.)*
+*(All `Main.xaml` and `Workflows/ResearchAbroadJobs.xaml` lookups resolve columns strictly by header name via `CurrentRow("<ColName>")` — never by hardcoded index or cell address. Optional `Level` and `Location` columns also default automatically to `"Entry level"` and `"Indonesia"` when omitted.)*
 
 ### Output Artifacts Per Role
 
@@ -168,7 +183,7 @@ Each generated English (`EN`) and Bahasa Indonesia (`ID`) dossier follows a stri
 
 ## 7. Abroad Visa-Sponsored Job Discovery & Verification Gates
 
-Abroad job discovery is strictly driven by the per-row `AbroadMarkets` input column in `Desire Role List.xlsx` (`Sheet1`, Column `B`):
+Abroad job discovery is strictly driven by the per-row `AbroadMarkets` input column in `Desire Role List.xlsx` (`Sheet1`, Column `C`):
 - **When `AbroadMarkets` is blank/empty:** `Main.xaml` skips `Workflows/ResearchAbroadJobs.xaml` completely (`0` international HTTP requests), sets `AbroadStatus = "Skipped - no abroad country"` and `AbroadCount = 0`, and generates the 8-section local dossier.
 - **When `AbroadMarkets` contains one or more target countries (e.g., `"Singapore, Germany, Japan"`):** `Main.xaml` invokes `JourKa/Workflows/ResearchAbroadJobs.xaml` dynamically for only those specified countries via **LinkedIn Guest Search** (`f_E=1,2`) and (when European/UK markets are included) the **Arbeitnow API**.
 
@@ -189,7 +204,7 @@ Every candidate posting must pass all **5 deterministic verification gates** bef
 1. **UiPath Studio (`26.10.0` or newer)** on Windows.
 2. **Google Chrome** installed at `C:\Program Files\Google\Chrome\Application\chrome.exe` (used for zero-cost headless HTML-to-PDF rendering).
 3. **Google AI Studio API Key:**
-   - Copy `.env.example` to `.env` in both the repository root (`D:\UiPathProject\JourKa\.env`) and project folder (`D:\UiPathProject\JourKa\JourKa\.env`):
+   - Create a git-ignored `.env` file in `D:\UiPathProject\JourKa\JourKa\.env` (or `D:\UiPathProject\JourKa\.env`) containing:
      ```ini
      GEMINI_API_KEY=your_google_ai_studio_api_key_here
      ```
@@ -197,8 +212,10 @@ Every candidate posting must pass all **5 deterministic verification gates** bef
      ```powershell
      [Environment]::SetEnvironmentVariable("GEMINI_API_KEY", "your_google_ai_studio_api_key_here", "User")
      ```
-4. **Input Workbook Location:**
-   - Ensure `D:\UiPathProject\Desire Role List.xlsx` exists and is **closed** in any spreadsheet viewer before starting a run.
+4. **SMTP Mail Credentials (`SendStudentEmail.xaml`):**
+   - Populate `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD`, and optional `SMTP_FROM` / `SMTP_SENDER_NAME` in the git-ignored `.env` file (or Windows User Environment Variables). Never commit `.env` or plaintext secrets.
+5. **Input Workbook Location:**
+   - Ensure `D:\UiPathProject\Desire Role List.xlsx` exists with `RecipientEmail` in **Column A** and `Job` in **Column B**, and is **closed** in any spreadsheet viewer before starting a run (if locked during write-back, JourKa writes a fallback audit CSV to `JourKa/Output/EmailAudit_<timestamp>.csv`).
 
 ---
 
@@ -209,11 +226,17 @@ Every candidate posting must pass all **5 deterministic verification gates** bef
 2. Open `Main.xaml`.
 3. Click **Run File** (`Ctrl+F6`) or **Run** (`F5`).
 
-### Validate & Compile via Command Line
-To verify that all XAML workflows and VB.NET expressions compile cleanly without opening the Studio UI:
-
+### Validate, Build & Run Automated Regression Tests via CLI
 ```powershell
-& "C:\Program Files\UiPathPlatform\Studio\26.10.0-cloud.25715\UiPath.ActivityCompiler.CommandLine.exe" help studio
+# Validate workflows + compile entire project
+powershell -NoProfile -ExecutionPolicy Bypass -File "D:\UiPathProject\JourKa\.agents\skills\jourka-uipath-rpa\scripts\Invoke-JourKaGate.ps1"
+
+# Run individual UiPath.Testing.Activities regression cases (offline loopback SMTP harness)
+$uip = "C:\Program Files\UiPathPlatform\Studio\26.10.0-cloud.25715\cli\uip.cmd"
+& $uip rpa run --file-path "Tests\Test_AC03_SchemaEnforcement.xaml" --project-dir "D:\UiPathProject\JourKa\JourKa" --skip-build --output json
+& $uip rpa run --file-path "Tests\Test_AC04_FormalEmailTemplateAndXss.xaml" --project-dir "D:\UiPathProject\JourKa\JourKa" --skip-build --output json
+& $uip rpa run --file-path "Tests\Test_E8E9_SmtpFailureAndRedaction.xaml" --project-dir "D:\UiPathProject\JourKa\JourKa" --skip-build --output json
+& $uip rpa run --file-path "Tests\Test_E2E_MixedOutcomeBatch_AC01_to_AC07.xaml" --project-dir "D:\UiPathProject\JourKa\JourKa" --skip-build --output json
 ```
 
 ---
@@ -225,5 +248,5 @@ To verify that all XAML workflows and VB.NET expressions compile cleanly without
   - Each role row in `ForEachRow` is wrapped in a outer `TryCatch` block.
   - Abroad job research (`ResearchAbroadJobs.xaml`) runs inside its own inner `TryCatch` block so an international network timeout or rate limit sets `AbroadStatus = "Error"` and never blocks local Indonesian EN/ID dossier generation.
 - **Automatic Multi-Model LLM Failover & Translation Validation:** Automatically iterates through `gemini-3.5-flash`, `gemini-3.8-flash`, `gemini-3.1-flash-lite`, and `gemini-3.5-flash-lite`. The Bahasa Indonesia (`ID`) output is structurally validated against the English (`EN`) output (matching `## ` heading count and 100% of cited URLs) before PDF publication.
-- **Idempotent Re-Runs (`skipCompleted`):** Skips roles only when `Status = "Completed"`, both `<Role> - EN.pdf` and `<Role> - ID.pdf` exist, and both EN and ID Markdown files exceed `2,500` bytes.
+- **Idempotent Re-Runs (`skipCompleted`):** Skips roles when `EmailStatus = "Sent"`, and reuses cached dossiers when both `<Role> - EN.pdf` and `<Role> - ID.pdf` exist and both EN and ID Markdown files exceed `2,500` bytes.
 - **Credential Hygiene & Log Redaction:** API keys are loaded from git-ignored `.env` files or User Environment Variables, passed via HTTP request headers (`x-goog-api-key`), and redacted (`exception.Message.Replace(geminiApiKey, "[REDACTED]")`) before writing any error messages to Excel.

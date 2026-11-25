@@ -1,0 +1,154 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="Tests_Test_AC04_FormalEmailTemplateAndXss" VisualBasic.Settings="{x:Null}" sap2010:WorkflowViewState.IdRef="ActivityBuilder_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uta="clr-namespace:UiPath.Testing.Activities;assembly=UiPath.Testing.Activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>GlobalConstantsNamespace</x:String>
+      <x:String>GlobalVariablesNamespace</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>UiPath.Testing.Activities</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>System.Collections</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.TypeConverter</AssemblyReference>
+      <AssemblyReference>System.Linq</AssemblyReference>
+      <AssemblyReference>System.ObjectModel</AssemblyReference>
+      <AssemblyReference>System.Private.CoreLib</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Testing.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="Test_AC04_FormalEmailTemplateAndXss" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Name="templatePath" />
+      <Variable x:TypeArguments="scg:List(x:String)" Name="attachmentsA" />
+      <Variable x:TypeArguments="scg:List(x:String)" Name="attachmentsB" />
+      <Variable x:TypeArguments="x:String" Name="subjA" />
+      <Variable x:TypeArguments="x:String" Name="bodyA" />
+      <Variable x:TypeArguments="x:String" Name="subjB" />
+      <Variable x:TypeArguments="x:String" Name="bodyB" />
+      <Variable x:TypeArguments="x:String" Name="subjC" />
+      <Variable x:TypeArguments="x:String" Name="bodyC" />
+    </Sequence.Variables>
+    <Sequence DisplayName="... Given" sap2010:WorkflowViewState.IdRef="Sequence_2">
+      <Assign DisplayName="Resolve Email Template Path" sap2010:WorkflowViewState.IdRef="Assign_1">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[templatePath]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[System.IO.Path.Combine(Environment.CurrentDirectory, "Templates", "StudentParentEmailTemplate.html")]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Build Sample Attachment List A" sap2010:WorkflowViewState.IdRef="Assign_2">
+        <Assign.To>
+          <OutArgument x:TypeArguments="scg:List(x:String)">[attachmentsA]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="scg:List(x:String)">[New System.Collections.Generic.List(Of String) From {"D:\UiPathProject\JourKa\PDF_Results\Apoteker - EN.pdf", "D:\UiPathProject\JourKa\PDF_Results\Apoteker - ID.pdf", "D:\UiPathProject\JourKa\JourKa\Output\Apoteker\Apoteker - EN.html", "D:\UiPathProject\JourKa\JourKa\Output\Apoteker\Apoteker - ID.html"}]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign DisplayName="Build Sample Attachment List B" sap2010:WorkflowViewState.IdRef="Assign_3">
+        <Assign.To>
+          <OutArgument x:TypeArguments="scg:List(x:String)">[attachmentsB]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="scg:List(x:String)">[New System.Collections.Generic.List(Of String) From {"D:\UiPathProject\JourKa\PDF_Results\Mobile Developer - EN.pdf", "D:\UiPathProject\JourKa\PDF_Results\Mobile Developer - ID.pdf", "D:\UiPathProject\JourKa\JourKa\Output\Mobile Developer\Mobile Developer - EN.html", "D:\UiPathProject\JourKa\JourKa\Output\Mobile Developer\Mobile Developer - ID.html"}]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <uta:VerifyExpression AlternativeVerificationTitle="StudentParentEmailTemplate.html exists" ContinueOnFailure="False" DisplayName="Verify Email Template Exists" Expression="[System.IO.File.Exists(templatePath)]" OutputMessageFormat="Template exists: {Result}" TakeScreenshotInCaseOfFailingAssertion="False" TakeScreenshotInCaseOfSucceedingAssertion="False" sap2010:WorkflowViewState.IdRef="VerifyExpression_1" />
+    </Sequence>
+    <Sequence DisplayName="... When" sap2010:WorkflowViewState.IdRef="Sequence_3">
+      <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Render Case A (AC-04 Special Char &amp;)" UnSafe="False" WorkflowFileName="Workflows\RenderStudentEmail.xaml" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1">
+        <ui:InvokeWorkflowFile.Arguments>
+          <InArgument x:TypeArguments="x:String" x:Key="in_StudentName">Rina &amp; Wijaya</InArgument>
+          <InArgument x:TypeArguments="x:String" x:Key="in_RoleName">Apoteker</InArgument>
+          <InArgument x:TypeArguments="x:String" x:Key="in_RoleLevel">Entry level</InArgument>
+          <InArgument x:TypeArguments="x:String" x:Key="in_RoleLocation">Indonesia</InArgument>
+          <InArgument x:TypeArguments="x:String" x:Key="in_AbroadMarkets">
+            <Literal x:TypeArguments="x:String" Value="" />
+          </InArgument>
+          <InArgument x:TypeArguments="scg:IEnumerable(x:String)" x:Key="in_AttachmentPaths">[attachmentsA]</InArgument>
+          <InArgument x:TypeArguments="x:String" x:Key="in_PrimaryKeyEmail">rina.wijaya@mail.com</InArgument>
+          <InArgument x:TypeArguments="x:String" x:Key="in_TemplatePath">[templatePath]</InArgument>
+          <OutArgument x:TypeArguments="x:String" x:Key="out_Subject">[subjA]</OutArgument>
+          <OutArgument x:TypeArguments="x:String" x:Key="out_BodyHtml">[bodyA]</OutArgument>
+        </ui:InvokeWorkflowFile.Arguments>
+      </ui:InvokeWorkflowFile>
+      <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Render Case B (E6 Blank StudentName Fallback)" UnSafe="False" WorkflowFileName="Workflows\RenderStudentEmail.xaml" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2">
+        <ui:InvokeWorkflowFile.Arguments>
+          <InArgument x:TypeArguments="x:String" x:Key="in_StudentName">
+            <Literal x:TypeArguments="x:String" Value="" />
+          </InArgument>
+          <InArgument x:TypeArguments="x:String" x:Key="in_RoleName">Mobile Developer</InArgument>
+          <InArgument x:TypeArguments="x:String" x:Key="in_RoleLevel">Entry level</InArgument>
+          <InArgument x:TypeArguments="x:String" x:Key="in_RoleLocation">Indonesia</InArgument>
+          <InArgument x:TypeArguments="x:String" x:Key="in_AbroadMarkets">
+            <Literal x:TypeArguments="x:String" Value="" />
+          </InArgument>
+          <InArgument x:TypeArguments="scg:IEnumerable(x:String)" x:Key="in_AttachmentPaths">[attachmentsB]</InArgument>
+          <InArgument x:TypeArguments="x:String" x:Key="in_PrimaryKeyEmail">no.name@student.ac.id</InArgument>
+          <InArgument x:TypeArguments="x:String" x:Key="in_TemplatePath">[templatePath]</InArgument>
+          <OutArgument x:TypeArguments="x:String" x:Key="out_Subject">[subjB]</OutArgument>
+          <OutArgument x:TypeArguments="x:String" x:Key="out_BodyHtml">[bodyB]</OutArgument>
+        </ui:InvokeWorkflowFile.Arguments>
+      </ui:InvokeWorkflowFile>
+      <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Render Case C (XSS HtmlEncode Check)" UnSafe="False" WorkflowFileName="Workflows\RenderStudentEmail.xaml" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3">
+        <ui:InvokeWorkflowFile.Arguments>
+          <InArgument x:TypeArguments="x:String" x:Key="in_StudentName">[&quot;&lt;script&gt;alert(1)&lt;/script&gt;&quot;]</InArgument>
+          <InArgument x:TypeArguments="x:String" x:Key="in_RoleName">[&quot;Android Developer &lt;img src=x onerror=alert(2)&gt;&quot;]</InArgument>
+          <InArgument x:TypeArguments="x:String" x:Key="in_RoleLevel">Entry level</InArgument>
+          <InArgument x:TypeArguments="x:String" x:Key="in_RoleLocation">Indonesia</InArgument>
+          <InArgument x:TypeArguments="x:String" x:Key="in_AbroadMarkets">[&quot;&lt;b&gt;Singapore&lt;/b&gt;&quot;]</InArgument>
+          <InArgument x:TypeArguments="scg:IEnumerable(x:String)" x:Key="in_AttachmentPaths">[attachmentsA]</InArgument>
+          <InArgument x:TypeArguments="x:String" x:Key="in_PrimaryKeyEmail">[&quot;xss&quot;&quot;test@mail.com&quot;]</InArgument>
+          <InArgument x:TypeArguments="x:String" x:Key="in_TemplatePath">[templatePath]</InArgument>
+          <OutArgument x:TypeArguments="x:String" x:Key="out_Subject">[subjC]</OutArgument>
+          <OutArgument x:TypeArguments="x:String" x:Key="out_BodyHtml">[bodyC]</OutArgument>
+        </ui:InvokeWorkflowFile.Arguments>
+      </ui:InvokeWorkflowFile>
+    </Sequence>
+    <Sequence DisplayName="... Then" sap2010:WorkflowViewState.IdRef="Sequence_4">
+      <uta:VerifyExpressionWithOperator AlternativeVerificationTitle="AC-04: Subject matches formal specification" ContinueOnFailure="False" DisplayName="Verify Formal Subject Line" Operator="Equality" TakeScreenshotInCaseOfFailingAssertion="False" TakeScreenshotInCaseOfSucceedingAssertion="False" sap2010:WorkflowViewState.IdRef="VerifyExpressionWithOperator_1">
+        <uta:VerifyExpressionWithOperator.FirstExpression>
+          <InArgument x:TypeArguments="x:String">[subjA]</InArgument>
+        </uta:VerifyExpressionWithOperator.FirstExpression>
+        <uta:VerifyExpressionWithOperator.SecondExpression>
+          <InArgument x:TypeArguments="x:String">["[Official Career Dossier] Personalized Career Intelligence Report: Apoteker (Entry level Career Dossier) " &amp; ChrW(&amp;H2014) &amp; " Prepared for Rina &amp; Wijaya"]</InArgument>
+        </uta:VerifyExpressionWithOperator.SecondExpression>
+      </uta:VerifyExpressionWithOperator>
+      <uta:VerifyExpressionWithOperator AlternativeVerificationTitle="AC-04: Salutation HTML-encodes ampersand" ContinueOnFailure="False" DisplayName="Verify Salutation HtmlEncode" Operator="Contains" TakeScreenshotInCaseOfFailingAssertion="False" TakeScreenshotInCaseOfSucceedingAssertion="False" sap2010:WorkflowViewState.IdRef="VerifyExpressionWithOperator_2">
+        <uta:VerifyExpressionWithOperator.FirstExpression>
+          <InArgument x:TypeArguments="x:String">[bodyA]</InArgument>
+        </uta:VerifyExpressionWithOperator.FirstExpression>
+        <uta:VerifyExpressionWithOperator.SecondExpression>
+          <InArgument x:TypeArguments="x:String">["Dear Rina &amp;amp; Wijaya and Parent/Guardian,"]</InArgument>
+        </uta:VerifyExpressionWithOperator.SecondExpression>
+      </uta:VerifyExpressionWithOperator>
+      <uta:VerifyExpression AlternativeVerificationTitle="AC-04: Zero raw template tokens remain and required sections exist" ContinueOnFailure="False" DisplayName="Verify Zero Raw Tokens and Required Sections" Expression="[Not bodyA.Contains(&quot;[Student Name]&quot;) AndAlso Not bodyA.Contains(&quot;[Document/Report Title]&quot;) AndAlso Not bodyA.Contains(&quot;[Target Market Scope]&quot;) AndAlso Not bodyA.Contains(&quot;[Attached File Names]&quot;) AndAlso Not bodyA.Contains(&quot;[Recipient Email Key]&quot;) AndAlso Not bodyA.Contains(&quot;[Generated Date]&quot;) AndAlso bodyA.Contains(&quot;Dossier Delivery Summary&quot;) AndAlso bodyA.Contains(&quot;Recommended Next Steps&quot;) AndAlso bodyA.Contains(&quot;Warm regards,&quot;) AndAlso bodyA.Contains(&quot;Automated Notification Disclaimer&quot;) AndAlso bodyA.Contains(&quot;Apoteker - EN.pdf, Apoteker - ID.pdf, Apoteker - EN.html, Apoteker - ID.html&quot;)]" OutputMessageFormat="Formal template sections &amp; token replacement: {Result}" TakeScreenshotInCaseOfFailingAssertion="False" TakeScreenshotInCaseOfSucceedingAssertion="False" sap2010:WorkflowViewState.IdRef="VerifyExpression_2" />
+      <uta:VerifyExpressionWithOperator AlternativeVerificationTitle="E6: Blank StudentName falls back to Valued Student" ContinueOnFailure="False" DisplayName="Verify E6 Valued Student Fallback" Operator="Contains" TakeScreenshotInCaseOfFailingAssertion="False" TakeScreenshotInCaseOfSucceedingAssertion="False" sap2010:WorkflowViewState.IdRef="VerifyExpressionWithOperator_3">
+        <uta:VerifyExpressionWithOperator.FirstExpression>
+          <InArgument x:TypeArguments="x:String">[bodyB]</InArgument>
+        </uta:VerifyExpressionWithOperator.FirstExpression>
+        <uta:VerifyExpressionWithOperator.SecondExpression>
+          <InArgument x:TypeArguments="x:String">["Dear Valued Student and Parent/Guardian,"]</InArgument>
+        </uta:VerifyExpressionWithOperator.SecondExpression>
+      </uta:VerifyExpressionWithOperator>
+      <uta:VerifyExpression AlternativeVerificationTitle="Security: HTML injection payloads are encoded via WebUtility.HtmlEncode" ContinueOnFailure="False" DisplayName="Verify XSS HtmlEncode Protection" Expression="[Not bodyC.Contains(&quot;&lt;script&gt;&quot;) AndAlso Not bodyC.Contains(&quot;&lt;img &quot;) AndAlso Not bodyC.Contains(&quot;&lt;b&gt;Singapore&lt;/b&gt;&quot;) AndAlso bodyC.Contains(&quot;&amp;lt;script&amp;gt;alert(1)&amp;lt;/script&amp;gt;&quot;) AndAlso bodyC.Contains(&quot;&amp;lt;img src=x onerror=alert(2)&amp;gt;&quot;) AndAlso bodyC.Contains(&quot;&amp;lt;b&amp;gt;Singapore&amp;lt;/b&amp;gt;&quot;)]" OutputMessageFormat="HTML injection protection verified: {Result}" TakeScreenshotInCaseOfFailingAssertion="False" TakeScreenshotInCaseOfSucceedingAssertion="False" sap2010:WorkflowViewState.IdRef="VerifyExpression_3" />
+      <ui:LogMessage DisplayName="Log AC-04 and XSS Test Passed" Level="Info" Message="[&quot;[AC-04/E6/XSS] Verified formal subject, HtmlEncode salutation, Valued Student fallback, and XSS encoding.&quot;]" sap2010:WorkflowViewState.IdRef="LogMessage_1" />
+    </Sequence>
+  </Sequence>
+</Activity>

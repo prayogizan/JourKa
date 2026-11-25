@@ -1,0 +1,75 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="RenderStudentEmail" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="in_StudentName" Type="InArgument(x:String)" />
+    <x:Property Name="in_RoleName" Type="InArgument(x:String)" />
+    <x:Property Name="in_RoleLevel" Type="InArgument(x:String)" />
+    <x:Property Name="in_RoleLocation" Type="InArgument(x:String)" />
+    <x:Property Name="in_AbroadMarkets" Type="InArgument(x:String)" />
+    <x:Property Name="in_AttachmentPaths" Type="InArgument(scg:IEnumerable(x:String))" />
+    <x:Property Name="in_PrimaryKeyEmail" Type="InArgument(x:String)" />
+    <x:Property Name="in_TemplatePath" Type="InArgument(x:String)" />
+    <x:Property Name="out_Subject" Type="OutArgument(x:String)" />
+    <x:Property Name="out_BodyHtml" Type="OutArgument(x:String)" />
+  </x:Members>
+  <VisualBasic.Settings>
+    <x:Null />
+  </VisualBasic.Settings>
+  <sap2010:WorkflowViewState.IdRef>ActivityBuilder_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>GlobalConstantsNamespace</x:String>
+      <x:String>GlobalVariablesNamespace</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net</x:String>
+      <x:String>System.Text</x:String>
+      <x:String>System.Text.RegularExpressions</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>System.Private.CoreLib</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Collections</AssemblyReference>
+      <AssemblyReference>System.Net.Primitives</AssemblyReference>
+      <AssemblyReference>System.Text.RegularExpressions</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>System.Linq</AssemblyReference>
+      <AssemblyReference>System.ObjectModel</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.TypeConverter</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="RenderStudentEmail" sap:VirtualizedContainerService.HintSize="450,280" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:InvokeCode ContinueOnError="{x:Null}" Code="' Render Formal Student/Parent Email Subject and HTML Body (JK-FE-010 / #26)&#xA;If String.IsNullOrWhiteSpace(in_RoleName) Then&#xA;    Throw New System.ArgumentException(&quot;in_RoleName cannot be blank.&quot;, &quot;in_RoleName&quot;)&#xA;End If&#xA;&#xA;Dim templatePath As String = If(String.IsNullOrWhiteSpace(in_TemplatePath), _&#xA;    System.IO.Path.Combine(System.Environment.CurrentDirectory, &quot;Templates&quot;, &quot;StudentParentEmailTemplate.html&quot;), _&#xA;    in_TemplatePath.Trim())&#xA;&#xA;If Not System.IO.File.Exists(templatePath) Then&#xA;    Throw New System.IO.FileNotFoundException(&quot;Email template file not found: &quot; &amp; templatePath, templatePath)&#xA;End If&#xA;&#xA;Dim safeStudentName As String = If(String.IsNullOrWhiteSpace(in_StudentName), &quot;Valued Student&quot;, in_StudentName.Trim())&#xA;Dim safeRoleName As String = in_RoleName.Trim()&#xA;Dim safeRoleLevel As String = If(String.IsNullOrWhiteSpace(in_RoleLevel), &quot;Entry level&quot;, in_RoleLevel.Trim())&#xA;Dim safeRoleLocation As String = If(String.IsNullOrWhiteSpace(in_RoleLocation), &quot;Indonesia&quot;, in_RoleLocation.Trim())&#xA;Dim safeAbroadMarkets As String = If(in_AbroadMarkets, &quot;&quot;).Trim()&#xA;Dim safePrimaryKeyEmail As String = If(in_PrimaryKeyEmail, &quot;&quot;).Trim()&#xA;&#xA;Dim docTitle As String = safeRoleName &amp; &quot; (&quot; &amp; safeRoleLevel &amp; &quot; Career Dossier)&quot;&#xA;Dim marketScope As String = If(String.IsNullOrWhiteSpace(safeAbroadMarkets), _&#xA;    safeRoleLocation, _&#xA;    safeRoleLocation &amp; &quot; + Abroad (&quot; &amp; safeAbroadMarkets &amp; &quot;)&quot;)&#xA;&#xA;Dim attachedNames As String = &quot;&quot;&#xA;If in_AttachmentPaths IsNot Nothing Then&#xA;    attachedNames = String.Join(&quot;, &quot;, in_AttachmentPaths _&#xA;        .Where(Function(p As String) Not String.IsNullOrWhiteSpace(p)) _&#xA;        .Select(Function(p As String) System.IO.Path.GetFileName(p.Trim())))&#xA;End If&#xA;&#xA;Dim generatedDate As String = System.DateTime.Now.ToString(&quot;yyyy-MM-dd&quot;)&#xA;Dim emDash As String = ChrW(&amp;H2014)&#xA;&#xA;out_Subject = &quot;[Official Career Dossier] Personalized Career Intelligence Report: &quot; &amp; _&#xA;    docTitle &amp; &quot; &quot; &amp; emDash &amp; &quot; Prepared for &quot; &amp; safeStudentName&#xA;&#xA;Dim tpl As String = System.IO.File.ReadAllText(templatePath, System.Text.Encoding.UTF8)&#xA;&#xA;Dim tokenMap As New System.Collections.Generic.Dictionary(Of String, String)(System.StringComparer.Ordinal) From {&#xA;    {&quot;[Student Name]&quot;, System.Net.WebUtility.HtmlEncode(safeStudentName)},&#xA;    {&quot;[Document/Report Title]&quot;, System.Net.WebUtility.HtmlEncode(docTitle)},&#xA;    {&quot;[Target Market Scope]&quot;, System.Net.WebUtility.HtmlEncode(marketScope)},&#xA;    {&quot;[Attached File Names]&quot;, System.Net.WebUtility.HtmlEncode(attachedNames)},&#xA;    {&quot;[Recipient Email Key]&quot;, System.Net.WebUtility.HtmlEncode(safePrimaryKeyEmail)},&#xA;    {&quot;[Generated Date]&quot;, System.Net.WebUtility.HtmlEncode(generatedDate)}&#xA;}&#xA;&#xA;Dim tokenRegex As New System.Text.RegularExpressions.Regex( _&#xA;    &quot;\[(?:Student Name|Document/Report Title|Target Market Scope|Attached File Names|Recipient Email Key|Generated Date)\]&quot;, _&#xA;    System.Text.RegularExpressions.RegexOptions.Compiled)&#xA;&#xA;Dim rendered As String = tokenRegex.Replace(tpl, Function(m As System.Text.RegularExpressions.Match) As String&#xA;    Return tokenMap(m.Value)&#xA;End Function)&#xA;&#xA;For Each tokenKey As String In tokenMap.Keys&#xA;    If Not tokenMap.Values.Any(Function(v As String) v.Contains(tokenKey)) AndAlso rendered.Contains(tokenKey) Then&#xA;        Throw New System.InvalidOperationException(&quot;Unreplaced email template placeholder remained after rendering: &quot; &amp; tokenKey)&#xA;    End If&#xA;Next&#xA;&#xA;out_BodyHtml = rendered&#xA;" DisplayName="Render Formal Student/Parent Email Subject and HTML Body" sap:VirtualizedContainerService.HintSize="388,165" sap2010:WorkflowViewState.IdRef="InvokeCode_1" Language="VBNet">
+      <ui:InvokeCode.Arguments>
+        <InArgument x:TypeArguments="x:String" x:Key="in_StudentName">[in_StudentName]</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_RoleName">[in_RoleName]</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_RoleLevel">[in_RoleLevel]</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_RoleLocation">[in_RoleLocation]</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_AbroadMarkets">[in_AbroadMarkets]</InArgument>
+        <InArgument x:TypeArguments="scg:IEnumerable(x:String)" x:Key="in_AttachmentPaths">[in_AttachmentPaths]</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_PrimaryKeyEmail">[in_PrimaryKeyEmail]</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_TemplatePath">[in_TemplatePath]</InArgument>
+        <OutArgument x:TypeArguments="x:String" x:Key="out_Subject">[out_Subject]</OutArgument>
+        <OutArgument x:TypeArguments="x:String" x:Key="out_BodyHtml">[out_BodyHtml]</OutArgument>
+      </ui:InvokeCode.Arguments>
+    </ui:InvokeCode>
+  </Sequence>
+</Activity>
